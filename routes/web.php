@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('Index3', [
+    return view('Index', [
         // Add any data you want to pass to the view here
     ]);
 });

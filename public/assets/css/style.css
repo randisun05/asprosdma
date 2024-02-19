@@ -121,6 +121,12 @@ blockquote.blockquote::before{
 }
 
 /* Helper Classes & Shorcodes */
+.center-content {
+   display: flex;
+   justify-content: center; /* Untuk menengahkan konten secara horizontal */
+   height: 100%; /* Atur tinggi agar konten berada di tengah vertikal */
+}
+
 .padding {
     padding: 7.5rem 0;
 }
@@ -151,6 +157,12 @@ blockquote.blockquote::before{
 .padding_top_half {
     padding-top: 4.375rem;
 }
+
+.padding_m {
+   padding-top: 2.375rem;
+   padding-bottom: 2.375rem;
+}
+
 .heading_space {
     margin-bottom: 4.125rem;
 }
@@ -258,6 +270,12 @@ section{
 	padding-left: 2.25rem;
 	padding-right: 2.25rem;
 }
+
+.container-l {
+	padding-left: 1.25rem;
+	padding-right: 1.25rem;
+}
+
 .gradient_bg{
     background: -webkit-linear-gradient(90deg, #423f9c 31%, #862359 69%);
     background: -webkit-gradient(linear, left top, right top, color-stop(31%, #423f9c), color-stop(69%, #862359));
@@ -271,6 +289,14 @@ section{
     background: -webkit-linear-gradient(left, #00e4ce 31%, #00abc9 69%);
     background: -o-linear-gradient(left, #00e4ce 31%, #00abc9 69%);
     background: linear-gradient(90deg, #00e4ce 31%, #00abc9 69%);
+}
+
+.gradient_bg_second{
+   background: -webkit-linear-gradient(90deg, #005be4 31%, #00c98d 69%);
+   background: -webkit-gradient(linear, left top, right top, color-stop(31%, #00e4ce), color-stop(69%, #00abc9));
+   background: -webkit-linear-gradient(left, #005be4 31%, #00c98d 69%);
+   background: -o-linear-gradient(left, #005be4 31%, #00c98d 69%);
+   background: linear-gradient(90deg, #005be4 31%, #00c98d 69%);
 }
 .gradient_bg_alt{
     background: -webkit-linear-gradient(90deg, #90A4AE 31%, #607D8B 69%);
