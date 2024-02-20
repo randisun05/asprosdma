@@ -13,11 +13,10 @@
          <div class="col-lg-2 col-sm-12">
             <div class="price-table top60">
                <h4 class="bottom20 darkcolor">Bidang Keanggotaan Dan Organisasi</h4>
-               <p>Deskripsi</p>
+               <p>SEGERA</p>
                <ul class="top20">
-                  <li><span>Designing a small brand</span></li>
-                  <li><span>Redesign the company logo</span></li>
-                  <li><span>New visual design of the website</span></li>
+                  <li><span>Pendaftaran Anggota</span></li>
+                  <li><span>Pemeliharaan dan Penyajian Data Keanggotaan</span></li>
                </ul>
                <div class="clearfix"></div>
                <a href="javascript:void(0)" class="button btnsecondary top50">Selengkapnya</a>
@@ -26,11 +25,11 @@
          <div class="col-lg-2 col-sm-12">
             <div class="price-table active top60">
                <h4 class="bottom20 darkcolor">Bidang Pengembangan Kapasitas Insani</h4>
-               <p>Deskripsi</p>
+               <p>SEGERA</p>
                <ul class="top20">
-                  <li><span>Designing a small brand</span></li>
-                  <li><span>Redesign the company logo</span></li>
-                  <li><span>New visual design of the website</span></li>
+                  <li><span>SEGERA</span></li>
+                  <li><span>SEGERA</span></li>
+                  <li><span>SEGERA</span></li>
                </ul>
                <div class="clearfix"></div>
                <a href="javascript:void(0)" class="button btnsecondary top50">Selengkapnya</a>
@@ -39,11 +38,11 @@
          <div class="col-lg-2 col-sm-12">
             <div class="price-table top60">
                <h4 class="bottom20 darkcolor">Bidang Hukum dan Advokasi</h4>
-               <p>Deskripsi</p>
+               <p>SEGERA</p>
                <ul class="top20">
-                  <li><span>Designing a small brand</span></li>
-                  <li><span>Redesign the company logo</span></li>
-                  <li><span>New visual design of the website</span></li>
+                  <li><span>SEGERA</span></li>
+                  <li><span>SEGERA</span></li>
+                  <li><span>SEGERA</span></li>
                </ul>
                <div class="clearfix"></div>
                <a href="javascript:void(0)" class="button btnsecondary top50">Selengkapnya</a>
@@ -52,11 +51,11 @@
          <div class="col-lg-2 col-sm-12">
             <div class="price-table active top60">
                <h4 class="bottom20 darkcolor">Bidang Hubungan Masyarakat dan Kerja Sama</h4>
-               <p>Deskripsi</p>
+               <p>SEGERA</p>
                <ul class="top20">
-                  <li><span>Designing a small brand</span></li>
-                  <li><span>Redesign the company logo</span></li>
-                  <li><span>New visual design of the website</span></li>
+                  <li><span>SEGERA</span></li>
+                  <li><span>SEGERA</span></li>
+                  <li><span>SEGERA</span></li>
                </ul>
                <div class="clearfix"></div>
                <a href="javascript:void(0)" class="button btnsecondary top50">Selengkapnya</a>
@@ -65,11 +64,11 @@
          <div class="col-lg-2 col-sm-12">
             <div class="price-table top60">
                <h4 class="bottom20 darkcolor">Bidang Sumber Pendanaan Organisasi</h4>
-               <p>Deskripsi</p>
+               <p>SEGERA</p>
                <ul class="top20">
-                  <li><span>Designing a small brand</span></li>
-                  <li><span>Redesign the company logo</span></li>
-                  <li><span>New visual design of the website</span></li>
+                  <li><span>SEGERA</span></li>
+                  <li><span>SEGERA</span></li>
+                  <li><span>SEGERA</span></li>
                </ul>
                <div class="clearfix"></div>
                <a href="javascript:void(0)" class="button btnsecondary top50">Selengkapnya</a>
