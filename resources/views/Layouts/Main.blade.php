@@ -4,7 +4,7 @@
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Website - Aspro</title>
+<title>Beranda - Aspro SDMA</title>
 <link href="{{ asset('assets/images/logo.png') }}" rel="icon">
 <link rel="stylesheet" href="{{ asset('assets/css/plugins.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">

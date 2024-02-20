@@ -48,10 +48,7 @@ Route::prefix('admin')->group(function() {
         Route::get('/registration/{id}/confirm', [\App\Http\Controllers\Admin\RegistrationController::class, 'confirm'])->name('admin.registration.confirm');
         Route::get('/registration/{id}/paid', [\App\Http\Controllers\Admin\RegistrationController::class, 'paid'])->name('admin.registration.paid');
         Route::get('/registration/{id}/reject', [\App\Http\Controllers\Admin\RegistrationController::class, 'reject'])->name('admin.registration.reject');
-        
-       
     });
-    
 });
 
 //public
@@ -65,7 +62,20 @@ Route::get('/registration/confirm/{id}/success', [\App\Http\Controllers\Public\R
 Route::get('/registration/success', [\App\Http\Controllers\Public\RegistrationController::class, 'index'])->name('registration.success');
 Route::get('/registration/group', [\App\Http\Controllers\Public\RegistrationController::class, 'group'])->name('registration.group');
 Route::post('/registration/group', [\App\Http\Controllers\Public\RegistrationController::class, 'groupStore'])->name('registration.group.store');
-
+Route::get('/about', [\App\Http\Controllers\Public\PublicController::class, 'about'])->name('about');
+Route::get('/ketua-umum', [\App\Http\Controllers\Public\PublicController::class, 'ketuaUmum'])->name('ketuaUmum');
+Route::get('/peraturan-organisasi', [\App\Http\Controllers\Public\PublicController::class, 'peraturanOrganisasi'])->name('peraturanOrganisasi');
+Route::get('/sejarah', [\App\Http\Controllers\Public\PublicController::class, 'sejarah'])->name('sejarah');
+Route::get('/struktur-organisasi', [\App\Http\Controllers\Public\PublicController::class, 'strukturOrganisasi'])->name('strukturOrganisasi');
+Route::get('/visi-misi', [\App\Http\Controllers\Public\PublicController::class, 'visiMisi'])->name('visiMisi');
+Route::get('/bidang-hubungan-masyarakat-dan-kerja-sama', [\App\Http\Controllers\Public\PublicController::class, 'hubunganMasyarakat'])->name('hubunganMasyarakat');
+Route::get('/bidang-hukum-dan-advokasi', [\App\Http\Controllers\Public\PublicController::class, 'hukumAdvokasi'])->name('hukumAdvokasi');
+Route::get('/bidang-keanggotaan-dan-organisasi', [\App\Http\Controllers\Public\PublicController::class, 'keanggotaan'])->name('keanggotaan');
+Route::get('/bidang-pengembangan-kapasitas-insani', [\App\Http\Controllers\Public\PublicController::class, 'pengembangan'])->name('pengembangan');
+Route::get('/bidang-sumber-pendanaan-organisasi', [\App\Http\Controllers\Public\PublicController::class, 'sumberPendanaan'])->name('sumberPendanaan');
+Route::get('/berita', [\App\Http\Controllers\Public\PublicController::class, 'berita'])->name('berita');
+Route::get('/artikel', [\App\Http\Controllers\Public\PublicController::class, 'artikel'])->name('artikel');
+Route::get('/cerita', [\App\Http\Controllers\Public\PublicController::class, 'cerita'])->name('cerita');
 
 
 Route::get('/documents/{filename}', function ($filename) {

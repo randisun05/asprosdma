@@ -4,12 +4,30 @@
         <title>Registrasi Keanggotaan Aspro</title>
     </Head>
 
+ <!--page Header-->
+ <section class="page-header parallaxie padding_top center-block">
+   <div class="container">
+      <div class="row">
+         <div class="col-sm-12">
+            <div class="page-titles text-center">
+               <h2 class="whitecolor font-light bottom30"></h2>
+               <ul class="breadcrumb justify-content-center">
+                 <li class="breadcrumb-item"><h3> Registrasi Anggota</h3></li>
+                 <li class="breadcrumb-item active" aria-current="page"></li>
+               </ul>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+<!--page Header ends--> 
+
+    
 <section id="registration" class="mt-4">
    <div class="container">
       <div class="row d-flex justify-content-center">
          <div class="col-lg-12 col-md-12 col-sm-10">
-            <div class="bglight logincontainer">
-               <h3 class="darkcolor bottom35 text-center">Registrasi Anggota</h3>
+            <div class="mt-4">
                <form @submit.prevent="submit" class="getin_form border-form" id="login">
                   <div class="row">
                     <div class="col-md-6 col-sm-6">

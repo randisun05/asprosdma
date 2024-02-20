@@ -1,10 +1,9 @@
 <template>
 <!-- header -->
 <header class="site-header transparent-sidemenu">
-    <nav class="navbar navbar-expand-lg bg-gray-transparant static-nav">
+    <nav class="navbar navbar-expand-lg transparent-bg static-nav">
        <div class="container">
           <a class="navbar-brand" href="index.html">
-            
           <img src="/assets/images/logo.png" alt="logo" style="width: 70%;">
           </a>
           <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#xenav">
@@ -15,25 +14,27 @@
           <div class="collapse navbar-collapse" id="xenav">
             <ul class="navbar-nav ms-auto">
                <li class="nav-item active">
-                  <a class="nav-link pagescroll" href="#home">Beranda</a>
+                  <a class="nav-link pagescroll" href="/">Beranda</a>
                </li>
                <li class="nav-item dropdown">
-                  <a class="nav-link pagescroll dropdown-toggle" data-bs-toggle="dropdown" href="#profile" role="button" aria-expanded="false">Profile</a>
-                  <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/tentang-aspro-sdma">Tentang Aspro SDMA</a></li>
+                  <a class="nav-link pagescroll dropdown-toggle" data-bs-toggle="dropdown" href="#tentang kita" role="button" aria-expanded="false">Tentang Kita</a>
+                  <ul class="dropdown-menu pagescroll" aria-expanded="false">
+                        <li><a class="dropdown-item" href="/about">Siapa Kita?</a></li>
                         <li><a class="dropdown-item" href="/ketua-umum">Ketua Umum</a></li>
                         <li><a class="dropdown-item" href="/struktur-organisasi">Struktur Organisasi</a></li>
                         <li><a class="dropdown-item" href="/visi-misi">Visi Misi</a></li>
-                        <li><a class="dropdown-item" href="/sejarah-terbentuknya-aspro-sdma">Sejarah Terbentuknya Aspro</a></li>
+                        <li><a class="dropdown-item" href="/sejarah">Sejarah Terbentuknya Aspro SDMA</a></li>
                         <li><a class="dropdown-item" href="/peraturan-organisasi">Peraturan Organisasi</a></li>
                      </ul>
                </li>
                <li class="nav-item dropdown">
                   <a class="nav-link pagescroll dropdown-toggle" data-bs-toggle="dropdown" href="#program" role="button" aria-expanded="false">Program</a>
                   <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/pelatihan">Pelatihan</a></li>
-                        <li><a class="dropdown-item" href="/sertifikasi">Sertifikasi</a></li>
-                        <li><a class="dropdown-item" href="/kegiatan-aspro-sdma">Kegiatan Aspro SDMA</a></li>
+                        <li><a class="dropdown-item" href="/bidang-keanggotaan-dan-organisasi">Bidang Keanggotaan dan Organisasi</a></li>
+                        <li><a class="dropdown-item" href="/bidang-pengembangan-kapasitas-insani">Bidang Pengembangan Kapasitas Insansi</a></li>
+                        <li><a class="dropdown-item" href="/bidang-hukum-dan-advokasi">Bidang Hukum dan Advokasi</a></li>
+                        <li><a class="dropdown-item" href="/bidang-hubungan-masyarakat-dan-kerja-sama">Bidang Hubungan Masyarakat dan Kerja Sama</a></li>
+                        <li><a class="dropdown-item" href="/bidang-sumber-pendanaan-organisasi">Bidang Sumber Pendanaan Organisasi</a></li>
                      </ul>
                </li>
                <li class="nav-item dropdown">
@@ -47,39 +48,38 @@
                <li class="nav-item dropdown">
                   <a class="nav-link pagescroll dropdown-toggle" data-bs-toggle="dropdown" href="#keanggotaan" role="button" aria-expanded="false">Keanggotaan</a>
                   <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/registration">Registration</a></li>
-                        <li><a class="dropdown-item" href="/login">Login</a></li>
+                        <li><a class="dropdown-item" href="/daftar">Daftar</a></li>
+                        <li><a class="dropdown-item" href="/masuk">Masuk</a></li>
                      </ul>
                </li>
                <li class="nav-item">
-                  <a class="nav-link pagescroll" href="#sapa-kita">Sapa Kita</a>
+                  <a class="nav-link pagescroll" href="#sapa-kita">Kontak Kami</a>
                </li>
             </ul>
          </div>
       </div>
- 
-       <!--side menu open button-->
-       <a href="javascript:void(0)" class="d-none d-lg-inline-block sidemenu_btn" id="sidemenu_toggle">
-           <span></span> <span></span> <span></span>
-        </a>
-    </nav>
- 
-    <!-- side menu -->
-    <div class="side-menu">
+      <!--side menu open button-->
+      <a href="javascript:void(0)" class="d-none d-lg-inline-block sidemenu_btn" id="sidemenu_toggle">
+          <span></span> <span></span> <span></span>
+       </a>
+   </nav>
+
+   <!-- side menu -->
+   <div class="side-menu">
       <div class="inner-wrapper">
          <span class="btn-close" id="btn_sideNavClose"><i></i><i></i></span>
          <nav class="side-nav">
          
             <ul class="navbar-nav w-100">
                <li class="nav-item active">
-                  <a class="nav-link pagescroll" href="#home">Beranda</a>
+                  <a class="nav-link pagescroll" href="/">Beranda</a>
                </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#profile" aria-expanded="false">Profile <i class="bi bi-chevron-down"></i></a>
-                        <div class="collapse" id="profile">
+                        <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#tentangkita" aria-expanded="false">Tentang Kita <i class="bi bi-chevron-down"></i></a>
+                        <div class="collapse" id="tentangkita">
                            <ul class="navbar-nav ms-4">
                                  <li class="nav-item mt-0">
-                                    <a class="nav-link pagescroll mt-0" href="/tentang-aspro-sdma" style="font-size: 1rem;">Tentang Aspro SDMA</a>
+                                    <a class="nav-link pagescroll mt-0" href="/siapa-kita?" style="font-size: 1rem;">Siapa Kita?</a>
                                  </li>
                                  <li class="nav-item mt-0">
                                     <a class="nav-link pagescroll" href="/ketua-umum" style="font-size: 1rem;">Ketua Umum</a>
@@ -104,13 +104,19 @@
                         <div class="collapse" id="program">
                            <ul class="navbar-nav ms-4">
                                  <li class="nav-item mt-0">
-                                    <a class="nav-link pagescroll mt-0" href="/pelatihan" style="font-size: 1rem;">Pelatihan</a>
+                                    <a class="nav-link pagescroll mt-0" href="/pelatihan" style="font-size: 1rem;">Bidang Keanggotaan dan Organisasi</a>
                                  </li>
                                  <li class="nav-item mt-0">
-                                    <a class="nav-link pagescroll" href="/sertifikasi" style="font-size: 1rem;">Sertifikasi</a>
+                                    <a class="nav-link pagescroll" href="/sertifikasi" style="font-size: 1rem;">Bidang Pengembangan Kapasitas Insani</a>
                                  </li>
                                  <li class="nav-item mt-0">
-                                    <a class="nav-link pagescroll" href="/kegiatan-aspro-sdma" style="font-size: 1rem;">kegiatan Aspro SDMA</a>
+                                    <a class="nav-link pagescroll" href="/kegiatan-aspro-sdma" style="font-size: 1rem;">Bidang Hukum dan Advokasi</a>
+                                 </li>
+                                 <li class="nav-item mt-0">
+                                    <a class="nav-link pagescroll" href="/kegiatan-aspro-sdma" style="font-size: 1rem;">Bidang Hukum Masyarakat dan Kerja Sama</a>
+                                 </li>
+                                 <li class="nav-item mt-0">
+                                    <a class="nav-link pagescroll" href="/kegiatan-aspro-sdma" style="font-size: 1rem;">Bidang Sumber Pendanaan Organisasi</a>
                                  </li>
                            </ul>
                         </div>
@@ -132,22 +138,22 @@
                         </div>
                      </li>
 
-                  <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#anggota" aria-expanded="false">keanggotaan <i class="bi bi-chevron-down"></i></a>
                         <div class="collapse" id="anggota">
                            <ul class="navbar-nav ms-4">
                                  <li class="nav-item mt-0">
-                                    <a class="nav-link pagescroll mt-0" href="/registration" style="font-size: 1rem;">Registrasi</a>
+                                    <a class="nav-link pagescroll mt-0" href="/daftar" style="font-size: 1rem;">Daftar</a>
                                  </li>
                                  <li class="nav-item mt-0">
-                                    <a class="nav-link pagescroll" href="/login" style="font-size: 1rem;">Login</a>
+                                    <a class="nav-link pagescroll" href="/masuk" style="font-size: 1rem;">Masuk</a>
                                  </li>
                            </ul>
                         </div>
                      </li>
 
                      <li class="nav-item">
-                        <a class="nav-link pagescroll" href="#kontak">Sapa Kita</a>
+                        <a class="nav-link pagescroll" href="#kontak">Kontak Kami</a>
                      </li>
             </ul>
          </nav>
@@ -162,10 +168,10 @@
          </div>
       </div>
    </div>
-    <a id="close_side_menu" href="javascript:void(0);"></a>
-    <!-- End side menu -->
- </header>
- <!-- header -->
+   <a id="close_side_menu" href="javascript:void(0);"></a>
+   <!-- End side menu -->
+</header>
+<!-- header -->
 </template>
 
 <script>
