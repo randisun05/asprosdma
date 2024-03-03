@@ -28,7 +28,7 @@
       <div class="row">
          <div class="col-md-12 col-sm-12 text-center">
             <div class="heading-title bottom30">
-               <span class="mb-3"><h2>Aspro SDMA</h2></span>
+               <span class="mb-3"><h2>Asosiasi Profesi Jabatan Fungsional SDM Aparatur</h2></span>
          </div>
          <div class="image hover-effect bottom30">
                 <div><img alt="SEO" src="/assets/images/tentang.jpg"></div>

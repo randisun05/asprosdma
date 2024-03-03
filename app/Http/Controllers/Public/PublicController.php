@@ -161,4 +161,25 @@ class PublicController extends Controller
             'title' => "Bidang Sumber Pendanaan Organisasi",
         ]);
     }
+
+    public function cerita()
+    {
+        return inertia('Public/Website/Maintenance/Index', [
+            'title' => "Maintenance",
+        ]);
+    }
+
+    public function berita()
+    {
+        return inertia('Public/Website/Maintenance/Index', [
+            'title' => "Maintenance",
+        ]);
+    }
+
+    public function artikel()
+    {
+        return inertia('Public/Website/Maintenance/Index', [
+            'title' => "Maintenance",
+        ]);
+    }
 }

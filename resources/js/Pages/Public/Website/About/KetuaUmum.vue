@@ -53,7 +53,7 @@
               <div class="top60">
                <div class="heading-title text-md-start text-center padding_bottom">
                <h5 class="h3 bottom20 darkcolor">Dr. Rita Kardinasari, S.Psi, M.Si, Dipl. TAA</h5>
-               <span class="h1">Ketua Umum Asosiasi Profesi Jabatan Fungsional Sumber Daya Manusia Aparatur </span>
+               <span class="h1">Ketua Umum Asosiasi Profesi Jabatan Fungsional SDM Aparatur </span>
                <hr>
                <h5 class="h5 bottom20 darkcolor">Deskripsi</h5>
                </div>
