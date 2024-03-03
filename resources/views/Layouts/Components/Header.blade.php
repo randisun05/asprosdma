@@ -47,12 +47,12 @@
                <li class="nav-item dropdown">
                   <a class="nav-link pagescroll dropdown-toggle" data-bs-toggle="dropdown" href="#keanggotaan" role="button" aria-expanded="false">Keanggotaan</a>
                   <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/daftar">Daftar</a></li>
-                        <li><a class="dropdown-item" href="/masuk">Masuk</a></li>
+                        <li><a class="dropdown-item" href="/registration">Daftar</a></li>
+                        <li><a class="dropdown-item" href="/login">Masuk</a></li>
                      </ul>
                </li>
                <li class="nav-item">
-                  <a class="nav-link pagescroll" href="#sapa-kita">Kontak Kami</a>
+                  <a class="nav-link pagescroll" href="/#sapa-kita">Kontak Kami</a>
                </li>
             </ul>
          </div>

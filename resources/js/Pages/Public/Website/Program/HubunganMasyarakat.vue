@@ -28,11 +28,98 @@
       <div class="row">
          <div class="col-md-12 col-sm-12 text-center">
             <div class="heading-title bottom30">
-               <span><h2>Bidang Hububgan Masyarakat dan Kerja Sama</h2></span>
-              
+               <span><h2>Program</h2></span>
             </div>
          </div>
-         <h4 class="darkcolor">Deskripsi</h4>
+        
+         <div class="col-md-4">
+            <ul class="nav nav-pills flex-column" id="program-list">
+               <li class="nav-item">
+                  <a class="nav-link" :class="{ active: activeTab === 'program1' }" @click="setActiveTab('program1')">Mengelola kebutuhan informasi anggota</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" :class="{ active: activeTab === 'program2' }" @click="setActiveTab('program2')">Mengelola media sosial organisasi profesi</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" :class="{ active: activeTab === 'program3' }" @click="setActiveTab('program3')">Mengelola produksi informasi publik dan organisasi</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" :class="{ active: activeTab === 'program4' }" @click="setActiveTab('program4')">Mengelola penyebaran informasi</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" :class="{ active: activeTab === 'program5' }" @click="setActiveTab('program5')">Mengelola pemeliharaan jejaring kerja</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" :class="{ active: activeTab === 'program6' }" @click="setActiveTab('program6')">Mengelola keterlibatan dan pengetahuan masyarakat pada kiprah dan karya Aspro SDMA</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" :class="{ active: activeTab === 'program7' }" @click="setActiveTab('program7')">Mengembangkan hubungan strategis yang baru</a>
+               </li> 
+            </ul>
+         </div>
+
+         <div class="col-md-8">
+            <div class="program-description" id="program-description-1">
+               <div v-show="activeTab === 'program1'" class="tab-pane fade show active" id="program1">
+                  
+                           Deskripsi Program 1
+                    
+               </div>
+            </div>
+
+            <div class="program-description" id="program-description-1">
+               <div v-show="activeTab === 'program2'" class="tab-pane fade show active" id="program2">
+                 
+                           Deskripsi Program 2
+
+               </div>
+            </div>
+    
+            <div class="program-description" id="program-description-1">
+               <div v-show="activeTab === 'program3'" class="tab-pane fade show active" id="program3">
+                
+                           Deskripsi Program 3
+               
+               </div>
+            </div>
+
+            <div class="program-description" id="program-description-1">
+               <div v-show="activeTab === 'program4'" class="tab-pane fade show active" id="program4">
+               
+                           Deskripsi Program 4
+                    
+               </div>
+            </div>
+         
+        
+            <div class="program-description" id="program-description-1">
+               <div v-show="activeTab === 'program5'" class="tab-pane fade show active" id="program5">
+                  
+                           Deskripsi Program 5
+                     
+               </div>
+            </div>
+     
+
+        
+            <div class="program-description" id="program-description-1">
+               <div v-show="activeTab === 'program6'" class="tab-pane fade show active" id="program6">
+                
+                           Deskripsi Program 6
+                   
+               </div>
+            </div>
+        
+        
+            <div class="program-description" id="program-description-1">
+               <div v-show="activeTab === 'program7'" class="tab-pane fade show active" id="program7">
+               
+                           Deskripsi Program 7
+                  
+               </div>
+            </div>
+        
+         </div>
       </div>
    </div>
 </section>
@@ -78,8 +165,28 @@
 
         },
         
+        data() {
+            return {
+              activeTab: 'program1', // Set the default active tab
+        
+            };
+          },
+
+                  methods: {
+            setActiveTab(tabName) {
+              this.activeTab = tabName;
+            },
+          },
+        
        
 
     }
 
+
 </script>
+<style>
+#program-list .nav-link {
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+</style>

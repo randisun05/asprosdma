@@ -28,11 +28,62 @@
       <div class="row">
          <div class="col-md-12 col-sm-12 text-center">
             <div class="heading-title bottom30">
-               <span><h2>Bidang Hukum Dan Advokasi</h2></span>
-              
+               <span><h2>Program</h2></span>
             </div>
          </div>
-         <h4 class="darkcolor">Deskripsi</h4>
+        
+         <div class="col-md-4">
+            <ul class="nav nav-pills flex-column" id="program-list">
+               <li class="nav-item">
+                  <a class="nav-link" :class="{ active: activeTab === 'program1' }" @click="setActiveTab('program1')">Memfasilitasi advokasi hukum dan kebijakan</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" :class="{ active: activeTab === 'program2' }" @click="setActiveTab('program2')">Mengelola administrasi legal organisasi dalam melaksanakan program dan kegiatan</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" :class="{ active: activeTab === 'program3' }" @click="setActiveTab('program3')">Bertindak mewakili organisasi dalam penyelesaian sengketa dan konflik yang melibatkan organisasi baik langsung maupun tidak langsung</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" :class="{ active: activeTab === 'program4' }" @click="setActiveTab('program4')">Mengkaji aspek hukum terkait kebijakan manajemen sumber daya manusia aparatur</a>
+               </li>
+               
+            </ul>
+         </div>
+
+         <div class="col-md-8">
+            <div class="program-description" id="program-description-1">
+               <div v-show="activeTab === 'program1'" class="tab-pane fade show active" id="program1">
+                  
+                           Deskripsi Program 1
+                    
+               </div>
+            </div>
+
+            <div class="program-description" id="program-description-1">
+               <div v-show="activeTab === 'program2'" class="tab-pane fade show active" id="program2">
+                 
+                           Deskripsi Program 2
+
+               </div>
+            </div>
+    
+            <div class="program-description" id="program-description-1">
+               <div v-show="activeTab === 'program3'" class="tab-pane fade show active" id="program3">
+                
+                           Deskripsi Program 3
+               
+               </div>
+            </div>
+
+            <div class="program-description" id="program-description-1">
+               <div v-show="activeTab === 'program4'" class="tab-pane fade show active" id="program4">
+               
+                           Deskripsi Program 4
+                    
+               </div>
+            </div>
+         
+         </div>
       </div>
    </div>
 </section>
@@ -77,9 +128,28 @@
             title:Object
 
         },
+        data() {
+            return {
+              activeTab: 'program1', // Set the default active tab
+        
+            };
+          },
+
+                  methods: {
+            setActiveTab(tabName) {
+              this.activeTab = tabName;
+            },
+          },
         
        
 
     }
 
+
 </script>
+<style>
+#program-list .nav-link {
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+</style>

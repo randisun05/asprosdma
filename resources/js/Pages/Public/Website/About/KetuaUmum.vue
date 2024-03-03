@@ -2,6 +2,7 @@
 
     <Head>
         <title>{{ title }}</title>
+        
     </Head>
   
  <!--page Header-->
@@ -22,21 +23,45 @@
 </section>
 <!--page Header ends--> 
 
-
-<section id="our-testimonial" class="padding_m">
+                                                                                                                                                                                                                                                                                                                                                                                                                                         
+<!-- Our Team-->    
+<section id="our-team-three">
    <div class="container">
       <div class="row">
-         <div class="col-md-12 col-sm-12 text-center">
-            <div class="heading-title bottom30">
-               <span><h2>Ketua Umum</h2></span>
-              
+           <div class="col-md-4">
+              <div class="team-box top60">
+               <div class="image">
+                  <img src="/assets/images/ketua.jpg" alt="">
+               </div>
+               <div class="team-content gradient_bg whitecolor">
+                  <h3>Dr. Rita Kardinasari, S.Psi, M.Si, Dipl. TAA</h3>
+                  <p class="bottom40"></p>
+                  <div class="progress-bars">
+                     <div class="progress">
+                        <p>Marketing online</p>
+                        <div class="progress-bar" data-value="90"><span>90%</span></div>
+                     </div>
+                     <div class="progress">
+                        <p>Web Designing</p>
+                        <div class="progress-bar" data-value="75"><span>75%</span></div>
+                     </div>
+                  </div>
+               </div>
             </div>
-         </div>
-         <h4 class="darkcolor">Deskripsi</h4>
+           </div>
+           <div class="col-md-6 col-xs-12">
+              <div class="top60">
+               <div class="heading-title text-md-start text-center padding_bottom">
+               <h5 class="h3 bottom20 darkcolor">Dr. Rita Kardinasari, S.Psi, M.Si, Dipl. TAA</h5>
+               <span class="h1">Ketua Umum Asosiasi Profesi Jabatan Fungsional Sumber Daya Manusia Aparatur </span>
+               <hr>
+               <h5 class="h5 bottom20 darkcolor">Deskripsi</h5>
+               </div>
+            </div>
+           </div>
       </div>
    </div>
 </section>
-<!--Testimonials Ends-->
 
 
 </template>
@@ -82,4 +107,4 @@
 
     }
 
-</script>
+</script>       

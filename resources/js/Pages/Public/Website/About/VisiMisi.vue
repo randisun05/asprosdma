@@ -24,18 +24,51 @@
 
 
 <section id="our-testimonial" class="padding_m">
+
    <div class="container">
       <div class="row">
-         <div class="col-md-12 col-sm-12 text-center">
-            <div class="heading-title bottom30">
-               <span><h2>Visi Misi</h2></span>
-              
+         <div class="col-md-7 col-sm-7 wow fadeInLeft" data-wow-delay="300ms">
+            <div class="heading-title text-md-start text-center padding_bottom">
+               <span>Visi</span>
+               <h5 class="fontregular bottom20 darkcolor">menjadi organisasi kapabel, profesional, dan produktif dalam mendukung penyelenggaraan manajemen SDM Aparatur.</h5>
+               <span>Misi</span> 
+            <div style="text-align: justify;">
+               <h5 class="fontregular bottom20 darkcolor">
+                  <table>
+                        <tr>
+                              <td width="5%">1.</td>
+                              <td>Meningkatkan kontribusi professional Jabatan Fungsional SDMA dalam penyelenggaraan manajemen Aparatur Sipil Negara.</td>
+                        </tr>
+                        <tr>
+                              <td>2.</td>
+                              <td>Membangun profesionalisme Pejabat Fungsional SDMA yang dinamis dan berkelanjutan.</td>
+                        </tr>
+                        <tr>
+                              <td>3.</td>
+                              <td>Membangun dan mengembangkan sinergi antarpejabat Fungsional SDMA.</td>
+                        </tr>
+                        <tr>
+                              <td>4.</td>
+                              <td>Meningkatkan kapabilitas pejabat fungsional SDMA dengan menggunakan berbagai media dan model pembelajaran.</td>
+                        </tr>
+                        <tr>
+                              <td>5.</td>
+                              <td>Membangun dan mengembangkan kemitraan dengan instansi pemerintah dan swasta secara professional.</td>
+                        </tr>
+               </table>
+               </h5>
             </div>
          </div>
-         <h4 class="darkcolor">Deskripsi</h4>
+         </div>
+         <div class="col-md-5 col-sm-5 wow fadeInRight" data-wow-delay="350ms">
+            <div class="image hover-effect">
+                <div class="image center"><img alt="SEO" src="/assets/images/visi.jpg"></div>
+            </div>
+         </div>
       </div>
    </div>
 </section>
+
 <!--Testimonials Ends-->
 
 

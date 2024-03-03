@@ -95,35 +95,35 @@ class PublicController extends Controller
     public function ketuaUmum()
     {
         return inertia('Public/Website/About/KetuaUmum', [
-            'title' => "Ketua Umum Aspro SDMA",
+            'title' => "Ketua Umum",
         ]);
     }
 
     public function visiMisi()
     {
         return inertia('Public/Website/About/VisiMisi', [
-            'title' => "Visi Misi Aspro SDMA",
+            'title' => "Visi Misi",
         ]);
     }
 
     public function strukturOrganisasi()
     {
         return inertia('Public/Website/About/StrukturOrganisasi', [
-            'title' => "Struktur Organisasi Aspro SDMA",
+            'title' => "Struktur Organisasi",
         ]);
     }
 
     public function sejarah()
     {
         return inertia('Public/Website/About/Sejarah', [
-            'title' => "Sejarah Aspro SDMA",
+            'title' => "Sejarah",
         ]);
     }
 
     public function peraturanOrganisasi()
     {
         return inertia('Public/Website/About/PeraturanOrganisasi', [
-            'title' => "Sejarah Aspro SDMA",
+            'title' => "Peraturan Organisasi",
         ]);
     }
 
@@ -150,7 +150,7 @@ class PublicController extends Controller
 
     public function pengembangan()
     {
-        return inertia('Public/Website/Program/Keanggotaan', [
+        return inertia('Public/Website/Program/Pengembangan', [
             'title' => "Bidang Pengembangan Kapasitas Insani",
         ]);
     }

@@ -53,7 +53,7 @@
                      </ul>
                </li>
                <li class="nav-item">
-                  <a class="nav-link pagescroll" href="#sapa-kita">Kontak Kami</a>
+                  <a class="nav-link pagescroll" href="/#sapa-kita">Kontak Kami</a>
                </li>
             </ul>
          </div>

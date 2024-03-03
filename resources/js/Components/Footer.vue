@@ -13,7 +13,7 @@
                 <li><a href="javascript:void(0)"><i class="fa fa-instagram"></i> </a> </li>
                 <li><a href="javascript:void(0)"><i class="fa fa-envelope-o"></i> </a> </li>
              </ul>
-             <p class="copyrights wow fadeInUp" data-wow-delay="350ms"> &copy; 2024 Aspro. made with love by <a href="http://www.themesindustry.com/" target="_blank">@randi.sun</a> </p>
+             <p class="copyrights wow fadeInUp" data-wow-delay="350ms"> &copy; 2024 Aspro.</p>
           </div>
        </div>
     </div>
