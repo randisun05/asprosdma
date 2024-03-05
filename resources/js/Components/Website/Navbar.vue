@@ -19,7 +19,7 @@
                <li class="nav-item dropdown">
                   <a class="nav-link pagescroll dropdown-toggle" data-bs-toggle="dropdown" href="#tentang kita" role="button" aria-expanded="false">Tentang Kita</a>
                   <ul class="dropdown-menu pagescroll" aria-expanded="false">
-                        <li><a class="dropdown-item" href="/tentang-kita">Siapa Kita?</a></li>
+                        <li><a class="dropdown-item" href="/tentang-aspro">Siapa Kita?</a></li>
                         <li><a class="dropdown-item" href="/ketua-umum">Ketua Umum</a></li>
                         <li><a class="dropdown-item" href="/struktur-organisasi">Struktur Organisasi</a></li>
                         <li><a class="dropdown-item" href="/visi-misi">Visi Misi</a></li>
