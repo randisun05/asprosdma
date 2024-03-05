@@ -23,16 +23,40 @@
 <!--page Header ends--> 
 
 
-<section id="our-testimonial" class="padding_m">
+<section id="our-team-two" class="padding_m">
    <div class="container">
-      <div class="row">
-         <div class="col-md-12 col-sm-12 text-center">
-            <div class="heading-title bottom30">
-               <span><h2>Peraturan Organisasi</h2></span>
-              
+      <div class="row justify-content-center">
+         <div class="col-lg-3 col-md-3">
+            <div class="team-box grey-shade top60">
+               <div class="image">
+                  <img src="/assets/images/AD.png" alt="">
+               </div>
+               <div class="team-content darkcolor">
+                  <h4>Anggaran Dasar Aspro SDMA</h4>
+                 
+               </div>
             </div>
          </div>
-         <h4 class="darkcolor">Deskripsi</h4>
+         <div class="col-lg-3 col-md-3">
+            <div class="team-box grey-shade top60">
+               <div class="image">
+                  <img src="assets/images/ART.png" alt="">
+               </div>
+               <div class="team-content darkcolor">
+                  <h4>Anggaran Rumah Tangga Aspro SDMA</h4>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-3 col-md-3">
+            <div class="team-box grey-shade top60">
+               <div class="image">
+                  <img src="assets/images/Pengurus.png" alt="">
+               </div>
+               <div class="team-content darkcolor">
+                  <h4>Susunan Pengurus Aspro SDMA</h4>
+               </div>
+            </div>
+         </div>
       </div>
    </div>
 </section>

@@ -76,6 +76,26 @@
                                                 </div>
                                              </div>
                                           </div>
+
+                                          <div class="row justify-content-center">
+                                             <div class="col-lg-3 col-md-6">
+                                                <div class="team-box no-hover">
+                                                   <div class="image">
+                                                      <img src="/assets/images/wakil.jpeg" alt="">
+                                                   </div>
+                                                   <div class="team-content gradient_bg">
+                                                      <h4 class="darkcolor">Nita Vibriyanti Situmorang, S.AP., M.Si.</h4>
+                                                      <p>Wakil Ketua Umum Aspro SDMA</p>
+                                                      <ul class="social-icons">
+                                                         <li><a href="javascript:void(0)"><i class="fa fa-facebook"></i> </a> </li>
+                                                         <li><a href="javascript:void(0)"><i class="fa fa-twitter"></i> </a> </li>
+                                                         <li><a href="javascript:void(0)"><i class="fa fa-whatsapp"></i> </a> </li>
+                                                      </ul>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+
                                                 <div class="row justify-content-center padding_m">
                                                    <div class="col-lg-3 col-md-6">
                                                       <div class="team-box no-hover">
@@ -83,7 +103,7 @@
                                                             <img src="/assets/images/team-7.jpg" alt="">
                                                          </div>
                                                          <div class="team-content gradient_bg">
-                                                            <h4 class="darkcolor">Nama</h4>
+                                                            <h4 class="darkcolor">Agung Sugiarto, S.H., M.H.</h4>
                                                             <p>Sekretaris 1</p>
                                                             <ul class="social-icons">
                                                                <li><a href="javascript:void(0)"><i class="fa fa-facebook"></i> </a> </li>
@@ -100,7 +120,7 @@
                                                             <img src="/assets/images/team-7.jpg" alt="">
                                                          </div>
                                                          <div class="team-content gradient_bg">
-                                                            <h4 class="darkcolor">Nama</h4>
+                                                            <h4 class="darkcolor">Riyanto, S.A.P., M.AP.</h4>
                                                             <p>Sekretaris 2</p>
                                                             <ul class="social-icons">
                                                                <li><a href="javascript:void(0)"><i class="fa fa-facebook"></i> </a> </li>
@@ -119,7 +139,7 @@
                                                             <img src="/assets/images/team-7.jpg" alt="">
                                                          </div>
                                                          <div class="team-content gradient_bg">
-                                                            <h4 class="darkcolor">Nama</h4>
+                                                            <h4 class="darkcolor">Dian Adriani, S.Psi, M.Edu</h4>
                                                             <p>Bendahara 1</p>
                                                             <ul class="social-icons">
                                                                <li><a href="javascript:void(0)"><i class="fa fa-facebook"></i> </a> </li>
@@ -136,7 +156,7 @@
                                                             <img src="/assets/images/team-7.jpg" alt="">
                                                          </div>
                                                          <div class="team-content gradient_bg">
-                                                            <h4 class="darkcolor">Nama</h4>
+                                                            <h4 class="darkcolor">Kurnia Dianandari, SH., MH.</h4>
                                                             <p>Bendahara 2</p>
                                                             <ul class="social-icons">
                                                                <li><a href="javascript:void(0)"><i class="fa fa-facebook"></i> </a> </li>
@@ -155,7 +175,7 @@
                                                             <img src="/assets/images/team-7.jpg" alt="">
                                                          </div>
                                                          <div class="team-content gradient_bg">
-                                                            <h4 class="darkcolor">Nama</h4>
+                                                            <h4 class="darkcolor">Dhanu Sukma Utomo, S.E.</h4>
                                                             <p>Ketua Bidang Keanggotaan dan Organisasi</p>
                                                             <ul class="social-icons">
                                                                <li><a href="javascript:void(0)"><i class="fa fa-facebook"></i> </a> </li>
@@ -172,7 +192,7 @@
                                                             <img src="/assets/images/team-7.jpg" alt="">
                                                          </div>
                                                          <div class="team-content gradient_bg">
-                                                            <h4 class="darkcolor">Nama</h4>
+                                                            <h4 class="darkcolor">Mia Dian Ratnasari</h4>
                                                             <p>Ketua Bidang Pengembangan Kapasitas Insani</p>
                                                             <ul class="social-icons">
                                                                <li><a href="javascript:void(0)"><i class="fa fa-facebook"></i> </a> </li>
@@ -189,7 +209,7 @@
                                                             <img src="/assets/images/team-7.jpg" alt="">
                                                          </div>
                                                          <div class="team-content gradient_bg">
-                                                            <h4 class="darkcolor">Nama</h4>
+                                                            <h4 class="darkcolor">FX. Sunaryanta</h4>
                                                             <p>Ketua Bidang Hukum dan Advokasi</p>
                                                             <ul class="social-icons">
                                                                <li><a href="javascript:void(0)"><i class="fa fa-facebook"></i> </a> </li>
@@ -206,7 +226,7 @@
                                                             <img src="/assets/images/team-7.jpg" alt="">
                                                          </div>
                                                          <div class="team-content gradient_bg">
-                                                            <h4 class="darkcolor">Nama</h4>
+                                                            <h4 class="darkcolor">Ade Jajang Jatnika</h4>
                                                             <p>Ketua Bidang Hubungan Masyarakat dan Kerjasama</p>
                                                             <ul class="social-icons">
                                                                <li><a href="javascript:void(0)"><i class="fa fa-facebook"></i> </a> </li>

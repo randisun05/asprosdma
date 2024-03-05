@@ -62,7 +62,7 @@ Route::get('/registration/confirm/{id}/success', [\App\Http\Controllers\Public\R
 Route::get('/registration/success', [\App\Http\Controllers\Public\RegistrationController::class, 'index'])->name('registration.success');
 Route::get('/registration/group', [\App\Http\Controllers\Public\RegistrationController::class, 'group'])->name('registration.group');
 Route::post('/registration/group', [\App\Http\Controllers\Public\RegistrationController::class, 'groupStore'])->name('registration.group.store');
-Route::get('/about', [\App\Http\Controllers\Public\PublicController::class, 'about'])->name('about');
+Route::get('/tentang-kita', [\App\Http\Controllers\Public\PublicController::class, 'about'])->name('about');
 Route::get('/ketua-umum', [\App\Http\Controllers\Public\PublicController::class, 'ketuaUmum'])->name('ketuaUmum');
 Route::get('/peraturan-organisasi', [\App\Http\Controllers\Public\PublicController::class, 'peraturanOrganisasi'])->name('peraturanOrganisasi');
 Route::get('/sejarah', [\App\Http\Controllers\Public\PublicController::class, 'sejarah'])->name('sejarah');
