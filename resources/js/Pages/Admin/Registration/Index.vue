@@ -51,6 +51,7 @@
                                         <th class="border-0">Nama</th>
                                         <th class="border-0">Instansi</th>
                                         <th class="border-0">Jenjang Jabatan</th>
+                                        <th class="border-0">Email</th>
                                         <th class="border-0" style="width:6%">Dokumen</th>
                                         <th class="border-0" style="width:6%">Status</th>
                                         <th class="border-0 rounded-end" style="width:12%">Aksi</th>
@@ -64,6 +65,7 @@
                                         <td>{{ register.name }}</td>
                                         <td>{{ register.agency }}</td>
                                         <td class="text">{{ register.position }} {{ register.level }}</td>
+                                        <td>{{ register.email }} <span class="badge bg-secondary">{{ register.emailstatus }}</span></td>
                                         <td class="text-center"><a :href="getDocumentUrl(register.document_jab)" target="_blank" class="badge bg-primary">View</a></td>
                                         <td class="text-center">
                                             <span v-if="register.status === 'approved'" class="badge bg-success">{{ register.status }}</span>
@@ -74,10 +76,11 @@
                                         </td>
             
                                         <td class="text-center">
-                                            <Link :href="`/admin/registration/${register.id}`" class="btn btn-sm btn-primary border-0 shadow me-2" type="button"><i class="fa fa-eye fa-lg" aria-hidden="true"></i></Link>
-                                            <button @click="handleApprove(register.id)" class="btn btn-sm btn-success border-0 shadow me-2"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i></button>
-                                            <button @click="handleConfirm(register.id)" class="btn btn-sm btn-warning border-0 shadow me-2"><i class="fa fa-question-circle fa-lg" aria-hidden="true"></i></button>
-                                            <button @click="handleReject(register.id)" class="btn btn-sm btn-danger border-0 shadow me-2"><i class="fa fa-times-circle fa-lg" aria-hidden="true"></i></button>
+                                            <Link :href="`/admin/registration/${register.id}`" class="btn btn-sm btn-primary border-0 shadow me-2" type="button"><i class="fa fa-eye fa-lg" aria-hidden="true" title="lihat detail"></i></Link>
+                                            <button v-if="register.status !== 'approved' && register.status !== 'rejected'" @click="handleApprove(register.id)" class="btn btn-sm btn-success border-0 shadow me-2">
+                                            <i class="fa fa-check-circle fa-lg" aria-hidden="true" title="approve"></i></button>
+                                            <button v-if="register.status !== 'approved'" @click="handleConfirm(register.id)" class="btn btn-sm btn-warning border-0 shadow me-2"><i class="fa fa-question-circle fa-lg" aria-hidden="true" title="confirm"></i></button>
+                                            <button v-if="register.status !== 'approved' && register.status !== 'rejected'" @click="handleReject(register.id)" class="btn btn-sm btn-danger border-0 shadow me-2"><i class="fa fa-times-circle fa-lg" aria-hidden="true" title="reject"></i></button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -128,6 +131,7 @@
 
         //props
         props: {
+            errors: Object,
             registers: Object,
         },
 
@@ -173,7 +177,7 @@
                             title: 'Success!',
                             text: 'Status Approved!.',
                             icon: 'success',
-                            timer: 2000,
+                            timer: 5000,
                             showConfirmButton: false,
                         });
                     }
@@ -197,7 +201,7 @@
                             title: 'Success!',
                             text: 'Status Conirmed!.',
                             icon: 'success',
-                            timer: 2000,
+                            timer: 5000,
                             showConfirmButton: false,
                         });
                     }
@@ -223,7 +227,7 @@
                             title: 'Success!',
                             text: 'Status Rejected!.',
                             icon: 'success',
-                            timer: 2000,
+                            timer: 5000,
                             showConfirmButton: false,
                         });
                     }

@@ -50,21 +50,15 @@
         <div class="message">
             <p>Dear <strong>{{ $data['name'] }}</strong>,</p>
             <p>Selamat akun anda telah aktif, silakan mengakses halaman login, dengan:  </p>
-                <li>username : aa</li>
-                <li>password : aa</li>
+                <li>username : {{ $data['nip'] }}</li>
+                <li>password : {{ $data['password'] }}</li>
             <p>untuk diperhatikan!, informasi akun ini bersifat rahasia dan menjadi tanggung jawab pemilik akun.</p>
-            <p>Jika anda mendapatkan kendala saat login, silakan hubungi kami.</p>
+            <p>Jika anda mendapatkan kendala saat login, silakan <a href="/#sapa-kita"><u>hubungi kami.</u></a></p>
             
             <p>Demikian informasi dari kami.</p>
             <p>Terimakasih,</p>
             <p>Tim Keanggotaan Aspro</p>
         </div>
     </div>
-
-Akun anda telah aktif dengan id: nip dan pass: nip
-silakan untuk login
-Terimakasih
-
-Tim Keanggotaan Aspro
 </body>
 </html>

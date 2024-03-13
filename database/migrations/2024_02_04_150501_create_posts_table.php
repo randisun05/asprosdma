@@ -14,16 +14,18 @@ return new class extends Migration
     public function up()
     {
         Schema::create('posts', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
+            $table->foreignId('category_id')->references('id')->on('categories')->restrictOnDelete()->restrictOnUpdate();
+            $table->foreignId('member_id')->references('id')->on('members')->restrictOnDelete()->restrictOnUpdate();
             $table->string('title')->unique();
-            $table->string('slug');
-            $table->string('body');
-            $table->string('excerpt');
-            $table->string('category');
+            $table->string('slug')->unique();
+            $table->longText('body');
+            $table->longText('excerpt');
             $table->string('image')->nullable();
             $table->string('document')->nullable();
-            $table->string('user');
-            $table->enum('status',['private','public']);
+            $table->string('tag')->nullable();
+            $table->timestamp('publish_at')->nullable();
+            $table->enum('status',['private','submission','approved','rejected','perlu ada perbaikan']);
             $table->timestamps();
         });
     }

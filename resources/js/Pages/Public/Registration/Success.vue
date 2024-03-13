@@ -4,16 +4,34 @@
         <title>Registrasi Keanggotaan Aspro</title>
     </Head>
 
-<section id="registration" class="padding">
+ <!--page Header-->
+ <section class="page-header parallaxie padding_top center-block">
+   <div class="container">
+      <div class="row">
+         <div class="col-sm-12">
+            <div class="page-titles text-center">
+               <h2 class="whitecolor font-light bottom30"></h2>
+               <ul class="breadcrumb justify-content-center">
+                 <li class="breadcrumb-item"><h3> Registrasi Berhasil</h3></li>
+                 <li class="breadcrumb-item active" aria-current="page"></li>
+               </ul>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+<!--page Header ends--> 
+
+<section id="registration" class="">
    <div class="container">
       <div class="row d-flex justify-content-center">
          <div class="col-lg-12 col-md-12 col-sm-10">
-            <div class="bglight logincontainer">
+            <div class="logincontainer">
                <h3 class="darkcolor bottom35 text-center">Terimakasih {{ form.name }} Telah Melakukan Registrasi</h3>
                <h4 class="darkcolor bottom35 text-left">Kami telah mengirimkan informasi registrasi ke email {{ form.email }}</h4>
-               <h4 class="darkcolor bottom35 text-left">Mohon untuk mengecek kotak masuk atau spam</h4>
+               <h4 class="darkcolor bottom35 text-left">Mohon untuk mengecek kotak masuk atau spam email anda</h4>
               
-               <h4 class="darkcolor bottom35 text-left">Jika anda mendapatkan kendapa silakan hubungi kami</h4>
+               <h4 class="darkcolor bottom35 text-left">Jika anda mendapatkan kendala silakan <a href="/#sapa-kita">hubungi kami.</a></h4>
                <div class="text-center mt-4"> <Link :href="'/registration'" class="btn btn-md btn-primary border-0 shadow" type="button">Kembali</Link></div>
             </div>
          </div>
@@ -26,8 +44,8 @@
 
 <script>
     //import layout
-    import LayoutAuth from '../../../Layouts/Auth.vue';
- 
+    import LayoutWebsite from '../../../Layouts/Website.vue';
+
     //import Head from Inertia
     import {
         Head,
@@ -39,18 +57,10 @@
         reactive
     } from 'vue';
 
-    //import sweet alert2
-    // import Swal from 'sweetalert2';
-
-    //import inertia adapter
-        // import {
-        //     Inertia
-        // } from '@inertiajs/inertia';
-
     export default {
 
         //layout
-        layout: LayoutAuth,
+        layout: LayoutWebsite,
 
         //register component
         components: {

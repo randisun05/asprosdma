@@ -5,7 +5,11 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\User;
+use App\Models\Member;
+use App\Models\Category;
+use App\Models\ItemProfile;
 use App\Models\Registration;
+use App\Models\ProfileDataMain;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -50,7 +54,7 @@ class DatabaseSeeder extends Seeder
             'nip'      => '2',
             'name'      => 'dimas',
             'email'     => 'dimas@gmail.com',
-            'contact'     => '008',
+            'contact'     => '009',
             'agency'     => 'bkn',
             'position'     => 'asdma',
             'level'     => 'muda',
@@ -62,7 +66,7 @@ class DatabaseSeeder extends Seeder
             'nip'      => '3',
             'name'      => 'reza',
             'email'     => 'reza@gmail.com',
-            'contact'     => '008',
+            'contact'     => '0010',
             'agency'     => 'bkn',
             'position'     => 'pranata',
             'level'     => 'mahir',
@@ -74,13 +78,38 @@ class DatabaseSeeder extends Seeder
             'nip'      => '4',
             'name'      => 'dhanu',
             'email'     => 'dhanu@gmail.com',
-            'contact'     => '008',
+            'contact'     => '0011',
             'agency'     => 'bkn',
             'position'     => 'asdma',
             'level'     => 'penyelia',
             'document_jab'     => 'aa',
             'status'     => 'submission',
         ]);
+
+        Member::create([
+            'nip'      => '199501052022031003',
+            'name'      => 'Administrator',
+            'email'      => 'admin@gmail.com',
+            'password'      => 'password',
+        ]);
+
+        Category::create([
+            'title'      => 'Berita',
+        ]);
+
+        Category::create([
+            'title'      => 'Cerita',
+        ]);
+
+        Category::create([
+            'title'      => 'Artikel',
+        ]);
+
+        Category::create([
+            'title'      => 'Lainnya',
+        ]);
+
+
     }
 
    

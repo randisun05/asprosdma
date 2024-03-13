@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('nip')->unique();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('contact');
+            $table->string('contact')->unique();
             $table->string('agency');
             $table->string('position');
             $table->string('level');
@@ -26,6 +26,7 @@ return new class extends Migration
             $table->enum('status',['submission','paid','confirm','approved','rejected','corrected'])->default('submission');
             $table->string('info')->nullable();
             $table->string('paid')->nullable();
+            $table->integer('emailstatus')->default(0);
             $table->timestamps();
         });
     }

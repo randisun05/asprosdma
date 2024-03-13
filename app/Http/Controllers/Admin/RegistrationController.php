@@ -10,6 +10,10 @@ use App\Http\Controllers\Controller;
 use App\Mail\SendEmailAprrove;
 use App\Mail\SendEmailConfirm;
 use App\Mail\SendEmailReject;
+use App\Models\Member;
+use App\Models\ProfileDataMain;
+use App\Models\ProfileDataPosition;
+use GuzzleHttp\Handler\Proxy;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -71,7 +75,7 @@ class RegistrationController extends Controller
     // Store the file using Laravel's file storage system
     $document_jab = $request->file('document_jab')->storePublicly('/documents');
        // Store the file using Laravel's file storage system
-       $paid = $request->file('paid')->storePublicly('/images');
+    $paid = $request->file('paid')->storePublicly('/images');
 
     // Create registration
     $registration = Registration::create(array_merge($validatedData, ['document_jab' => $document_jab, 'paid' => $paid]));
@@ -180,14 +184,44 @@ class RegistrationController extends Controller
 
     public function approve($id)
     {
+        $password = $this->generatePassword();
         //get register
         $register = Registration::findOrFail($id);
+        // return $register;
+            
+        Member::create([
+            'nip'            => $register->nip,
+            'name'           => $register->name,
+            'email'          => $register->email,
+            'password'       => $password,
+        ]);
+
+          //create data profile
+        ProfileDataMain::create([
+            'nip'             => $register->nip,
+            'name'            => $register->name,
+            'email'           => $register->email,
+            'contact'        => $register->contact,
+        ]);
+
+         //get id relation
+        $data = ProfileDataMain::where('nip',$register->nip)->first();
+       
+         //create data positiono
+        ProfileDataPosition::create([
+            'main_id'           => $data->id,
+            'agency'           => $register->agency,
+            'position'         => $register->position ." ". $register->level,
+        ]);
+
+        $email = Member::where('nip',$register->nip)->first();
         
-         //email
-         Mail::to($register['email'])->send(new SendEmailAprrove($register));
+        //email
+        Mail::to($register['email'])->send(new SendEmailAprrove($email));
 
         Registration::where('id', $id)->update([
-            'status' => "approved"
+            'status'        => "approved",
+            'emailstatus'      => 1,
         ]);
 
        
@@ -204,11 +238,9 @@ class RegistrationController extends Controller
         Mail::to($register['email'])->send(new SendEmailReject($register));
 
         Registration::where('id', $id)->update([
-            'status' => "rejected"
+            'status' => "rejected",
+            'emailstatus'      => 1,
         ]);
-
-            //email
-            // Mail::to($data['email'])->send(new SendEmailReject($data));
         
         //redirect
         return redirect()->route('admin.registration.index');
@@ -223,7 +255,8 @@ class RegistrationController extends Controller
 
 
         Registration::where('id', $id)->update([
-            'status' => "confirm"
+            'status' => "confirm",
+            'emailstatus'      => 1,
         ]);
 
         //redirect
@@ -300,5 +333,16 @@ class RegistrationController extends Controller
         //redirect
         return redirect()->route('admin.registration.group');
     }
+
+        public function generatePassword($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+            }
+
 
 }

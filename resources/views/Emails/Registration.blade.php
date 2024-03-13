@@ -50,14 +50,15 @@
         <div class="message">
             <p>Dear <strong>{{ $data['name'] }}</strong>,</p>
             <p>Terimakasih telah melakukan registrasi keanggotaan Asosiasi Profesi SDM Aparatur. Token usul anda adalah: <strong>{{ $data['id'] }}</strong>.</p>
-            <p>Pembayaran uang pangkal dapat dilakukan dengan cara transfer via ATM Non-Tunai, Internet Banking, dan setoran tunai ke Nomor Rekening BRI. 123 3232 1212 a.n Aspro dengan mencantumkan berita transfer sebagai berikut: <strong>{{ $data['name'] }}</strong>.</p>
+            {{-- <p>Pembayaran uang pangkal dapat dilakukan dengan cara transfer via ATM Non-Tunai, Internet Banking, dan setoran tunai ke Nomor Rekening BRI. 123 3232 1212 a.n Aspro dengan mencantumkan berita transfer sebagai berikut: <strong>{{ $data['name'] }}</strong>.</p>
             <p>Jika Anda melakukan pembayaran melalui transfer bank (ATM, Internet Banking, M-Banking, setoran tunai), jangan lupa untuk melakukan konfirmasi melalui:</p>
             <ul>
                 <li>Halaman Konfirmasi Pembayaran, silakan klik <a href="/registration/paid/{{ $data['id'] }}" class="cta-button">link ini</a></li>
                 <li>Whatsapp (harus dilakukan di hari yang sama saat membayar) dengan menghubungi 908080909090</li>
-            </ul>
+            </ul> --}}
+            <p>Jika anda mendapatkan kendala dan untuk informasi pembayaran silakan <a href="/#sapa-kita"><u>hubungi kami.</u></a></p>
            
-            <p>Demikian informasi dari kami mengenai registrasi.</p>
+            <p>Demikian informasi dari kami.</p>
             <p>Terimakasih,</p>
             <p>Tim Keanggotaan Aspro</p>
         </div>

@@ -48,8 +48,51 @@ Route::prefix('admin')->group(function() {
         Route::get('/registration/{id}/confirm', [\App\Http\Controllers\Admin\RegistrationController::class, 'confirm'])->name('admin.registration.confirm');
         Route::get('/registration/{id}/paid', [\App\Http\Controllers\Admin\RegistrationController::class, 'paid'])->name('admin.registration.paid');
         Route::get('/registration/{id}/reject', [\App\Http\Controllers\Admin\RegistrationController::class, 'reject'])->name('admin.registration.reject');
+        Route::resource('/posts', \App\Http\Controllers\Admin\PostController::class, ['as' => 'admin']);
+        Route::get('/posts/{id}/approve', [\App\Http\Controllers\Admin\PostController::class, 'approve'])->name('admin.posts.approve');
+        Route::get('/posts/{id}/return', [\App\Http\Controllers\Admin\PostController::class, 'return'])->name('admin.posts.return');
+        Route::get('/posts/{id}/reject', [\App\Http\Controllers\Admin\PostController::class, 'reject'])->name('admin.posts.reject');
+        Route::get('/posts/{id}/cancel', [\App\Http\Controllers\Admin\PostController::class, 'cancel'])->name('admin.posts.cancel');
+        Route::resource('/events', \App\Http\Controllers\Admin\EventController::class, ['as' => 'admin']);
+        Route::resource('/medias', \App\Http\Controllers\Admin\MediaController::class, ['as' => 'admin']);
     });
 });
+
+
+
+Route::get('/user/login', function () {
+
+    //cek session users
+    if(auth()->guard('member')->check()) {
+        return redirect()->route('user.dashboard');
+    }
+
+    //return view login
+    return \Inertia\Inertia::render('User/Auth/Login');
+});
+
+//login users
+Route::post('/user/login', \App\Http\Controllers\User\LoginController::class)->name('user.login');
+
+//prefix "admin"
+Route::prefix('user')->group(function() {
+
+    //middleware "auth"
+    Route::group(['middleware' => ['member']], function () {
+        //route dashboard
+        Route::get('/dashboard', App\Http\Controllers\User\DashboardController::class)->name('user.dashboard');
+        Route::get('/profile', [\App\Http\Controllers\User\DataProfileController::class, 'index'])->name('user.profile');
+        Route::get('/profile/edit', [\App\Http\Controllers\User\DataProfileController::class, 'edit'])->name('user.profile.edit');
+        Route::post('/profile/edit', [\App\Http\Controllers\User\DataProfileController::class, 'update'])->name('user.profile.update');
+        Route::resource('/posts', \App\Http\Controllers\User\PostsController::class, ['as' => 'user']);
+        Route::get('/posts/{id}/submission', [\App\Http\Controllers\User\PostsController::class, 'submission'])->name('user.posts.submission');
+        Route::resource('/events', \App\Http\Controllers\User\EventController::class, ['as' => 'user']);
+        Route::put('/events/{id}/join', [\App\Http\Controllers\User\EventController::class, 'join'])->name('user.events.join');
+    });
+});
+
+
+
 
 //public
 Route::get('/registration', [\App\Http\Controllers\Public\RegistrationController::class, 'create'])->name('registration');

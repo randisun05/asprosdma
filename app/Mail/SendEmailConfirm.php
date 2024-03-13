@@ -30,7 +30,7 @@ class SendEmailConfirm extends Mailable
      */
     public function build()
     {       
-        return $this->subject('No_Reply-Registrasi Keanggotaan Aspro')
+        return $this->subject('No-Reply-Registrasi Keanggotaan Aspro')
                     ->view('Emails.Confirm');
     }
 

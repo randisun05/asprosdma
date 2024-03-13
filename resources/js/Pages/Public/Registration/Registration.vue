@@ -28,19 +28,19 @@
       <div class="row d-flex justify-content-center">
          <div class="col-lg-12 col-md-12 col-sm-10">
             <div class="mt-4">
-               <form @submit.prevent="submit" class="getin_form border-form" id="login">
+               <form @submit.prevent="submit" class="getin_form border-form" id="post" enctype="multipart/form-data"> 
+                
                   <div class="row">
                     <div class="col-md-6 col-sm-6">
                         <span class="ms-4">
                                  NIP
                         </span>
                         <div class="form-group bottom35 mt-1">
-                                <input type="text" class="form-control" v-model="form.nip" placeholder="Masukan NIP" maxlength="16" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                                <input type="text" class="form-control" v-model="form.nip" placeholder="Masukan NIP" maxlength="18" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                             <div v-if="errors.nip" class="alert alert-danger mt-2">
                                 {{ errors.nip }}
                             </div>
                         </div>
-                        
                      </div>
 
                     <div class="col-md-6 col-sm-6">
@@ -166,7 +166,13 @@
                                 </div> -->
                             </div>
                      </div>
-                     
+                     <div class="ms-2 mb-4">
+                        <input class="form-check-input" type="checkbox"  id="agreeTerms">
+                        <label class="form-check-label ms-2" for="agreeTerms">
+                            Saya menyetujui peraturan organisasi.
+                        </label>
+                    </div>
+                    
                      <div class="row d-flex justify-content-center">
                         <button type="submit" class="button btnprimary" style="width: 300px;">Submit</button>
                         <a href="/registration/group" class="text-center mt-4"><u>Klik untuk mengajukan registrasi secara kolektif</u></a>
@@ -266,6 +272,8 @@
                 });
                 
             }
+
+
             // Method to update the document file
             const updateDocument = (event) => {
                 form.document_jab = event.target.files[0];
@@ -283,4 +291,4 @@
 
     }
 
-</script>
+</script> 

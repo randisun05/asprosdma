@@ -29,18 +29,21 @@
          <div class="col-lg-3 col-md-3">
             <div class="team-box grey-shade top60">
                <div class="image">
-                  <img src="/assets/images/AD.png" alt="">
+                  <a href="/assets/excel/AD.pdf" class="text-center mt-4" download="">
+                     <img src="/assets/images/AD.png" alt="">
+                  </a>
                </div>
                <div class="team-content darkcolor">
                   <h4>Anggaran Dasar Aspro SDMA</h4>
-                 
                </div>
             </div>
          </div>
          <div class="col-lg-3 col-md-3">
             <div class="team-box grey-shade top60">
                <div class="image">
+                  <a href="/assets/excel/ART.pdf" class="text-center mt-4" download="">
                   <img src="assets/images/ART.png" alt="">
+                  </a>
                </div>
                <div class="team-content darkcolor">
                   <h4>Anggaran Rumah Tangga Aspro SDMA</h4>
@@ -50,7 +53,9 @@
          <div class="col-lg-3 col-md-3">
             <div class="team-box grey-shade top60">
                <div class="image">
+                  <a href="/assets/excel/Pengurus.pdf" class="text-center mt-4" download="">
                   <img src="assets/images/Pengurus.png" alt="">
+                  </a>
                </div>
                <div class="team-content darkcolor">
                   <h4>Susunan Pengurus Aspro SDMA</h4>

@@ -25,6 +25,50 @@
                     </Link>
                 </li>
 
+                <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/posts') }">
+                    <Link href="/admin/posts" class="nav-link d-flex justify-content-between">
+                    <span>
+                        <span class="sidebar-icon">
+                           <i class="fa fa-bullhorn fa-lg" aria-hidden="true"></i>
+                        </span>
+                        <span class="sidebar-text ms-3">Posts</span>
+                    </span>
+                    </Link>
+                </li>
+
+                <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/events') }">
+                    <Link href="/admin/events" class="nav-link d-flex justify-content-between">
+                    <span>
+                        <span class="sidebar-icon">
+                           <i class="fa fa-calendar fa-lg" aria-hidden="true"></i>
+                        </span>
+                        <span class="sidebar-text ms-3">Events</span>
+                    </span>
+                    </Link>
+                </li>
+
+                <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/medias') }">
+                    <Link href="/admin/medias" class="nav-link d-flex justify-content-between">
+                    <span>
+                        <span class="sidebar-icon">
+                           <i class="fa fa-photo fa-lg" aria-hidden="true"></i>
+                        </span>
+                        <span class="sidebar-text ms-3">Media</span>
+                    </span>
+                    </Link>
+                </li>
+
+                <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/merchans') }">
+                    <Link href="/admin/merchans" class="nav-link d-flex justify-content-between">
+                    <span>
+                        <span class="sidebar-icon">
+                           <i class="fa fa-tags fa-lg" aria-hidden="true"></i>
+                        </span>
+                        <span class="sidebar-text ms-3">Merchans</span>
+                    </span>
+                    </Link>
+                </li>
+
          </ul>
       </div>
    </nav>

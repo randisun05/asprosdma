@@ -37,6 +37,7 @@ class RegistrationController extends Controller
      */
     public function create()
     {
+
         return inertia('Public/Registration/Registration', [
            
         ]);
@@ -52,14 +53,20 @@ class RegistrationController extends Controller
     {
       // Validate request including file validation
       $validatedData = $request->validate([
-        'nip' => 'required|string',
+        'nip' => ['required', 'string', 'regex:/^\d{18}$/', 'unique:registrations,nip'],
         'name' => 'required|string',
-        'email' => 'required|string',
-        'contact' => 'required|string',
+        'email' => 'required|email|unique:registrations,email',
+        'contact' => 'required|string|unique:registrations,contact',
         'agency' => 'required|string',
         'position' => 'required|string',
         'level' => 'required|string',
         'document_jab' => 'required|file|mimes:pdf|max:2048', // Ensure 'document_jab' is a valid file
+    ],
+    [
+        'nip.regex' => 'NIP harus terdiri dari 18 angka.',
+        'nip.unique' => 'Data NIP sudah digunakan.',
+        'email.unique' => 'Data email sudah digunakan.',
+        'contact.unique' => 'Data kontak sudah digunakan.'
     ]);
     
     // Store the file using Laravel's file storage system
@@ -163,11 +170,15 @@ class RegistrationController extends Controller
       $validatedData = $request->validate([
         'agency' => 'required|string',
         'name' => 'required|string',
-        'email' => 'required|string',
-        'contact' => 'required|string',
+        'email' => 'required|email|unique:registration_groups,email',
+        'contact' => 'required|string|unique:registration_groups,contact',
         'total' => 'required|string',
         'file' => 'required|file|mimes:xls,xlsx|max:2048', // Ensure 'document_jab' is a valid file
-    ]);
+    ],
+            [
+                'email.unique' => 'Data email sudah digunakan.',
+                'contact.unique' => 'Data kontak sudah digunakan.'
+            ]);
     
     // Store the file using Laravel's file storage system
     $file = $request->file('file')->storePublicly('/documents');

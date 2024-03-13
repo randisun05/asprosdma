@@ -10,13 +10,14 @@
          <div class="col-lg-6 col-md-6 col-sm-10">
             <div class="bglight logincontainer">
                <h3 class="darkcolor bottom35">Login </h3>
+                   
                <form @submit.prevent="submit" class="getin_form border-form" id="login">
                   <div class="row">
                      <div class="col-md-12 col-sm-12">
                         <div class="form-group bottom35">
                             <div class="input-group">
                                 <span class="input-group-text" id="basic-addon1">
-                                    <i class="fa fa-envelope"></i>
+                                    <i class="fa fa-id-badge"></i>
                                 </span>
                                 <input type="email" class="form-control" v-model="form.email" placeholder="Email Address">
                             </div>

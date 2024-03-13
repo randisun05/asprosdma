@@ -89,9 +89,9 @@
                             </div>
                     </div>
                                 <div class="text-center">
-                            <button @click="handleApprove(register.id)" class="btn btn-sm btn-success border-0 shadow me-2"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Approve</button>
-                            <button @click="handleConfirm(register.id)" class="btn btn-sm btn-warning border-0 shadow me-2"><i class="fa fa-question-circle fa-lg" aria-hidden="true"></i>  Confirm</button>
-                            <button @click="handleReject(register.id)" class="btn btn-sm btn-danger border-0 shadow me-2"><i class="fa fa-times-circle fa-lg" aria-hidden="true"></i>  Reject</button>
+                            <button v-if="register.status !== 'approved' && register.status !== 'rejected'" @click="handleApprove(register.id)" class="btn btn-sm btn-success border-0 shadow me-2"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Approve</button>
+                            <button v-if="register.status !== 'approved'" @click="handleConfirm(register.id)" class="btn btn-sm btn-warning border-0 shadow me-2"><i class="fa fa-question-circle fa-lg" aria-hidden="true"></i>  Confirm</button>
+                            <button v-if="register.status !== 'approved' && register.status !== 'rejected'" @click="handleReject(register.id)" class="btn btn-sm btn-danger border-0 shadow me-2"><i class="fa fa-times-circle fa-lg" aria-hidden="true"></i>  Reject</button>
                                 </div>
                     </div>
                 </div>

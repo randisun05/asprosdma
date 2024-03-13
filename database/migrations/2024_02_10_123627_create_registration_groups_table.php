@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('registration_groups', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->primary();
             $table->string('agency');
             $table->string('name');
             $table->string('contact');

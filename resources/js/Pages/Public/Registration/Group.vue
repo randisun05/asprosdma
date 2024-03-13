@@ -4,15 +4,32 @@
         <title>Registrasi Keanggotaan Aspro</title>
     </Head>
 
-<section id="registration" class="padding">
+ <!--page Header-->
+ <section class="page-header parallaxie padding_top center-block">
+   <div class="container">
+      <div class="row">
+         <div class="col-sm-12">
+            <div class="page-titles text-center">
+               <h2 class="whitecolor font-light bottom30"></h2>
+               <ul class="breadcrumb justify-content-center">
+                 <li class="breadcrumb-item"><h3> Registrasi Anggota Kolektif</h3></li>
+                 <li class="breadcrumb-item active" aria-current="page"></li>
+               </ul>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+<!--page Header ends--> 
+
+<section id="registration" class="">
    <div class="container">
       <div class="row d-flex justify-content-center">
          <div class="col-lg-12 col-md-12 col-sm-10">
-            <div class="bglight logincontainer">
-               <h3 class="darkcolor bottom35 text-center">Registrasi Anggota Kolektif</h3>
+            <div class="logincontainer">
                <form @submit.prevent="submit" class="getin_form border-form" id="login">
                   <div class="row">
-                    
+
                      <div class="col-md-6 col-sm-6">
                         <span class="ms-4">
                                  Instansi
@@ -42,7 +59,7 @@
                                  Kontak Aktif PIC
                         </span>
                         <div class="form-group bottom35 mt-1">
-                                <input type="text" class="form-control" v-model="form.contact" placeholder="Masukan Kontak Aktif PIC">
+                            <input type="text" class="form-control" v-model="form.contact" placeholder="Masukan Kontak Aktif" maxlength="13" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                             <div v-if="errors.contact" class="alert alert-danger mt-2">
                                 {{ errors.contact }}
                             </div>
@@ -66,7 +83,7 @@
                                  Jumlah Data
                         </span>
                         <div class="form-group bottom35 mt-1">
-                                <input type="text" class="form-control" v-model="form.total" placeholder="Masukan Jumlah Data">
+                                <input type="number" class="form-control" v-model="form.total" placeholder="Masukan Jumlah Data" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                             <div v-if="errors.agency" class="alert alert-danger mt-2">
                                 {{ errors.total }}
                             </div>
@@ -80,7 +97,7 @@
                         </span>
                         <div class="form-group bottom35 mt-1">
                             <div class="input-group">
-                                <input type="file" class="form-control" @change="updateDocument">
+                                <input type="file" class="form-control" @change="updateDocument" accept=".xls, .xlsx,">
 
                             </div>
                             <div v-if="errors.file" class="alert alert-danger mt-2">
@@ -108,7 +125,7 @@
 
 <script>
     //import layout
-    import LayoutAuth from '../../../Layouts/Auth.vue';
+    import LayoutWebsite from '../../../Layouts/Website.vue';
  
     //import Head from Inertia
     import {
@@ -131,7 +148,7 @@
     export default {
 
         //layout
-        layout: LayoutAuth,
+        layout: LayoutWebsite,
 
         //register component
         components: {

@@ -42,7 +42,7 @@
                         </span>
                         <div class="form-group bottom35 mt-1">
                             <div class="input-group">
-                                <input type="file" class="form-control" @change="updatePaid">
+                                <input type="file" class="form-control" @change="updateImage">
 
                             </div>
                             <div v-if="errors.paid" class="alert alert-danger mt-2">

@@ -14,14 +14,18 @@ return new class extends Migration
     public function up()
     {
         Schema::create('events', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->string('title')->unique();
-            $table->string('slug');
+            $table->string('slug')->nullable();
             $table->string('body');
-            $table->string('excerpt');
+            $table->date('date');
+            $table->date('enddate');
+            $table->integer('team');
+            $table->integer('participant');
+            $table->string('place');
+            $table->string('link');
             $table->string('image')->nullable();
-            $table->string('document')->nullable();
-            $table->string('user');
+            $table->enum('status',['active','closed','media']);
             $table->timestamps();
         });
     }

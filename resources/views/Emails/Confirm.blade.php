@@ -1,22 +1,4 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Email Registration Keanggotaan Asosiasi Profesi Analis Dan Pranata SDM Aparatur</title>
-</head>
-<body>
-Terimakasih <strong>{{ $data['name'] }}</strong> telah melakukan registrasi keanggotaan Asosiasi Profesi Analis Dan Pranata SDM Aparatur
-Setelah kami verifikasi data anda, ada beberapa data yang perlu di perbaiki, silakan akses laman ini untuk memperbaiki data sesuai dengan keterangan yang diberikan
-Token usul anda adalah : <strong>{{ $data['id'] }}</strong> 
-Kami akan memproses usulan anda, setelah data anda diperbaiki.
-Untuk pertanyaan lebih lanjut silakan hubungi dhanu dengan nomor WA 00000
-Terimakasih
-
-Tim Keanggotaan Aspro
-
-</body>
-</html>
-
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -67,8 +49,10 @@ Tim Keanggotaan Aspro
         <hr>
         <div class="message">
             <p>Dear <strong>{{ $data['name'] }}</strong>,</p>
-            <p>Setelah kami verifikasi data anda, ada beberapa data yang perlu di perbaiki, silakan akses <a href="/registration/confirm/{{ $data['id'] }}/edit"> link ini </a> untuk memperbaiki data anda</p>
-            <p>Untuk informasi lebih lanjut silakan hubungi 00000 </p>
+            <p>Setelah kami verifikasi data anda, ada beberapa data yang perlu di perbaiki, silakan akses <a href="http://10.40.9.3:8005/registration/confirm/{{ $data['id'] }}/edit"> link ini </a> untuk memperbaiki data anda</p>
+            <p>Kami akan memproses usulan anda, setelah data anda diperbaiki.</p>
+            <p>Jika anda mendapatkan kendala silakan <a href="/#sapa-kita"><u>hubungi kami.</u></a></p>
+                       
             <p>Demikian informasi dari kami.</p>
             <p>Terimakasih,</p>
             <p>Tim Keanggotaan Aspro</p>

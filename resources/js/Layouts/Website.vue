@@ -9,7 +9,7 @@
 
    </main>
 
-    <!-- navbar -->
+    <!-- footer -->
     <Footer />
 
 </template>

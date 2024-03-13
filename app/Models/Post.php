@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,47 +16,45 @@ class Post extends Model
         'slug',
         'body',
         'excerpt',
-        'category',
+        'category_id',
         'image',
         'document',
-        'user',
+        'member_id',
         'status',
+        'publish_at',
     ];
 
-        /**
-     * Kita override boot method
-     *
-     * Mengisi primary key secara otomatis dengan UUID ketika membuat record
-     */
-    protected static function boot()
+    // public function scopeFilter ($query, array $filters)
+    // {
+
+    //     $query->when($filters['search'] ?? false, function($query, $search){
+    //         return $query->where('title','like','%' . $search . '%')
+    //                      ->orWhere('body','like','%' . $search . '%');
+    //     });
+
+    //     $query->when($filters['category'] ?? false, function($query, $category) {
+    //         return $query->Wherehas('category', function($query) use ($category){
+    //             $query->where('slug', $category);
+    //         });
+    //     });
+
+    //     $query->when($filters['author'] ?? false, fn($query, $author) =>
+    //         $query->Wherehas('author', fn($query) =>
+    //             $query->where('username', $author)
+    //         )
+    //     );
+
+
+    // }
+
+    public function category()
     {
-        parent::boot();
-        static::creating(function ($model) {
-            if (empty($model->{$model->getKeyName()})) {
-                $model->{$model->getKeyName()} = Str::uuid()->toString();
-            }
-        });
+        return $this ->belongsTo(Category::class);
     }
 
-    /**
-     * Kita override getIncrementing method
-     *
-     * Menonaktifkan auto increment
-     */
-    public function getIncrementing()
+    public function member()
     {
-        return false;
+        return $this ->belongsTo(Member::class);
     }
-
-    /**
-     * Kita override getKeyType method
-     *
-     * Memberi tahu laravel bahwa model ini menggunakan primary key bertipe string
-     */
-    public function getKeyType()
-    {
-        return 'string';
-    }
-
 
 }
