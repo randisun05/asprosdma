@@ -8,7 +8,7 @@
                <h3 class="darkcolor bottom30">Asosiasi Profesi Jabatan Fungsional SDM Aparatur</h3>
             </div>
             <p class="bottom35">Bersama-sama kita kembangkan Jabatan Fungsional Kita, berjejaring, meningkatkan kompetensi, dan berkontribusi untuk Indonesia </p>
-            <a href="/daftar" class="button btnsecondary">Daftar</a>
+            <a href="/registration" class="button btnsecondary">Daftar</a>
          </div>
          <div class="col-md-6 col-sm-5 wow fadeInRight" data-wow-delay="300ms">
             <div class="image top100"  style="width:90%"><img alt="SEO" src="/assets/images/regis.jpg" stayle="width:70%"></div>
