@@ -103,7 +103,6 @@
 <script src="{{ asset('assets/js/revolution/extensions/revolution.extension.video.min.js') }}"></script>    
 
 <!--Google Map API-->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJnKEvlwpyjXfS_h-J1Cne2fPMqeb44Mk"></script>
 <script src="{{ asset('assets/js/functions.js') }}"></script>      
 
 </body>

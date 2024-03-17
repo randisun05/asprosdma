@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Member;
 use App\Models\Registration;
 use Illuminate\Http\Request;
-use App\Models\RegistrationGroup;
-use App\Imports\RegistrationImport;
-use App\Http\Controllers\Controller;
+use App\Mail\SendEmailReject;
+use GuzzleHttp\Handler\Proxy;
 use App\Mail\SendEmailAprrove;
 use App\Mail\SendEmailConfirm;
-use App\Mail\SendEmailReject;
-use App\Models\Member;
 use App\Models\ProfileDataMain;
+use Illuminate\Validation\Rule;
+use App\Models\RegistrationGroup;
+use App\Imports\RegistrationImport;
+use App\Mail\SendEmailRegistration;
 use App\Models\ProfileDataPosition;
-use GuzzleHttp\Handler\Proxy;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -59,27 +61,42 @@ class RegistrationController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate request including file validation
+    
+      // Validate request including file validation
       $validatedData = $request->validate([
-        'nip' => 'required|string',
+        'nip' => ['required', 'string', 'regex:/^\d{18}$/', 'unique:registrations,nip'],
         'name' => 'required|string',
-        'email' => 'required|string',
-        'contact' => 'required|string',
+        'email' => 'required|email|unique:registrations,email',
+        'contact' => 'required|string|unique:registrations,contact',
         'agency' => 'required|string',
         'position' => 'required|string',
         'level' => 'required|string',
         'document_jab' => 'required|file|mimes:pdf|max:2048', // Ensure 'document_jab' is a valid file
-        'paid' => '|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        
+    ],
+    [
+        'nip.regex' => 'NIP harus terdiri dari 18 angka.',
+        'nip.unique' => 'Data NIP sudah digunakan.',
+        'email.unique' => 'Data email sudah digunakan.',
+        'contact.unique' => 'Data kontak sudah digunakan.',
     ]);
     
-    // Store the file using Laravel's file storage system
-    $document_jab = $request->file('document_jab')->storePublicly('/documents');
-       // Store the file using Laravel's file storage system
-    $paid = $request->file('paid')->storePublicly('/images');
+     // Store the file using Laravel's file storage system
+     $document_jab = $request->file('document_jab');
+     $paid = $request->file('paid');
+     $document_jab = $document_jab->storePublicly('/document');
+ 
+    if ($paid) {
+         $paid = $paid->storePublicly('/images');
+         // Jika hanya paid diisi, update semua kecuali document_jab
+         Registration::create(array_merge($validatedData, [ 'status' => 'paid', 
+         'document_jab' => $document_jab, 'paid' => $paid,         
+         ]));  
+     } else { // Create registration
+        Registration::create(array_merge($validatedData, ['document_jab' => $document_jab,]));
+    }
 
-    // Create registration
-    $registration = Registration::create(array_merge($validatedData, ['document_jab' => $document_jab, 'paid' => $paid]));
-    $token = $registration->id;
+    
 
      //redirect
      return redirect()->route('admin.registration.index');
@@ -96,7 +113,6 @@ class RegistrationController extends Controller
     public function show($id)
     {
         $register = Registration::findOrFail($id);
-
         //render with inertia
        return inertia('Admin/Registration/Show', [
         'register' => $register,
@@ -112,7 +128,11 @@ class RegistrationController extends Controller
      */
     public function edit($id)
     {
-        
+        $register = Registration::findOrFail($id);
+        //render with inertia
+       return inertia('Admin/Registration/Show', [
+        'register' => $register,
+        ]);
     }
 
     /**
@@ -124,30 +144,63 @@ class RegistrationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //validate request
-        $request->validate([
-            'nip' => 'required|string',
-            'name' => 'required|string',
-            'email' => 'required|string',
-            'contact' => 'required|string',
-            'agency' => 'required|string',
-            'position' => 'required|string',
-            'level' => 'required|string',
-            'document_jab' => 'required|string',
-            'paid' => 'required|string',
-       ]);
+        // Validate request including file validation
+       $validatedData = $request->validate([
+        'nip' => [
+            'required',
+            'string',
+            'regex:/^\d{18}$/',
+            Rule::unique('registrations')->ignore($id), // Mengabaikan ID saat validasi unik
+        ],
+        'name' => 'required|string',
+        'email' => [
+            'required',
+            'email',
+            Rule::unique('registrations')->ignore($id),
+        ],
+        'contact' => [
+            'required',
+            'string',
+            Rule::unique('registrations')->ignore($id),
+        ],
+        'agency' => 'required|string',
+        'position' => 'required|string',
+        'level' => 'required|string',
+    ], [
+        'nip.regex' => 'NIP harus terdiri dari 18 angka.',
+    ]);
+    
+            // Store the file using Laravel's file storage system
+            $document_jab = $request->file('document_jab');
+            $paid = $request->file('paid');
+        
+            if ($document_jab && $paid) {
+                // Jika keduanya diisi, update semua
+                $document_jab = $document_jab->storePublicly('/document');
+                $paid = $paid->storePublicly('/images');
+                Registration::where('id',$id)->update(array_merge($validatedData, [
+                    'document_jab' => $document_jab,
+                    'paid' => $paid,
+                    'status' => "paid"
+                ]));    
+            } elseif ($document_jab) {
+                $document_jab = $document_jab->storePublicly('/images');
+                // Jika hanya document_jab diisi, update semua kecuali paid
+                Registration::where('id',$id)->update(array_merge($validatedData, [
+                    'document_jab' => $document_jab,
+                ]));
+            } elseif ($paid) {
+                $paid = $paid->storePublicly('/images');
+                // Jika hanya paid diisi, update semua kecuali document_jab
+                Registration::where('id',$id)->update(array_merge($validatedData, [
+                    'paid' => $paid,
+                    'status' => "paid"
+                ]));  
+            }
 
-       //update
-       Registration::where('id', $id)->update([
-        'name' => $request->nip,
-        'name' => $request->name,
-        'email' => $request->email,
-        'contact' => $request->contact,
-        'agency' => $request->agency,
-        'position' => $request->position,
-        'level' => $request->level,
-        'document_jab' => $request->document_jab,
-       ]);
+            // Buat registration
+            Registration::where('id',$id)->update(array_merge($validatedData, [ 
+            ]));
 
        //redirect
        return redirect()->route('admin.registration.index');
@@ -184,6 +237,8 @@ class RegistrationController extends Controller
 
     public function approve($id)
     {
+
+        
         $password = $this->generatePassword();
         //get register
         $register = Registration::findOrFail($id);
@@ -246,16 +301,16 @@ class RegistrationController extends Controller
         return redirect()->route('admin.registration.index');
     }
 
-    public function confirm($id)
+    public function confirm($id, Request $request)
     {
-
+       
         $register = Registration::findOrFail($id);
 
         Mail::to($register['email'])->send(new SendEmailConfirm($register));
 
-
         Registration::where('id', $id)->update([
             'status' => "confirm",
+            'info' => $request->info,
             'emailstatus'      => 1,
         ]);
 
@@ -271,13 +326,28 @@ class RegistrationController extends Controller
 
     public function importStore(Request $request)
     {
-
         $this->validate($request, [
             'file' => 'required|mimes:csv,xls,xlsx'
         ]);
 
         //import data
         Excel::import(new RegistrationImport(), $request->file('file'));
+
+        $registrations = Registration::where('emailstatus', 0)
+        ->latest()
+        ->get();
+
+             
+         // Kirim email setelah import selesai
+         foreach ($registrations as $registration) {
+
+            // Kirim email kepada setiap member
+            Mail::to($registration['email'])->send(new SendEmailRegistration($registration));
+
+            // Update status_email untuk setiap peserta
+            $registration->emailstatus = 1;
+            $registration->save();
+        }
         
         //redirect
         return redirect()->route('admin.registration.index');

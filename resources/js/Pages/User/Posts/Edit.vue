@@ -39,7 +39,10 @@
                                                 Kategori
                                                 </span>
                                                 <div class="form-group mt-1 mb-4">
-                                                    <input type="text" class="form-control" placeholder="Masukan Kategori Cerita/Artikel/Berita" v-model="form.category">
+                                                    <select class="form-select" v-model="form.category">
+                                                     
+                                                        <option v-for="(category, index) in categories" :key="index" :value="category.id">{{ category.title }}</option>
+                                                    </select>
                                                 </div>
                                                 <div v-if="errors.category" class="alert alert-danger mt-2">
                                                     {{ errors.category }}    
@@ -152,6 +155,7 @@
         //props
        props: {
         errors: Object,
+        categories: Array,
         post: {
             type: Object,
             default: null  // Default value is set to null
@@ -176,7 +180,7 @@
             const submit = () => {
 
                 //send data to server
-                Inertia.put(`/user/posts/${props.post.id}`, {
+                Inertia.post(`/user/posts/${props.post.id}`, {
                     //data
                     title: form.title,
                     category: form.category,

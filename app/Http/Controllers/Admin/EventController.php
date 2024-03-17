@@ -60,7 +60,7 @@ class EventController extends Controller
         'enddate' => 'required',
         'date' => 'required',
         'place' => 'required',
-        'image' => '|image|mimes:jpeg,png,jpg,gif,svg|max:2048|nullable',
+        'image' => '|image|mimes:jpeg,png,jpg,gif,svg|max:5048|nullable',
     ]);
 
     $slug = strtolower(str_replace(' ', '-', $request->title));
@@ -143,7 +143,40 @@ class EventController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+          // Validate request including file validation
+      $request->validate([
+        'title' => 'required|string',
+        'body' => 'required|',
+        'date' => 'required',
+        'enddate' => 'required',
+        'date' => 'required',
+        'place' => 'required',
+        'image' => '|image|mimes:jpeg,png,jpg,gif,svg|max:5048|nullable',
+    ]);
+
+    $slug = strtolower(str_replace(' ', '-', $request->title));
+   
+    $image = $request->file('image');
+    if ($image) {
+        $image = $request->file('image')->storePublicly('/images');
+        // Proceed with storing or processing the uploaded file
+    };
+        Event::where('id',$id)->update([
+            'title' => $request->title,
+            'date' => $request->date,
+            'team' => $request->team,
+            'participant' => $request->participant,
+            'body' =>  $request->body,
+            'slug' => $slug,
+            'enddate' => $request->enddate,
+            'image' => $image,
+            'place' => $request->place,
+            'link' => $request->link,
+        ]);
+
+    
+     //redirect
+     return redirect()->route('admin.events.index');
     }
 
     /**

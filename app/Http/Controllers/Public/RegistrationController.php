@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Public;
 use App\Models\Registration;
 use Illuminate\Http\Request;
 use App\Models\RegistrationGroup;
-use App\Http\Controllers\Controller;
 use App\Mail\SendEmailRegistration;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use PHPUnit\TextUI\XmlConfiguration\Group;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
+use Illuminate\Validation\Rule;
 
 class RegistrationController extends Controller
 {
@@ -51,6 +52,7 @@ class RegistrationController extends Controller
      */
     public function store(Request $request)
     {
+       
       // Validate request including file validation
       $validatedData = $request->validate([
         'nip' => ['required', 'string', 'regex:/^\d{18}$/', 'unique:registrations,nip'],
@@ -61,22 +63,34 @@ class RegistrationController extends Controller
         'position' => 'required|string',
         'level' => 'required|string',
         'document_jab' => 'required|file|mimes:pdf|max:2048', // Ensure 'document_jab' is a valid file
+        
     ],
     [
         'nip.regex' => 'NIP harus terdiri dari 18 angka.',
         'nip.unique' => 'Data NIP sudah digunakan.',
         'email.unique' => 'Data email sudah digunakan.',
-        'contact.unique' => 'Data kontak sudah digunakan.'
+        'contact.unique' => 'Data kontak sudah digunakan.',
     ]);
-    
+
+    $request->validate([
+        'code' => 'required|string',
+        'captcha' => 'required|same:code',
+        'term' => 'in:1',
+    ], [
+        'captcha.same' => 'Captcha Salah.',
+        'term.in' => 'Checklist jika bersedia.',
+    ]);
+
+
     // Store the file using Laravel's file storage system
     $document_jab = $request->file('document_jab')->storePublicly('/documents');
 
     // Create registration
-    $registration = Registration::create(array_merge($validatedData, ['document_jab' => $document_jab]));
+    $registration = Registration::create(array_merge($validatedData, ['document_jab' => $document_jab, 'emailstatus' => "1"]));
     $token = $registration->id;
 
     Mail::to($validatedData['email'])->send(new SendEmailRegistration($registration));
+   
 
      //redirect
      return redirect()->route('registration.success')->with([
@@ -84,6 +98,7 @@ class RegistrationController extends Controller
         'registration' => $registration
     ]);
 }
+
 
     /**
      * Display the specified resource.
@@ -96,9 +111,15 @@ class RegistrationController extends Controller
 
         $register = Registration::findOrFail($id);
 
+        if($register->paid)
+        // Jika status registrasi bukan 'confirm', arahkan pengguna kembali atau tampilkan pesan kesalahan
+        return redirect()->route('/')->with('error', 'Link paid telah ditutup.');
+
         return inertia('Public/Registration/Show', [
            'register' => $register,
         ]);
+
+        
     }
 
     /**
@@ -110,6 +131,10 @@ class RegistrationController extends Controller
     public function edit($id)
     {
         $register = Registration::findOrFail($id);
+        
+        if( $register->status !== 'confirm')
+        // Jika status registrasi bukan 'confirm', arahkan pengguna kembali atau tampilkan pesan kesalahan
+        return redirect()->route('/')->with('error', 'Link konfirmasi telah ditutup.');
 
         return inertia('Public/Registration/Edit', [
            'register' => $register,
@@ -125,7 +150,65 @@ class RegistrationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+       // Validate request including file validation
+       $validatedData = $request->validate([
+        'nip' => [
+            'required',
+            'string',
+            'regex:/^\d{18}$/',
+            Rule::unique('registrations')->ignore($id), // Mengabaikan ID saat validasi unik
+        ],
+        'name' => 'required|string',
+        'email' => [
+            'required',
+            'email',
+            Rule::unique('registrations')->ignore($id),
+        ],
+        'contact' => [
+            'required',
+            'string',
+            Rule::unique('registrations')->ignore($id),
+        ],
+        'agency' => 'required|string',
+        'position' => 'required|string',
+        'level' => 'required|string',
+    ], [
+        'nip.regex' => 'NIP harus terdiri dari 18 angka.',
+    ]);
+    
+            // Store the file using Laravel's file storage system
+            $document_jab = $request->file('document_jab');
+            $paid = $request->file('paid');
+        
+            if ($document_jab && $paid) {
+                // Jika keduanya diisi, update semua
+                $document_jab = $document_jab->storePublicly('/document');
+                $paid = $paid->storePublicly('/images');
+                Registration::where('id',$id)->update(array_merge($validatedData, [
+                    'document_jab' => $document_jab,
+                    'paid' => $paid,
+                    'status' => "paid"
+                ]));    
+            } elseif ($document_jab) {
+                $document_jab = $document_jab->storePublicly('/images');
+                // Jika hanya document_jab diisi, update semua kecuali paid
+                Registration::where('id',$id)->update(array_merge($validatedData, [
+                    'document_jab' => $document_jab,
+                ]));
+            } elseif ($paid) {
+                $paid = $paid->storePublicly('/images');
+                // Jika hanya paid diisi, update semua kecuali document_jab
+                Registration::where('id',$id)->update(array_merge($validatedData, [
+                    'paid' => $paid,
+                    'status' => "paid"
+                ]));  
+            } else { // Buat registration
+                Registration::where('id',$id)->update(array_merge($validatedData, [ 'status' => 'submission'
+                ]));
+            }
+
+     //redirect
+     return redirect()->route('/')->with('success', 'Registrasi berhasil dikonfirmasi.');
     }
 
     /**
@@ -141,9 +224,10 @@ class RegistrationController extends Controller
 
     public function paid(Request $request, $id)
     {
+
         // Validate request including file validation
     $request->validate([
-        'paid' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Adjust validation rule for file
+        'paid' => 'required|max:2048', // Adjust validation rule for file
     ]);
     
     // Store the file using Laravel's file storage system
@@ -153,7 +237,7 @@ class RegistrationController extends Controller
     Registration::where('id', $id)->update(['paid' => $paid, 'status' => "paid"]);
 
      //redirect
-     return redirect()->route('registration');
+     return redirect()->route('/');
 
     }
 
@@ -179,6 +263,16 @@ class RegistrationController extends Controller
                 'email.unique' => 'Data email sudah digunakan.',
                 'contact.unique' => 'Data kontak sudah digunakan.'
             ]);
+
+            $request->validate([
+                'code' => 'required|string',
+                'captcha' => 'required|same:code',
+                'term' => 'in:1',
+            ], [
+                'captcha.same' => 'Captcha Salah.',
+                'term.in' => 'Checklist jika bersedia.',
+            ]);
+
     
     // Store the file using Laravel's file storage system
     $file = $request->file('file')->storePublicly('/documents');
@@ -201,4 +295,6 @@ class RegistrationController extends Controller
   
         ]);
     }
+
+    
 }

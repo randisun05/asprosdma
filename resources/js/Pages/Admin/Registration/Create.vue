@@ -17,7 +17,7 @@
                                  NIP
                         </span>
                         <div class="form-group bottom35 mt-1">
-                                <input type="text" class="form-control" v-model="form.nip" placeholder="Masukan NIP" maxlength="16" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                                <input type="text" class="form-control" v-model="form.nip" placeholder="Masukan NIP" maxlength="18" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                             <div v-if="errors.nip" class="alert alert-danger mt-2">
                                 {{ errors.nip }}
                             </div>
@@ -62,16 +62,17 @@
                      </div>
 
                      <div class="col-md-6 col-sm-6">
-                        <span class="ms-4">
-                                 Instansi
-                        </span>
+                        <label for="agency" class="ms-4">Instansi</label>
                         <div class="form-group bottom35 mt-1">
-                                <input type="text" class="form-control" v-model="form.agency" placeholder="Masukan Instansi">
-                            <div v-if="errors.agency" class="alert alert-danger mt-2">
-                                {{ errors.agency }}
-                            </div>
+                            <input type="text" class="form-control" v-model="form.agency" @input="searchAgencies" placeholder="Masukkan nama instansi" />
+                            <ul v-if="form.agency && searchResults.length" class="list-group" style="position: absolute; width: 100%; z-index: 999; overflow-y: auto; max-height: 200px;">
+                                <div class="col-md-4 col-sm-4">
+                                <li class="list-group-item" v-for="(result, index) in searchResults" :key="index" @click="selectAgency(result)">{{ result }}</li>
+                                </div>
+                            </ul>
+                            <div v-if="errors.agency" class="alert alert-danger mt-2">{{ errors.agency }}</div>
                         </div>
-                     </div>
+                    </div>
 
                      <div class="col-md-3 col-sm-3">
                         <span class="ms-4">
@@ -142,7 +143,7 @@
                                  Bukti Tranfer   ( Bentuk File Image )
                         </span>
                         <div class="form-group bottom35 mt-1">
-                                <input type="file" class="form-control" @input="form.paid = $event.target.paid[0]">
+                                <input type="file" class="form-control" @change="updateImage" accept=".jpg, .JPG, .png, .jpeg, .JPEG, .pdf">
                             <div v-if="errors.paid" class="alert alert-danger mt-2">
                                     {{ errors.paid }}
                                 </div>
@@ -221,12 +222,35 @@
 
             });
 
+             // Define searchResults reactive variable to store search results
+             const searchResults = reactive([]);
+            // Method to search agencies based on input
+
+                const searchAgencies = async () => {
+                            try {
+                            const response = await fetch('https://api.sheety.co/6be80dfe79437b6dcf36a18e88b21c5b/permintaanNoSertifikat/instansi');
+                            const data = await response.json();
+                            if (data && data.instansi) {
+                                // Extract only the name of the institution
+                                const names = data.instansi.map(item => item.namaInstansi.toLowerCase());
+                                // Filter names based on the input value
+                                searchResults.splice(0, searchResults.length, ...names.filter(name => name.includes(form.agency.toLowerCase())));
+                            }
+                            } catch (error) {
+                            console.error('Error searching agencies:', error);
+                            }
+                            };
+                            const selectAgency = (agency) => {
+                                form.agency = agency;
+                                // Clear searchResults setelah memilih instansi
+                                searchResults.splice(0, searchResults.length);
+                            };
+
             //submit method
             const submit = () => {
 
                 //send data to server
-                Inertia.post('/registration/store', {
-
+                Inertia.post('/admin/registration', {
                     //data
                     nip: form.nip,
                     name: form.name,
@@ -236,13 +260,13 @@
                     position: form.position,
                     level: form.level,
                     document_jab: form.document_jab,
-                    paid: '',
+                    paid: form.paid,
                 } ,{
                     onSuccess: () => {
                         //show success alert
                         Swal.fire({
                             title: 'Success!',
-                            text: 'Data Registrasi Berhasil Dikirim, Silakan Cek Email Anda.',
+                            text: 'Data Registrasi Berhasil Dikirim',
                             icon: 'success',
                             showConfirmButton: false,
                             timer: 2000
@@ -256,7 +280,8 @@
                 form.document_jab = event.target.files[0];
             };
 
-            const updateImage = (event) => {
+             // Method to update the image file
+             const updateImage = (event) => {
                 form.paid = event.target.files[0];
             };
 
@@ -266,7 +291,10 @@
                 form,
                 submit,
                 updateDocument,
-                updateImage
+                updateImage,
+                searchResults,
+                searchAgencies,
+                selectAgency,
             };
 
         }

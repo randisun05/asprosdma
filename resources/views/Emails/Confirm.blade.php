@@ -49,9 +49,9 @@
         <hr>
         <div class="message">
             <p>Dear <strong>{{ $data['name'] }}</strong>,</p>
-            <p>Setelah kami verifikasi data anda, ada beberapa data yang perlu di perbaiki, silakan akses <a href="http://10.40.9.3:8005/registration/confirm/{{ $data['id'] }}/edit"> link ini </a> untuk memperbaiki data anda</p>
+            <p>Setelah kami verifikasi data anda, ada beberapa data yang perlu di perbaiki, silakan akses <a href="https://asprosdma.id/registration/confirm/{{ $data['id'] }}/edit"> link ini </a> untuk memperbaiki data anda</p>
             <p>Kami akan memproses usulan anda, setelah data anda diperbaiki.</p>
-            <p>Jika anda mendapatkan kendala silakan <a href="/#sapa-kita"><u>hubungi kami.</u></a></p>
+            <p>Jika anda mendapatkan kendala silakan <a href="https://asprosdma.id/kontak-kami"><u>hubungi kami.</u></a></p>
                        
             <p>Demikian informasi dari kami.</p>
             <p>Terimakasih,</p>

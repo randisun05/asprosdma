@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Media;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Event;
 
 class MediaController extends Controller
 {
@@ -14,7 +16,20 @@ class MediaController extends Controller
      */
     public function index()
     {
-        //
+        $medias = Media::with('event')
+        ->when(request()->q, function($query) {
+            $query->where('title', 'like', '%' . request()->q . '%');
+        })
+        ->latest()
+        ->paginate(10);
+
+   $medias->appends(['q' => request()->q]);
+
+   return inertia('Admin/Medias/Index', [
+       'medias' => $medias,
+    ]);
+
+
     }
 
     /**
@@ -23,8 +38,13 @@ class MediaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
+    {   
+        $events = Event::get();
+
+         return inertia('Admin/Medias/Create', [
+            'events' => $events
+        ]);
+
     }
 
     /**
@@ -35,7 +55,29 @@ class MediaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate request including file validation
+      $request->validate([
+        'title' => 'required|string',
+        'media' => 'required|',
+        'event_id' => 'required',
+    ]);
+
+    $image = $request->file('media');
+    if ($image) {
+        $image = $request->file('media')->storePublicly('/images');
+        // Proceed with storing or processing the uploaded file
+    };
+
+        Media::create([
+            'title' => $request->title,
+            'media' =>  $image,
+            'event_id' => $request->event_id,
+            
+        ]);
+    
+     //redirect
+     return redirect()->route('admin.medias.index');
+    
     }
 
     /**
@@ -46,7 +88,7 @@ class MediaController extends Controller
      */
     public function show($id)
     {
-        //
+     
     }
 
     /**
@@ -57,8 +99,15 @@ class MediaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $media = Media::findOrFail($id)->with('event')->first();
+        $event = Event::get();
+
+        return inertia('Admin/Medias/Edit', [
+            'media' => $media,
+            'events' => $event
+        ]);
     }
+       
 
     /**
      * Update the specified resource in storage.
@@ -69,7 +118,27 @@ class MediaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+          // Validate request including file validation
+      $request->validate([
+        'title' => 'required|string',
+        'event_id' => 'required',
+    ]);
+
+    $image = $request->file('media');
+    if ($image) {
+        $image = $request->file('media')->storePublicly('/images');
+        // Proceed with storing or processing the uploaded file
+    };
+
+        Media::where('id',$id)->update([
+            'title' => $request->title,
+            'media' =>  $image,
+            'event_id' => $request->event_id,
+        ]);
+    
+     //redirect
+     return redirect()->route('admin.medias.index');
+    
     }
 
     /**
@@ -80,6 +149,11 @@ class MediaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $media = Media::findOrFail($id);
+       
+        $media->delete();
+
+        //redirect
+        return redirect()->route('admin.medias.index');
     }
 }

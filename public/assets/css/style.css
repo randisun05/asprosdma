@@ -3587,7 +3587,7 @@ ul.rounded li::before {
    -webkit-box-shadow: none;
    box-shadow: none;
    height: 44px;
-   color: #a5a5a5;
+   color: #000000;
    font-size: 14px;
    position: relative;
    -webkit-transition: border .9s ease;
@@ -4220,3 +4220,36 @@ html{
 .buttonBar {
     display: none;
 }
+
+#generated-captcha {
+   text-decoration: line-through;
+   font-weight: bold;
+   text-align: center;
+   font-size: 30px;
+   background-image: url('/assets/images/bgcaptcha.jpg');
+   border-radius: 6px;
+   border: none; 
+   padding: 5px;
+   outline: none;
+   color: #1d1d1d;
+ }
+ #generated-captcha::before {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background: rgba(255, 255, 255, 0); /* Menambahkan lapisan semi-transparan */
+ }
+
+
+ #no-copy::before {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background: rgba(255, 255, 255, 0); /* Menambahkan lapisan semi-transparan */
+ }

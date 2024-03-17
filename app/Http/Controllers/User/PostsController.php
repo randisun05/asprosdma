@@ -160,16 +160,12 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-         
-      return $request;
-        $post = Post::findOrFail($id);
-   
-    // Validate request including file validation
-    $request->validate([
+        
+        // Validate request including file validation
+      $request->validate([
         'title' => 'required|string',
-        'body' => 'required',
-        'document1' => 'nullable|file|mimes:pdf|max:2048', // Dokumen opsional
-        'picture1' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Gambar opsional
+        'body' => 'required|',
+ 
     ]);
 
     $slug = strtolower(str_replace(' ', '-', $request->title));
@@ -185,35 +181,39 @@ class PostsController extends Controller
     if (count($words) > 50) {
         $excerpt .= '...';
     }
+    $today = Carbon::now()->format('Y-m-d H:i:s');
+
+    // Store the file using Laravel's file storage system
+    $document = $request->file('document');
+    if ($document) {
+        $document = $request->file('document')->storePublicly('/documents');
+        // Proceed with storing or processing the uploaded file
+    };
+
+    $image = $request->file('picture');
+    if ($image) {
+        $image = $request->file('picture')->storePublicly('/images');
+        // Proceed with storing or processing the uploaded file
+    };
     
-      // Store the file using Laravel's file storage system
-      $document = $request->file('document1');
-      if ($document) {
-          $document = $request->file('document')->storePublicly('/documents');
-          // Proceed with storing or processing the uploaded file
-      };
 
-  
-      $image = $request->file('picture1');
-      if ($image) {
-          $image = $request->file('picture')->storePublicly('/images');
-          // Proceed with storing or processing the uploaded file
-      };
-      
-  
-          $post->update([
-              'title' => $request->title,
-              'category_id' => $request->category,
-              'body' =>  $request->body,
-              'slug' => $slug,
-              'excerpt' => $excerpt,
-              'image' => $image,
-              'document' => $document,
-              
-          ]);
+        Post::where('id',$id)->update([
+            'title' => $request->title,
+            'category_id' => $request->category,
+            'body' =>  $request->body,
+            'slug' => $slug,
+            'excerpt' => $excerpt,
+            'image' => $image,
+            'document' => $document,
+            'publish_at' => $today,
+            'member_id' => auth()->guard('member')->user()->id,
+        ]);
 
-    //redirect
-    return redirect()->route('user.posts.index');
+    
+
+     //redirect
+     return redirect()->route('user.posts.index');
+
 
     }
 

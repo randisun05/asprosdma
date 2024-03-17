@@ -212,7 +212,7 @@
             const submit = () => {
 
                 //send data to server
-                Inertia.put(`/user/events/${props.event.id}`, {
+                Inertia.post(`/admin/events/${props.event.id}`, {
                    //data
                    title: form.title,
                     date: form.date,

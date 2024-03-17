@@ -54,8 +54,8 @@
                                         <td><p>Panitia {{ event.team }} orang</p>
                                         <p>Peserta{{ event.participant }} orang</p></td>
                                         <td class="text-center" >
-                                            <button v-if="event.status === 'approved'" @click.prevent="join(event.id)" class="btn btn-sm btn-success border-0 me-2"><i class="fa fa-sign-in" title="join"></i></button>
-                                            <select v-if="event.status === 'approved'" class="form-select mt-4" name="role" id="role" @change="handleRoleChange">
+                                            <button  @click.prevent="join(event.id)" class="btn btn-sm btn-success border-0 me-2"><i class="fa fa-sign-in" title="join"></i></button>
+                                            <select  class="form-select mt-4" name="role" id="role" @change="handleRoleChange">
                                                 <option value="Peserta">Peserta</option>
                                                 <option value="Panitia">Panitia</option>
                                             </select>

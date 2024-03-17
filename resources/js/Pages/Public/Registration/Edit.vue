@@ -34,7 +34,7 @@
                                  NIP
                         </span>
                         <div class="form-group bottom35 mt-1">
-                                <input type="text" class="form-control" v-model="form.nip" placeholder="Masukan NIP" maxlength="16" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                                <input type="text" class="form-control" v-model="form.nip" placeholder="Masukan NIP" maxlength="18" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                             <div v-if="errors.nip" class="alert alert-danger mt-2">
                                 {{ errors.nip }}
                             </div>
@@ -159,7 +159,7 @@
                                 Bukti Transfer   ( Bentuk File Image )
                         </span>
                         <div class="form-group bottom35 mt-1">
-                                <input type="file" class="form-control" @input="form.paid = $event.target.paid[0]">
+                                <input type="file" class="form-control"  @change="updateImage">
                             <div v-if="errors.paid" class="alert alert-danger mt-2">
                                     {{ errors.paid }}
                                 </div>
@@ -174,7 +174,7 @@
                                  Info
                         </span>
                         <div class="form-group bottom35 mt-1">
-                                <input type="text" class="form-control" v-model="form.info" placeholder="Informasi">
+                                <input type="text" class="form-control" v-model="form.info" disabled>
                             <div v-if="errors.info" class="alert alert-danger mt-2">
                                 {{ errors.info }}
                             </div>
@@ -248,8 +248,8 @@
                 agency: props.register.agency,
                 position: props.register.position,
                 level: props.register.level,
-                document_jab: props.register.document_jab,
-                paid: props.register.paid,
+                document_jab: null,
+                paid: null,
                 info: props.register.info,
 
             });
@@ -258,7 +258,7 @@
             const submit = () => {
 
                 //send data to server
-                Inertia.post('/registration/store', {
+                Inertia.post(`/registration/confirm/${props.register.id}`, {
 
                     //data
                     nip: form.nip,
@@ -270,7 +270,6 @@
                     level: form.level,
                     document_jab: form.document_jab,
                     paid: form.paid,
-                    info: props.register.info,
 
                 } ,{
                     onSuccess: () => {

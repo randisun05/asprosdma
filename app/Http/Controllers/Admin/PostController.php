@@ -174,7 +174,60 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+       // Validate request including file validation
+      $request->validate([
+        'title' => 'required|string',
+        'body' => 'required|',
+        'document' => 'file|mimes:pdf|max:2048|nullable',
+        'image' => '|image|mimes:jpeg,png,jpg,gif,svg|max:2048|nullable',
+    ]);
+
+    $slug = strtolower(str_replace(' ', '-', $request->title));
+    $body = $request->body;
+
+    // Ambil 100 kata pertama dari body
+    // Hapus tag HTML dari body
+    $bodyWithoutTags = strip_tags($body);
+    $words = str_word_count($bodyWithoutTags, 1);
+    $excerpt = implode(' ', array_slice($words, 0, 50));
+
+    // Tambahkan "..." jika body memiliki lebih dari 100 kata
+    if (count($words) > 50) {
+        $excerpt .= '...';
+    }
+    $today = Carbon::now()->format('Y-m-d H:i:s');
+
+    // Store the file using Laravel's file storage system
+    $document = $request->file('document');
+    if ($document) {
+        $document = $request->file('document')->storePublicly('/documents');
+        // Proceed with storing or processing the uploaded file
+    };
+
+    $image = $request->file('picture');
+    if ($image) {
+        $image = $request->file('picture')->storePublicly('/images');
+        // Proceed with storing or processing the uploaded file
+    };
+    
+
+        Post::where('id',$id)->update([
+            'title' => $request->title,
+            'category_id' => $request->category,
+            'body' =>  $request->body,
+            'slug' => $slug,
+            'excerpt' => $excerpt,
+            'image' => $image,
+            'document' => $document,
+            'publish_at' => $today,
+            'member_id' => 1,
+            'status' => 'submission',
+        ]);
+
+    
+
+     //redirect
+     return redirect()->route('admin.posts.index');
     }
 
     /**

@@ -19,7 +19,7 @@ Route::get('/', function () {
     return view('Index', [
         // Add any data you want to pass to the view here
     ]);
-});
+})->name('/');
 
 Route::get('/email', function () {
     return view('Emails.Registration', [
@@ -37,24 +37,29 @@ Route::prefix('admin')->group(function() {
     Route::group(['middleware' => ['auth']], function () {
         //route dashboard
         Route::get('/dashboard', App\Http\Controllers\Admin\DashboardController::class)->name('admin.dashboard');
+        Route::resource('/registration', \App\Http\Controllers\Admin\RegistrationController::class, ['as' => 'admin']);
         Route::get('/registration/group', [\App\Http\Controllers\Admin\RegistrationController::class, 'group'])->name('admin.registration.group');
         Route::get('/registration/group/{id}/done', [\App\Http\Controllers\Admin\RegistrationController::class, 'doneGroup'])->name('admin.registration.group.done');
         Route::get('/registration/group/{id}/confirm', [\App\Http\Controllers\Admin\RegistrationController::class, 'confirmGroup'])->name('admin.registration.group.confirm');
         Route::get('/registration/group/{id}/reject', [\App\Http\Controllers\Admin\RegistrationController::class, 'rejectGroup'])->name('admin.registration.group.reject');
         Route::post('/registration/import', [\App\Http\Controllers\Admin\RegistrationController::class, 'importStore'])->name('admin.registration.import.store');
         Route::get('/registration/import', [\App\Http\Controllers\Admin\RegistrationController::class, 'import'])->name('admin.registration.import');
-        Route::resource('/registration', \App\Http\Controllers\Admin\RegistrationController::class, ['as' => 'admin']);
         Route::get('/registration/{id}/approve', [\App\Http\Controllers\Admin\RegistrationController::class, 'approve'])->name('admin.registration.approve');
         Route::get('/registration/{id}/confirm', [\App\Http\Controllers\Admin\RegistrationController::class, 'confirm'])->name('admin.registration.confirm');
-        Route::get('/registration/{id}/paid', [\App\Http\Controllers\Admin\RegistrationController::class, 'paid'])->name('admin.registration.paid');
+        Route::post('/registration/{id}/paid', [\App\Http\Controllers\Admin\RegistrationController::class, 'paid'])->name('admin.registration.paid');
         Route::get('/registration/{id}/reject', [\App\Http\Controllers\Admin\RegistrationController::class, 'reject'])->name('admin.registration.reject');
+        Route::post('/posts/{id}', [\App\Http\Controllers\Admin\PostController::class, 'update'])->name('admin.posts.update');
         Route::resource('/posts', \App\Http\Controllers\Admin\PostController::class, ['as' => 'admin']);
         Route::get('/posts/{id}/approve', [\App\Http\Controllers\Admin\PostController::class, 'approve'])->name('admin.posts.approve');
         Route::get('/posts/{id}/return', [\App\Http\Controllers\Admin\PostController::class, 'return'])->name('admin.posts.return');
         Route::get('/posts/{id}/reject', [\App\Http\Controllers\Admin\PostController::class, 'reject'])->name('admin.posts.reject');
         Route::get('/posts/{id}/cancel', [\App\Http\Controllers\Admin\PostController::class, 'cancel'])->name('admin.posts.cancel');
+        Route::post('/events/{id}', [\App\Http\Controllers\Admin\EventController::class, 'update'])->name('admin.events.update');
         Route::resource('/events', \App\Http\Controllers\Admin\EventController::class, ['as' => 'admin']);
+        Route::post('/medias/{id}', [\App\Http\Controllers\Admin\MediaController::class, 'update'])->name('admin.medias.update');
         Route::resource('/medias', \App\Http\Controllers\Admin\MediaController::class, ['as' => 'admin']);
+        Route::post('/merchans/{id}', [\App\Http\Controllers\Admin\MerchanController::class, 'update'])->name('admin.merchans.update');
+        Route::resource('/merchans', \App\Http\Controllers\Admin\MerchanController::class, ['as' => 'admin']);
     });
 });
 
@@ -84,6 +89,7 @@ Route::prefix('user')->group(function() {
         Route::get('/profile', [\App\Http\Controllers\User\DataProfileController::class, 'index'])->name('user.profile');
         Route::get('/profile/edit', [\App\Http\Controllers\User\DataProfileController::class, 'edit'])->name('user.profile.edit');
         Route::post('/profile/edit', [\App\Http\Controllers\User\DataProfileController::class, 'update'])->name('user.profile.update');
+        Route::post('/posts/{id}', [\App\Http\Controllers\User\PostsController::class, 'update'])->name('user.posts.update');
         Route::resource('/posts', \App\Http\Controllers\User\PostsController::class, ['as' => 'user']);
         Route::get('/posts/{id}/submission', [\App\Http\Controllers\User\PostsController::class, 'submission'])->name('user.posts.submission');
         Route::resource('/events', \App\Http\Controllers\User\EventController::class, ['as' => 'user']);
@@ -100,8 +106,9 @@ Route::post('/registration/store', [\App\Http\Controllers\Public\RegistrationCon
 Route::get('/registration/success', [\App\Http\Controllers\Public\RegistrationController::class, 'index'])->name('registration.success');
 Route::get('/registration/paid/{id}', [\App\Http\Controllers\Public\RegistrationController::class, 'show'])->name('registration.paid.show');
 Route::get('/registration/confirm/{id}/edit', [\App\Http\Controllers\Public\RegistrationController::class, 'edit'])->name('registration.confirm.edit');
-Route::post('/registration/paid/{id}/success', [\App\Http\Controllers\Public\RegistrationController::class, 'paid'])->name('registration.paid.success');
-Route::get('/registration/confirm/{id}/success', [\App\Http\Controllers\Public\RegistrationController::class, 'update'])->name('registration.confirm.success');
+Route::post('/registration/confirm/{id}', [\App\Http\Controllers\Public\RegistrationController::class, 'update'])->name('registration.confirm.update');
+Route::post('/registration/paid/{id}', [\App\Http\Controllers\Public\RegistrationController::class, 'paid'])->name('registration.paid.success');
+// Route::get('/registration/confirm/{id}/success', [\App\Http\Controllers\Public\RegistrationController::class, 'update'])->name('registration.confirm.success');
 Route::get('/registration/success', [\App\Http\Controllers\Public\RegistrationController::class, 'index'])->name('registration.success');
 Route::get('/registration/group', [\App\Http\Controllers\Public\RegistrationController::class, 'group'])->name('registration.group');
 Route::post('/registration/group', [\App\Http\Controllers\Public\RegistrationController::class, 'groupStore'])->name('registration.group.store');
@@ -119,6 +126,10 @@ Route::get('/bidang-sumber-pendanaan-organisasi', [\App\Http\Controllers\Public\
 Route::get('/berita', [\App\Http\Controllers\Public\PublicController::class, 'berita'])->name('berita');
 Route::get('/artikel', [\App\Http\Controllers\Public\PublicController::class, 'artikel'])->name('artikel');
 Route::get('/cerita', [\App\Http\Controllers\Public\PublicController::class, 'cerita'])->name('cerita');
+Route::get('/events/{id}', [\App\Http\Controllers\Public\EventsController::class, 'show'])->name('event.show');
+Route::resource('/events', \App\Http\Controllers\Public\EventsController::class);
+Route::resource('/berita', \App\Http\Controllers\Public\PostsController::class);
+Route::resource('/merchans', \App\Http\Controllers\Public\MerchansController::class);
 
 
 Route::get('/documents/{filename}', function ($filename) {

@@ -4,20 +4,37 @@
         <title>Registrasi Keanggotaan Aspro</title>
     </Head>
 
-<section id="registration" class="padding">
+ <!--page Header-->
+ <section class="page-header parallaxie padding_top center-block">
+   <div class="container">
+      <div class="row">
+         <div class="col-sm-12">
+            <div class="page-titles text-center">
+               <h2 class="whitecolor font-light bottom30"></h2>
+               <ul class="breadcrumb justify-content-center">
+                 <li class="breadcrumb-item"><h3>Konfirmasi Pembayaran</h3></li>
+               
+               </ul>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+<!--page Header ends--> 
+
+<section id="registration" class="">
    <div class="container">
       <div class="row d-flex justify-content-center">
          <div class="col-lg-12 col-md-12 col-sm-10">
-            <div class="bglight logincontainer">
-               <h3 class="darkcolor bottom35 text-center">Konfirmasi Pembayaran</h3>
-               <form @submit.prevent="submit" class="getin_form border-form" id="paid" enctype="multipart/form-data">
+            <div class="mt-4">
+               <form @submit.prevent="submit" class="getin_form border-form" id="paid" >
                   <div class="row">
                     <div class="col-md-6 col-sm-6">
                         <span class="ms-4">
                                  NIP
                         </span>
                         <div class="form-group bottom35 mt-1">
-                                <input type="text" class="form-control" v-model="form.nip">
+                                <input type="text" class="form-control" v-model="form.nip" disabled>
                             <div v-if="errors.nip" class="alert alert-danger mt-2">
                                 {{ errors.nip }}
                             </div>
@@ -29,7 +46,7 @@
                                  Nama
                         </span>
                         <div class="form-group bottom35 mt-1">
-                                <input type="text" class="form-control" v-model="form.name">
+                                <input type="text" class="form-control" v-model="form.name" disabled>
                             <div v-if="errors.name" class="alert alert-danger mt-2">
                                 {{ errors.name }}
                             </div>
@@ -38,11 +55,11 @@
                      
                      <div class="col-md-6 col-sm-6">
                         <span class="ms-4">
-                                 Bukti Transfer   ( Bentuk File Image )
+                                 Bukti Transfer   ( Bentuk File Image/Pdf )
                         </span>
                         <div class="form-group bottom35 mt-1">
                             <div class="input-group">
-                                <input type="file" class="form-control" @change="updateImage">
+                                <input type="file" class="form-control" @change="updateImage" placeholder="Masukan Buti Transfer" accept=".jpg, .pdf, .jpeg, .png, .pdf, .JPG">
 
                             </div>
                             <div v-if="errors.paid" class="alert alert-danger mt-2">
@@ -71,7 +88,7 @@
 
 <script>
     //import layout
-    import LayoutAuth from '../../../Layouts/Auth.vue';
+    import LayoutWebsite from '../../../Layouts/Website.vue';
  
     //import Head from Inertia
     import {
@@ -95,7 +112,7 @@
     export default {
 
         //layout
-        layout: LayoutAuth,
+        layout: LayoutWebsite,
 
         //register component
         components: {
@@ -118,18 +135,17 @@
             const form = reactive({
                 nip: props.register.nip,
                 name: props.register.name,
-                paid: null,
+                paid: '',
 
             });
 
             //submit method
             const submit = () => {
-            // Creating FormData object to send file
-            let formData = new FormData();
-            formData.append('paid', form.paid);
 
             // Sending data using Inertia.post
-            Inertia.post(`/registration/paid/${props.register.id}/success`, formData, {
+            Inertia.post(`/registration/paid/${props.register.id}`, {
+                paid : form.paid
+            }, {
                 onSuccess: () => {
                     Swal.fire({
                         title: 'Success!',
@@ -142,7 +158,7 @@
             });
         }
 
-        const updatePaid = (event) => {
+        const updateImage = (event) => {
             form.paid = event.target.files[0];
         };
 
@@ -151,7 +167,7 @@
             return {
                 form,
                 submit,
-                updatePaid 
+                updateImage 
             };
 
         }

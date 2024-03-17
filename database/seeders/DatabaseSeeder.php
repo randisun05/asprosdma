@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\User;
+use App\Models\Event;
 use App\Models\Member;
 use App\Models\Category;
 use App\Models\ItemProfile;
@@ -107,6 +108,20 @@ class DatabaseSeeder extends Seeder
 
         Category::create([
             'title'      => 'Lainnya',
+        ]);
+
+        Event::create([
+            'title'  => 'Media',
+            'slug'  => 'Media',
+            'body' => 'Media',
+            'date' => '2024-03-16',
+            'enddate' => '2024-03-16',
+            'place' => 'Media',
+            'link' => 'Media',
+            'team' => '0',
+            'participant' => '0',
+            'image' => '',
+            'status' => 'media',
         ]);
 
 

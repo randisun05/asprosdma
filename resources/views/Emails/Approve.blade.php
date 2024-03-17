@@ -53,7 +53,7 @@
                 <li>username : {{ $data['nip'] }}</li>
                 <li>password : {{ $data['password'] }}</li>
             <p>untuk diperhatikan!, informasi akun ini bersifat rahasia dan menjadi tanggung jawab pemilik akun.</p>
-            <p>Jika anda mendapatkan kendala saat login, silakan <a href="/#sapa-kita"><u>hubungi kami.</u></a></p>
+            <p>Jika anda mendapatkan kendala saat login, silakan <a href="https://asprosdma.id/kontak-kami"><u>hubungi kami.</u></a></p>
             
             <p>Demikian informasi dari kami.</p>
             <p>Terimakasih,</p>

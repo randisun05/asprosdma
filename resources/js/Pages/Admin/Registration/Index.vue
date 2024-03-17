@@ -69,9 +69,9 @@
                                         <td class="text-center"><a :href="getDocumentUrl(register.document_jab)" target="_blank" class="badge bg-primary">View</a></td>
                                         <td class="text-center">
                                             <span v-if="register.status === 'approved'" class="badge bg-success">{{ register.status }}</span>
-                                            <span v-else-if="register.status === 'confirm'" class="badge bg-warning">{{ register.status }}</span>
+                                            <span v-else-if="register.status === 'confirm'" :href="getImageUrl(register.paid)" target="_blank" class="badge bg-warning">{{ register.status }}</span>
                                             <span v-else-if="register.status === 'rejected'" class="badge bg-danger">{{ register.status }}</span>
-                                            <a v-if="register.status === 'paid'" :href="getImageUrl(register.paid)" target="_blank" class="badge bg-primary">paid</a>
+                                            <a v-if="register.paid" :href="getImageUrl(register.paid)" target="_blank" class="badge bg-primary">paid</a>
                                             <span v-else-if="register.status === 'submission'" class="badge bg-secondary">{{ register.status }}</span>
                                         </td>
             
@@ -79,7 +79,7 @@
                                             <Link :href="`/admin/registration/${register.id}`" class="btn btn-sm btn-primary border-0 shadow me-2" type="button"><i class="fa fa-eye fa-lg" aria-hidden="true" title="lihat detail"></i></Link>
                                             <button v-if="register.status !== 'approved' && register.status !== 'rejected'" @click="handleApprove(register.id)" class="btn btn-sm btn-success border-0 shadow me-2">
                                             <i class="fa fa-check-circle fa-lg" aria-hidden="true" title="approve"></i></button>
-                                            <button v-if="register.status !== 'approved'" @click="handleConfirm(register.id)" class="btn btn-sm btn-warning border-0 shadow me-2"><i class="fa fa-question-circle fa-lg" aria-hidden="true" title="confirm"></i></button>
+                                            <!-- <button v-if="register.status !== 'approved'" @click="handleConfirm(register.id)" class="btn btn-sm btn-warning border-0 shadow me-2"><i class="fa fa-question-circle fa-lg" aria-hidden="true" title="confirm"></i></button> -->
                                             <button v-if="register.status !== 'approved' && register.status !== 'rejected'" @click="handleReject(register.id)" class="btn btn-sm btn-danger border-0 shadow me-2"><i class="fa fa-times-circle fa-lg" aria-hidden="true" title="reject"></i></button>
                                         </td>
                                     </tr>

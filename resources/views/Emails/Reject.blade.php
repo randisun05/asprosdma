@@ -51,7 +51,7 @@
             <p>Dear <strong>{{ $data['name'] }}</strong>,</p>
             <p>Setelah kami verifikasi data anda tidak sesuai.</p>
             <p>Dengan berat hati kami tidak bisa memproses usul registrasi anda.</p>
-            <p>Jika anda mendapatkan kendala silakan <a href="/#sapa-kita"><u>hubungi kami.</u></a></p>
+            <p>Jika anda mendapatkan kendala silakan <a href="https://asprosdma.id/kontak-kami"><u>hubungi kami.</u></a></p>
 
             <p>Demikian informasi dari kami.</p>
             <p>Terimakasih,</p>

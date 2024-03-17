@@ -13,77 +13,85 @@
                         <hr>
                         <div class="row">
                             <div class="col-md-6 col-sm-6">
-                                <span class="ms-4">
+                                <span >
                                         NIP
                                 </span>
                                 <div class="form-group bottom35 mt-1">
-                                        <input type="text" class="form-control" v-model="form.nip">
+                                        <input type="text" class="form-control" v-model="form.nip" disabled>
                                 </div>
                             </div>
 
                             <div class="col-md-6 col-sm-6">
-                                <span class="ms-4">
+                                <span >
                                         Nama
                                 </span>
                                 <div class="form-group bottom35 mt-1">
-                                        <input type="text" class="form-control" v-model="form.name">
+                                        <input type="text" class="form-control" v-model="form.name" disabled>
                                 </div>
                             </div>
                         
                             <div class="col-md-6 col-sm-6">
-                                <span class="ms-4">
+                                <span>
                                         Email
                                 </span>
                                 <div class="form-group bottom35 mt-1">
-                                        <input type="email" class="form-control" v-model="form.email">
+                                        <input type="email" class="form-control" v-model="form.email" disabled>
                                 </div>
                             </div>
 
                             <div class="col-md-6 col-sm-6">
-                                <span class="ms-4">
+                                <span >
                                         Nomor Kontak
                                 </span>
                                 <div class="form-group bottom35 mt-1">
-                                        <input type="text" class="form-control" v-model="form.contact">
+                                        <input type="text" class="form-control" v-model="form.contact" disabled>
                                 </div>
                             </div>
 
                             <div class="col-md-6 col-sm-6">
-                                <span class="ms-4">
+                                <span >
                                         Instansi
                                 </span>
                                 <div class="form-group bottom35 mt-1">
-                                        <input type="text" class="form-control" v-model="form.agency">
+                                        <input type="text" class="form-control" v-model="form.agency" disabled>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-sm-6">
+                                <span >
+                                        Info
+                                </span>
+                                <div class="form-group bottom35 mt-1">
+                                        <input type="text" class="form-control" v-model="form.info">
                                 </div>
                             </div>
 
                             <div class="col-md-3 col-sm-3">
-                                <span class="ms-4">
+                                <span >
                                         Jabatan
                                 </span>
                                 <div class="form-group bottom35 mt-1">
-                                        <input type="text" class="form-control" v-model="form.position">
+                                        <input type="text" class="form-control" v-model="form.position" disabled>
                                 </div>
                             </div>
                      
                             <div class="col-md-3 col-sm-3">
-                                <span class="ms-4">
+                                <span >
                                         Jenjang
                                 </span>
-                                <div class="form-group bottom35 mt-1">
+                                <div class="form-group bottom35">
                                     <div class="form-group bottom35 mt-1">
-                                        <input type="text" class="form-control" v-model="form.level">
+                                        <input type="text" class="form-control" v-model="form.level" disabled>
                                 </div>
                             </div>  
                         </div>
-                            <div class="col-md-6 col-sm-6">
+                            <div class="col-md-6 col-sm-6 mt-4">
                                 <a :href="getDocumentUrl(form.document_jab)" target="_blank" class="badge bg-primary fs-5 border-0 shadow me-4 fs-5" type="button">
                                     View SK Jabatan
                                 </a>
                                 <span v-if="register.status === 'approved'" class="badge bg-success fs-5">Status {{ register.status }}</span>
                                 <span v-else-if="register.status === 'confirm'" class="badge bg-warning fs-5">Status  {{ register.status }}</span>
                                 <span v-else-if="register.status === 'rejected'" class="badge bg-danger fs-5">Status  {{ register.status }}</span>
-                                <span v-else-if="register.status === 'paid'" class="badge bg-primary fs-5">Status  {{ register.status }}</span>
                                 <span v-else-if="register.status === 'submission'" class="badge bg-secondary fs-5">Status  {{ register.status }}</span>
                                 <a v-if="register.paid" :href="getImageUrl(register.paid)" target="_blank" class="badge bg-primary fs-5 ms-4">Paid</a>
                             </div>
@@ -155,6 +163,7 @@
             status: props.register.status,
             paid: props.register.paid,
             document_jab: props.register.document_jab,
+            info: props.register.info,
         });
 
         const handleApprove = (id) => {
@@ -196,7 +205,9 @@
                 .then((result) => {
                     if (result.isConfirmed) {
 
-                        Inertia.get(`/admin/registration/${id}/confirm`);
+                        Inertia.get(`/admin/registration/${id}/confirm`,{
+                            'info' : form.info
+                        });
 
                         Swal.fire({
                             title: 'Success!',
