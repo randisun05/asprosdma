@@ -182,4 +182,11 @@ class PublicController extends Controller
             'title' => "Maintenance",
         ]);
     }
+
+    public function kontak()
+    {
+        return inertia('Public/Website/About/Kontak-kami', [
+            'title' => "Kontak Kami",
+        ]);
+    }
 }

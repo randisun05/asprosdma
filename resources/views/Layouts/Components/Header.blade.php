@@ -39,8 +39,8 @@
                <li class="nav-item dropdown">
                   <a class="nav-link pagescroll dropdown-toggle" data-bs-toggle="dropdown" href="#publikasi" role="button" aria-expanded="false">Publikasi</a>
                   <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/events">Kegiatan</a></li>
                         <li><a class="dropdown-item" href="/berita">Berita</a></li>
-                        <li><a class="dropdown-item" href="/artikel">Artikel</a></li>
                         <li><a class="dropdown-item" href="/cerita">Cerita</a></li>
                      </ul>
                </li>
@@ -48,11 +48,11 @@
                   <a class="nav-link pagescroll dropdown-toggle" data-bs-toggle="dropdown" href="#keanggotaan" role="button" aria-expanded="false">Keanggotaan</a>
                   <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/registration">Daftar</a></li>
-                        <li><a class="dropdown-item" href="/login">Masuk</a></li>
+                        <li><a class="dropdown-item" href="/user/login">Masuk</a></li>
                      </ul>
                </li>
                <li class="nav-item">
-                  <a class="nav-link pagescroll" href="/#sapa-kita">Kontak Kami</a>
+                  <a class="nav-link pagescroll" href="/kontak-kami">Kontak Kami</a>
                </li>
             </ul>
          </div>
@@ -125,10 +125,10 @@
                         <div class="collapse" id="publikasi">
                            <ul class="navbar-nav ms-4">
                                  <li class="nav-item mt-0">
-                                    <a class="nav-link pagescroll mt-0" href="/berita" style="font-size: 1rem;">berita</a>
+                                    <a class="nav-link pagescroll mt-0" href="/events" style="font-size: 1rem;">Kegiatan</a>
                                  </li>
                                  <li class="nav-item mt-0">
-                                    <a class="nav-link pagescroll" href="/artikel" style="font-size: 1rem;">Artikel</a>
+                                    <a class="nav-link pagescroll" href="/berita" style="font-size: 1rem;">Berita</a>
                                  </li>
                                  <li class="nav-item mt-0">
                                     <a class="nav-link pagescroll" href="/cerita" style="font-size: 1rem;">Cerita</a>
@@ -142,17 +142,17 @@
                         <div class="collapse" id="anggota">
                            <ul class="navbar-nav ms-4">
                                  <li class="nav-item mt-0">
-                                    <a class="nav-link pagescroll mt-0" href="/daftar" style="font-size: 1rem;">Daftar</a>
+                                    <a class="nav-link pagescroll mt-0" href="/registration" style="font-size: 1rem;">Daftar</a>
                                  </li>
                                  <li class="nav-item mt-0">
-                                    <a class="nav-link pagescroll" href="/masuk" style="font-size: 1rem;">Masuk</a>
+                                    <a class="nav-link pagescroll" href="/user/login" style="font-size: 1rem;">Masuk</a>
                                  </li>
                            </ul>
                         </div>
                      </li>
 
                      <li class="nav-item">
-                        <a class="nav-link pagescroll" href="#kontak">Kontak Kami</a>
+                        <a class="nav-link pagescroll" href="/kontak-kami">Kontak Kami</a>
                      </li>
             </ul>
          </nav>

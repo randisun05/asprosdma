@@ -123,6 +123,7 @@ Route::get('/bidang-hukum-dan-advokasi', [\App\Http\Controllers\Public\PublicCon
 Route::get('/bidang-keanggotaan-dan-organisasi', [\App\Http\Controllers\Public\PublicController::class, 'keanggotaan'])->name('keanggotaan');
 Route::get('/bidang-pengembangan-kapasitas-insani', [\App\Http\Controllers\Public\PublicController::class, 'pengembangan'])->name('pengembangan');
 Route::get('/bidang-sumber-pendanaan-organisasi', [\App\Http\Controllers\Public\PublicController::class, 'sumberPendanaan'])->name('sumberPendanaan');
+Route::get('/kontak-kami', [\App\Http\Controllers\Public\PublicController::class, 'kontak'])->name('kontak');
 Route::get('/berita', [\App\Http\Controllers\Public\PublicController::class, 'berita'])->name('berita');
 Route::get('/artikel', [\App\Http\Controllers\Public\PublicController::class, 'artikel'])->name('artikel');
 Route::get('/cerita', [\App\Http\Controllers\Public\PublicController::class, 'cerita'])->name('cerita');
