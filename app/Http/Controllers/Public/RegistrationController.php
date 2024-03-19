@@ -102,7 +102,7 @@ class RegistrationController extends Controller
     $token = $registration->id;
     
      //redirect
-     return back()->route('registration.success')->with([
+     return redirect()->route('registration.success')->with([
         'token' => $token,
         'registration' => $registration
     ]);
