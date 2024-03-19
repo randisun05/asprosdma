@@ -110,15 +110,17 @@
                             </div>
                      </div>
 
-                    <div class="col-md-5 col-sm-5 ms-2 me-5">
-                        <input class="form-check-input" type="checkbox" id="agreeTerms" v-model="form.term" true-value="1" false-value="0">
-                            <label class="form-check-label ms-2" for="agreeTerms">
-                                Semua yang diusulkan menyetujui peraturan organisasi.
-                            </label>
-                            <div v-if="errors.term" class="col-md-4 alert-danger mt-2">
+                     <div class="col-md-5 col-sm-5 ms-2 me-5">
+                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                <input class="form-check-input" type="checkbox" id="agreeTerms" v-model="form.term" true-value="1" false-value="0">
+                                    <label class="form-check-label ms-2" for="agreeTerms">
+                                        Perwakilan yang diusulkan menyetujui peraturan organisasi.
+                                    </label>
+                            </button>
+                            <div v-if="errors.term" class="col-md-4 alert alert-danger mt-2">
                                 {{ errors.term }}
                             </div>
-                    </div>
+                        </div>      
                     
                      <div class="col-md-3 col-sm-3 ms-5">
                             <div class="form-group bottom35">
@@ -152,6 +154,52 @@
       </div>
    </div>
 </section>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Peraturan Organisasi</h5>
+      </div>
+      <div class="modal-body">
+        <p>Sesuai dalam ART Aspro SDMA:</p>
+        <p>Pasal 18 Kewajiban dan Hak Anggota</p>
+                <p>(1) Anggota Aspro SDMA berkewajiban untuk:</p>
+                <ol type="a">
+                    <li>Menjaga dan menjunjung tinggi martabat serta kehormatan Aspro SDMA;</li>
+                    <li>Mematuhi Anggaran Dasar, Anggaran Rumah Tangga, serta peraturan keputusan organisasi;</li>
+                    <li>Mematuhi kode etik dan kode perilaku Aspro SDMA;</li>
+                    <li>Berpartisipasi aktif dalam kegiatan Aspro SDMA; dan</li>
+                    <li>Membayar iuran anggota bagi Anggota Biasa dan Luar Biasa.</li>
+                </ol>
+                <p>(2) Hak Anggota Biasa:</p>
+                <ul>
+                    <li>Memperoleh layanan organisasi;</li>
+                    <li>Memperoleh hak keterbukaan informasi terkait operasional organisasi;</li>
+                    <li>Memilih dan dipilih sebagai pengurus; dan</li>
+                    <li>Memberikan masukan dan saran kepada pengurus.</li>
+                </ul>
+                <p>(3) Hak Anggota Luar Biasa:</p>
+                <ul>
+                    <li>Memperoleh layanan organisasi;</li>
+                    <li>Memberikan masukan dan saran kepada pengurus;</li>
+                    <li>Memilih pengurus.</li>
+                </ul>
+                <p>(4) Hak Anggota Kehormatan:</p>
+                <ul>
+                    <li>Memperoleh layanan organisasi;</li>
+                    <li>Memberikan masukan dan saran kepada pengurus.</li>
+                </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="checkbox" class="btn btn-primary" data-bs-dismiss="modal">Saya Setuju</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
 </template>

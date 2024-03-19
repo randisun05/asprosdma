@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\instansi;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\AssignOp\Pow;
@@ -28,7 +29,8 @@ class PostsController extends Controller
         ->latest()
         ->paginate(10);
 
-        
+       
+
 
         //append query string to pagination links
         $posts->appends(['q' => request()->q]);
@@ -36,6 +38,7 @@ class PostsController extends Controller
        
         return inertia('User/Posts/Index', [
             'posts' => $posts,
+            
          ]);
     }
 
@@ -46,10 +49,10 @@ class PostsController extends Controller
      */
     public function create()
     {
-       
+        
         $categories = Category::get();
         return inertia('User/Posts/Create', [
-            'categories' => $categories
+            'categories' => $categories,
         ]);
     }
 

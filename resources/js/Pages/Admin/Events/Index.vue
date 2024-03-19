@@ -78,9 +78,26 @@
     //import layout
     import LayoutAdmin from '../../../Layouts/Admin.vue';
 
+    //import component pagination
+    import Pagination from '../../../Components/Pagination.vue';
+
+    //import Heade and Link from Inertia
+    import {
+        Head,
+        Link
+    } from '@inertiajs/inertia-vue3';
+
+    //import ref from vue
+    import {
+        ref, reactive
+    } from 'vue';
+
+    //import inertia adapter
+    import { Inertia } from '@inertiajs/inertia';
 
     //import sweet alert2
     import Swal from 'sweetalert2';
+
 
     export default {
         //layout

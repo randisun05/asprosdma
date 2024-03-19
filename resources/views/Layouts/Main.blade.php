@@ -43,6 +43,7 @@
 @include('Layouts.Components.Slider')
 @include('Layouts.Components.About')
 @include('Layouts.Components.RegistrationFlow')
+@include('Layouts.Components.Popup')
 @include('Layouts.Components.Registration')
 @include('Layouts.Components.Program')
 @include('Layouts.Components.Media')

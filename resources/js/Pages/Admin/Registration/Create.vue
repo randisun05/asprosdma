@@ -64,13 +64,26 @@
                      <div class="col-md-6 col-sm-6">
                         <label for="agency" class="ms-4">Instansi</label>
                         <div class="form-group bottom35 mt-1">
-                            <input type="text" class="form-control" v-model="form.agency" @input="searchAgencies" placeholder="Masukkan nama instansi" />
-                            <ul v-if="form.agency && searchResults.length" class="list-group" style="position: absolute; width: 100%; z-index: 999; overflow-y: auto; max-height: 200px;">
-                                <div class="col-md-4 col-sm-4">
-                                <li class="list-group-item" v-for="(result, index) in searchResults" :key="index" @click="selectAgency(result)">{{ result }}</li>
+                            <div class="position-relative" ref="dropdownWrapper">
+                                <div class="form-group mt-1">
+                                <input type="text" class="form-control" placeholder="Pilih Instansi" v-model="form.agency" @click="toggleSearch" readonly>
                                 </div>
-                            </ul>
-                            <div v-if="errors.agency" class="alert alert-danger mt-2">{{ errors.agency }}</div>
+                                <div v-if="showDropdown" class="dropdown-menu position-absolute w-100">
+                                <input type="text" class="form-control mb-2" placeholder="Cari Instansi" v-model="searchInstansi">
+                                <div class="dropdown-item-list" v-if="filteredInstansis.length > 0">
+                                    <button v-for="(instansi, index) in filteredInstansis" :key="index" class="dropdown-item" @click="selectInstansi(instansi)">
+                                    {{ instansi.title }}
+                                    </button>
+                                </div>
+                                <template v-else>
+                                    <div class="dropdown-item disabled">Instansi tidak ditemukan</div>
+                                </template>
+                                
+                                </div>
+                            </div>
+                                <div v-if="errors.agency" class="alert alert-danger mt-2">
+                                {{ errors.agency }}
+                                </div>
                         </div>
                     </div>
 
@@ -190,6 +203,51 @@
 
     export default {
 
+        data() {
+                    return {
+                    searchInstansi: '',
+                    showDropdown: false
+                    };
+                },
+
+                // computed property to filter instansis based on search input
+                computed: {
+                    filteredInstansis() {
+                    return this.instansis.filter(instansi =>
+                        instansi.title.toLowerCase().includes(this.searchInstansi.toLowerCase())
+                    );
+                    }
+                },
+
+                methods: {
+                    // method to toggle dropdown visibility
+                    toggleSearch() {
+                    this.showDropdown = !this.showDropdown;
+                    if (this.showDropdown) {
+                        // Menambahkan event listener ke elemen body
+                        document.body.addEventListener('click', this.closeDropdownOutside);
+                    } else {
+                        // Menghapus event listener dari elemen body
+                        document.body.removeEventListener('click', this.closeDropdownOutside);
+                    }
+                    },
+
+                    // method to close dropdown when clicked outside
+                    closeDropdownOutside(event) {
+                    if (!this.$refs.dropdownWrapper.contains(event.target)) {
+                        this.showDropdown = false;
+                        document.body.removeEventListener('click', this.closeDropdownOutside);
+                    }
+                    },
+
+                    // method to select an instansi from dropdown
+                    selectInstansi(instansi) {
+                    this.form.agency = instansi.title;
+                    this.searchInstansi = ''; // reset search input after selection
+                    this.showDropdown = false; // hide dropdown after selection
+                    }
+                },
+
         //layout
         layout: LayoutAdmin,
 
@@ -202,7 +260,8 @@
         //props
         props: {
             errors: Object,
-            session: Object
+            session: Object,
+            instansis: Array
         },
         
         //define composition API
@@ -222,35 +281,11 @@
 
             });
 
-             // Define searchResults reactive variable to store search results
-             const searchResults = reactive([]);
-            // Method to search agencies based on input
-
-                const searchAgencies = async () => {
-                            try {
-                            const response = await fetch('https://api.sheety.co/6be80dfe79437b6dcf36a18e88b21c5b/permintaanNoSertifikat/instansi');
-                            const data = await response.json();
-                            if (data && data.instansi) {
-                                // Extract only the name of the institution
-                                const names = data.instansi.map(item => item.namaInstansi.toLowerCase());
-                                // Filter names based on the input value
-                                searchResults.splice(0, searchResults.length, ...names.filter(name => name.includes(form.agency.toLowerCase())));
-                            }
-                            } catch (error) {
-                            console.error('Error searching agencies:', error);
-                            }
-                            };
-                            const selectAgency = (agency) => {
-                                form.agency = agency;
-                                // Clear searchResults setelah memilih instansi
-                                searchResults.splice(0, searchResults.length);
-                            };
-
             //submit method
             const submit = () => {
 
                 //send data to server
-                Inertia.post('/admin/registration', {
+                Inertia.post('/admin/registration/store', {
                     //data
                     nip: form.nip,
                     name: form.name,
@@ -292,9 +327,7 @@
                 submit,
                 updateDocument,
                 updateImage,
-                searchResults,
-                searchAgencies,
-                selectAgency,
+ 
             };
 
         }

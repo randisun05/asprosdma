@@ -109,6 +109,7 @@
         //props
         props: {
             posts :Object,
+            
         },
 
         //inisialisasi composition API

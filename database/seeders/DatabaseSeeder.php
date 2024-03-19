@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Event;
 use App\Models\Member;
 use App\Models\Category;
+use App\Models\instansi;
 use App\Models\ItemProfile;
 use App\Models\Registration;
 use App\Models\ProfileDataMain;
@@ -122,6 +123,26 @@ class DatabaseSeeder extends Seeder
             'participant' => '0',
             'image' => '',
             'status' => 'media',
+        ]);
+
+        instansi::create([
+            'title'      => 'Kementerian',
+        ]);
+
+        instansi::create([
+            'title'      => 'Badan',
+        ]);
+
+         instansi::create([
+            'title'      => 'Lembaga',
+        ]);
+
+        instansi::create([
+            'title'      => 'Instansi Daerah',
+        ]);
+
+         instansi::create([
+            'title'      => 'Instansi Pusat',
         ]);
 
 

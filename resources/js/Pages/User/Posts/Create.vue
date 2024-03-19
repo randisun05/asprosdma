@@ -47,6 +47,7 @@
                                                     {{ errors.category }}    
                                                 </div>
                                             </div>
+                                            
 
                                                 <span class="text-black">
                                                 Text
@@ -142,6 +143,8 @@
     import Swal from 'sweetalert2';
 
     export default {
+
+        
         //layout
         layout: LayoutUser,
 
@@ -156,12 +159,15 @@
         props: {
             errors: Object,
             categories: Array,
+            instansis:Array
         },
 
 
         //inisialisasi composition API
         setup() {
+            
 
+             
         //define form state
         const form = reactive({
                 title: '',
@@ -215,9 +221,8 @@
                 form,
                 submit,
                 updateDocument,
-                updateImage
+                updateImage,
 
-               
         }
     }
 }
@@ -225,7 +230,5 @@
 </script>
 
 <style>
-.text-black{
-    color: black;
-}
+
 </style>

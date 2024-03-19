@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Public;
 
+use App\Models\instansi;
 use App\Models\Registration;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Models\RegistrationGroup;
 use App\Mail\SendEmailRegistration;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use PHPUnit\TextUI\XmlConfiguration\Group;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
-use Illuminate\Validation\Rule;
 
 class RegistrationController extends Controller
 {
@@ -38,9 +39,9 @@ class RegistrationController extends Controller
      */
     public function create()
     {
-
+        $instansis = instansi::get();
         return inertia('Public/Registration/Registration', [
-           
+            'instansis' => $instansis
         ]);
     }
 
@@ -52,7 +53,7 @@ class RegistrationController extends Controller
      */
     public function store(Request $request)
     {
-       
+  
       // Validate request including file validation
       $validatedData = $request->validate([
         'nip' => ['required', 'string', 'regex:/^\d{18}$/', 'unique:registrations,nip'],
@@ -64,12 +65,22 @@ class RegistrationController extends Controller
         'level' => 'required|string',
         'document_jab' => 'required|file|mimes:pdf|max:2048', // Ensure 'document_jab' is a valid file
         
+        
     ],
     [
         'nip.regex' => 'NIP harus terdiri dari 18 angka.',
         'nip.unique' => 'Data NIP sudah digunakan.',
         'email.unique' => 'Data email sudah digunakan.',
         'contact.unique' => 'Data kontak sudah digunakan.',
+        'nip.required' => 'NIP harus diisi.',
+        'name.required' => 'Nama harus diisi.',
+        'email.required' => 'Email harus diisi.',
+        'contact.required' => 'Kontak harus diisi.',
+        'agency.required' => 'Instansi harus diisi.',
+        'position.required' => 'Jabatan harus diisi.',
+        'level.required' => 'Jenjang harus diisi.',
+        'document_jab.required' => 'SK jabatan harus diisi.',
+       
     ]);
 
     $request->validate([
@@ -77,6 +88,7 @@ class RegistrationController extends Controller
         'captcha' => 'required|same:code',
         'term' => 'in:1',
     ], [
+        'captcha.required' => 'Captcha harus diisi.',
         'captcha.same' => 'Captcha Salah.',
         'term.in' => 'Checklist jika bersedia.',
     ]);
@@ -86,14 +98,11 @@ class RegistrationController extends Controller
     $document_jab = $request->file('document_jab')->storePublicly('/documents');
 
     // Create registration
-    $registration = Registration::create(array_merge($validatedData, ['document_jab' => $document_jab, 'emailstatus' => "1"]));
+    $registration = Registration::create(array_merge($validatedData, ['document_jab' => $document_jab]));
     $token = $registration->id;
-
-    Mail::to($validatedData['email'])->send(new SendEmailRegistration($registration));
-   
-
+    
      //redirect
-     return redirect()->route('registration.success')->with([
+     return back()->route('registration.success')->with([
         'token' => $token,
         'registration' => $registration
     ]);
@@ -136,8 +145,10 @@ class RegistrationController extends Controller
         // Jika status registrasi bukan 'confirm', arahkan pengguna kembali atau tampilkan pesan kesalahan
         return redirect()->route('/')->with('error', 'Link konfirmasi telah ditutup.');
 
+        $instansis = instansi::get();
         return inertia('Public/Registration/Edit', [
            'register' => $register,
+           'instansis' =>   $instansis
         ]);
     }
 
@@ -174,6 +185,17 @@ class RegistrationController extends Controller
         'level' => 'required|string',
     ], [
         'nip.regex' => 'NIP harus terdiri dari 18 angka.',
+        'nip.unique' => 'Data NIP sudah digunakan.',
+        'email.unique' => 'Data email sudah digunakan.',
+        'contact.unique' => 'Data kontak sudah digunakan.',
+        'nip.required' => 'NIP harus diisi.',
+        'name.required' => 'Nama harus diisi.',
+        'email.required' => 'Email harus diisi.',
+        'contact.required' => 'Kontak harus diisi.',
+        'agency.required' => 'Instansi harus diisi.',
+        'position.required' => 'Jabatan harus diisi.',
+        'level.required' => 'Jenjang harus diisi.',
+        'document_jab.required' => 'SK jabatan harus diisi.',
     ]);
     
             // Store the file using Laravel's file storage system
@@ -243,8 +265,9 @@ class RegistrationController extends Controller
 
     public function group()
     {
+        $instansis = instansi::get();
         return inertia('Public/Registration/Group', [
-           
+            'instansis' => $instansis,
          ]);
     }
 
@@ -261,7 +284,13 @@ class RegistrationController extends Controller
     ],
             [
                 'email.unique' => 'Data email sudah digunakan.',
-                'contact.unique' => 'Data kontak sudah digunakan.'
+                'contact.unique' => 'Data kontak sudah digunakan.',
+                'agency.required' => 'Instansi harus diisi.',
+                'name.required' => 'Nama harus diisi.',
+                'email.required' => 'Email harus diisi.',
+                'contact.required' => 'Kontak harus diisi.',
+                'total.required' => 'Total data harus diisi.',
+                'file.required' => 'File harus diisi.',
             ]);
 
             $request->validate([
@@ -270,6 +299,7 @@ class RegistrationController extends Controller
                 'term' => 'in:1',
             ], [
                 'captcha.same' => 'Captcha Salah.',
+                'captcha.required' => 'Captcha harus diisi.',
                 'term.in' => 'Checklist jika bersedia.',
             ]);
 

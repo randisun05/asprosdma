@@ -117,7 +117,7 @@
 
             //define method search
             const handleSearch = () => {
-                Inertia.get('/user/events', {
+                Inertia.get('/admin/medias', {
 
                     //send params "q" with value from state "search"
                     q: search.value,

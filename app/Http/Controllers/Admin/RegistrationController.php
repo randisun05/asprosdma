@@ -16,6 +16,7 @@ use App\Imports\RegistrationImport;
 use App\Mail\SendEmailRegistration;
 use App\Models\ProfileDataPosition;
 use App\Http\Controllers\Controller;
+use App\Models\instansi;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -48,8 +49,9 @@ class RegistrationController extends Controller
      */
     public function create()
     {
+        $instansis = instansi::get();
         return inertia('Admin/Registration/Create', [
-            
+            'instansis' => $instansis,
         ]);
     }
 
@@ -79,6 +81,14 @@ class RegistrationController extends Controller
         'nip.unique' => 'Data NIP sudah digunakan.',
         'email.unique' => 'Data email sudah digunakan.',
         'contact.unique' => 'Data kontak sudah digunakan.',
+        'nip.required' => 'NIP harus diisi.',
+        'name.required' => 'Nama harus diisi.',
+        'email.required' => 'Email harus diisi.',
+        'contact.required' => 'Kontak harus diisi.',
+        'agency.required' => 'Instansi harus diisi.',
+        'position.required' => 'Jabatan harus diisi.',
+        'level.required' => 'Jenjang harus diisi.',
+        'document_jab.required' => 'SK jabatan harus diisi.',
     ]);
     
      // Store the file using Laravel's file storage system
@@ -89,17 +99,19 @@ class RegistrationController extends Controller
     if ($paid) {
          $paid = $paid->storePublicly('/images');
          // Jika hanya paid diisi, update semua kecuali document_jab
-         Registration::create(array_merge($validatedData, [ 'status' => 'paid', 
+         $registration = Registration::create(array_merge($validatedData, [ 'status' => 'paid', 
          'document_jab' => $document_jab, 'paid' => $paid,         
          ]));  
      } else { // Create registration
-        Registration::create(array_merge($validatedData, ['document_jab' => $document_jab,]));
+        $registration = Registration::create(array_merge($validatedData, ['document_jab' => $document_jab,]));
     }
 
-    
+    Mail::to($registration['email'])->send(new SendEmailRegistration($registration));
 
      //redirect
-     return redirect()->route('admin.registration.index');
+     return redirect()->route('admin.registration.index')>with([
+        'registration' => $registration
+    ]);
 
     }
     

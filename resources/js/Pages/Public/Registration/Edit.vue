@@ -79,16 +79,30 @@
                      </div>
 
                      <div class="col-md-6 col-sm-6">
-                        <span class="ms-4">
-                                 Instansi
-                        </span>
+                        <label for="agency" class="ms-4">Instansi</label>
                         <div class="form-group bottom35 mt-1">
-                                <input type="text" class="form-control" v-model="form.agency" placeholder="Masukan Instansi">
-                            <div v-if="errors.agency" class="alert alert-danger mt-2">
-                                {{ errors.agency }}
+                            <div class="position-relative" ref="dropdownWrapper">
+                                <div class="form-group mt-1">
+                                <input type="text" class="form-control" placeholder="Pilih Instansi" v-model="form.agency" @click="toggleSearch" readonly>
+                                </div>
+                                <div v-if="showDropdown" class="dropdown-menu position-absolute w-100">
+                                <input type="text" class="form-control mb-2" placeholder="Cari Instansi" v-model="searchInstansi">
+                                <div class="dropdown-item-list" v-if="filteredInstansis.length > 0">
+                                    <button v-for="(instansi, index) in filteredInstansis" :key="index" class="dropdown-item" @click="selectInstansi(instansi)">
+                                    {{ instansi.title }}
+                                    </button>
+                                </div>
+                                <template v-else>
+                                    <div class="dropdown-item disabled">Instansi tidak ditemukan</div>
+                                </template>
+                                
+                                </div>
                             </div>
+                                <div v-if="errors.agency" class="alert alert-danger mt-2">
+                                {{ errors.agency }}
+                                </div>
                         </div>
-                     </div>
+                    </div>
 
                      <div class="col-md-3 col-sm-3">
                         <span class="ms-4">
@@ -171,7 +185,7 @@
 
                      <div class="col-md-6 col-sm-6">
                         <span class="ms-4">
-                                 Info
+                                 Informasi perbaikan data
                         </span>
                         <div class="form-group bottom35 mt-1">
                                 <input type="text" class="form-control" v-model="form.info" disabled>
@@ -220,6 +234,51 @@
 
     export default {
 
+        data() {
+                    return {
+                    searchInstansi: '',
+                    showDropdown: false
+                    };
+                },
+
+                // computed property to filter instansis based on search input
+                computed: {
+                    filteredInstansis() {
+                    return this.instansis.filter(instansi =>
+                        instansi.title.toLowerCase().includes(this.searchInstansi.toLowerCase())
+                    );
+                    }
+                },
+
+                methods: {
+                    // method to toggle dropdown visibility
+                    toggleSearch() {
+                    this.showDropdown = !this.showDropdown;
+                    if (this.showDropdown) {
+                        // Menambahkan event listener ke elemen body
+                        document.body.addEventListener('click', this.closeDropdownOutside);
+                    } else {
+                        // Menghapus event listener dari elemen body
+                        document.body.removeEventListener('click', this.closeDropdownOutside);
+                    }
+                    },
+
+                    // method to close dropdown when clicked outside
+                    closeDropdownOutside(event) {
+                    if (!this.$refs.dropdownWrapper.contains(event.target)) {
+                        this.showDropdown = false;
+                        document.body.removeEventListener('click', this.closeDropdownOutside);
+                    }
+                    },
+
+                    // method to select an instansi from dropdown
+                    selectInstansi(instansi) {
+                    this.form.agency = instansi.title;
+                    this.searchInstansi = ''; // reset search input after selection
+                    this.showDropdown = false; // hide dropdown after selection
+                    }
+                },
+
         //layout
         layout: LayoutWebsite,
 
@@ -233,7 +292,8 @@
         props: {
             errors: Object,
             session: Object,
-            register: Object
+            register: Object,
+            instansis :Array
         },
         
         //define composition API
