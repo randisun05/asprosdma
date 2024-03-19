@@ -101,7 +101,7 @@ Route::prefix('user')->group(function() {
 
 
 //public
-Route::get('/registration', [\App\Http\Controllers\Public\RegistrationController::class, 'create'])->name('registration');
+Route::get('/registrationn', [\App\Http\Controllers\Public\RegistrationController::class, 'create'])->name('registration');
 Route::post('/registration/store', [\App\Http\Controllers\Public\RegistrationController::class, 'store']);
 Route::get('/registration/success', [\App\Http\Controllers\Public\RegistrationController::class, 'index'])->name('registration.success');
 Route::get('/registration/paid/{id}', [\App\Http\Controllers\Public\RegistrationController::class, 'show'])->name('registration.paid.show');
