@@ -7,6 +7,8 @@
             <div class="col-md-12">
                 <Link href="/admin/registration" class="btn btn-md btn-primary border-0 shadow mb-3" type="button"><i class="fa fa-arrow-left" aria-hidden="true"></i>
                 Kembali</Link>
+                <Link :href="`/registration/confirm/${register.id}/edit`" class="btn btn-md btn-warning border-0 shadow mb-3 ms-3" type="button"><i class="fa fa-pencil" aria-hidden="true"></i>
+                Edit</Link>
                 <div class="card border-0 shadow">
                     <div class="card-body">
                         <h5><i class="fa fa-bookmark"></i> Data Pengusul</h5>
