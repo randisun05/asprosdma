@@ -22,8 +22,18 @@ class Event extends Model
         'participant',
         'image',
         'status',
-      
+
     ];
 
-    
+    public function getRouteKeyName()
+    {
+        return 'slug'; // Menggunakan kolom 'slug' sebagai kunci rute
+    }
+
+    public function resolveRouteBinding($value, $field = null)
+    {
+        return $this->where('slug', $value)->firstOrFail(); // Mencari model berdasarkan 'slug'
+    }
+
+
 }

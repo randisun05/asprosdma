@@ -2,9 +2,9 @@
 
     <Head>
         <title>{{ title }}</title>
-        
+
     </Head>
-  
+
  <!--page Header-->
 <section class="page-header parallaxie padding_top center-block">
    <div class="container">
@@ -21,10 +21,10 @@
       </div>
    </div>
 </section>
-<!--page Header ends--> 
+<!--page Header ends-->
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                         
-<!-- Our Team-->    
+
+<!-- Our Team-->
 <section id="our-team-three">
    <div class="container">
       <div class="row">
@@ -69,7 +69,7 @@
 <script>
     //import layout
     import LayoutWebsite from '../../../../Layouts/Website.vue';
- 
+
 
     //import reactive
     import {
@@ -94,7 +94,7 @@
         //register component
         components: {
             Head,
-            
+
         },
 
         //props
@@ -102,9 +102,9 @@
             title:Object
 
         },
-        
-       
+
+
 
     }
 
-</script>       
+</script>

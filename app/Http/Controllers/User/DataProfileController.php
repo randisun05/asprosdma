@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
+use App\Models\instansi;
+use Illuminate\Http\Request;
 use App\Models\ProfileDataMain;
 use App\Models\ProfileDataPosition;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class DataProfileController extends Controller
 {
@@ -23,11 +24,57 @@ class DataProfileController extends Controller
         $data = ProfileDataPosition::with('main')
         ->where('main_id',$main->id)
         ->first();
-  
+
         return inertia('User/DataProfile/Index', [
            'data' => $data,
         ]);
     }
+
+    public function indexIndiv()
+    {
+
+        $main = ProfileDataMain::where('nip',auth()->guard('member')->user()->nip)
+        ->first();
+
+        $data = ProfileDataPosition::with('main')
+        ->where('main_id',$main->id)
+        ->first();
+
+        return inertia('User/DataProfile/IndexIndiv', [
+           'data' => $data,
+        ]);
+    }
+
+    public function indexPosition()
+    {
+
+        $main = ProfileDataMain::where('nip',auth()->guard('member')->user()->nip)
+        ->first();
+
+        $data = ProfileDataPosition::with('main')
+        ->where('main_id',$main->id)
+        ->first();
+
+        return inertia('User/DataProfile/IndexPosition', [
+           'data' => $data,
+        ]);
+    }
+
+    public function indexOther()
+    {
+
+        $main = ProfileDataMain::where('nip',auth()->guard('member')->user()->nip)
+        ->first();
+
+        $data = ProfileDataPosition::with('main')
+        ->where('main_id',$main->id)
+        ->first();
+
+        return inertia('User/DataProfile/IndexOther', [
+           'data' => $data,
+        ]);
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -75,9 +122,27 @@ class DataProfileController extends Controller
         $data = ProfileDataPosition::with('main')
         ->where('main_id',$main->id)
         ->first();
-  
+
+        $instansis = instansi::get();
         return inertia('User/DataProfile/Edit', [
            'data' => $data,
+           'instansis' => $instansis,
+        ]);
+    }
+
+    public function editPosition()
+    {
+        $main = ProfileDataMain::where('nip',auth()->guard('member')->user()->nip)
+        ->first();
+
+        $data = ProfileDataPosition::with('main')
+        ->where('main_id',$main->id)
+        ->first();
+        $instansis = instansi::get();
+
+        return inertia('User/DataProfile/EditPosition', [
+           'data' => $data,
+           'instansis' => $instansis,
         ]);
     }
 
@@ -91,43 +156,57 @@ class DataProfileController extends Controller
     public function update(Request $request)
     {
 
-        
-
           $request->validate([
-                'nip' => 'required',
+                'nip' => ['required','string', 'regex:/^\d{18}$/'],
                 'name' => 'required',
-                'fname' => 'required',
-                'lname' => 'required',
                 'leveledu' => 'required',
                 'lastedu' => 'required',
                 'place' => 'required',
                 'dob' => 'required',
                 'docid' => 'required',
                 'nodocid' => 'required',
-                'email' => 'required',
-                'contact' => 'required',
+                'email' => 'required|email|',
+                'contact' => 'required|string|',
                 'gender' => 'required',
                 'address' => 'required',
                 'villages' => 'required',
                 'district' => 'required',
                 'regency' => 'required',
                 'province' => 'required',
-                'type' => 'required',
-                'status' => 'required',
-                'agency' => 'required',
-                'unit' => 'required',
-                'subunit' => 'required',
-                'position' => 'required',
-                'location' => 'required',
-                'tmtpos' => 'required',
-                'golru' => 'required',
-                'tmtgolru' => 'required',
-                'wyear' => 'required',
-                'wmonth' => 'required',
+                'religion' => 'required',
+        ],[
+            'nip.regex' => 'NIP harus terdiri dari 18 angka.',
+            // 'nip.unique' => 'Data NIP sudah digunakan.',
+            // 'email.unique' => 'Data email sudah digunakan.',
+            // 'contact.unique' => 'Data kontak sudah digunakan.',
+            'nip.required' => 'NIP harus diisi.',
+            'name.required' => 'Nama harus diisi.',
+            'email.required' => 'Email harus diisi.',
+            'contact.required' => 'Kontak harus diisi.',
+            'agency.required' => 'Instansi harus diisi.',
+            'gender.required' => 'Jenis kelamin harus diisi.',
+            'leveledu.required' => 'Jenjang pendidikan harus diisi.',
+            'lastedu.required' => 'Pendidikan terakhir harus diisi.',
+            'place.required' => 'Tempat lahir harus diisi.',
+            'dob.required' => 'Tanggal lahir harus diisi.',
+            'docid.required' => 'Jenis dokumen identitas harus diisi.',
+            'nodocid.required' => 'Nomor dokumen identitas harus diisi.',
+            'address.required' => 'Alamat harus diisi.',
+            'villages.required' => 'Desa/Kelurahan harus diisi.',
+            'district.required' => 'Kecamatan harus diisi.',
+            'regency.required' => 'Kabupaten/Kota harus diisi.',
+            'province.required' => 'Provinsi harus diisi.',
+            'religion.required' => 'Agama harus diisi.',
         ]);
 
         $main = ProfileDataMain::where('nip',auth()->guard('member')->user()->nip)
-        ->first(); 
+        ->first();
+
+        $image = $request->file('image');
+        if ($image) {
+            $image = $request->file('image')->storePublicly('/images');
+            // Proceed with storing or processing the uploaded file
+        };
 
         //update data main
         $main->update([
@@ -149,19 +228,66 @@ class DataProfileController extends Controller
                 'district' => $request->district,
                 'regency' => $request->regency,
                 'province' => $request->province,
-                'type' => $request->type,
-                'status' => $request->status,
+                'religion' => $request->religion,
+                'image' => $image,
         ]);
 
         $position = ProfileDataPosition::where('main_id',$main->id)
         ->first();
 
         $position->update([
-
                 'agency' => $request->agency,
+             ]);
+
+             return redirect()->route('user.profile')->with('success','data berhasil diupdate');
+    }
+
+    public function updatePosition(Request $request)
+    {
+
+
+          $request->validate([
+                'type' => 'required',
+                'status' => 'required',
+                'agency' => 'required',
+                'unit' => 'required',
+                'subunit' => 'required',
+                'position' => 'required',
+                'level' => 'required',
+                'location' => 'required',
+                'tmtpos' => 'required',
+                'golru' => 'required',
+                'tmtgolru' => 'required',
+
+        ],[
+                'type.required' => 'Jenis ASN harus diisi.',
+                'status.required' => 'Status Kepegawaian harus diisi.',
+                'agency.required' => 'Instansi harus diisi.',
+                'unit.required' => 'Unit organisasi harus diisi.',
+                'subunit.required' => 'Sub unit organisasi harus diisi.',
+                'position.required' => 'Jabatan harus diisi.',
+                'level.required' => 'Jenjang harus diisi.',
+                'location.required' => 'Penempatan harus diisi.',
+                'tmtpos.required' => 'TMT jabatan harus diisi.',
+                'golru.required' => 'Golru harus diisi.',
+                'tmtgolru.required' => 'TMT golru harus diisi.',
+
+        ]);
+
+        $main = ProfileDataMain::where('nip',auth()->guard('member')->user()->nip)
+        ->first();
+
+        $position = ProfileDataPosition::where('main_id',$main->id)
+        ->first();
+
+        $position->update([
+                'agency' => $request->agency,
+                'type' => $request->type,
+                'status' => $request->status,
                 'unit' => $request->unit,
                 'subunit' => $request->subunit,
                 'position' => $request->position,
+                'level' => $request->level,
                 'location' => $request->location,
                 'tmtpos' => $request->tmtpos,
                 'golru' => $request->golru,
@@ -169,8 +295,28 @@ class DataProfileController extends Controller
                 'wyear' => $request->wyear,
                 'wmonth' => $request->wmonth,
              ]);
-             
-             return redirect()->route('user.profile');
+
+             return redirect()->route('user.profile.jabatan');
+    }
+
+        public function updateImage(Request $request)
+        {
+            return $request;
+            $image = $request->file('picture');
+            if ($image) {
+                $image = $request->file('picture')->storePublicly('/images');
+                // Proceed with storing or processing the uploaded file
+            };
+
+            $main = ProfileDataMain::where('nip',auth()->guard('member')->user()->nip)
+            ->first();
+
+            //update data main
+            $main->update([
+                    'image' => $image,
+            ]);
+
+             return redirect()->route('user.profile.data-utama');
     }
 
     /**

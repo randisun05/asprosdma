@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <Link href="/admin/registration" class="btn btn-md btn-primary border-0 shadow mb-3" type="button"><i class="fa fa-arrow-left" aria-hidden="true"></i>
                 Kembali</Link>
-                <Link :href="`/registration/confirm/${register.id}/edit`" class="btn btn-md btn-warning border-0 shadow mb-3 ms-3" type="button"><i class="fa fa-pencil" aria-hidden="true"></i>
+                <Link v-if="register.status !== 'approved' && register.status !== 'rejected'" :href="`/registration/confirm/${register.id}/edit`" class="btn btn-md btn-warning border-0 shadow mb-3 ms-3" type="button"><i class="fa fa-pencil" aria-hidden="true"></i>
                 Edit</Link>
                 <div class="card border-0 shadow">
                     <div class="card-body">
@@ -64,8 +64,9 @@
                                         Info
                                 </span>
                                 <div class="form-group bottom35 mt-1">
-                                        <input type="text" class="form-control" v-model="form.info">
+                                    <input type="text" class="form-control" v-model="form.info" :disabled="register.status === 'approved' || register.status === 'rejected'">
                                 </div>
+
                             </div>
 
                             <div class="col-md-3 col-sm-3">
@@ -96,13 +97,21 @@
                                 <span v-else-if="register.status === 'rejected'" class="badge bg-danger fs-5">Status  {{ register.status }}</span>
                                 <span v-else-if="register.status === 'submission'" class="badge bg-secondary fs-5">Status  {{ register.status }}</span>
                                 <a v-if="register.paid" :href="getImageUrl(register.paid)" target="_blank" class="badge bg-primary fs-5 ms-4">Paid</a>
+                                <span class="badge bg-warning fs-5 ms-4">{{ register.from }}</span>
                             </div>
-                    </div>
-                                <div class="text-center">
-                            <button v-if="register.status !== 'approved' && register.status !== 'rejected'" @click="handleApprove(register.id)" class="btn btn-sm btn-success border-0 shadow me-2"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i> Approve</button>
-                            <button v-if="register.status !== 'approved'" @click="handleConfirm(register.id)" class="btn btn-sm btn-warning border-0 shadow me-2"><i class="fa fa-question-circle fa-lg" aria-hidden="true"></i>  Confirm</button>
-                            <button v-if="register.status !== 'approved' && register.status !== 'rejected'" @click="handleReject(register.id)" class="btn btn-sm btn-danger border-0 shadow me-2"><i class="fa fa-times-circle fa-lg" aria-hidden="true"></i>  Reject</button>
+                            <div class="col-md-3 col-sm-3">
+                                <div class="form-group bottom35 mt-1">
+                                        <input type="checkbox" aria-label="" disabled>
                                 </div>
+                            </div>
+                </div>
+                                <div class="text-center">
+                            <button v-if="register.status !== 'approved' && register.status !== 'rejected'" @click="handleApprove(register.id)" class="btn btn-sm btn-success border-0 shadow me-2"><i class="fa fa-check-circle fa-lg me-1" aria-hidden="true"></i>Approve</button>
+                            <button v-if="register.status !== 'approved'" @click="handleConfirm(register.id)" class="btn btn-sm btn-warning border-0 shadow me-2"><i class="fa fa-question-circle fa-lg me-1" aria-hidden="true"></i>Confirm</button>
+                            <button v-if="register.status !== 'approved' && register.status !== 'rejected'" @click="handleReject(register.id)" class="btn btn-sm btn-danger border-0 shadow me-2"><i class="fa fa-times-circle fa-lg me-1" aria-hidden="true"></i>Reject</button>
+                            <button v-if="register.status !== 'approved' && register.status !== 'rejected' && register.from !== 'collective'" @click="sendEmail(register.id)" class="btn btn-sm btn-primary border-0 shadow me-2"><i class="fa fa-envelope fa-lg me-1" aria-hidden="true"></i>Kirim Email</button>
+                                </div>
+                                
                     </div>
                 </div>
             </div>
@@ -248,6 +257,32 @@
                 })
             }
 
+            const sendEmail = (id) => {
+            Swal.fire({
+                    title: 'Pastikan data sudah sesuai.!',
+                    text: "Anda akan mengirim email konfirmasi?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Send it!'
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+
+                        Inertia.get(`/admin/registration/${id}/email`);
+
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Email Sent!.',
+                            icon: 'success',
+                            timer: 2000,
+                            showConfirmButton: false,
+                        });
+                    }
+                })
+            }
+
         const getDocumentUrl = (documentName) => {
             return `/storage/${documentName}`;
         }
@@ -265,6 +300,7 @@ return {
     handleReject,
     handleConfirm,
     getImageUrl,
+    sendEmail
 }
 
 }

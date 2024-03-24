@@ -27,18 +27,15 @@ class PostsController extends Controller
         })
         ->with('member','category')
         ->latest()
-        ->paginate(10);
-
-       
-
+        ->paginate(6);
 
         //append query string to pagination links
         $posts->appends(['q' => request()->q]);
-    
-       
+
+
         return inertia('User/Posts/Index', [
             'posts' => $posts,
-            
+
          ]);
     }
 
@@ -49,7 +46,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        
+
         $categories = Category::get();
         return inertia('User/Posts/Create', [
             'categories' => $categories,
@@ -100,7 +97,7 @@ class PostsController extends Controller
         $image = $request->file('picture')->storePublicly('/images');
         // Proceed with storing or processing the uploaded file
     };
-    
+
 
         Post::create([
             'title' => $request->title,
@@ -114,12 +111,12 @@ class PostsController extends Controller
             'member_id' => auth()->guard('member')->user()->id,
         ]);
 
-    
+
 
      //redirect
      return redirect()->route('user.posts.index');
 
-        
+
     }
 
     /**
@@ -132,7 +129,7 @@ class PostsController extends Controller
     {
 
         $post = Post::where('id',$id)->with('member','category')->first();
-      
+
         return inertia('User/Posts/Show', [
             'post' => $post
          ]);
@@ -163,12 +160,12 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         // Validate request including file validation
       $request->validate([
         'title' => 'required|string',
         'body' => 'required|',
- 
+
     ]);
 
     $slug = strtolower(str_replace(' ', '-', $request->title));
@@ -198,7 +195,7 @@ class PostsController extends Controller
         $image = $request->file('picture')->storePublicly('/images');
         // Proceed with storing or processing the uploaded file
     };
-    
+
 
         Post::where('id',$id)->update([
             'title' => $request->title,
@@ -212,7 +209,7 @@ class PostsController extends Controller
             'member_id' => auth()->guard('member')->user()->id,
         ]);
 
-    
+
 
      //redirect
      return redirect()->route('user.posts.index');

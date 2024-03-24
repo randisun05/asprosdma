@@ -98,7 +98,7 @@ class RegistrationController extends Controller
     $document_jab = $request->file('document_jab')->storePublicly('/documents');
 
     // Create registration
-    $registration = Registration::create(array_merge($validatedData, ['document_jab' => $document_jab]));
+    $registration = Registration::create(array_merge($validatedData, ['document_jab' => $document_jab, 'from' => 'individu']));
     $token = $registration->id;
     
      //redirect

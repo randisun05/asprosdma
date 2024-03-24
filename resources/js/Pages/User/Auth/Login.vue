@@ -21,7 +21,8 @@
       </div>
    </div>
 </section>
-<!--page Header ends--> 
+<!--page Header ends-->
+
 
 <section id="our-blog" class="padding_m text-center">
    <div class="container">
@@ -35,6 +36,7 @@
                     <div v-if="$page.props.session.error" class="alert alert-danger mt-2">
                     {{ $page.props.session.error }}
                     </div>
+
                <form @submit.prevent="submit" class="getin_form border-form" id="login">
                   <div class="row">
                      <div class="col-md-12 col-sm-12">

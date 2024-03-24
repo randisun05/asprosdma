@@ -20,12 +20,15 @@ return new class extends Migration
             $table->string('unit')->nullable();
             $table->string('subunit')->nullable();
             $table->string('position');
+            $table->string('level');
             $table->date('tmtpos')->nullable();
             $table->string('location')->nullable();
             $table->string('golru')->nullable();
             $table->string('tmtgolru')->nullable();
             $table->string('wyear')->nullable();
             $table->string('wmonth')->nullable();
+            $table->enum('type',["PNSP","PPPKP","PPPKD","PNSD"])->nullable();
+            $table->enum('status',["Aktif","Non-Aktif"])->default("Aktif");
             $table->timestamps();
         });
     }

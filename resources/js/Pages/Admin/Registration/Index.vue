@@ -1,4 +1,5 @@
 <template>
+
     <Head>
         <title>Administrator</title>
     </Head>
@@ -7,26 +8,34 @@
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-1 col-12 mb-2">
-                        <Link href="/admin/registration/create" class="btn btn-md btn-primary border-0 shadow w-100" type="button"><i
-                            class="fa fa-plus-circle"></i>
+                        <Link href="/admin/registration/create" class="btn btn-md btn-primary border-0 shadow w-100"
+                            type="button"><i class="fa fa-plus-circle"></i>
                         Tambah</Link>
                     </div>
                     <div class="col-md-1 col-12 mb-2">
-                        <Link href="/admin/registration/import" class="btn btn-md btn-success border-0 shadow w-100" type="button"><i
-                            class="fa fa-plus-circle"></i>
+                        <Link href="/admin/registration/import" class="btn btn-md btn-success border-0 shadow w-100"
+                            type="button"><i class="fa fa-plus-circle"></i>
                         Import</Link>
                     </div>
 
                     <div class="col-md-2 col-12 mb-2">
-                        <Link href="/admin/registration/group" class="btn btn-md btn-success border-0 shadow w-100" type="button"><i
-                            class="fa fa-plus-circle"></i>
+                        <Link href="/admin/registration/group" class="btn btn-md btn-success border-0 shadow w-100"
+                            type="button"><i class="fa fa-plus-circle"></i>
                         File Kolektif</Link>
+                    </div>
+
+                    <div class="col-md-1 col-12 mb-2">
+                        <a :href="`/admin/registration/paid/export`" target="_blank"
+                            class="btn btn-success btn-md border-0 shadow w-100 text-white"><i
+                                class="fa fa-download"></i>
+                            Export</a>
                     </div>
 
                     <div class="col-md-6 col-12 mb-2">
                         <form @submit.prevent="handleSearch">
                             <div class="input-group">
-                                <input type="text" class="form-control border-0 shadow" v-model="search" placeholder="masukkan kata kunci dan enter...">
+                                <input type="text" class="form-control border-0 shadow" v-model="search"
+                                    placeholder="masukkan kata kunci dan enter...">
                                 <span class="input-group-text border-0 shadow">
                                     <i class="fa fa-search"></i>
                                 </span>
@@ -60,27 +69,48 @@
                                 <div class="mt-2"></div>
                                 <tbody>
                                     <tr v-for="(register, index) in registers.data" :key="index">
-                                        <td class="fw-bold text-center">{{ ++index + (registers.current_page - 1) * registers.per_page }}</td>
+                                        <td class="fw-bold text-center">{{ ++index + (registers.current_page - 1) *
+                            registers.per_page }}</td>
                                         <td>{{ register.nip }}</td>
                                         <td>{{ register.name }}</td>
                                         <td>{{ register.agency }}</td>
                                         <td class="text">{{ register.position }} {{ register.level }}</td>
-                                        <td>{{ register.email }} <span class="badge bg-secondary">{{ register.emailstatus }}</span></td>
-                                        <td class="text-center"><a :href="getDocumentUrl(register.document_jab)" target="_blank" class="badge bg-primary">View</a></td>
+                                        <td>{{ register.email }} <span class="badge bg-secondary">{{
+                            register.emailstatus }}</span></td>
+                                        <td class="text-center"><a :href="getDocumentUrl(register.document_jab)"
+                                                target="_blank" class="badge bg-primary">View</a></td>
                                         <td class="text-center">
-                                            <span v-if="register.status === 'approved'" class="badge bg-success">{{ register.status }}</span>
-                                            <span v-else-if="register.status === 'confirm'" :href="getImageUrl(register.paid)" target="_blank" class="badge bg-warning">{{ register.status }}</span>
-                                            <span v-else-if="register.status === 'rejected'" class="badge bg-danger">{{ register.status }}</span>
-                                            <a v-if="register.paid" :href="getImageUrl(register.paid)" target="_blank" class="badge bg-primary">paid</a>
-                                            <span v-else-if="register.status === 'submission'" class="badge bg-secondary">{{ register.status }}</span>
+                                            <span v-if="register.status === 'approved'" class="badge bg-success">{{
+                            register.status }}</span>
+                                            <span v-else-if="register.status === 'confirm'"
+                                                :href="getImageUrl(register.paid)" target="_blank"
+                                                class="badge bg-warning">{{ register.status }}</span>
+                                            <span v-else-if="register.status === 'rejected'" class="badge bg-danger">{{
+                            register.status }}</span>
+                                            <a v-if="register.paid" :href="getImageUrl(register.paid)" target="_blank"
+                                                class="badge bg-primary">paid</a>
+                                            <span v-else-if="register.status === 'submission'"
+                                                class="badge bg-secondary">{{ register.status }}</span>
                                         </td>
-            
+
                                         <td class="text-center">
-                                            <Link :href="`/admin/registration/${register.id}`" class="btn btn-sm btn-primary border-0 shadow me-2" type="button"><i class="fa fa-eye fa-lg" aria-hidden="true" title="lihat detail"></i></Link>
-                                            <button v-if="register.status !== 'approved' && register.status !== 'rejected'" @click="handleApprove(register.id)" class="btn btn-sm btn-success border-0 shadow me-2">
-                                            <i class="fa fa-check-circle fa-lg" aria-hidden="true" title="approve"></i></button>
+                                            <Link :href="`/admin/registration/${register.id}`"
+                                                class="btn btn-sm btn-primary border-0 shadow me-2" type="button"><i
+                                                class="fa fa-eye fa-lg" aria-hidden="true" title="lihat detail"></i>
+                                            </Link>
+                                            <button
+                                                v-if="register.status !== 'approved' && register.status !== 'rejected'"
+                                                @click="handleApprove(register.id)"
+                                                class="btn btn-sm btn-success border-0 shadow me-2">
+                                                <i class="fa fa-check-circle fa-lg" aria-hidden="true"
+                                                    title="approve"></i></button>
                                             <!-- <button v-if="register.status !== 'approved'" @click="handleConfirm(register.id)" class="btn btn-sm btn-warning border-0 shadow me-2"><i class="fa fa-question-circle fa-lg" aria-hidden="true" title="confirm"></i></button> -->
-                                            <button v-if="register.status !== 'approved' && register.status !== 'rejected'" @click="handleReject(register.id)" class="btn btn-sm btn-danger border-0 shadow me-2"><i class="fa fa-times-circle fa-lg" aria-hidden="true" title="reject"></i></button>
+                                            <button
+                                                v-if="register.status !== 'approved' && register.status !== 'rejected'"
+                                                @click="handleReject(register.id)"
+                                                class="btn btn-sm btn-danger border-0 shadow me-2"><i
+                                                    class="fa fa-times-circle fa-lg" aria-hidden="true"
+                                                    title="reject"></i></button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -95,81 +125,81 @@
 </template>
 
 <script>
-    //import layout
-    import LayoutAdmin from '../../../Layouts/Admin.vue';
+//import layout
+import LayoutAdmin from '../../../Layouts/Admin.vue';
 
-    //import component pagination
-    import Pagination from '../../../Components/Pagination.vue';
+//import component pagination
+import Pagination from '../../../Components/Pagination.vue';
 
-    //import Heade and Link from Inertia
-    import {
+//import Heade and Link from Inertia
+import {
+    Head,
+    Link
+} from '@inertiajs/inertia-vue3';
+
+//import ref from vue
+import {
+    ref
+} from 'vue';
+
+//import inertia adapter
+import { Inertia } from '@inertiajs/inertia';
+
+//import sweet alert2
+import Swal from 'sweetalert2';
+
+export default {
+    //layout
+    layout: LayoutAdmin,
+
+    //register component
+    components: {
         Head,
-        Link
-    } from '@inertiajs/inertia-vue3';
+        Link,
+        Pagination
+    },
 
-    //import ref from vue
-    import {
-        ref
-    } from 'vue';
+    //props
+    props: {
+        errors: Object,
+        registers: Object,
+    },
 
-    //import inertia adapter
-    import { Inertia } from '@inertiajs/inertia';
+    //inisialisasi composition API
+    setup() {
 
-    //import sweet alert2
-    import Swal from 'sweetalert2';
+        //define state search
+        const search = ref('' || (new URL(document.location)).searchParams.get('q'));
 
-    export default {
-        //layout
-        layout: LayoutAdmin,
+        //define method search
+        const handleSearch = () => {
+            Inertia.get('/admin/registration', {
 
-        //register component
-        components: {
-            Head,
-            Link,
-            Pagination
-        },
+                //send params "q" with value from state "search"
+                q: search.value,
+            });
+        }
 
-        //props
-        props: {
-            errors: Object,
-            registers: Object,
-        },
-
-        //inisialisasi composition API
-        setup() {
-
-            //define state search
-            const search = ref('' || (new URL(document.location)).searchParams.get('q'));
-
-            //define method search
-            const handleSearch = () => {
-                Inertia.get('/admin/registration', {
-
-                    //send params "q" with value from state "search"
-                    q: search.value,
-                });
-            }
-
-             // Method to get the URL of the document
+        // Method to get the URL of the document
         const getDocumentUrl = (documentName) => {
             return `/storage/${documentName}`;
         }
 
-         // Method to get the URL of the document
-         const getImageUrl = (imageName) => {
+        // Method to get the URL of the document
+        const getImageUrl = (imageName) => {
             return `/storage/${imageName}`;
         }
 
         const handleApprove = (id) => {
             Swal.fire({
-                    title: 'Apakah Anda yakin?',
-                    text: "Anda akan menyetujui usulan ini!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, Approve it!'
-                })
+                title: 'Apakah Anda yakin?',
+                text: "Anda akan menyetujui usulan ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Approve it!'
+            })
                 .then((result) => {
                     if (result.isConfirmed) {
                         Inertia.get(`/admin/registration/${id}/approve`);
@@ -182,18 +212,18 @@
                         });
                     }
                 })
-            }
+        }
 
-            const handleConfirm = (id) => {
+        const handleConfirm = (id) => {
             Swal.fire({
-                    title: 'Apakah Anda yakin?',
-                    text: "Anda akan mengkonfirmasi ulang usulan ini!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, Confirm it!'
-                })
+                title: 'Apakah Anda yakin?',
+                text: "Anda akan mengkonfirmasi ulang usulan ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Confirm it!'
+            })
                 .then((result) => {
                     if (result.isConfirmed) {
                         Inertia.get(`/admin/registration/${id}/confirm`);
@@ -206,18 +236,18 @@
                         });
                     }
                 })
-            }
+        }
 
-            const handleReject = (id) => {
+        const handleReject = (id) => {
             Swal.fire({
-                    title: 'Apakah Anda yakin?',
-                    text: "Anda akan menolak usulan ini!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, Reject it!'
-                })
+                title: 'Apakah Anda yakin?',
+                text: "Anda akan menolak usulan ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Reject it!'
+            })
                 .then((result) => {
                     if (result.isConfirmed) {
 
@@ -232,16 +262,24 @@
                         });
                     }
                 })
-            }
-            //return
-            return {
-                search,
-                handleSearch,
-                getDocumentUrl,
-                handleReject,
-                handleApprove,
-                handleConfirm,
-                getImageUrl,
+        }
+
+        const paidExport = () => {
+
+            Inertia.get(`/admin/registration/paid/export`);
+
+        }
+
+        //return
+        return {
+            search,
+            handleSearch,
+            getDocumentUrl,
+            handleReject,
+            handleApprove,
+            handleConfirm,
+            getImageUrl,
+            paidExport
 
         }
     }
@@ -249,6 +287,4 @@
 
 </script>
 
-<style>
-
-</style>
+<style></style>

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\RegistrationPaid;
+use Carbon\Carbon;
 use App\Models\Member;
+use App\Models\instansi;
 use App\Models\Registration;
 use Illuminate\Http\Request;
 use App\Mail\SendEmailReject;
@@ -16,7 +19,6 @@ use App\Imports\RegistrationImport;
 use App\Mail\SendEmailRegistration;
 use App\Models\ProfileDataPosition;
 use App\Http\Controllers\Controller;
-use App\Models\instansi;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -35,7 +37,7 @@ class RegistrationController extends Controller
 
         //append query string to pagination links
         $registers->appends(['q' => request()->q]);
-    
+
         //render with inertia
         return inertia('Admin/Registration/Index', [
             'registers' => $registers,
@@ -63,7 +65,7 @@ class RegistrationController extends Controller
      */
     public function store(Request $request)
     {
-    
+
       // Validate request including file validation
       $validatedData = $request->validate([
         'nip' => ['required', 'string', 'regex:/^\d{18}$/', 'unique:registrations,nip'],
@@ -74,7 +76,7 @@ class RegistrationController extends Controller
         'position' => 'required|string',
         'level' => 'required|string',
         'document_jab' => 'required|file|mimes:pdf|max:2048', // Ensure 'document_jab' is a valid file
-        
+
     ],
     [
         'nip.regex' => 'NIP harus terdiri dari 18 angka.',
@@ -90,18 +92,18 @@ class RegistrationController extends Controller
         'level.required' => 'Jenjang harus diisi.',
         'document_jab.required' => 'SK jabatan harus diisi.',
     ]);
-    
+
      // Store the file using Laravel's file storage system
      $document_jab = $request->file('document_jab');
      $paid = $request->file('paid');
      $document_jab = $document_jab->storePublicly('/document');
- 
+
     if ($paid) {
          $paid = $paid->storePublicly('/images');
          // Jika hanya paid diisi, update semua kecuali document_jab
-         $registration = Registration::create(array_merge($validatedData, [ 'status' => 'paid', 
-         'document_jab' => $document_jab, 'paid' => $paid,         
-         ]));  
+         $registration = Registration::create(array_merge($validatedData, [ 'status' => 'paid',
+         'document_jab' => $document_jab, 'paid' => $paid,
+         ]));
      } else { // Create registration
         $registration = Registration::create(array_merge($validatedData, ['document_jab' => $document_jab,]));
     }
@@ -109,12 +111,9 @@ class RegistrationController extends Controller
     Mail::to($registration['email'])->send(new SendEmailRegistration($registration));
 
      //redirect
-     return redirect()->route('admin.registration.index')>with([
-        'registration' => $registration
-    ]);
+     return redirect()->route('admin.registration.index');
 
     }
-    
 
     /**
      * Display the specified resource.
@@ -181,11 +180,11 @@ class RegistrationController extends Controller
     ], [
         'nip.regex' => 'NIP harus terdiri dari 18 angka.',
     ]);
-    
+
             // Store the file using Laravel's file storage system
             $document_jab = $request->file('document_jab');
             $paid = $request->file('paid');
-        
+
             if ($document_jab && $paid) {
                 // Jika keduanya diisi, update semua
                 $document_jab = $document_jab->storePublicly('/document');
@@ -194,7 +193,7 @@ class RegistrationController extends Controller
                     'document_jab' => $document_jab,
                     'paid' => $paid,
                     'status' => "paid"
-                ]));    
+                ]));
             } elseif ($document_jab) {
                 $document_jab = $document_jab->storePublicly('/images');
                 // Jika hanya document_jab diisi, update semua kecuali paid
@@ -207,11 +206,11 @@ class RegistrationController extends Controller
                 Registration::where('id',$id)->update(array_merge($validatedData, [
                     'paid' => $paid,
                     'status' => "paid"
-                ]));  
+                ]));
             }
 
             // Buat registration
-            Registration::where('id',$id)->update(array_merge($validatedData, [ 
+            Registration::where('id',$id)->update(array_merge($validatedData, [
             ]));
 
        //redirect
@@ -226,10 +225,10 @@ class RegistrationController extends Controller
      */
     public function destroy($id)
     {
-        //get 
+        //get
         $register = Registration::findOrFail($id);
 
-        //delete 
+        //delete
         $register->delete();
 
         //redirect
@@ -238,61 +237,84 @@ class RegistrationController extends Controller
 
     public function paid($id)
     {
-        //get 
+        //get
         Registration::where('id', $id)->update([
             'status' => "paid"
         ]);
-        
+
         //redirect
         return redirect()->route('admin.registration.index');
+    }
+
+    public function hadlecode()
+    {
+
+
     }
 
     public function approve($id)
     {
 
-        
+
         $password = $this->generatePassword();
         //get register
         $register = Registration::findOrFail($id);
         // return $register;
-            
+
+        if ($register->position === "Analis SDM Aparatur") {
+            $number = Registration::where('status', 'approved')
+                ->where('position', 'Analis SDM Aparatur')
+                ->count() + 1; // Tambahkan 1 karena ini adalah pendaftaran baru
+            $code = str_pad($number, 5, '0', STR_PAD_LEFT) . "/01/ASPROSDMA";
+        } else {
+            $number = Registration::where('status', 'approved')
+                ->where('position', 'Pranata SDM Aparatur')
+                ->count() + 1; // Tambahkan 1 karena ini adalah pendaftaran baru
+            $code = str_pad($number, 5, '0', STR_PAD_LEFT) . "/02/ASPROSDMA";
+        }
+
+
         Member::create([
             'nip'            => $register->nip,
             'name'           => $register->name,
             'email'          => $register->email,
+            'nomember'      => $code,
             'password'       => $password,
         ]);
 
+        $today = Carbon::now()->format('Y-m-d H:i:s');
           //create data profile
         ProfileDataMain::create([
             'nip'             => $register->nip,
             'name'            => $register->name,
             'email'           => $register->email,
             'contact'        => $register->contact,
+            'active_at'      => $today,
+            'nomember'      => $code,
         ]);
 
          //get id relation
         $data = ProfileDataMain::where('nip',$register->nip)->first();
-       
+
          //create data positiono
         ProfileDataPosition::create([
             'main_id'           => $data->id,
             'agency'           => $register->agency,
-            'position'         => $register->position ." ". $register->level,
+            'position'         => $register->position,
+            'level'         => $register->level,
         ]);
 
         $email = Member::where('nip',$register->nip)->first();
-        
+
         //email
         Mail::to($register['email'])->send(new SendEmailAprrove($email));
 
         Registration::where('id', $id)->update([
             'status'        => "approved",
-            'emailstatus'      => 1,
         ]);
 
-       
-        
+        Registration::where('id', $id)->increment('emailstatus');
+
         //redirect
         return redirect()->route('admin.registration.index');
     }
@@ -306,16 +328,27 @@ class RegistrationController extends Controller
 
         Registration::where('id', $id)->update([
             'status' => "rejected",
-            'emailstatus'      => 1,
         ]);
-        
+        Registration::where('id', $id)->increment('emailstatus');
+
+        //redirect
+        return redirect()->route('admin.registration.index');
+    }
+
+    public function sendEmail($id)
+    {
+        $register = Registration::findOrFail($id);
+
+        Mail::to($register['email'])->send(new SendEmailConfirm($register));
+
+        Registration::where('id', $id)->increment('emailstatus');
         //redirect
         return redirect()->route('admin.registration.index');
     }
 
     public function confirm($id, Request $request)
     {
-       
+
         $register = Registration::findOrFail($id);
 
         Mail::to($register['email'])->send(new SendEmailConfirm($register));
@@ -325,6 +358,7 @@ class RegistrationController extends Controller
             'info' => $request->info,
             'emailstatus'      => 1,
         ]);
+        Registration::where('id', $id)->increment('emailstatus');
 
         //redirect
         return redirect()->route('admin.registration.index');
@@ -333,7 +367,7 @@ class RegistrationController extends Controller
     public function import()
     {
         return inertia('Admin/Registration/Import');
-     
+
     }
 
     public function importStore(Request $request)
@@ -345,11 +379,13 @@ class RegistrationController extends Controller
         //import data
         Excel::import(new RegistrationImport(), $request->file('file'));
 
+
         $registrations = Registration::where('emailstatus', 0)
+        ->where('from', 'colective')
         ->latest()
         ->get();
 
-             
+
          // Kirim email setelah import selesai
          foreach ($registrations as $registration) {
 
@@ -357,10 +393,9 @@ class RegistrationController extends Controller
             Mail::to($registration['email'])->send(new SendEmailRegistration($registration));
 
             // Update status_email untuk setiap peserta
-            $registration->emailstatus = 1;
-            $registration->save();
+            $registration->increment('emailstatus');
         }
-        
+
         //redirect
         return redirect()->route('admin.registration.index');
     }
@@ -374,24 +409,24 @@ class RegistrationController extends Controller
 
         //append query string to pagination links
         $registers->appends(['q' => request()->q]);
-    
+
         //render with inertia
         return inertia('Admin/Registration/Group', [
             'registers' => $registers,
         ]);
-     
+
     }
 
     public function doneGroup($id)
     {
         //get participant
         // $register = Registration::findOrFail($id);
-        // return $register;   
-   
+        // return $register;
+
         RegistrationGroup::where('id', $id)->update([
             'status' => "Done"
         ]);
-        
+
         //redirect
         return redirect()->route('admin.registration.group');
     }
@@ -401,7 +436,7 @@ class RegistrationController extends Controller
         RegistrationGroup::where('id', $id)->update([
             'status' => "rejected"
         ]);
-        
+
         //redirect
         return redirect()->route('admin.registration.group');
     }
@@ -411,7 +446,7 @@ class RegistrationController extends Controller
         RegistrationGroup::where('id', $id)->update([
             'status' => "confirm"
         ]);
-        
+
         //redirect
         return redirect()->route('admin.registration.group');
     }
@@ -424,6 +459,16 @@ class RegistrationController extends Controller
             $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
         return $randomString;
+            }
+
+
+            public function exportPaid()
+            {
+                $paids = Registration::whereNotNull('paid')
+                    ->whereNotIn('status', ['approved'])
+                    ->get();
+
+                return Excel::download(new RegistrationPaid($paids), 'Konfirmasi-'.Carbon::now().'.xlsx');
             }
 
 

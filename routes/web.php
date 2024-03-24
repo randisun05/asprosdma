@@ -49,6 +49,8 @@ Route::prefix('admin')->group(function() {
         Route::get('/registration/{id}/confirm', [\App\Http\Controllers\Admin\RegistrationController::class, 'confirm'])->name('admin.registration.confirm');
         Route::post('/registration/{id}/paid', [\App\Http\Controllers\Admin\RegistrationController::class, 'paid'])->name('admin.registration.paid');
         Route::get('/registration/{id}/reject', [\App\Http\Controllers\Admin\RegistrationController::class, 'reject'])->name('admin.registration.reject');
+        Route::get('/registration/{id}/email', [\App\Http\Controllers\Admin\RegistrationController::class, 'sendEmail'])->name('admin.registration.sendEmail');
+        Route::get('/registration/paid/export', [\App\Http\Controllers\Admin\RegistrationController::class, 'exportPaid'])->name('admin.registration.export');
         Route::resource('/registration', \App\Http\Controllers\Admin\RegistrationController::class, ['as' => 'admin']);
         Route::post('/posts/{id}', [\App\Http\Controllers\Admin\PostController::class, 'update'])->name('admin.posts.update');
         Route::resource('/posts', \App\Http\Controllers\Admin\PostController::class, ['as' => 'admin']);
@@ -89,8 +91,15 @@ Route::prefix('user')->group(function() {
         //route dashboard
         Route::get('/dashboard', App\Http\Controllers\User\DashboardController::class)->name('user.dashboard');
         Route::get('/profile', [\App\Http\Controllers\User\DataProfileController::class, 'index'])->name('user.profile');
+        Route::get('/profile/data-utama', [\App\Http\Controllers\User\DataProfileController::class, 'indexIndiv'])->name('user.profile.data-utama');
+        Route::put('/profile/data-utama/image', [\App\Http\Controllers\User\DataProfileController::class, 'updateImage'])->name('user.profile.data-utama.image');
+        Route::get('/profile/data-jabatan', [\App\Http\Controllers\User\DataProfileController::class, 'indexPosition'])->name('user.profile.jabatan');
+        Route::get('/profile/data-lainnya', [\App\Http\Controllers\User\DataProfileController::class, 'indexOther'])->name('user.profile.lainnya');
+        Route::get('/main-data', [\App\Http\Controllers\User\DataProfileController::class, 'indexIndiv'])->name('user.main-data');
         Route::get('/profile/edit', [\App\Http\Controllers\User\DataProfileController::class, 'edit'])->name('user.profile.edit');
         Route::post('/profile/edit', [\App\Http\Controllers\User\DataProfileController::class, 'update'])->name('user.profile.update');
+        Route::get('/profile/data-jabatan/edit', [\App\Http\Controllers\User\DataProfileController::class, 'editPosition'])->name('user.profile.editposition');
+        Route::post('/profile/data-jabatan/edit', [\App\Http\Controllers\User\DataProfileController::class, 'updatePosition'])->name('user.profile.updateposition');
         Route::post('/posts/{id}', [\App\Http\Controllers\User\PostsController::class, 'update'])->name('user.posts.update');
         Route::resource('/posts', \App\Http\Controllers\User\PostsController::class, ['as' => 'user']);
         Route::get('/posts/{id}/submission', [\App\Http\Controllers\User\PostsController::class, 'submission'])->name('user.posts.submission');
@@ -125,9 +134,9 @@ Route::get('/bidang-pengembangan-kapasitas-insani', [\App\Http\Controllers\Publi
 Route::get('/bidang-sumber-pendanaan-organisasi', [\App\Http\Controllers\Public\PublicController::class, 'sumberPendanaan'])->name('sumberPendanaan');
 Route::get('/kontak-kami', [\App\Http\Controllers\Public\PublicController::class, 'kontak'])->name('kontak');
 Route::get('/berita', [\App\Http\Controllers\Public\PublicController::class, 'berita'])->name('berita');
-Route::get('/artikel', [\App\Http\Controllers\Public\PublicController::class, 'artikel'])->name('artikel');
+Route::get('/berita/{post:slug}', [\App\Http\Controllers\Public\PublicController::class, 'beritaView'])->name('berita.view');
 Route::get('/cerita', [\App\Http\Controllers\Public\PublicController::class, 'cerita'])->name('cerita');
-Route::get('/events/{id}', [\App\Http\Controllers\Public\EventsController::class, 'show'])->name('event.show');
+Route::get('/events/{event:slug}', [\App\Http\Controllers\Public\EventsController::class, 'show'])->name('event.show');
 Route::resource('/events', \App\Http\Controllers\Public\EventsController::class);
 Route::resource('/berita', \App\Http\Controllers\Public\PostsController::class);
 Route::resource('/merchans', \App\Http\Controllers\Public\MerchansController::class);
@@ -149,8 +158,8 @@ Route::get('/send-email',function(){
         'name' => 'Syahrizal As',
         'body' => 'Testing Kirim Email di Santri Koding'
     ];
-   
+
     Mail::to('randisun1995@gmail.com')->send(new SendEmailRegistration($data));
-   
+
     dd("Email Berhasil dikirim.");
 });

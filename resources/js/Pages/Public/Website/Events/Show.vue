@@ -3,7 +3,7 @@
     <Head>
         <title>{{ title }}</title>
     </Head>
-  
+
  <!--page Header-->
 <section class="page-header parallaxie padding_top center-block">
    <div class="container">
@@ -21,10 +21,10 @@
       </div>
    </div>
 </section>
-<!--page Header ends--> 
+<!--page Header ends-->
 
 
-<!-- Our Blogs -->  
+<!-- Our Blogs -->
 <section id="our-blog">
    <div class="container padding">
       <div class="row mb-4">
@@ -40,11 +40,11 @@
                             <li><a href="#."> <i class="fa fa-user-o"></i>{{ event.team }} / {{ event.participant }}</a></li>
                         </ul>
                         <p class="bottom35">{{ event.body }}</p>
-                        <a href="blog-detail.html" class="button btnprimary">Join</a>
+                        <a href="/user/events/" class="button btnprimary">Join</a>
                         <p>Pendaftaran ditutup pada {{ event.enddate}} </p>
                 </div>
             </div>
-         </div> 
+         </div>
       </div>
    </div>
 </section>
@@ -102,7 +102,7 @@
                 getImageUrl,
             }
 }
-        
+
     }
 
 </script>

@@ -19,8 +19,11 @@ class PostsController extends Controller
         ->when(request()->q, function($query) {
             $query->where('title', 'like', '%' . request()->q . '%');
         })
+        ->where(function($query) {
+            $query->where('status', 'approved');
+        })
         ->latest()
-        ->paginate(10);
+        ->paginate(6);
 
         $posts->appends(['q' => request()->q]);
 

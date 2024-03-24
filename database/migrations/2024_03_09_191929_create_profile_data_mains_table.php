@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('profile_data_mains', function (Blueprint $table) {
             $table->id();
             $table->string('nip')->unique();
+            $table->string('nomember')->unique();
+            $table->enum('statusmember',['Anggota Biasa','Anggota Luar Biasa','Anggota Kehormatan'])->nullable()->default('Anggota Biasa');
             $table->string('name');
             $table->string('fname')->nullable();
             $table->string('lname')->nullable();
@@ -32,12 +34,12 @@ return new class extends Migration
             $table->string('regency')->nullable();
             $table->string('district')->nullable();
             $table->string('villages')->nullable();
-            $table->string('type')->nullable();
-            $table->string('status')->nullable();
             $table->string('tmt-cpns')->nullable();
             $table->string('tmt-pns')->nullable();
             $table->string('leveledu')->nullable();
             $table->string('lastedu')->nullable();
+            $table->string('image')->nullable();
+            $table->date('active_at')->nullable();
             $table->timestamps();
         });
     }

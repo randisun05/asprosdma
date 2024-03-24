@@ -37,7 +37,7 @@ class MerchanController extends Controller
     public function create()
     {
         return inertia('Admin/Merchans/Create', [
-           
+
             ]);
     }
 
@@ -51,7 +51,7 @@ class MerchanController extends Controller
     {
          // Validate request including file validation
 
-         
+
             $request->validate([
                 'title' => 'required|string',
                 'image' => 'required|',
@@ -75,11 +75,12 @@ class MerchanController extends Controller
             'subtitle' => $request->subtitle,
             'color' => $request->color,
             'price' => $request->price,
+            'status' => "active",
         ]);
-    
+
      //redirect
      return redirect()->route('admin.merchans.index');
-    
+
     }
 
     /**
@@ -144,11 +145,11 @@ class MerchanController extends Controller
                 'color' => $request->color,
                 'price' => $request->price,
             ]);
-            
+
 
             //redirect
             return redirect()->route('admin.merchans.index');
-    }   
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -159,7 +160,7 @@ class MerchanController extends Controller
     public function destroy($id)
     {
         $merchan = Merchan::findOrFail($id);
-       
+
         $merchan->delete();
 
         //redirect

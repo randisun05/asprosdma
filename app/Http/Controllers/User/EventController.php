@@ -17,15 +17,16 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Event::when(request()->q, function($query) {
+        $events = Event::whereNot('title','Media')
+        ->when(request()->q, function($query) {
             $query->where('title', 'like', '%' . request()->q . '%');
         })
         ->latest()
-        ->paginate(10);
+        ->paginate(6);
 
          //append query string to pagination links
          $events->appends(['q' => request()->q]);
-       
+
          return inertia('User/Events/Index', [
              'events' => $events,
           ]);

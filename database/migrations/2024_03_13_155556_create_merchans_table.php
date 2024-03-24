@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('image');
             $table->text('body');
             $table->text('how');
-            $table->string('status');
+            $table->enum('status',["active","non-active"])->default("active");
             $table->timestamps();
         });
     }

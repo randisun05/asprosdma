@@ -4,6 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 
 class AuthMember
 {
@@ -21,7 +23,8 @@ class AuthMember
 
         //if not, redirect to login page
         if (!$member) {
-            return redirect('/');
+            Session::flash('error', 'Silakan login terlebih dahulu.');
+            return redirect('/user/login');
         }
 
         //if user is logged in, continue to next middleware

@@ -20,7 +20,7 @@ class EventsController extends Controller
             $query->where('title', 'like', '%' . request()->q . '%');
         })
         ->latest()
-        ->paginate(10);
+        ->paginate(3);
 
         $events->appends(['q' => request()->q]);
 
@@ -57,15 +57,14 @@ class EventsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Event $event)
     {
-        $event = Event::findOrFail($id);
         return inertia('Public/Website/Events/Show', [
             'title' => $event->slug,
             'event' => $event
         ]);
     }
-    
+
 
     /**
      * Show the form for editing the specified resource.

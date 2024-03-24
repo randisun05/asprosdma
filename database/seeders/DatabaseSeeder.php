@@ -12,6 +12,7 @@ use App\Models\instansi;
 use App\Models\ItemProfile;
 use App\Models\Registration;
 use App\Models\ProfileDataMain;
+use App\Models\ProfileDataPosition;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -24,6 +25,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
+
+
 
         User::create([
             'nip'      => '123',
@@ -46,7 +49,7 @@ class DatabaseSeeder extends Seeder
             'email'     => 'randi@gmail.com',
             'contact'     => '008',
             'agency'     => 'bkn',
-            'position'     => 'asdma',
+            'position'     => 'Analis SDM Aparatur',
             'level'     => 'pertama',
             'document_jab'     => 'aa',
             'status'     => 'submission',
@@ -58,7 +61,7 @@ class DatabaseSeeder extends Seeder
             'email'     => 'dimas@gmail.com',
             'contact'     => '009',
             'agency'     => 'bkn',
-            'position'     => 'asdma',
+            'position'     => 'Analis SDM Aparatur',
             'level'     => 'muda',
             'document_jab'     => 'aa',
             'status'     => 'submission',
@@ -70,29 +73,89 @@ class DatabaseSeeder extends Seeder
             'email'     => 'reza@gmail.com',
             'contact'     => '0010',
             'agency'     => 'bkn',
-            'position'     => 'pranata',
+            'position'     => 'Pranata SDM Aparatur',
             'level'     => 'mahir',
             'document_jab'     => 'aa',
             'status'     => 'submission',
         ]);
-        
+
         Registration::create([
             'nip'      => '4',
             'name'      => 'dhanu',
             'email'     => 'dhanu@gmail.com',
             'contact'     => '0011',
             'agency'     => 'bkn',
-            'position'     => 'asdma',
+            'position'     => 'Pranata SDM Aparatur',
             'level'     => 'penyelia',
             'document_jab'     => 'aa',
             'status'     => 'submission',
         ]);
 
         Member::create([
-            'nip'      => '199501052022031003',
+            'nip'      => '199501052022031001',
+            'nomember'      => '199501052022031001',
             'name'      => 'Administrator',
             'email'      => 'admin@gmail.com',
             'password'      => 'password',
+        ]);
+        Member::create([
+            'nip'      => '199501052022031002',
+            'nomember'      => '199501052022031002',
+            'name'      => 'Randi',
+            'email'      => 'randi@gmail.com',
+            'password'      => 'password',
+        ]);
+
+        Member::create([
+            'nip'      => '199501052022031003',
+            'nomember'      => '199501052022031003',
+            'name'      => 'Adi',
+            'email'      => 'adi@gmail.com',
+            'password'      => 'password',
+        ]);
+
+        ProfileDataMain::create([
+            'nip'      => '199501052022031001',
+            'nomember'      => '199501052022031001',
+            'name'      => 'Administrator',
+            'email'      => 'admin@gmail.com',
+
+        ]);
+        ProfileDataMain::create([
+            'nip'      => '199501052022031002',
+            'nomember'      => '199501052022031002',
+            'name'      => 'Randi',
+            'email'      => 'randi@gmail.com',
+
+        ]);
+
+        ProfileDataMain::create([
+            'nip'      => '199501052022031003',
+            'nomember'      => '199501052022031003',
+            'name'      => 'Adi',
+            'email'      => 'adi@gmail.com',
+
+        ]);
+
+        ProfileDataPosition::create([
+            'main_id'      => '1',
+            'agency'      => 'BKN',
+            'position'      => 'Analis SDM Aparatur',
+            'level'      => 'Pertama',
+
+        ]);
+        ProfileDataPosition::create([
+            'main_id'      => '2',
+            'agency'      => 'BKN',
+            'position'      => 'Analis SDM Aparatur',
+            'level'      => 'Pertama',
+        ]);
+
+        ProfileDataPosition::create([
+            'main_id'      => '3',
+            'agency'      => 'BKN',
+            'position'      => 'Analis SDM Aparatur',
+            'level'      => 'Pertama',
         ]);
 
         Category::create([
@@ -145,8 +208,14 @@ class DatabaseSeeder extends Seeder
             'title'      => 'Instansi Pusat',
         ]);
 
+        \App\Models\Post::factory(20)->create();
+        \App\Models\Event::factory(20)->create();
+        \App\Models\Merchan::factory(20)->create();
+
 
     }
 
-   
+
+
+
 }

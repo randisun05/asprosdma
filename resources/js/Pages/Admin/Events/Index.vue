@@ -11,7 +11,7 @@
                             class="fa fa-plus-circle"></i>
                          Tambah</Link>
                     </div>
-                   
+
                     <div class="col-md-6 col-12 mb-2">
                         <form @submit.prevent="handleSearch">
                             <div class="input-group">
@@ -61,16 +61,16 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>             
+                        </div>
                          <Pagination :links="events.links" align="end" />
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
     </div>
 
 
-                    
+
 
 </template>
 
@@ -117,7 +117,7 @@
             details: Object,
         },
 
-        
+
         //inisialisasi composition API
         setup() {
 
@@ -158,15 +158,15 @@
                             });
                         }
                     })
-            }     
+            }
 
-        
+
             //return
             return {
                 search,
                 handleSearch,
                 destroy,
- 
+
 
         }
     }

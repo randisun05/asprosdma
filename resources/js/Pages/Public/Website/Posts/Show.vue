@@ -3,161 +3,157 @@
     <Head>
         <title>{{ title }}</title>
     </Head>
-  
- <!--page Header-->
-<section class="page-header parallaxie padding_top center-block">
-   <div class="container">
-      <div class="row">
-         <div class="col-sm-12">
-            <div class="page-titles text-center">
-               <h2 class="whitecolor font-light bottom30">{{ title }}</h2>
-               <ul class="breadcrumb justify-content-center">
-                 <li class="breadcrumb-item"><a href="/">Beranda</a></li>
-                 <li class="breadcrumb-item"><a href="/berita">Berita</a></li>
-                 <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
-               </ul>
-            </div>
-         </div>
-                <div class="col-sm-3">
-                </div>
 
-                <div class="col-sm-6 mb-4">
-                    <div class="text-center">
-                        <form @submit.prevent="handleSearch">
-                            <div class="input-group">
-                                <input type="text" class="form-control border-0 shadow" v-model="search" placeholder="masukkan kata kunci dan enter...">
-                                <span class="input-group-text border-0 shadow">
-                                    <i class="fa fa-search"></i>
-                                </span>
-                            </div>
-                        </form>
+    <!--page Header-->
+    <section class="page-header parallaxie padding_top center-block">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-titles text-center">
+                        <h2 class="whitecolor font-light bottom30">{{ title }}</h2>
+                        <ul class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a href="/">Beranda</a></li>
+                            <li class="breadcrumb-item"><a href="/berita">Berita</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
+                        </ul>
                     </div>
                 </div>
+                <div class="col-sm-3">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--page Header ends-->
 
-      </div>
-   </div>
-</section>
-<!--page Header ends--> 
 
-
-<!-- Our Blogs -->  
-<section id="our-blog">
-    <div class="container mb-5 mt-5">
-        <div class="row mt-1">
-            <div class="col-md-12">
-                <div class="card border-0 shadow">
-                    <div class="card-body">
-                        <div class="row">
-                        <div class="col-md-12">
-                            <div class="row py-4">
+    <!-- Our Blogs -->
+    <section id="our-blog">
+        <div class="container mb-5 mt-5">
+            <div class="row mt-1">
+                <div class="col-md-12">
+                    <div class="card border-0 shadow">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row py-4">
                                         <div class="col-md-2 col-12 mb-2">
-                                            <Link href="/berita" class="btn btn-md btn-primary border-0 shadow w-100" type="button"><i
-                                                class="fa fa-arrow-left"></i>
+                                            <Link href="/berita" class="btn btn-md btn-primary border-0 shadow w-100"
+                                                type="button"><i class="fa fa-arrow-left"></i>
                                             Kembali</Link>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                                <div class="row px-5 py-3">
-                                    <h3 class="text-center">{{ post.title }}</h3>
-                                    <p  class="mb-0">Kategori: {{ post.category.title }}</p>
-                                    <p>Oleh: {{ post.member.name }} - Dipublikasi: {{ post.publish_at }}</p>
-                                    <div class="image-container">
+                            <div class="row px-5 py-3">
+                                <h3 class="text-center">{{ post.title }}</h3>
+                                <p class="mb-0">Kategori: {{ post.category.title }}</p>
+                                <p>Oleh: {{ post.member.name }} - Dipublikasi: {{ post.publish_at }}</p>
+                                <div class="image-container">
                                     <img v-if="post.image" :src="getImageUrl(post.image)" alt="Gambar" />
-                                    </div>
-                                    <div v-html="post.body" class="mt-4"></div>
-                                    <p v-if="post.document">Dokumen dapat didownload <a :href="getDocumentUrl(post.document)" download>disini.</a></p>
                                 </div>
+                                <div v-html="post.body" class="mt-4" style="text-align:justify;text-justify: "></div>
+                                <p class="mt-4" v-if="post.document">Dokumen dapat didownload <a
+                                        :href="getDocumentUrl(post.document)" download><u>disini.</u></a></p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<!--Our Blogs Ends-->
+    </section>
+    <!--Our Blogs Ends-->
 
 </template>
 
 <script>
-    //import layout
-    import LayoutWebsite from '../../../../Layouts/Website.vue';
- 
-   //import component pagination
-   import Pagination from '../../../../Components/Pagination.vue';
+//import layout
+import LayoutWebsite from '../../../../Layouts/Website.vue';
 
-    //import Heade and Link from Inertia
-    import {
+//import component pagination
+import Pagination from '../../../../Components/Pagination.vue';
+
+//import Heade and Link from Inertia
+import {
+    Head,
+    Link
+} from '@inertiajs/inertia-vue3';
+
+//import ref from vue
+import {
+    ref
+} from 'vue';
+
+//import inertia adapter
+import { Inertia } from '@inertiajs/inertia';
+
+export default {
+
+    //layout
+    layout: LayoutWebsite,
+
+    //register component
+    components: {
         Head,
-        Link
-    } from '@inertiajs/inertia-vue3';
+        Link,
+        Pagination
+    },
 
-    //import ref from vue
-    import {
-        ref
-    } from 'vue';
+    //props
+    props: {
+        title: Object,
+        errors: Object,
+        post: Object,
+    },
 
-    //import inertia adapter
-    import { Inertia } from '@inertiajs/inertia';
+    //inisialisasi composition API
+    setup() {
 
-    export default {
+        //define state search
+        const search = ref('' || (new URL(document.location)).searchParams.get('q'));
 
-        //layout
-        layout: LayoutWebsite,
+        //define method search
+        const handleSearch = () => {
+            Inertia.get('/posts', {
 
-        //register component
-        components: {
-            Head,
-            Link,
-            Pagination
-        },
+                //send params "q" with value from state "search"
+                q: search.value,
+            });
+        }
 
-        //props
-        props: {
-            title:Object,
-            errors : Object,
-            post : Object,
-        },
+        // Method to get the URL of the document
+        const getImageUrl = (imageName) => {
+            return `/storage/${imageName}`;
+        }
 
-        //inisialisasi composition API
-        setup() {
+        // Method to get the URL of the document
+        const getDocumentUrl = (documentName) => {
+            return `/storage/${documentName}`;
+        }
 
-            //define state search
-            const search = ref('' || (new URL(document.location)).searchParams.get('q'));
-
-            //define method search
-            const handleSearch = () => {
-                Inertia.get('/posts', {
-
-                    //send params "q" with value from state "search"
-                    q: search.value,
-                });
-            }
-
-            // Method to get the URL of the document
-            const getImageUrl = (imageName) => {
-                        return `/storage/${imageName}`;
-                    }
-
-            //return
-            return {
-                search,
-                handleSearch,
-                getImageUrl,
+        //return
+        return {
+            search,
+            handleSearch,
+            getImageUrl,
+            getDocumentUrl
 
 
-            }
-}
-        
+        }
     }
+
+}
 
 </script>
 
 <style>
 .image-container {
     display: flex;
-    justify-content: center; /* Untuk membuat gambar berada di tengah secara horizontal */
-    align-items: center; /* Untuk membuat gambar berada di tengah secara vertikal */
-    height: 400px; /* Atur tinggi sesuai kebutuhan Anda */
+    justify-content: center;
+    /* Untuk membuat gambar berada di tengah secara horizontal */
+    align-items: center;
+    /* Untuk membuat gambar berada di tengah secara vertikal */
+    height: 400px;
+    /* Atur tinggi sesuai kebutuhan Anda */
 }
 
 .image-container img {
@@ -165,5 +161,4 @@
     max-height: 100%;
     /* Anda dapat menyesuaikan properti CSS untuk gambar sesuai kebutuhan Anda */
 }
-
 </style>

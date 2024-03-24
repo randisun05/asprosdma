@@ -23,6 +23,8 @@ class Registration extends Model
         'paid',
         'info',
         'emailstatus',
+        'admin',
+        'from',
     ];
 
     protected $keyType = 'string'; // Menetapkan tipe kunci ke string

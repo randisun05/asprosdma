@@ -22,7 +22,10 @@ class ProfileDataPosition extends Model
         'tmtgolru',
         'wyear',
         'wmonth',
-    ];  
+        'type',
+        'status',
+        'level',
+    ];
 
     public function main()
     {

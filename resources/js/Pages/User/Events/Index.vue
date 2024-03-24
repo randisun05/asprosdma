@@ -1,4 +1,5 @@
 <template>
+
     <Head>
         <title>Berbagi Cerita</title>
     </Head>
@@ -8,10 +9,11 @@
                 <div class="row">
                     <div class="col-md-1 col-12 mb-2">
                     </div>
-                    <div class="col-md-6 col-12 mb-2">
+                    <div class="col-md-6 col-12 mb-2 ms-2">
                         <form @submit.prevent="handleSearch">
                             <div class="input-group">
-                                <input type="text" class="form-control border-0 shadow" v-model="search" placeholder="masukkan kata kunci dan enter...">
+                                <input type="text" class="form-control border-0 shadow" v-model="search"
+                                    placeholder="masukkan kata kunci dan enter...">
                                 <span class="input-group-text border-0 shadow">
                                     <i class="fa fa-search"></i>
                                 </span>
@@ -22,104 +24,105 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-1">
-            <div class="col-md-12">
-                <div class="card border-0 shadow">
-                    <div class="card-body">
+        <!-- Our Blogs -->
+        <section id="our-blog">
+            <div class="container padding_m card">
+                <div class="row text-center">
+                    <h3>Daftar Kegiatan</h3>
+                </div>
+                <div class="row mb-4">
+                    <div v-for="(event, index) in events.data" :key="index" class="col-md-4 mt-5">
+                        <div class="news_item shadow">
+                            <img class="image" v-if="event.image" :src="getImageUrl(event.image)" alt="Gambar" />
 
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
-                                <thead class="thead-dark">
-                                    <tr class="border-0 text-center">
-                                        <th class="border-0 rounded-start" style="width:5%">No.</th>
-                                        <th class="border-0"></th>
-                                        <th class="border-0">Kegiatan</th>
-                                        <th class="border-0">Tanggal</th>
-                                        <th class="border-0">Tempat</th>
-                                        <th class="border-0">Kebutuhan Panitia/Participant</th>
-                                        <th class="border-0 rounded-end" style="width:12%">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <div class="mt-2"></div>
-                                <tbody>
-                                    <tr v-for="(event, index) in events.data" :key="index">
-                                        <td class="fw-bold text-center">{{ ++index + (events.current_page - 1) * events.per_page }}</td>
-                                        <td style="width: 380px;"><img class="image" v-if="event.image" :src="getImageUrl(event.image)" alt="Gambar" /></td>
-                                        <td><p>{{ event.title }}</p>
-                                            <p>{{ event.body }}</p></td>
-                                        <td><p>Diselenggarakan pada : {{ event.date }}</p> 
-                                            <p>Pendaftaran ditutup pada : {{ event.enddate }}</p></td>
-                                        <td><p>{{ event.place }}</p>
-                                        <p>{{ event.link }}</p></td>
-                                        <td><p>Panitia {{ event.team }} orang</p>
-                                        <p>Peserta{{ event.participant }} orang</p></td>
-                                        <td class="text-center" >
-                                            <button  @click.prevent="join(event.id)" class="btn btn-sm btn-success border-0 me-2"><i class="fa fa-sign-in" title="join"></i></button>
-                                            <select  class="form-select mt-4" name="role" id="role" @change="handleRoleChange">
-                                                <option value="Peserta">Peserta</option>
-                                                <option value="Panitia">Panitia</option>
-                                            </select>
-                                            <span v-if="event.status !== 'approved'" class="badge bg-success">sudah daftar</span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="news_desc">
+                                <h4 class="text-capitalize font-light darkcolor" style="font-weight: bold;"><a href="#.">{{ event.title }}</a></h4>
+                                <div class="mt-2 text-center">
+                                    <span v-if="event.status === 'active'" class="badge bg-success">Open</span>
+                                    <span v-else-if="event.status === 'closed'" class="badge bg-danger">Closed</span>
+                                </div>
+                                <ul class="meta-tags top20 bottom20">
+                                    <li>
+                                        <a href="#."><i class="fa fa-calendar me-2" title="Tanggal pelaksanaa"></i>{{
+                            event.date }}</a>
+                                    </li>
+                                    <li>
+                                        <a href="#."> <i class="fa fa-user-o me-2" title="Jumlah peserta"></i>
+                                            {{ event.participant }}</a>
+                                    </li>
+
+                                    <p>Pendaftaran ditutup pada {{ event.enddate }}</p>
+
+                                </ul>
+                                <p class="bottom35">{{ event.body }}</p>
+                                <div class="text-center">
+                                    <Link v-if="event.status == 'active'" :href="`/events/${event.slug}`" title="join"
+                                        class="button btnprimary" type="button">
+                                    Join
+                                    </Link>
+                                </div>
+
+                            </div>
                         </div>
-                        <Pagination :links="events.links" align="end" />
+                    </div>
+                    <div class="text-center">
+                        <!-- Center align pagination -->
+                        <Pagination :links="events.links" align="center" />
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
+        <!--Our Blogs Ends-->
     </div>
 </template>
 
 <script>
-    //import layout
-    import LayoutUser from '../../../Layouts/User.vue';
+//import layout
+import LayoutUser from '../../../Layouts/User.vue';
 
-    //import component pagination
-    import Pagination from '../../../Components/Pagination.vue';
+//import component pagination
+import Pagination from '../../../Components/Pagination.vue';
 
-    //import Heade and Link from Inertia
-    import {
+//import Heade and Link from Inertia
+import {
+    Head,
+    Link
+} from '@inertiajs/inertia-vue3';
+
+//import ref from vue
+import {
+    ref, reactive
+} from 'vue';
+
+//import inertia adapter
+import { Inertia } from '@inertiajs/inertia';
+
+//import sweet alert2
+import Swal from 'sweetalert2';
+
+export default {
+    //layout
+    layout: LayoutUser,
+
+    //register component
+    components: {
         Head,
-        Link
-    } from '@inertiajs/inertia-vue3';
+        Link,
+        Pagination
+    },
 
-    //import ref from vue
-    import {
-        ref, reactive
-    } from 'vue';
+    //props
+    props: {
+        events: Object,
 
-    //import inertia adapter
-    import { Inertia } from '@inertiajs/inertia';
+    },
 
-    //import sweet alert2
-    import Swal from 'sweetalert2';
 
-    export default {
-        //layout
-        layout: LayoutUser,
 
-        //register component
-        components: {
-            Head,
-            Link,
-            Pagination
-        },
+    //inisialisasi composition API
+    setup() {
 
-        //props
-        props: {
-            events :Object,
-
-        },
-
-        
-
-        //inisialisasi composition API
-        setup() {
-
-            // Define local variable role
+        // Define local variable role
         let role = '';
 
         const handleRoleChange = (event) => {
@@ -128,62 +131,62 @@
 
 
 
-            //define state search
-            const search = ref('' || (new URL(document.location)).searchParams.get('q'));
+        //define state search
+        const search = ref('' || (new URL(document.location)).searchParams.get('q'));
 
-            //define method search
-            const handleSearch = () => {
-                Inertia.get('/user/events', {
+        //define method search
+        const handleSearch = () => {
+            Inertia.get('/user/events', {
 
-                    //send params "q" with value from state "search"
-                    q: search.value,
-                });
-            }
+                //send params "q" with value from state "search"
+                q: search.value,
+            });
+        }
 
-            //define method destroy
-            const join  = (id) => {
-                Swal.fire({
-                        title: 'Apakah Anda yakin?',
-                        text: "Anda akan mendaftar pada event ini!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, Daftarkan!'
-                    })
-                    .then((result) => {
-                        if (result.isConfirmed) {
+        //define method destroy
+        const join = (id) => {
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Anda akan mendaftar pada event ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Daftarkan!'
+            })
+                .then((result) => {
+                    if (result.isConfirmed) {
 
-                            Inertia.put(`/user/events/${id}/join`,{
-                                'role': role
-                            });
+                        Inertia.put(`/user/events/${id}/join`, {
+                            'role': role
+                        });
 
-                            Swal.fire({
-                                title: 'Berhasil!',
-                                text: `Anda berhasil bergabung sebagai peserta`,
-                                icon: 'success',
-                                timer: 2000,
-                                showConfirmButton: false,
-                            });
-                        }
-                    })
-                }
+                        Swal.fire({
+                            title: 'Berhasil!',
+                            text: `Anda berhasil bergabung sebagai peserta`,
+                            icon: 'success',
+                            timer: 2000,
+                            showConfirmButton: false,
+                        });
+                    }
+                })
+        }
 
-            // Method to get the URL of the document
-         const getImageUrl = (imageName) => {
+        // Method to get the URL of the document
+        const getImageUrl = (imageName) => {
             return `/storage/${imageName}`;
         }
 
-            //return
-            return {
-                search,
-                handleSearch,
-                join,
-                getImageUrl,
-                handleRoleChange,
-                 role,
-               
- 
+        //return
+        return {
+            search,
+            handleSearch,
+            join,
+            getImageUrl,
+            handleRoleChange,
+            role,
+
+
         }
     }
 }
@@ -193,9 +196,12 @@
 <style>
 .image {
     display: flex;
-    justify-content: center; /* Untuk membuat gambar berada di tengah secara horizontal */
-    align-items: center; /* Untuk membuat gambar berada di tengah secara vertikal */
-    height: 200px; /* Atur tinggi sesuai kebutuhan Anda */
+    justify-content: center;
+    /* Untuk membuat gambar berada di tengah secara horizontal */
+    align-items: center;
+    /* Untuk membuat gambar berada di tengah secara vertikal */
+    height: 200px;
+    /* Atur tinggi sesuai kebutuhan Anda */
 }
 
 .image img {
@@ -203,5 +209,4 @@
     max-height: 100%;
     /* Anda dapat menyesuaikan properti CSS untuk gambar sesuai kebutuhan Anda */
 }
-
 </style>

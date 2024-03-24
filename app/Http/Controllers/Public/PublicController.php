@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PublicController extends Controller
@@ -12,7 +14,7 @@ class PublicController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
+
 
     public function index()
     {
@@ -162,10 +164,19 @@ class PublicController extends Controller
         ]);
     }
 
-    public function cerita()
+    public function beritaView(Post $post)
     {
-        return inertia('Public/Website/Maintenance/Index', [
-            'title' => "Maintenance",
+
+         // Get the related category of the post
+
+        $category = $post->category;
+        $member = $post->member;
+
+        return inertia('Public/Website/Posts/Show', [
+            'title' => $post->title,
+            'post' => $post,
+            'category' => $category,
+            'member' => $member
         ]);
     }
 

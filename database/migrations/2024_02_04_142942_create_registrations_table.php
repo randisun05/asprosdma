@@ -22,11 +22,13 @@ return new class extends Migration
             $table->string('agency');
             $table->string('position');
             $table->string('level');
-            $table->string('document_jab');
+            $table->string('document_jab')->nullable();
             $table->enum('status',['submission','paid','confirm','approved','rejected','corrected'])->default('submission');
             $table->string('info')->nullable();
             $table->string('paid')->nullable();
             $table->integer('emailstatus')->default(0);
+            $table->enum('from',['individu','collective'])->nullable();
+            $table->string('admin')->nullable();
             $table->timestamps();
         });
     }

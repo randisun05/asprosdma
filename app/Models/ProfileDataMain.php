@@ -27,14 +27,17 @@ class ProfileDataMain extends Model
             'regency',
             'district',
             'villages',
-            'type',
-            'status',
             'tmt-cpns',
             'tmt-pns',
             'leveledu',
-            'lastedu',    
-    ];  
+            'lastedu',
+            'nomember',
+            'statusmember',
+            'image',
+            'active_at',
+            'religion',
+    ];
 
-   
+
 
 }
