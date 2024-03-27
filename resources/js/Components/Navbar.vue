@@ -14,13 +14,16 @@
                 </div>
             </a>
                     <ul class="dropdown-menu" aria-labelledby="sidemenu_toggle">
+                        <Link class="dropdown-item d-flex align-items-center" href="/setting" as="button">
+                        Setting
+                        </Link>
                         <Link class="dropdown-item d-flex align-items-center" href="/logout" method="POST" as="button">
                         Logout
                         </Link>
                     </ul>
         </div>
    </nav>
-   
+
 </template>
 
 <script>

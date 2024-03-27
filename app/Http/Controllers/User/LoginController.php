@@ -32,11 +32,29 @@ class LoginController extends Controller
         if(!$member) {
             return redirect()->back()->with('error', 'NIP atau Password salah');
         }
-        
+
         //login the user
         auth()->guard('member')->login($member);
 
         //redirect to dashboard
         return redirect()->route('user.dashboard');
+    }
+
+    public function setting()
+    {
+        $member = Member::where('nip',auth()->guard('member')->user()->nip)
+        ->first();
+
+        return inertia('User/Setting/Index', [
+            'member' => $member,
+         ]);
+
+    }
+
+    public function resetPassword(Request $request)
+    {
+
+        //validate the form data
+
     }
 }

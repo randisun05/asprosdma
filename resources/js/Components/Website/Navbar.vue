@@ -1,75 +1,106 @@
 <template>
-<!-- header -->
-<header class="site-header transparent-sidemenu">
-    <nav class="navbar navbar-expand-lg transparent-bg static-nav">
-       <div class="container">
-          <a class="navbar-brand" href="index.html">
-          <img src="/assets/images/logo.png" alt="logo" style="width: 70%;">
-          </a>
-          <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#xenav">
-             <span> </span>
-             <span> </span>
-             <span> </span>
-          </button>
-          <div class="collapse navbar-collapse" id="xenav">
-            <ul class="navbar-nav ms-auto">
-               <li class="nav-item active">
-                  <a class="nav-link pagescroll" href="/">Beranda</a>
-               </li>
-               <li class="nav-item dropdown">
-                  <a class="nav-link pagescroll dropdown-toggle" data-bs-toggle="dropdown" href="#tentang kita" role="button" aria-expanded="false">Tentang Kita</a>
-                  <ul class="dropdown-menu pagescroll" aria-expanded="false">
-                        <li><a class="dropdown-item" href="/tentang-aspro">Siapa Kita?</a></li>
-                        <li><a class="dropdown-item" href="/ketua-umum">Ketua Umum</a></li>
-                        <li><a class="dropdown-item" href="/struktur-organisasi">Struktur Organisasi</a></li>
-                        <li><a class="dropdown-item" href="/visi-misi">Visi Misi</a></li>
-                        <li><a class="dropdown-item" href="/sejarah">Sejarah Terbentuknya Aspro SDMA</a></li>
-                        <li><a class="dropdown-item" href="/peraturan-organisasi">Peraturan Organisasi</a></li>
-                     </ul>
-               </li>
-               <li class="nav-item dropdown">
-                  <a class="nav-link pagescroll dropdown-toggle" data-bs-toggle="dropdown" href="#program" role="button" aria-expanded="false">Program</a>
-                  <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/bidang-keanggotaan-dan-organisasi">Bidang Keanggotaan dan Organisasi</a></li>
-                        <li><a class="dropdown-item" href="/bidang-pengembangan-kapasitas-insani">Bidang Pengembangan Kapasitas Insansi</a></li>
-                        <li><a class="dropdown-item" href="/bidang-hukum-dan-advokasi">Bidang Hukum dan Advokasi</a></li>
-                        <li><a class="dropdown-item" href="/bidang-hubungan-masyarakat-dan-kerja-sama">Bidang Hubungan Masyarakat dan Kerja Sama</a></li>
-                        <li><a class="dropdown-item" href="/bidang-sumber-pendanaan-organisasi">Bidang Sumber Pendanaan Organisasi</a></li>
-                     </ul>
-               </li>
-               <li class="nav-item dropdown">
-                  <a class="nav-link pagescroll dropdown-toggle" data-bs-toggle="dropdown" href="#publikasi" role="button" aria-expanded="false">Publikasi</a>
-                  <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/events">Kegiatan</a></li>
-                        <li><a class="dropdown-item" href="/berita">Berita</a></li>
-                        <li><a class="dropdown-item" href="/cerita">Cerita</a></li>
-                     </ul>
-               </li>
-               <li class="nav-item dropdown">
-                  <a class="nav-link pagescroll dropdown-toggle" data-bs-toggle="dropdown" href="#keanggotaan" role="button" aria-expanded="false">Keanggotaan</a>
-                  <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/registration">Daftar</a></li>
-                        <li><a class="dropdown-item" href="/user/login">Masuk</a></li>
-                     </ul>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link pagescroll" href="/kontak-kami">Kontak Kami</a>
-               </li>
-            </ul>
-         </div>
-      </div>
-      <!--side menu open button-->
-      <a href="javascript:void(0)" class="d-none d-lg-inline-block sidemenu_btn" id="sidemenu_toggle">
-          <span></span> <span></span> <span></span>
-       </a>
-   </nav>
+    <!-- header -->
+    <header class="site-header transparent-sidemenu" :class="{ 'fixedmenu': isNavbarFixed }">
+        <nav class="navbar navbar-expand-lg transparent-bg static-nav">
+            <div class="container">
+                <a class="navbar-brand" href="/">
+                    <img src="/assets/images/logo.png" alt="logo" style="width: 70%;">
+                </a>
+                <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#xenav">
+                    <span> </span>
+                    <span> </span>
+                    <span> </span>
+                </button>
+                <div class="collapse navbar-collapse" id="xenav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link pagescroll" href="/">Beranda</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link pagescroll dropdown-toggle" data-bs-toggle="dropdown"
+                                href="#tentang kita" role="button" aria-expanded="false">Tentang Kita</a>
+                            <ul class="dropdown-menu pagescroll" aria-expanded="false">
+                                <li><a class="dropdown-item" href="/tentang-aspro">Siapa Kita?</a></li>
+                                <li><a class="dropdown-item" href="/ketua-umum">Ketua Umum</a></li>
+                                <li><a class="dropdown-item" href="/struktur-organisasi">Struktur Organisasi</a></li>
+                                <li><a class="dropdown-item" href="/visi-misi">Visi Misi</a></li>
+                                <li><a class="dropdown-item" href="/sejarah">Sejarah Terbentuknya Aspro SDMA</a></li>
+                                <li><a class="dropdown-item" href="/peraturan-organisasi">Peraturan Organisasi</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link pagescroll dropdown-toggle" data-bs-toggle="dropdown" href="#program"
+                                role="button" aria-expanded="false">Program</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/bidang-keanggotaan-dan-organisasi">Bidang
+                                        Keanggotaan dan Organisasi</a></li>
+                                <li><a class="dropdown-item" href="/bidang-pengembangan-kapasitas-insani">Bidang
+                                        Pengembangan Kapasitas Insansi</a></li>
+                                <li><a class="dropdown-item" href="/bidang-hukum-dan-advokasi">Bidang Hukum dan
+                                        Advokasi</a></li>
+                                <li><a class="dropdown-item" href="/bidang-hubungan-masyarakat-dan-kerja-sama">Bidang
+                                        Hubungan Masyarakat dan Kerja Sama</a></li>
+                                <li><a class="dropdown-item" href="/bidang-sumber-pendanaan-organisasi">Bidang Sumber
+                                        Pendanaan Organisasi</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link pagescroll dropdown-toggle" data-bs-toggle="dropdown" href="#publikasi"
+                                role="button" aria-expanded="false">Publikasi</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/events">Kegiatan</a></li>
+                                <li><a class="dropdown-item" href="/berita">Berita</a></li>
+                                <li><a class="dropdown-item" href="/cerita">Cerita</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link pagescroll dropdown-toggle" data-bs-toggle="dropdown" href="#keanggotaan"
+                                role="button" aria-expanded="false">Keanggotaan</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/registration">Daftar</a></li>
+                                <li><a class="dropdown-item" href="/user/login">Masuk</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pagescroll" href="/kontak-kami">Kontak Kami</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!--side menu open button-->
+            <div class="dropdown" v-if="$page.props.auth.member">
+                <a href="#" class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                    id="sidemenu_toggle">
+                    <div class="media d-flex align-items-center">
+                        <img class="avatar rounded-circle" alt="Image placeholder"
+                            :src="`https://ui-avatars.com/api/?name=${$page.props.auth.member.name}&amp;background=4e73df&amp;color=ffffff&amp;size=40`">
+                        <div class="media-body text-dark align-items-center d-none d-lg-block ms-2">
+                            <span class="mb-0 font-small fw-bold text-gray-900">{{ $page.props.auth.member.name
+                                }}</span>
+                        </div>
+                    </div>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="sidemenu_toggle">
+                    <Link class="dropdown-item d-flex align-items-center" href="/user/dashboard" as="button">
+                    Profile
+                    </Link>
+                    <Link class="dropdown-item d-flex align-items-center" href="/logout" method="POST" as="button">
+                    <Link class="dropdown-item d-flex align-items-center" href="/user/setting" as="button">
+                    Setting
+                    </Link>
+                    Logout
+                    </Link>
+                </ul>
+            </div>
+        </nav>
 
-   <!-- side menu -->
-   <div class="side-menu">
+        <!-- side menu -->
+        <!-- <div class="side-menu">
       <div class="inner-wrapper">
          <span class="btn-close" id="btn_sideNavClose"><i></i><i></i></span>
          <nav class="side-nav">
-         
+
             <ul class="navbar-nav w-100">
                <li class="nav-item active">
                   <a class="nav-link pagescroll" href="/">Beranda</a>
@@ -168,61 +199,79 @@
          </div>
       </div>
    </div>
-   <a id="close_side_menu" href="javascript:void(0);"></a>
-   <!-- End side menu -->
-</header>
-<!-- header -->
+   <a id="close_side_menu" href="javascript:void(0);"></a> -->
+        <!-- End side menu -->
+    </header>
+    <!-- header -->
 </template>
 
 <script>
 import { ref } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
+//import Link
+import { Link } from '@inertiajs/inertia-vue3';
+
+
 
 export default {
-  data() {
-    return {
-      dropdowns: {
-        home: false,
-        profile: false,
-        program: false,
-        publikasi: false,
-        keanggotaan: false,
-        kontak: false,
-      },
-      dropdownItems: {
-        profile: ["Tentang Aspro", "Ketua Umum", "Struktur Organisasi", "Visi Misi", "Sejarah Terbentuknya Aspro", "Peraturan Organisasi"],
-        program: ["Pelatihan", "Sertifikasi", "Kegiatan Aspro"],
-        publikasi: ["Pengumuman", "Artikel", "Berita", "Media"],
-        keanggotaan: ["Login", "Registrasi"],
-      }
-    };
-  },
-  methods: {
-    toggleDropdown(dropdown) {
-      this.dropdowns[dropdown] = !this.dropdowns[dropdown];
+    //register component
+    components: {
+        Link,
     },
-    toggleSideMenu() {
-      const sideMenu = document.querySelector('.side-menu');
-      sideMenu.classList.toggle('active');
+
+    data() {
+        return {
+            dropdowns: {
+                home: false,
+                profile: false,
+                program: false,
+                publikasi: false,
+                keanggotaan: false,
+                kontak: false,
+            },
+            dropdownItems: {
+                profile: ["Tentang Aspro", "Ketua Umum", "Struktur Organisasi", "Visi Misi", "Sejarah Terbentuknya Aspro", "Peraturan Organisasi"],
+                program: ["Pelatihan", "Sertifikasi", "Kegiatan Aspro"],
+                publikasi: ["Pengumuman", "Artikel", "Berita", "Media"],
+                keanggotaan: ["Login", "Registrasi"],
+            },
+            isNavbarFixed: false
+        };
+    },
+    methods: {
+        toggleDropdown(dropdown) {
+            this.dropdowns[dropdown] = !this.dropdowns[dropdown];
+        },
+        toggleSideMenu() {
+            const sideMenu = document.querySelector('.side-menu');
+            sideMenu.classList.toggle('active');
+        },
+        handleScroll() {
+            const scrollPosition = window.scrollY;
+            this.isNavbarFixed = scrollPosition > 0;
+        }
+    },
+    mounted() {
+        const sideMenuToggle = document.getElementById('sidemenu_toggle');
+        sideMenuToggle.addEventListener('click', this.toggleSideMenu);
+
+        const sideMenuClose = document.getElementById('btn_sideNavClose');
+        sideMenuClose.addEventListener('click', this.toggleSideMenu);
+
+
+    },
+
+    mounted() {
+        window.addEventListener('scroll', this.handleScroll);
+    },
+    beforeUnmount() {
+        window.removeEventListener('scroll', this.handleScroll);
     }
-  },
-  mounted() {
-    const sideMenuToggle = document.getElementById('sidemenu_toggle');
-    sideMenuToggle.addEventListener('click', this.toggleSideMenu);
-    
-    const sideMenuClose = document.getElementById('btn_sideNavClose');
-    sideMenuClose.addEventListener('click', this.toggleSideMenu);
-  }
 }
 </script>
 
 
 <style>
 
-.bg-gray-transparant {
-      background: -webkit-gradient(linear, left top, right top, color-stop(31%, #423f9c), color-stop(69%, #862359));
-      color: white; /* Teks berwarna putih */
-    
-}
 
 </style>

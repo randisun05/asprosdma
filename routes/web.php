@@ -105,6 +105,8 @@ Route::prefix('user')->group(function() {
         Route::get('/posts/{id}/submission', [\App\Http\Controllers\User\PostsController::class, 'submission'])->name('user.posts.submission');
         Route::resource('/events', \App\Http\Controllers\User\EventController::class, ['as' => 'user']);
         Route::put('/events/{id}/join', [\App\Http\Controllers\User\EventController::class, 'join'])->name('user.events.join');
+        Route::get('/setting', [App\Http\Controllers\User\LoginController::class, 'setting'])->name('user.setting');
+        Route::get('/setting/update', [App\Http\Controllers\User\LoginController::class, 'updatePassword'])->name('user.setting.update');
     });
 });
 

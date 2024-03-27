@@ -32,7 +32,11 @@ class RegistrationController extends Controller
     public function index()
     {
         $registers = Registration::when(request()->q, function($registers) {
-            $registers = $registers->where('name', 'like', '%'. request()->q . '%');
+            $registers = $registers->where('name', 'like', '%'. request()->q . '%')
+            ->orWhere('nip', 'like', '%'. request()->q . '%')
+            ->orWhere('agency', 'like', '%'. request()->q . '%')
+            ->orWhere('status', 'like', '%'. request()->q . '%')
+            ->orWhere('position', 'like', '%'. request()->q . '%');
         })->latest()->paginate(10);
 
         //append query string to pagination links
@@ -255,7 +259,6 @@ class RegistrationController extends Controller
     public function approve($id)
     {
 
-
         $password = $this->generatePassword();
         //get register
         $register = Registration::findOrFail($id);
@@ -339,7 +342,7 @@ class RegistrationController extends Controller
     {
         $register = Registration::findOrFail($id);
 
-        Mail::to($register['email'])->send(new SendEmailConfirm($register));
+        Mail::to($register['email'])->send(new SendEmailRegistration($register));
 
         Registration::where('id', $id)->increment('emailstatus');
         //redirect

@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\ProfileDataMain;
 use App\Models\ProfileDataPosition;
 use App\Http\Controllers\Controller;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Laravel\Facades\Image;
+
 
 class DataProfileController extends Controller
 {
@@ -207,6 +210,10 @@ class DataProfileController extends Controller
             $image = $request->file('image')->storePublicly('/images');
             // Proceed with storing or processing the uploaded file
         };
+
+        $image = ImageManager::imagick()->read('images/example.jpg');
+
+        $image = $image->resizeDown(2000, 100); // 800 x 100
 
         //update data main
         $main->update([

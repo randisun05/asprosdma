@@ -184,12 +184,14 @@ return [
 
 
 
+
         /*
          * Package Service Providers...
          */
 
          Maatwebsite\Excel\ExcelServiceProvider::class,
          App\Providers\FortifyServiceProvider::class,
+         Intervention\Image\Laravel\ServiceProvider::class,
 
 
         /*
@@ -220,6 +222,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Image' =>  Intervention\Image\Laravel\ServiceProvider::class,
 
     ])->toArray(),
 

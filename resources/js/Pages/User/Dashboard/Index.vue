@@ -67,18 +67,20 @@
             <slide v-for="(event, index) in events.data" :key="index">
                 <div class="news_item shadow text-center row me-5">
                     <div class="col-lg-6">
-                            <img class="image" v-if="event.image" :src="getImageUrl(event.image)" alt="Gambar" />
+                        <img class="image" v-if="event.image" :src="getImageUrl(event.image)" alt="Gambar" />
                     </div>
                     <div class="col-lg-6">
                         <div class="news_desc">
                             <h4 class="text-capitalize font-light darkcolor">{{ event.title }}</h4>
                             <ul class="meta-tags top20 bottom20">
-                                <li><a href="#."><i class="fa fa-calendar"></i>{{ event.date}}</a></li>
-                                <li><a href="#."> <i class="fa fa-user-o"></i>{{ event.team }} / {{ event.participant }}</a></li>
+                                <li><a href="#."><i class="fa fa-calendar"></i>{{ event.date }}</a></li>
+                                <li><a href="#."> <i class="fa fa-user-o"></i>{{ event.team }} / {{ event.participant
+                                        }}</a></li>
                             </ul>
                             <p class="bottom35">{{ event.body }}</p>
-                            <Link :href="`/events/${event.id}`" title="join" class="button btnprimary" type="button">Join</Link>
-                            <p>Pendaftaran ditutup pada {{ event.enddate}} </p>
+                            <Link :href="`/events/${event.id}`" title="join" class="button btnprimary" type="button">
+                            Join</Link>
+                            <p>Pendaftaran ditutup pada {{ event.enddate }} </p>
                         </div>
                     </div>
                 </div>
@@ -89,9 +91,9 @@
                 <pagination />
             </template>
         </carousel>
-            <div class="text-center py-3">
-                <a href="/user/events" class="btn btnprimary">Lihat Semua Kegiatan</a>
-            </div>
+        <div class="text-center py-3">
+            <a href="/user/events" class="btn btnprimary">Lihat Semua Kegiatan</a>
+        </div>
     </section>
 
     <section id="dashboard" class="card mx-5 mt-3 shadow">
@@ -104,26 +106,28 @@
             <slide v-for="(merchan, index) in merchans.data" :key="index" class="px-5">
                 <div class="news_item shadow row">
                     <div class="col-lg-6" style="display: flex; justify-content: center; align-items: center;">
-                        <img class="image" v-if="merchan.image" :src="getImageUrl(merchan.image)" alt="Gambar" style="max-width: 100%; max-height: 100%; width: auto; height: auto;" />
+                        <img class="image" v-if="merchan.image" :src="getImageUrl(merchan.image)" alt="Gambar"
+                            style="max-width: 100%; max-height: 100%; width: auto; height: auto;" />
                     </div>
                     <div class="col-lg-6">
                         <div class="col product-details" style="text-align: left;">
                             <h5 class="product-brand">{{ merchan.title }}</h5>
                             <h6 class="product-name">{{ merchan.subtitle }}</h6>
                             <div style="font-size: 10px;" class="product-color">Warna : {{ merchan.color }}</div>
-                                                <div class="product-rating">
-                                                    <span class="rating-star">★</span>
-                                                    <span class="rating-star">★</span>
-                                                    <span class="rating-star">★</span>
-                                                    <span class="rating-star">★</span>
-                                                    <span class="rating-star">★</span>
-                                                </div>
-                                                <h6 class="product-price mb-2">Rp.{{ merchan.price }}</h6>
-                                                <h6 class="mb-1">Bagaimana Cara Kamu Beli:</h6>
-                                                <div v-html="merchan.how" style="font-size: 10px;"></div>
-                                                <div class="mt-3">
-                                                    <Link :href="`/merchans/${merchan.id}`" title="join" class="button btnprimary" type="button">View</Link>
-                                                </div>
+                            <div class="product-rating">
+                                <span class="rating-star">★</span>
+                                <span class="rating-star">★</span>
+                                <span class="rating-star">★</span>
+                                <span class="rating-star">★</span>
+                                <span class="rating-star">★</span>
+                            </div>
+                            <h6 class="product-price mb-2">Rp.{{ merchan.price }}</h6>
+                            <h6 class="mb-1">Bagaimana Cara Kamu Beli:</h6>
+                            <div v-html="merchan.how" style="font-size: 10px;"></div>
+                            <div class="mt-3">
+                                <Link :href="`/merchans/${merchan.id}`" title="join" class="button btnprimary"
+                                    type="button">View</Link>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -133,9 +137,9 @@
                 <pagination />
             </template>
         </carousel>
-            <div class="text-center py-3">
-                <a href="/user/merchans" class="btn btnprimary">Lihat Semua Merchandise</a>
-            </div>
+        <div class="text-center py-3">
+            <a href="/user/merchans" class="btn btnprimary">Lihat Semua Merchandise</a>
+        </div>
     </section>
 
     <section id="dashboard" class="card mx-5 mt-3 shadow">
@@ -151,12 +155,14 @@
                         <img class="image" v-if="post.image" :src="getImageUrl(post.image)" alt="Gambar" />
                     </a>
                     <div class="news_desc">
-                        <h3 class="text-capitalize font-light darkcolor"><a href="blog-detail.html">{{ post.title }}</a></h3>
+                        <h3 class="text-capitalize font-light darkcolor"><a href="blog-detail.html">{{ post.title }}</a>
+                        </h3>
                         <ul class="meta-tags top20 bottom20">
-                            <li><a href="#."><i class="fa fa-calendar"></i>{{ post.excerpt}}</a></li>
+                            <li><a href="#."><i class="fa fa-calendar"></i>{{ post.excerpt }}</a></li>
                         </ul>
                         <p class="bottom35">{{ post.body }}</p>
-                        <Link :href="`/berita/${post.id}`" title="join" class="button btnprimary" type="button">View</Link>
+                        <Link :href="`/berita/${post.slug}`" title="join" class="button btnprimary" type="button">View
+                        </Link>
                     </div>
                 </div>
             </slide>
@@ -166,8 +172,8 @@
             </template>
         </carousel>
         <div class="text-center py-3">
-                <a href="/user/posts" class="btn btnprimary">Lihat Semua Post</a>
-            </div>
+            <a href="/user/posts" class="btn btnprimary">Lihat Semua Post</a>
+        </div>
     </section>
 
 </template>
@@ -213,33 +219,33 @@ export default {
         posts: Object,
     },
 
-     //inisialisasi composition API
-     setup() {
+    //inisialisasi composition API
+    setup() {
 
-//define state search
-const search = ref('' || (new URL(document.location)).searchParams.get('q'));
+        //define state search
+        const search = ref('' || (new URL(document.location)).searchParams.get('q'));
 
-//define method search
-const handleSearch = () => {
-    Inertia.get('/events', {
+        //define method search
+        const handleSearch = () => {
+            Inertia.get('/events', {
 
-        //send params "q" with value from state "search"
-        q: search.value,
-    });
-}
+                //send params "q" with value from state "search"
+                q: search.value,
+            });
+        }
 
-// Method to get the URL of the document
-const getImageUrl = (imageName) => {
+        // Method to get the URL of the document
+        const getImageUrl = (imageName) => {
             return `/storage/${imageName}`;
         }
 
-//return
-return {
-    getImageUrl,
+        //return
+        return {
+            getImageUrl,
 
 
-}
-}
+        }
+    }
 
 
 }

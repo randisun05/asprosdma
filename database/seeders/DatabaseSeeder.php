@@ -188,25 +188,6 @@ class DatabaseSeeder extends Seeder
             'status' => 'media',
         ]);
 
-        instansi::create([
-            'title'      => 'Kementerian',
-        ]);
-
-        instansi::create([
-            'title'      => 'Badan',
-        ]);
-
-         instansi::create([
-            'title'      => 'Lembaga',
-        ]);
-
-        instansi::create([
-            'title'      => 'Instansi Daerah',
-        ]);
-
-         instansi::create([
-            'title'      => 'Instansi Pusat',
-        ]);
 
         \App\Models\Post::factory(20)->create();
         \App\Models\Event::factory(20)->create();

@@ -27,7 +27,7 @@ class PostController extends Controller
              ->with('member','category')
              ->latest()
              ->paginate(10);
-            
+
              $publishs = PublicPost::
              when(request()->q, function($query) {
                  $query->where('title', 'like', '%' . request()->q . '%');
@@ -42,13 +42,13 @@ class PostController extends Controller
              })
              ->latest()
              ->paginate(10);
-          
+
         //append query string to pagination links
         $posts->appends(['q' => request()->q]);
         $publishs->appends(['q' => request()->q]);
         $categories->appends(['q' => request()->q]);
-    
-       
+
+
         return inertia('Admin/Posts/Index', [
             'posts' => $posts,
             'publishs' => $publishs,
@@ -86,9 +86,18 @@ class PostController extends Controller
         'image' => '|image|mimes:jpeg,png,jpg,gif,svg|max:2048|nullable',
     ]);
 
+    // Generate initial slug from title
     $slug = strtolower(str_replace(' ', '-', $request->title));
-    $body = $request->body;
+    $originalSlug = $slug;
+    $counter = 1;
 
+    // Check if the generated slug is unique, if not, append a number
+    while (Post::where('slug', $slug)->exists()) {
+        $slug = $originalSlug . '-' . $counter;
+        $counter++;
+    }
+
+    $body = $request->body;
     // Ambil 100 kata pertama dari body
     // Hapus tag HTML dari body
     $bodyWithoutTags = strip_tags($body);
@@ -113,7 +122,6 @@ class PostController extends Controller
         $image = $request->file('picture')->storePublicly('/images');
         // Proceed with storing or processing the uploaded file
     };
-    
 
         Post::create([
             'title' => $request->title,
@@ -128,7 +136,7 @@ class PostController extends Controller
             'status' => 'submission',
         ]);
 
-    
+
 
      //redirect
      return redirect()->route('admin.posts.index');
@@ -209,7 +217,7 @@ class PostController extends Controller
         $image = $request->file('picture')->storePublicly('/images');
         // Proceed with storing or processing the uploaded file
     };
-    
+
 
         Post::where('id',$id)->update([
             'title' => $request->title,
@@ -224,7 +232,7 @@ class PostController extends Controller
             'status' => 'submission',
         ]);
 
-    
+
 
      //redirect
      return redirect()->route('admin.posts.index');
@@ -261,7 +269,7 @@ class PostController extends Controller
         //redirect
         return redirect()->route('admin.posts.index');
     }
-    
+
     public function return($id)
     {
         $post = Post::findOrFail($id);
@@ -286,7 +294,7 @@ class PostController extends Controller
 
     public function Cancel($id)
     {
-        
+
         $public = PublicPost::findOrFail($id);
         $post   = Post::where('id', $public->post_id);
         $post->update([
@@ -296,8 +304,8 @@ class PostController extends Controller
 
         //redirect
         return redirect()->route('admin.posts.index',['activeTab','approved']);
-        
+
     }
 
-   
+
 }

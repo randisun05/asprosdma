@@ -6,6 +6,8 @@ use App\Models\Merchan;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+
+
 class MerchanController extends Controller
 {
     /**

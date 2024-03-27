@@ -10,7 +10,7 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 class RegistrationPaid implements FromCollection, WithMapping, WithHeadings
 {
     protected $paids;
-    
+
     /**
      * __construct
      *
@@ -35,10 +35,11 @@ class RegistrationPaid implements FromCollection, WithMapping, WithHeadings
             $paids->agency,
             $paids->position.' '.$paids->level,
             $paids->email,
-            $paids->contact
+            $paids->contact,
+            $paids->paid
         ] ;
     }
- 
+
     public function headings() : array {
         return [
            'Nama',
@@ -46,6 +47,7 @@ class RegistrationPaid implements FromCollection, WithMapping, WithHeadings
            'Jabatan',
            'Email',
            'Kontak',
+           'Link',
            'Status Bayar',
         ] ;
     }

@@ -31,7 +31,7 @@
                                         <input type="text" class="form-control" v-model="form.name" disabled>
                                 </div>
                             </div>
-                        
+
                             <div class="col-md-6 col-sm-6">
                                 <span>
                                         Email
@@ -77,7 +77,7 @@
                                         <input type="text" class="form-control" v-model="form.position" disabled>
                                 </div>
                             </div>
-                     
+
                             <div class="col-md-3 col-sm-3">
                                 <span >
                                         Jenjang
@@ -86,7 +86,7 @@
                                     <div class="form-group bottom35 mt-1">
                                         <input type="text" class="form-control" v-model="form.level" disabled>
                                 </div>
-                            </div>  
+                            </div>
                         </div>
                             <div class="col-md-6 col-sm-6 mt-4">
                                 <a :href="getDocumentUrl(form.document_jab)" target="_blank" class="badge bg-primary fs-5 border-0 shadow me-4 fs-5" type="button">
@@ -99,11 +99,7 @@
                                 <a v-if="register.paid" :href="getImageUrl(register.paid)" target="_blank" class="badge bg-primary fs-5 ms-4">Paid</a>
                                 <span class="badge bg-warning fs-5 ms-4">{{ register.from }}</span>
                             </div>
-                            <div class="col-md-3 col-sm-3">
-                                <div class="form-group bottom35 mt-1">
-                                        <input type="checkbox" aria-label="" disabled>
-                                </div>
-                            </div>
+
                 </div>
                                 <div class="text-center">
                             <button v-if="register.status !== 'approved' && register.status !== 'rejected'" @click="handleApprove(register.id)" class="btn btn-sm btn-success border-0 shadow me-2"><i class="fa fa-check-circle fa-lg me-1" aria-hidden="true"></i>Approve</button>
@@ -111,7 +107,7 @@
                             <button v-if="register.status !== 'approved' && register.status !== 'rejected'" @click="handleReject(register.id)" class="btn btn-sm btn-danger border-0 shadow me-2"><i class="fa fa-times-circle fa-lg me-1" aria-hidden="true"></i>Reject</button>
                             <button v-if="register.status !== 'approved' && register.status !== 'rejected' && register.from !== 'collective'" @click="sendEmail(register.id)" class="btn btn-sm btn-primary border-0 shadow me-2"><i class="fa fa-envelope fa-lg me-1" aria-hidden="true"></i>Kirim Email</button>
                                 </div>
-                                
+
                     </div>
                 </div>
             </div>
@@ -154,13 +150,13 @@
             register: Object,
         },
 
-        
+
 
 
         //inisialisasi composition API
         setup(props) {
 
-           
+
 
         //define form with reactive
         const form = reactive({
@@ -305,7 +301,7 @@ return {
 
 }
 
-        
+
 
 }
 

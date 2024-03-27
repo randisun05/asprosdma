@@ -20,7 +20,7 @@
       </div>
    </div>
 </section>
-<!--page Header ends--> 
+<!--page Header ends-->
 
 <section id="registration" class="">
    <div class="container">
@@ -28,9 +28,9 @@
          <div class="col-lg-12 col-md-12 col-sm-10">
             <div class="logincontainer">
                <h3 class="darkcolor bottom35 text-center">Terimakasih {{ form.name }} Telah Melakukan Registrasi</h3>
-               <h4 class="darkcolor bottom35 text-left">Kami telah mengirimkan informasi registrasi ke email {{ form.email }}</h4>
-               <h4 class="darkcolor bottom35 text-left">Mohon untuk mengecek kotak masuk atau spam email anda</h4>
-              
+               <h4 class="darkcolor bottom35 text-left">Kami akan melakukan validasi terhadap data anda, mohon untuk mengecek kotak masuk atau spam email anda secara berkala. </h4>
+               <h4 class="darkcolor bottom35 text-left"><strong>Waspada terhadap berbagai penipuan yang mengatasnamakan Asosiasi Profesi SDM Aparatur (Aspro SDMA).</strong></h4>
+
                <h4 class="darkcolor bottom35 text-left">Jika anda mendapatkan kendala silakan <a href="/kontak-kami"><u>hubungi kami.</u></a></h4>
                <div class="text-center mt-4"> <Link :href="'/registration'" class="btn btn-md btn-primary border-0 shadow" type="button">Kembali</Link></div>
             </div>
@@ -74,7 +74,7 @@
             register: Object,
 
         },
-        
+
         //define composition API
         setup(props) {
 
@@ -85,7 +85,7 @@
 
             });
 
-        
+
             //return form state and submit method
             return {
                 form,

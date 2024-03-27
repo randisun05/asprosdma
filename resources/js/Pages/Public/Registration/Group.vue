@@ -20,7 +20,7 @@
       </div>
    </div>
 </section>
-<!--page Header ends--> 
+<!--page Header ends-->
 
 <section id="registration" class="">
    <div class="container">
@@ -90,7 +90,7 @@
                             </div>
                         </div>
                      </div>
-                     
+
 
                      <div class="col-md-6 col-sm-6">
                         <span class="ms-4">
@@ -111,17 +111,17 @@
                      </div>
 
                      <div class="col-md-5 col-sm-5 ms-2 me-5">
-                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                <input class="form-check-input" type="checkbox" id="agreeTerms" v-model="form.term" true-value="1" false-value="0">
-                                    <label class="form-check-label ms-2" for="agreeTerms">
-                                        Perwakilan yang diusulkan menyetujui peraturan organisasi.
-                                    </label>
+                        <button type="button" class="btn" @click="openModal">
+                            <input class="form-check-input" type="checkbox" id="agreeTerms" v-model="form.term">
+                            <label class="form-check-label ms-2" for="agreeTerms">
+                                Saya menyetujui peraturan organisasi.
+                            </label>
                             </button>
                             <div v-if="errors.term" class="col-md-4 alert alert-danger mt-2">
                                 {{ errors.term }}
                             </div>
-                        </div>      
-                    
+                        </div>
+
                      <div class="col-md-3 col-sm-3 ms-5">
                             <div class="form-group bottom35">
                                 <div class="form-group mb-4">
@@ -143,7 +143,7 @@
                                 </div>
                             </div>
                      </div>
-                     
+
                      <div class="row d-flex justify-content-center">
                         <button type="submit" class="button btnprimary" style="width: 300px;">Submit</button>
                     </div>
@@ -207,7 +207,7 @@
 <script>
     //import layout
     import LayoutWebsite from '../../../Layouts/Website.vue';
- 
+
     //import Head from Inertia
     import {
         Head
@@ -234,7 +234,7 @@
         //register component
         components: {
             Head,
-            
+
         },
 
         //props
@@ -242,7 +242,7 @@
             errors: Object,
             session: Object
         },
-        
+
         //define composition API
         setup() {
 
@@ -310,7 +310,7 @@
                         });
                     },
                 });
-                
+
             }
             // Method to update the document file
             const updateDocument = (event) => {
