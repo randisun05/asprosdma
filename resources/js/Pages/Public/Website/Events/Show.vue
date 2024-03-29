@@ -49,7 +49,7 @@
 
                             <div v-html="event.body" style="text-align:justify;text-justify: "></div>
                             <div class="text-center">
-                                <a href="https://linktr.ee/halo.asprosdma" class="button btnprimary">Join</a>
+                                <a href="/user/events/" class="button btnprimary">Join</a>
                             </div>
                         </div>
                     </div>

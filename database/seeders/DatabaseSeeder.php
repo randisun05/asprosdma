@@ -36,128 +36,128 @@ class DatabaseSeeder extends Seeder
             'password'  => bcrypt('password'),
         ]);
 
-        // User::create([
-        //     'nip'      => '456',
-        //     'name'      => 'dimas',
-        //     'email'     => 'dimas@gmail.com',
-        //     'role'     => 'member',
-        //     'password'  => bcrypt('password'),
-        // ]);
+        User::create([
+            'nip'      => '456',
+            'name'      => 'dimas',
+            'email'     => 'dimas@gmail.com',
+            'role'     => 'member',
+            'password'  => bcrypt('password'),
+        ]);
 
-        // Registration::create([
-        //     'nip'      => '1',
-        //     'name'      => 'randi',
-        //     'email'     => 'randi@gmail.com',
-        //     'contact'     => '008',
-        //     'agency'     => 'bkn',
-        //     'position'     => 'Analis SDM Aparatur',
-        //     'level'     => 'pertama',
-        //     'document_jab'     => 'aa',
-        //     'status'     => 'submission',
-        // ]);
+        Registration::create([
+            'nip'      => '1',
+            'name'      => 'randi',
+            'email'     => 'randi@gmail.com',
+            'contact'     => '008',
+            'agency'     => 'bkn',
+            'position'     => 'Analis SDM Aparatur',
+            'level'     => 'pertama',
+            'document_jab'     => 'aa',
+            'status'     => 'submission',
+        ]);
 
-        // Registration::create([
-        //     'nip'      => '2',
-        //     'name'      => 'dimas',
-        //     'email'     => 'dimas@gmail.com',
-        //     'contact'     => '009',
-        //     'agency'     => 'bkn',
-        //     'position'     => 'Analis SDM Aparatur',
-        //     'level'     => 'muda',
-        //     'document_jab'     => 'aa',
-        //     'status'     => 'submission',
-        // ]);
+        Registration::create([
+            'nip'      => '2',
+            'name'      => 'dimas',
+            'email'     => 'dimas@gmail.com',
+            'contact'     => '009',
+            'agency'     => 'bkn',
+            'position'     => 'Analis SDM Aparatur',
+            'level'     => 'muda',
+            'document_jab'     => 'aa',
+            'status'     => 'submission',
+        ]);
 
-        // Registration::create([
-        //     'nip'      => '3',
-        //     'name'      => 'reza',
-        //     'email'     => 'reza@gmail.com',
-        //     'contact'     => '0010',
-        //     'agency'     => 'bkn',
-        //     'position'     => 'Pranata SDM Aparatur',
-        //     'level'     => 'mahir',
-        //     'document_jab'     => 'aa',
-        //     'status'     => 'submission',
-        // ]);
+        Registration::create([
+            'nip'      => '3',
+            'name'      => 'reza',
+            'email'     => 'reza@gmail.com',
+            'contact'     => '0010',
+            'agency'     => 'bkn',
+            'position'     => 'Pranata SDM Aparatur',
+            'level'     => 'mahir',
+            'document_jab'     => 'aa',
+            'status'     => 'submission',
+        ]);
 
-        // Registration::create([
-        //     'nip'      => '4',
-        //     'name'      => 'dhanu',
-        //     'email'     => 'dhanu@gmail.com',
-        //     'contact'     => '0011',
-        //     'agency'     => 'bkn',
-        //     'position'     => 'Pranata SDM Aparatur',
-        //     'level'     => 'penyelia',
-        //     'document_jab'     => 'aa',
-        //     'status'     => 'submission',
-        // ]);
+        Registration::create([
+            'nip'      => '4',
+            'name'      => 'dhanu',
+            'email'     => 'dhanu@gmail.com',
+            'contact'     => '0011',
+            'agency'     => 'bkn',
+            'position'     => 'Pranata SDM Aparatur',
+            'level'     => 'penyelia',
+            'document_jab'     => 'aa',
+            'status'     => 'submission',
+        ]);
 
-        // Member::create([
-        //     'nip'      => '199501052022031111',
-        //     'nomember'      => '199501052022031001',
-        //     'name'      => 'Administrator',
-        //     'email'      => 'admin@gmail.com',
-        //     'password'      => 'password',
-        // ]);
-        // Member::create([
-        //     'nip'      => '199501052022031002',
-        //     'nomember'      => '199501052022031002',
-        //     'name'      => 'Randi',
-        //     'email'      => 'randi@gmail.com',
-        //     'password'      => 'password',
-        // ]);
+        Member::create([
+            'nip'      => '199501052022031111',
+            'nomember'      => '199501052022031001',
+            'name'      => 'Administrator',
+            'email'      => 'admin@gmail.com',
+            'password'      => 'password',
+        ]);
+        Member::create([
+            'nip'      => '199501052022031002',
+            'nomember'      => '199501052022031002',
+            'name'      => 'Randi',
+            'email'      => 'randi@gmail.com',
+            'password'      => 'password',
+        ]);
 
-        // Member::create([
-        //     'nip'      => '199501052022031003',
-        //     'nomember'      => '199501052022031003',
-        //     'name'      => 'Adi',
-        //     'email'      => 'adi@gmail.com',
-        //     'password'      => 'password',
-        // ]);
+        Member::create([
+            'nip'      => '199501052022031003',
+            'nomember'      => '199501052022031003',
+            'name'      => 'Adi',
+            'email'      => 'adi@gmail.com',
+            'password'      => 'password',
+        ]);
 
-        // ProfileDataMain::create([
-        //     'nip'      => '199501052022031001',
-        //     'nomember'      => '199501052022031001',
-        //     'name'      => 'Administrator',
-        //     'email'      => 'admin@gmail.com',
+        ProfileDataMain::create([
+            'nip'      => '199501052022031001',
+            'nomember'      => '199501052022031001',
+            'name'      => 'Administrator',
+            'email'      => 'admin@gmail.com',
 
-        // ]);
-        // ProfileDataMain::create([
-        //     'nip'      => '199501052022031002',
-        //     'nomember'      => '199501052022031002',
-        //     'name'      => 'Randi',
-        //     'email'      => 'randi@gmail.com',
+        ]);
+        ProfileDataMain::create([
+            'nip'      => '199501052022031002',
+            'nomember'      => '199501052022031002',
+            'name'      => 'Randi',
+            'email'      => 'randi@gmail.com',
 
-        // ]);
+        ]);
 
-        // ProfileDataMain::create([
-        //     'nip'      => '199501052022031003',
-        //     'nomember'      => '199501052022031003',
-        //     'name'      => 'Adi',
-        //     'email'      => 'adi@gmail.com',
+        ProfileDataMain::create([
+            'nip'      => '199501052022031003',
+            'nomember'      => '199501052022031003',
+            'name'      => 'Adi',
+            'email'      => 'adi@gmail.com',
 
-        // ]);
+        ]);
 
-        // ProfileDataPosition::create([
-        //     'main_id'      => '1',
-        //     'agency'      => 'BKN',
-        //     'position'      => 'Analis SDM Aparatur',
-        //     'level'      => 'Pertama',
+        ProfileDataPosition::create([
+            'main_id'      => '1',
+            'agency'      => 'BKN',
+            'position'      => 'Analis SDM Aparatur',
+            'level'      => 'Pertama',
 
-        // ]);
-        // ProfileDataPosition::create([
-        //     'main_id'      => '2',
-        //     'agency'      => 'BKN',
-        //     'position'      => 'Analis SDM Aparatur',
-        //     'level'      => 'Pertama',
-        // ]);
+        ]);
+        ProfileDataPosition::create([
+            'main_id'      => '2',
+            'agency'      => 'BKN',
+            'position'      => 'Analis SDM Aparatur',
+            'level'      => 'Pertama',
+        ]);
 
-        // ProfileDataPosition::create([
-        //     'main_id'      => '3',
-        //     'agency'      => 'BKN',
-        //     'position'      => 'Analis SDM Aparatur',
-        //     'level'      => 'Pertama',
-        // ]);
+        ProfileDataPosition::create([
+            'main_id'      => '3',
+            'agency'      => 'BKN',
+            'position'      => 'Analis SDM Aparatur',
+            'level'      => 'Pertama',
+        ]);
 
         Category::create([
             'title'      => 'Berita',
@@ -175,23 +175,23 @@ class DatabaseSeeder extends Seeder
             'title'      => 'Lainnya',
         ]);
 
-        // Event::create([
-        //     'title'  => 'Media',
-        //     'slug'  => 'Media',
-        //     'body' => 'Media',
-        //     'date' => '2024-03-16',
-        //     'enddate' => '2024-03-16',
-        //     'place' => 'Media',
-        //     'link' => 'Media',
-        //     'participant' => '0',
-        //     'image' => '',
-        //     'status' => 'media',
-        // ]);
+        Event::create([
+            'title'  => 'Media',
+            'slug'  => 'Media',
+            'body' => 'Media',
+            'date' => '2024-03-16',
+            'enddate' => '2024-03-16',
+            'place' => 'Media',
+            'link' => 'Media',
+            'participant' => '0',
+            'image' => '',
+            'status' => 'media',
+        ]);
 
 
-        // \App\Models\Post::factory(20)->create();
-        // \App\Models\Event::factory(20)->create();
-        // \App\Models\Merchan::factory(20)->create();
+        \App\Models\Post::factory(20)->create();
+        \App\Models\Event::factory(20)->create();
+        \App\Models\Merchan::factory(20)->create();
 
 
     }

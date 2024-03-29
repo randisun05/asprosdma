@@ -1,7 +1,7 @@
 <template>
     <!-- header -->
-    <header class="site-header transparent-sidemenu" :class="{ 'fixedmenu': isNavbarFixed }">
-        <nav class="navbar navbar-expand-lg transparent-bg static-nav">
+    <header class="site-header" :class="{ 'fixedmenu': isScrolled, 'transparent-bg': !isScrolled}">
+        <nav class="navbar navbar-expand-lg  static-nav" >
             <div class="container">
                 <a class="navbar-brand" href="/">
                     <img src="/assets/images/logo.png" alt="logo" style="width: 70%;">
@@ -235,43 +235,47 @@ export default {
                 publikasi: ["Pengumuman", "Artikel", "Berita", "Media"],
                 keanggotaan: ["Login", "Registrasi"],
             },
-            isNavbarFixed: false
+            isScrolled: false, // New property to track scroll state
         };
     },
     methods: {
         toggleDropdown(dropdown) {
             this.dropdowns[dropdown] = !this.dropdowns[dropdown];
         },
-        toggleSideMenu() {
-            const sideMenu = document.querySelector('.side-menu');
-            sideMenu.classList.toggle('active');
-        },
-        handleScroll() {
-            const scrollPosition = window.scrollY;
-            this.isNavbarFixed = scrollPosition > 0;
-        }
+
     },
     mounted() {
-        const sideMenuToggle = document.getElementById('sidemenu_toggle');
-        sideMenuToggle.addEventListener('click', this.toggleSideMenu);
-
-        const sideMenuClose = document.getElementById('btn_sideNavClose');
-        sideMenuClose.addEventListener('click', this.toggleSideMenu);
-
-
+        const handleScroll = () => {
+            this.isScrolled = window.scrollY > 0;
+        };
+        window.addEventListener('scroll', handleScroll);
+        onUnmounted(() => {
+            window.removeEventListener('scroll', handleScroll);
+        });
     },
 
-    mounted() {
-        window.addEventListener('scroll', this.handleScroll);
-    },
-    beforeUnmount() {
-        window.removeEventListener('scroll', this.handleScroll);
-    }
+
+
+
 }
 </script>
 
 
 <style>
+/* CSS for red background */
+/* CSS for red background */
+
+
+/* CSS for fixed header */
+.fixedmenu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: background-color 0.3s ease-in-out; /* Smooth transition for background color */
+}
+
 
 
 </style>
