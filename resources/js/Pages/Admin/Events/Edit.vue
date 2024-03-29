@@ -29,7 +29,7 @@
                                                     <input type="text" class="form-control" placeholder="Masukan Nama kegiatan" v-model="form.title">
                                                 </div>
                                                 <div v-if="errors.title" class="alert alert-danger mt-2">
-                                                    {{ errors.title }}    
+                                                    {{ errors.title }}
                                                 </div>
                                             </div>
 
@@ -38,10 +38,18 @@
                                                 Deskripsi
                                                 </span>
                                                 <div class="form-group mt-1 mb-4">
-                                                    <input type="text" class="form-control" placeholder="Masukan Deskripsi Kegiatan" v-model="form.body">
+                                                    <Editor
+                                                        api-key="g43acxcw0cg4k3asm2ttsaio4antpmaa2e3bckfo6y3kpaqg"
+                                                        v-model="form.body"
+                                                        :init="{
+                                                            menubar: false,
+                                                            plugins: 'lists link image emoticons',
+                                                            toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons'
+                                                        }"
+                                                    />
                                                 </div>
                                                 <div v-if="errors.body" class="alert alert-danger mt-2">
-                                                    {{ errors.bodu }}    
+                                                    {{ errors.bodu }}
                                                 </div>
                                             </div>
 
@@ -53,7 +61,7 @@
                                                     <input type="date" class="form-control" placeholder="Masukan Judul Cerita/Artikel/Berita" v-model="form.date">
                                                 </div>
                                                 <div v-if="errors.date" class="alert alert-danger mt-2">
-                                                    {{ errors.date }}    
+                                                    {{ errors.date }}
                                                 </div>
                                             </div>
 
@@ -65,19 +73,7 @@
                                                     <input type="date" class="form-control" placeholder="Masukan Judul Cerita/Artikel/Berita" v-model="form.enddate">
                                                 </div>
                                                 <div v-if="errors.enddate" class="alert alert-danger mt-2">
-                                                    {{ errors.enddate }}    
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-2">
-                                                <span class="text-black">
-                                                Kebutuhan Panitia
-                                                </span>
-                                                <div class="form-group mt-1 mb-4">
-                                                    <input type="number" class="form-control" placeholder="Masukan Kebutuhan Panitia" v-model="form.team">
-                                                </div>
-                                                <div v-if="errors.team" class="alert alert-danger mt-2">
-                                                    {{ errors.team }}    
+                                                    {{ errors.enddate }}
                                                 </div>
                                             </div>
 
@@ -89,7 +85,7 @@
                                                     <input type="number" class="form-control" placeholder="Masukan Kapasitas Peserta" v-model="form.participant">
                                                 </div>
                                                 <div v-if="errors.participant" class="alert alert-danger mt-2">
-                                                    {{ errors.participant }}    
+                                                    {{ errors.participant }}
                                                 </div>
                                             </div>
 
@@ -101,19 +97,19 @@
                                                     <input type="text" class="form-control" placeholder="Masukan Tempat Pelaksanaan Kegiatan" v-model="form.place">
                                                 </div>
                                                 <div v-if="errors.place" class="alert alert-danger mt-2">
-                                                    {{ errors.place }}    
+                                                    {{ errors.place }}
                                                 </div>
                                             </div>
 
                                             <div class="col-md-11">
                                                 <span class="text-black">
-                                                Link 
+                                                Link
                                                 </span>
                                                 <div class="form-group mt-1 mb-4">
                                                     <input type="text" class="form-control" placeholder="Masukan Tempat Pelaksanaan Kegiatan" v-model="form.link">
                                                 </div>
                                                 <div v-if="errors.link" class="alert alert-danger mt-2">
-                                                    {{ errors.link }}    
+                                                    {{ errors.link }}
                                                 </div>
                                             </div>
 
@@ -151,7 +147,7 @@
 <script>
     //import layout
     import LayoutAdmin from '../../../Layouts/Admin.vue';
-   
+
     //import Heade and Link from Inertia
     import {
         Head,
@@ -163,7 +159,7 @@
 
     //import ref from vue
     import {
-        ref, reactive, 
+        ref, reactive,
     } from 'vue';
 
     //import inertia adapter
@@ -199,12 +195,11 @@
                 date: props.event.date,
                 enddate: props.event.enddate,
                 body: props.event.body,
-                team: props.event.team,
                 place: props.event.place,
                 link: props.event.link,
                 participant: props.event.participant,
                 image: props.event.image,
-               
+
             });
 
 
@@ -218,12 +213,11 @@
                     date: form.date,
                     enddate: form.enddate,
                     body: form.body,
-                    team: form.team,
                     participant: form.participant,
                     image: form.image,
                     place: form.place,
                     link: form.link,
-                   
+
                 } ,{
                     onSuccess: () => {
                         //show success alert
@@ -238,13 +232,13 @@
                 });
             }
 
-            
-          
+
+
             const updateImage = (event) => {
             form.image = event.target.files[0];
         };
 
- 
+
             //return
             return {
                 form,

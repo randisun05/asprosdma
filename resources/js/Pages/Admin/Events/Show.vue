@@ -36,10 +36,8 @@
                                                 Deskripsi
                                                 </span>
                                             </div>
-                                                <div class="col-md-9 mb-2">
-                                                        <span >
-                                                            : {{ event.body }}
-                                                        </span>
+                                                <div v-html="event.body" style="text-align:justify;text-justify: " class="col-md-9 mb-2">
+
                                                 </div>
 
                                             <div class="col-md-2">
@@ -66,17 +64,6 @@
 
                                             <div class="col-md-2">
                                                 <span class="text-black">
-                                                Kebutuhan Panitia
-                                                </span>
-                                            </div>
-                                                    <div class="col-md-9 mb-2">
-                                                            <span >
-                                                                : {{ event.team }}
-                                                            </span>
-                                                    </div>
-
-                                            <div class="col-md-2">
-                                                <span class="text-black">
                                                 Kapasitas Peserta
                                                 </span>
                                             </div>
@@ -98,7 +85,7 @@
                                                 </div>
                                             <div class="col-md-2">
                                                 <span class="text-black">
-                                                Link 
+                                                Link
                                                 </span>
                                             </div>
                                                 <div class="col-md-9 mb-2">
@@ -112,44 +99,17 @@
             </div>
         </div>
 
-        
+
         <div class="row mt-4">
             <div class="col-md-12">
                 <div class="card border-0 shadow">
                     <div class="card-body">
-                        <h3 class="text-center">Detail Panitia / Peserta</h3>
+                        <h3 class="text-center">Detail Peserta</h3>
                         <ul class="nav nav-tabs">
-                            <li class="nav-item">
-                            <a class="nav-link" :class="{ active: activeTab === 'team' }" @click="setActiveTab('team')">Panitia</a>
-                            </li>
                             <li class="nav-item">
                             <a class="nav-link" :class="{ active: activeTab === 'participant' }" @click="setActiveTab('participant')">Participant</a>
                             </li>
                         </ul>
-
-                        <div v-show="activeTab === 'team'" class="table-responsive" id="sub">
-                            <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
-                                <thead class="thead-dark">
-                                    <tr class="border-0 text-center">
-                                        <th class="border-0 rounded-start" style="width:5%">No.</th>
-                                        <th class="border-0">Nama</th>
-                                        <th class="border-0">Instansi</th>
-                                        <th class="border-0 rounded-end" style="width:12%">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <div class="mt-2"></div>
-                                <tbody>
-                                    <tr v-for="(detail, index) in details.data" :key="index">
-                                        <td class="fw-bold text-center">{{ ++index + (details.current_page - 1) * details.per_page }}</td>
-                                        <td>{{ detail.member.name }}</td>
-                                        <td>{{ detail.member_id }}</td>
-                                        <td class="text-center">
-                                            <button title="tolak" class="btn btn-sm btn-danger border-0 shadow me-2"><i class="fa fa-times-circle fa-lg" aria-hidden="true"></i></button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
 
                         <div v-show="activeTab === 'participant'" class="table-responsive" id="sub">
                             <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
@@ -167,7 +127,6 @@
                                         <td class="fw-bold text-center">{{ ++index + (details.current_page - 1) * details.per_page }}</td>
                                         <td>{{ detail.member.name }}</td>
                                         <td>{{ detail.member_id }}</td>
-                                        
                                         <td class="text-center">
                                             <button title="tolak" class="btn btn-sm btn-danger border-0 shadow me-2"><i class="fa fa-times-circle fa-lg" aria-hidden="true"></i></button>
                                         </td>
@@ -176,20 +135,19 @@
                             </table>
                         </div>
 
-                        <Pagination v-if="activeTab === 'team'" :links="details.links" align="end" />
                         <Pagination v-if="activeTab === 'participant'" :links="details.links" align="end" />
-            
+
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
     </div>
 </template>
 
 <script>
     //import layout
     import LayoutAdmin from '../../../Layouts/Admin.vue';
-   
+
     //import Heade and Link from Inertia
     import {
         Head,
@@ -201,7 +159,7 @@
 
     //import ref from vue
     import {
-        ref, reactive, 
+        ref, reactive,
     } from 'vue';
 
     //import inertia adapter
@@ -230,8 +188,8 @@
 
          data() {
             return {
-              activeTab: 'team', // Set the default active tab
-        
+              activeTab: 'participant', // Set the default active tab
+
             };
           },
 
@@ -257,12 +215,12 @@
                 });
             }
 
-    
-          
- 
+
+
+
             //return
             return {
-               
+
         }
     }
 }

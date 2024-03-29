@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('document')->nullable();
             $table->string('tag')->nullable();
             $table->timestamp('publish_at')->nullable();
-            $table->enum('status',['private','submission','approved','rejected','perlu ada perbaikan','limited']);
+            $table->enum('status',['private','submission','approved','rejected','perlu ada perbaikan','limited', 'return']);
             $table->timestamps();
         });
     }

@@ -7,7 +7,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <title>Web-Aspro</title>
-<link href="{{ asset('assets/images/favicon.png') }}" rel="icon">
+<link href="{{ asset('assets/images/logo.png') }}" rel="icon">
 <link rel="stylesheet" href="{{ asset('assets/css/plugins.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -20,7 +20,7 @@
 <div class="loader">
    <div class="loader-inner">
       <div class="loader-blocks">
-         <span class="block-1"></span> 
+         <span class="block-1"></span>
          <span class="block-2"></span>
          <span class="block-3"></span>
          <span class="block-4"></span>
@@ -44,8 +44,8 @@
 
 @inertia
 
-  
-      
+
+
 
 
 
@@ -70,7 +70,7 @@
 
 <!--Parallax Background-->
 <script src="{{ asset('assets/js/parallaxie.js') }}"></script>
-  
+
 <!--Cubefolio Gallery-->
 <script src="{{ asset('assets/js/jquery.cubeportfolio.min.js') }}"></script>
 
@@ -82,28 +82,28 @@
 
 <!--TypeWriter-->
 <script src="{{ asset('assets/js/typewriter.js') }}"></script>
-      
+
 <!--Particles-->
-<script src="{{ asset('assets/js/particles.min.js') }}"></script>          
-        
+<script src="{{ asset('assets/js/particles.min.js') }}"></script>
+
 <!--WOw animations-->
-<script src="{{ asset('assets/js/wow.min.js') }}"></script>    
-            
+<script src="{{ asset('assets/js/wow.min.js') }}"></script>
+
 <!--Revolution SLider-->
-<script src="{{ asset('assets/js/revolution/jquery.themepunch.tools.min.js') }}"></script>    
-<script src="{{ asset('assets/js/revolution/jquery.themepunch.revolution.min.js') }}"></script>    
-<script src="{{ asset('assets/js/revolution/extensions/revolution.extension.actions.min.js') }}"></script>    
-<script src="{{ asset('assets/js/revolution/extensions/revolution.extension.carousel.min.js') }}"></script>    
-<script src="{{ asset('assets/js/revolution/extensions/revolution.extension.kenburn.min.js') }}"></script>    
-<script src="{{ asset('assets/js/revolution/extensions/revolution.extension.layeranimation.min.js') }}"></script>    
-<script src="{{ asset('assets/js/revolution/extensions/revolution.extension.migration.min.js') }}"></script>    
-<script src="{{ asset('assets/js/revolution/extensions/revolution.extension.navigation.min.js') }}"></script>    
-<script src="{{ asset('assets/js/revolution/extensions/revolution.extension.parallax.min.js') }}"></script>    
-<script src="{{ asset('assets/js/revolution/extensions/revolution.extension.slideanims.min.js') }}"></script>  
-<script src="{{ asset('assets/js/revolution/extensions/revolution.extension.video.min.js') }}"></script>    
+<script src="{{ asset('assets/js/revolution/jquery.themepunch.tools.min.js') }}"></script>
+<script src="{{ asset('assets/js/revolution/jquery.themepunch.revolution.min.js') }}"></script>
+<script src="{{ asset('assets/js/revolution/extensions/revolution.extension.actions.min.js') }}"></script>
+<script src="{{ asset('assets/js/revolution/extensions/revolution.extension.carousel.min.js') }}"></script>
+<script src="{{ asset('assets/js/revolution/extensions/revolution.extension.kenburn.min.js') }}"></script>
+<script src="{{ asset('assets/js/revolution/extensions/revolution.extension.layeranimation.min.js') }}"></script>
+<script src="{{ asset('assets/js/revolution/extensions/revolution.extension.migration.min.js') }}"></script>
+<script src="{{ asset('assets/js/revolution/extensions/revolution.extension.navigation.min.js') }}"></script>
+<script src="{{ asset('assets/js/revolution/extensions/revolution.extension.parallax.min.js') }}"></script>
+<script src="{{ asset('assets/js/revolution/extensions/revolution.extension.slideanims.min.js') }}"></script>
+<script src="{{ asset('assets/js/revolution/extensions/revolution.extension.video.min.js') }}"></script>
 
 <!--Google Map API-->
-<script src="{{ asset('assets/js/functions.js') }}"></script>      
+<script src="{{ asset('assets/js/functions.js') }}"></script>
 
 </body>
 </html>

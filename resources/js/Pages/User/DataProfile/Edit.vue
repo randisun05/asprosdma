@@ -28,10 +28,10 @@
                         <div class="container py-4">
                             <div class="row">
                                 <div class="col-lg-2 col-md-2">
-                                    <div class="image" onclick="document.getElementById('image').click()">
+                                    <div class="text-center" onclick="document.getElementById('image').click()">
                                         <img v-if="form.image" :src="getImageUrl(form.image)" alt=""
-                                            class="rounded-circle" title="Ubah foto profil" />
-                                        <img v-else src="/assets/images/team-grey-1.jpg" alt="" class="rounded-circle"
+                                        class="img-fluid rounded-circle" title="Ubah foto profil" />
+                                        <img v-else src="/assets/images/team-grey-1.jpg" alt="" class="img-fluid rounded-circle"
                                             title="Ubah foto profil" />
                                         <input type="file" id="image" style="display: none" placeholder="Ubah Foto"
                                             title="ubah foto profile" @change="updateImage"

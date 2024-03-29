@@ -59,17 +59,16 @@
             <p>Terimakasih telah melakukan registrasi keanggotaan Asosiasi Profesi SDM Aparatur. Token usul anda adalah:
                 <strong>{{ $data['id'] }}</strong>.</p>
             <p>Pembayaran uang pangkal iuran dapat dilakukan dengan cara transfer via ATM Non-Tunai, Internet Banking,
-                dan setoran tunai hanya ke <strong> Nomor Rekening BRI. 123 3232 1212 a.n Aspro </strong> sebesar
+                dan setoran tunai hanya ke <strong> Nomor Rekening Bank BNI 1810449572 a.n. Kurnia Dianandari (Bendahara II Aspro SDMA) </strong> sebesar
                 <strong> Rp. 120.000 untuk pejabat Fungsional Analis SDM Aparatur </strong>
                 dan <strong> Rp. 100.000 bagi Pejabat Fungsional Pranata SDM Aparatur</strong> dengan mencantumkan
                 berita transfer sebagai berikut: <strong>{{ $data['name'] }}</strong>.</p>
             <p> <strong> Waspada terhadap penipuan yang mengatasnamakan Asosiasi Profesi SDM Aparatur, pembayaran hanya
                     dilakukan ke nomor rekening diatas.</strong></p>
-            <p>Jika Anda sudah melakukan pembayaran silakan untuk melakukan konfirmasi melalui halaman konfirmasi <a
-                    href="https://asprosdma.id/registration/paid/{{ $data['id'] }}" class="button">Halaman
-                    Konfirmasi</a> </p>
-            <p>Jika anda mendapatkan kendala atau butuh informasi lebih lanjut dapat menghubungi sdr. Dimas melalui
-                pesan whatsapp dgn kontak 0812-1559-3147 </p>
+            <p>Jika Anda sudah melakukan pembayaran silakan untuk melakukan konfirmasi melalui Halaman Konfirmasi Pembayaran <a
+                    href="https://asprosdma.id/registration/paid/{{ $data['id'] }}" class="button">https://asprosdma.id/konfirmasi-pembayaran</a></p>
+            <p>Jika anda mendapatkan <strong> kendala atau butuh informasi lebih lanjut </strong> dapat menghubungi <strong>sdr. Dimas melalui
+                pesan whatsapp </strong> dengan kontak 0812-1559-3147 </p>
             <p>atau kunjungi halaman <a href="https://asprosdma.id/kontak-kami"><u>hubungi kami.</u></a></p>
 
             <p>Demikian informasi dari kami.</p>

@@ -17,10 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('title')->unique();
             $table->string('slug')->nullable();
-            $table->string('body');
+            $table->text('body');
             $table->date('date');
             $table->date('enddate');
-            $table->integer('team');
             $table->integer('participant');
             $table->string('place');
             $table->string('link');

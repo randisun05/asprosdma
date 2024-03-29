@@ -24,7 +24,7 @@
                   <span>Logo</span>
                </div>
             </div>-->
-            </div> 
+            </div>
          </div>
       </div>
       <div id="flat-gallery" class="cbp">
@@ -45,24 +45,26 @@
            <div class="cbp-item print">
             <img src="/assets/images/galery3.jpg" alt="">
             <div class="overlay center-block whitecolor">
-               <a class="plus" data-fancybox="gallery" href="images/galery3.jpg"></a>
+               <a class="plus" data-fancybox="gallery" href="/assets/images/galery3.jpg"></a>
                <p>Pertunjukkan pembukaan pada Munas</p>
             </div>
          </div>
-         <div class="cbp-item logo">
-            <img src="/assets/images/galery4.jpg" alt="">
+         <div class="cbp-item web print graphic">
+            <img src="/assets/images/galery4.jpg" alt="" style="width: 118%">
             <div class="overlay center-block whitecolor">
-               <a class="plus" data-fancybox="gallery" href="images/galery4.jpg"></a>
+               <a class="plus" data-fancybox="gallery" href="/assets/images/galery4.jpg"></a>
                <p>Dokumentasi peserta Munas 1</p>
             </div>
          </div>
+
          <div class="cbp-item web print graphic">
             <img src="/assets/images/galery5.jpg" alt="">
             <div class="overlay center-block whitecolor">
-               <a class="plus" data-fancybox="gallery" href="images/galery5.jpg"></a>
+               <a class="plus" data-fancybox="gallery" href="/assets/images/galery5.jpg"></a>
                <p>Dokumentasi peserta Munas 2</p>
             </div>
          </div>
+
 	    <div class="cbp-item print">
             <img src="/assets/images/galery6.jpg" alt="">
             <div class="overlay center-block whitecolor">
@@ -73,4 +75,4 @@
       </div>
    </div>
 </section>
-<!--Media ends -->  
+<!--Media ends -->

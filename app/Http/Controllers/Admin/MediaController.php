@@ -38,7 +38,7 @@ class MediaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {   
+    {
         $events = Event::get();
 
          return inertia('Admin/Medias/Create', [
@@ -72,12 +72,11 @@ class MediaController extends Controller
             'title' => $request->title,
             'media' =>  $image,
             'event_id' => $request->event_id,
-            
         ]);
-    
+
      //redirect
      return redirect()->route('admin.medias.index');
-    
+
     }
 
     /**
@@ -88,7 +87,7 @@ class MediaController extends Controller
      */
     public function show($id)
     {
-     
+
     }
 
     /**
@@ -107,7 +106,7 @@ class MediaController extends Controller
             'events' => $event
         ]);
     }
-       
+
 
     /**
      * Update the specified resource in storage.
@@ -128,6 +127,8 @@ class MediaController extends Controller
     if ($image) {
         $image = $request->file('media')->storePublicly('/images');
         // Proceed with storing or processing the uploaded file
+    }else{
+        $image = Media::where('id', $id)->value('image');
     };
 
         Media::where('id',$id)->update([
@@ -135,10 +136,10 @@ class MediaController extends Controller
             'media' =>  $image,
             'event_id' => $request->event_id,
         ]);
-    
+
      //redirect
      return redirect()->route('admin.medias.index');
-    
+
     }
 
     /**
@@ -150,7 +151,7 @@ class MediaController extends Controller
     public function destroy($id)
     {
         $media = Media::findOrFail($id);
-       
+
         $media->delete();
 
         //redirect

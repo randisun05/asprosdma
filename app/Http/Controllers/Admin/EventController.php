@@ -40,7 +40,7 @@ class EventController extends Controller
     {
 
         return inertia('Admin/Events/Create', [
-   
+
          ]);
     }
 
@@ -57,6 +57,7 @@ class EventController extends Controller
         'title' => 'required|string',
         'body' => 'required|',
         'date' => 'required',
+        'participant' => 'required',
         'enddate' => 'required',
         'date' => 'required',
         'place' => 'required',
@@ -64,7 +65,7 @@ class EventController extends Controller
     ]);
 
     $slug = strtolower(str_replace(' ', '-', $request->title));
-   
+
     $image = $request->file('image');
     if ($image) {
         $image = $request->file('image')->storePublicly('/images');
@@ -73,7 +74,6 @@ class EventController extends Controller
         Event::create([
             'title' => $request->title,
             'date' => $request->date,
-            'team' => $request->team,
             'participant' => $request->participant,
             'body' =>  $request->body,
             'slug' => $slug,
@@ -83,7 +83,7 @@ class EventController extends Controller
             'link' => $request->link,
         ]);
 
-    
+
      //redirect
      return redirect()->route('admin.events.index');
     }
@@ -104,12 +104,12 @@ class EventController extends Controller
         ->with('event','member')
         ->latest()
         ->paginate(10);
-        
+
         $details->appends(['q' => request()->q]);
 
         return inertia('Admin/Events/Show', [
-            'event' => $event, 
-            'details' => $details   
+            'event' => $event,
+            'details' => $details
         ]);
 
         //redirect
@@ -127,7 +127,7 @@ class EventController extends Controller
 
         $event = Event::findOrFail($id);
         return inertia('Admin/Events/Edit', [
-            'event' => $event, 
+            'event' => $event,
         ]);
 
         //redirect
@@ -148,23 +148,25 @@ class EventController extends Controller
         'title' => 'required|string',
         'body' => 'required|',
         'date' => 'required',
+        'participant' => 'required',
         'enddate' => 'required',
         'date' => 'required',
         'place' => 'required',
-        'image' => '|image|mimes:jpeg,png,jpg,gif,svg|max:5048|nullable',
     ]);
 
     $slug = strtolower(str_replace(' ', '-', $request->title));
-   
+
     $image = $request->file('image');
     if ($image) {
         $image = $request->file('image')->storePublicly('/images');
         // Proceed with storing or processing the uploaded file
+    } else {
+        $image = Event::where('id', $id)->value('image');
     };
+
         Event::where('id',$id)->update([
             'title' => $request->title,
             'date' => $request->date,
-            'team' => $request->team,
             'participant' => $request->participant,
             'body' =>  $request->body,
             'slug' => $slug,
@@ -174,7 +176,7 @@ class EventController extends Controller
             'link' => $request->link,
         ]);
 
-    
+
      //redirect
      return redirect()->route('admin.events.index');
     }
@@ -188,10 +190,30 @@ class EventController extends Controller
     public function destroy($id)
     {
         $event = Event::findOrFail($id);
-       
+
         $event->delete();
 
         //redirect
         return redirect()->route('admin.events.index');
     }
+
+    public function change($id)
+    {
+
+        $status = Event::where('id', $id)->value('status');
+
+        if ($status == 'active') {
+            Event::where('id',$id)->update([
+                'status' => "closed",
+            ]);
+        } else {
+            Event::where('id',$id)->update([
+                'status' => "active",
+            ]);
+        }
+
+     //redirect
+     return redirect()->route('admin.events.index');
+    }
+
 }

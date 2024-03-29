@@ -1878,5 +1878,8 @@ class refInstansi extends Seeder
         instansi::create([
             'title'      => 'Setjen WANTANNAS'
         ]);
+        instansi::create([
+            'title'      => 'Lainnya'
+        ]);
     }
 }

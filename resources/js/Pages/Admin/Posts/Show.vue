@@ -23,9 +23,9 @@
 
                         <div class="row px-5 py-3">
                             <h3 class="text-center">{{ post.title }}</h3>
-                            <p class="mb-0">Kategori: {{ post.category.title }}</p>
-                            <p>Oleh: {{ post.member_id !== 0 ? post.member.name : 'Administrator' }} - Dipublikasi: {{
-                                post.publish_at }}</p>
+                            <p class="mb-0 mt-2">Kategori: {{ post.category.title }}</p>
+                            <p class="mb-0"><i class="fa fa-user me-2"></i>{{ post.member_id !== 0 ? post.member.name : 'Administrator' }}</p>
+                                 <p class="mb-0"><i class="fa fa-calendar me-2"></i> {{ post.publish_at }}</p>
                             <div class="image-container">
                                 <img v-if="post.image" :src="getImageUrl(post.image)" alt="Gambar" />
                             </div>

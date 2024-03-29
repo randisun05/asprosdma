@@ -39,12 +39,15 @@
                     <div class="container py-4">
                         <div class="row">
                             <div class="col-lg-2 col-md-2">
-                                <div class="image">
-                                    <img v-if="form.image" :src="getImageUrl(form.image)" alt="" class="rounded-circle"
+
+                        <div class="text-center">
+                            <img v-if="form.image" :src="getImageUrl(form.image)" alt="" class="img-fluid rounded-circle"
                                         title="Ubah foto profil" />
-                                    <img v-else src="/assets/images/team-grey-1.jpg" alt="" class="rounded-circle"
+                                        <img v-else src="/assets/images/team-grey-1.jpg" alt="" class="img-fluid rounded-circle"
                                         title="Ubah foto profil" />
-                                </div>
+                        </div>
+
+
                             </div>
                             <div class="col-lg-2 ms-5">
                                 <div class="mt-3">

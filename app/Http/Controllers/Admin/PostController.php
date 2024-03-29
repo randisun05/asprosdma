@@ -28,26 +28,15 @@ class PostController extends Controller
              ->latest()
              ->paginate(10);
 
-             $publishs = PublicPost::
-             when(request()->q, function($query) {
-                 $query->where('title', 'like', '%' . request()->q . '%');
-             })
-             ->with('post','post.category','post.member')
+             $publishs = PublicPost::with('post','post.category','post.member')
              ->latest()
              ->paginate(10);
 
-             $categories = Category::
-             when(request()->q, function($query) {
-                 $query->where('title', 'like', '%' . request()->q . '%');
-             })
-             ->latest()
+             $categories = Category::latest()
              ->paginate(10);
 
         //append query string to pagination links
         $posts->appends(['q' => request()->q]);
-        $publishs->appends(['q' => request()->q]);
-        $categories->appends(['q' => request()->q]);
-
 
         return inertia('Admin/Posts/Index', [
             'posts' => $posts,
@@ -210,12 +199,16 @@ class PostController extends Controller
     if ($document) {
         $document = $request->file('document')->storePublicly('/documents');
         // Proceed with storing or processing the uploaded file
+    } else {
+        $document = Post::where ('id', $id)->value('document');
     };
 
     $image = $request->file('picture');
     if ($image) {
         $image = $request->file('picture')->storePublicly('/images');
         // Proceed with storing or processing the uploaded file
+    } else {
+        $image = Post::where ('id', $id)->value('image');
     };
 
 
@@ -298,8 +291,9 @@ class PostController extends Controller
         $public = PublicPost::findOrFail($id);
         $post   = Post::where('id', $public->post_id);
         $post->update([
-            'status' => 'rejected'
+            'status' => 'return'
         ]);
+
         $public->delete();
 
         //redirect

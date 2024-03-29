@@ -162,7 +162,7 @@
 
                                 <div class="col-md-6 col-sm-6">
                                     <span class="ms-4">
-                                        SK Jabatan ( Bentuk File .Pdf )
+                                        SK Jabatan ( Bentuk File .Pdf Maks 2Mb)
                                     </span>
                                     <div class="form-group bottom35 mt-1">
                                         <div class="input-group">

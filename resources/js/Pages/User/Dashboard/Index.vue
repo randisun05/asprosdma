@@ -15,13 +15,13 @@
                                 <!-- Foto disini -->
                                 <img src="/assets/images/team-grey-1.jpg" alt="Foto Anda" class="img-fluid ms-3">
                             </div>
-                            <div class="col-sm-8">
+                            <!-- <div class="col-sm-8">
                                 <div class="row py-1 ms-2">
                                     <div class="col-sm-3">
                                         <h5>No.</h5>
                                     </div>
                                     <div class="col-sm-9">
-                                        <h5>: {{ profile.main.nomember }}</h5>
+                                        <h5>: {{ profile.nomember }}</h5>
                                     </div>
                                 </div>
                                 <div class="row py-1 ms-2">
@@ -29,7 +29,7 @@
                                         <h5>NIP</h5>
                                     </div>
                                     <div class="col-sm-9">
-                                        <h5>: {{ profile.main.nip }}</h5>
+                                        <h5>: {{ profile.nip }}</h5>
                                     </div>
                                 </div>
                                 <div class="row py-1 ms-2">
@@ -37,7 +37,7 @@
                                         <h5>Nama</h5>
                                     </div>
                                     <div class="col-sm-9">
-                                        <h5>: {{ profile.main.name }}</h5>
+                                        <h5>: {{ profile.name }}</h5>
                                     </div>
                                 </div>
                                 <div class="row py-1 ms-2">
@@ -48,7 +48,7 @@
                                         <h5>: {{ profile.agency }}</h5>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
 
                     </div>
@@ -67,20 +67,18 @@
             <slide v-for="(event, index) in events.data" :key="index">
                 <div class="news_item shadow text-center row me-5">
                     <div class="col-lg-6">
-                        <img class="image" v-if="event.image" :src="getImageUrl(event.image)" alt="Gambar" />
+                        <img class="image" style="width: 50%;" v-if="event.image" :src="getImageUrl(event.image)" alt="Gambar" />
                     </div>
                     <div class="col-lg-6">
                         <div class="news_desc">
                             <h4 class="text-capitalize font-light darkcolor">{{ event.title }}</h4>
-                            <ul class="meta-tags top20 bottom20">
-                                <li><a href="#."><i class="fa fa-calendar"></i>{{ event.date }}</a></li>
-                                <li><a href="#."> <i class="fa fa-user-o"></i>{{ event.team }} / {{ event.participant
-                                        }}</a></li>
+                            <ul class="top20 bottom20">
+                                <li><a href="#."><i class="fa fa-calendar me-2"></i>{{ event.date }}</a> <a href="#." class="ms-4"> <i class="fa fa-user-o me-2"></i>{{ event.participant }}</a></li>
+                                <p>Pendaftaran ditutup pada {{ event.enddate }} </p>
                             </ul>
-                            <p class="bottom35">{{ event.body }}</p>
                             <Link :href="`/events/${event.id}`" title="join" class="button btnprimary" type="button">
                             Join</Link>
-                            <p>Pendaftaran ditutup pada {{ event.enddate }} </p>
+
                         </div>
                     </div>
                 </div>

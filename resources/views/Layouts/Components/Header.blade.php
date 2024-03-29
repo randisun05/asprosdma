@@ -41,7 +41,7 @@
                   <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/events">Kegiatan</a></li>
                         <li><a class="dropdown-item" href="/berita">Berita</a></li>
-                        <li><a class="dropdown-item" href="/cerita">Cerita</a></li>
+
                      </ul>
                </li>
                <li class="nav-item dropdown">
@@ -68,7 +68,7 @@
       <div class="inner-wrapper">
          <span class="btn-close" id="btn_sideNavClose"><i></i><i></i></span>
          <nav class="side-nav">
-         
+
             <ul class="navbar-nav w-100">
                <li class="nav-item active">
                   <a class="nav-link pagescroll" href="/">Beranda</a>

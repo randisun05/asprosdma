@@ -18,7 +18,6 @@ class Event extends Model
         'enddate',
         'place',
         'link',
-        'team',
         'participant',
         'image',
         'status',

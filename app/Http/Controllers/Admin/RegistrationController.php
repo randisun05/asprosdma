@@ -276,7 +276,6 @@ class RegistrationController extends Controller
             $code = str_pad($number, 5, '0', STR_PAD_LEFT) . "/02/ASPROSDMA";
         }
 
-
         Member::create([
             'nip'            => $register->nip,
             'name'           => $register->name,

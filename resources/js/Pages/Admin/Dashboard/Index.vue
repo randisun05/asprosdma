@@ -1,15 +1,16 @@
 <template>
 
-<!-- Our Blogs -->  
-<section id="dashboard" class="">
-   <div class="ms-5 ">
-      <div class="row">
-            <div class="col-12 col-sm-6 col-xl-2 me-4">
+<!-- Our Blogs -->
+<section id="dashboard" class="container-fluid">
+   <div class="card shadow py-5">
+    <h3 class="text-center">Monitoring Registration</h3>
+      <div class="row px-5">
+            <div class="col-md-12 col-sm-6 col-xl-2 me-4">
                 <div class="row three-col-pricing">
                     <div class="price-table top60">
                         <h3 class="bottom20 darkcolor">Submission</h3>
                         <div class="ammount">
-                            <h2 class="defaultcolor">{{ registers }}</h2>
+                            <h2 class="defaultcolor">{{ regissub }}</h2>
                         </div>
                     </div>
                 </div>
@@ -20,7 +21,7 @@
                     <div class="price-table top60">
                         <h3 class="bottom20 darkcolor">Paid</h3>
                         <div class="ammount">
-                            <h2 class="defaultcolor">1000</h2>
+                            <h2 class="defaultcolor">{{ regispaid }}</h2>
                         </div>
                     </div>
                 </div>
@@ -31,7 +32,7 @@
                     <div class="price-table top60">
                         <h3 class="bottom20 darkcolor">Confirm</h3>
                         <div class="ammount">
-                            <h2 class="defaultcolor">1000</h2>
+                            <h2 class="defaultcolor">{{ regisconfirm }}</h2>
                         </div>
                     </div>
                 </div>
@@ -42,7 +43,7 @@
                     <div class="price-table top60">
                         <h3 class="bottom20 darkcolor">Accepted</h3>
                         <div class="ammount">
-                            <h2 class="defaultcolor">1000</h2>
+                            <h2 class="defaultcolor">{{ regisaccepted }}</h2>
                         </div>
                     </div>
                 </div>
@@ -53,12 +54,72 @@
                     <div class="price-table top60">
                         <h3 class="bottom20 darkcolor">Rejected</h3>
                         <div class="ammount">
-                            <h2 class="defaultcolor">1000</h2>
+                            <h2 class="defaultcolor">{{ regisrejected }}</h2>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
+        <div class="row mt-5 px-5">
+            <h3 class="text-center">Monitoring Data Public</h3>
+            <div class="col-12 col-sm-6 col-xl-2 me-4">
+                <div class="row three-col-pricing">
+                    <div class="price-table top60">
+                        <h3 class="bottom20 darkcolor">Post Sub</h3>
+                        <div class="ammount">
+                            <h2 class="defaultcolor">{{ postsubmission }}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-xl-2 me-4">
+                <div class="row three-col-pricing">
+                    <div class="price-table top60">
+                        <h3 class="bottom20 darkcolor">Post Publish</h3>
+                        <div class="ammount">
+                            <h2 class="defaultcolor">{{ postpublis }}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-xl-2 me-4">
+                <div class="row three-col-pricing">
+                    <div class="price-table top60">
+                        <h3 class="bottom20 darkcolor">Total Event</h3>
+                        <div class="ammount">
+                            <h2 class="defaultcolor">{{ event }}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-xl-2 me-4">
+                <div class="row three-col-pricing">
+                    <div class="price-table top60">
+                        <h3 class="bottom20 darkcolor">Active Event</h3>
+                        <div class="ammount">
+                            <h2 class="defaultcolor">{{ eventactive }}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-xl-2 me-4">
+                <div class="row three-col-pricing">
+                    <div class="price-table top60">
+                        <h3 class="bottom20 darkcolor">Merchans</h3>
+                        <div class="ammount">
+                            <h2 class="defaultcolor">{{ merchan }}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </section>
 <!--Our Blogs Ends-->
@@ -87,7 +148,17 @@
         //props
         props: {
         registers: Number,
-  
+        regissub :Number,
+        regispaid:Number,
+        regisconfirm :Number,
+        regisaccepted :Number,
+        regisrejected:Number,
+        postsubmission :Number,
+        postpublis :Number,
+        event :Number,
+        eventactive :Number,
+        merchan:Number,
+
         }
 
     }

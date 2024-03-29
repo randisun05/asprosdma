@@ -22,7 +22,7 @@ class EventController extends Controller
             $query->where('title', 'like', '%' . request()->q . '%');
         })
         ->latest()
-        ->paginate(6);
+        ->paginate(3);
 
          //append query string to pagination links
          $events->appends(['q' => request()->q]);

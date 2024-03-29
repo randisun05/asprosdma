@@ -135,6 +135,8 @@ class MerchanController extends Controller
             if ($image) {
             $image = $request->file('image')->storePublicly('/images');
             // Proceed with storing or processing the uploaded file
+            } else {
+                $image = Merchan::where ('id', $id)->value('image');
             }
 
             Merchan::where('id',$id)->update([

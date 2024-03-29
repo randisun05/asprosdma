@@ -3,7 +3,7 @@
     <Head>
         <title>Berbagi Cerita</title>
     </Head>
-    <div class="container-fluid mb-5 mt-5">
+    <div class="px-4 shadow mb-5 mt-5">
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
@@ -26,35 +26,32 @@
         </div>
         <!-- Our Blogs -->
         <section id="our-blog">
-            <div class="container padding_m card">
+            <div class="padding_m card">
                 <div class="row text-center">
                     <h3>Daftar Kegiatan</h3>
                 </div>
                 <div class="row mb-4">
                     <div v-for="(event, index) in events.data" :key="index" class="col-md-4 mt-5">
                         <div class="news_item shadow">
-                            <img class="image" v-if="event.image" :src="getImageUrl(event.image)" alt="Gambar" />
-
+                                <img class="image" v-if="event.image" :src="getImageUrl(event.image)" alt="Gambar" style="width: 100%;"/>
                             <div class="news_desc">
-                                <h4 class="text-capitalize font-light darkcolor" style="font-weight: bold;"><a href="#.">{{ event.title }}</a></h4>
+                                <h4 class="text-capitalize font-light darkcolor" style="font-weight: bold;"><a
+                                        href="#.">{{ event.title }}</a></h4>
                                 <div class="mt-2 text-center">
                                     <span v-if="event.status === 'active'" class="badge bg-success">Open</span>
                                     <span v-else-if="event.status === 'closed'" class="badge bg-danger">Closed</span>
                                 </div>
-                                <ul class="meta-tags top20 bottom20">
+                                <ul class="top20 bottom20">
                                     <li>
                                         <a href="#."><i class="fa fa-calendar me-2" title="Tanggal pelaksanaa"></i>{{
-                            event.date }}</a>
+                            event.date }}
+                                            <a href="#." class="ms-4"> <i class="fa fa-user-o me-2"
+                                                    title="Jumlah peserta"></i>
+                                                {{ event.participant }}</a></a>
                                     </li>
-                                    <li>
-                                        <a href="#."> <i class="fa fa-user-o me-2" title="Jumlah peserta"></i>
-                                            {{ event.participant }}</a>
-                                    </li>
-
                                     <p>Pendaftaran ditutup pada {{ event.enddate }}</p>
 
                                 </ul>
-                                <p class="bottom35">{{ event.body }}</p>
                                 <div class="text-center">
                                     <Link v-if="event.status == 'active'" :href="`/events/${event.slug}`" title="join"
                                         class="button btnprimary" type="button">
@@ -193,20 +190,4 @@ export default {
 
 </script>
 
-<style>
-.image {
-    display: flex;
-    justify-content: center;
-    /* Untuk membuat gambar berada di tengah secara horizontal */
-    align-items: center;
-    /* Untuk membuat gambar berada di tengah secara vertikal */
-    height: 200px;
-    /* Atur tinggi sesuai kebutuhan Anda */
-}
 
-.image img {
-    max-width: 100%;
-    max-height: 100%;
-    /* Anda dapat menyesuaikan properti CSS untuk gambar sesuai kebutuhan Anda */
-}
-</style>

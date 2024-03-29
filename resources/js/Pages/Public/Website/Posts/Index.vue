@@ -47,7 +47,7 @@
                 <div v-for="(post, index) in posts.data" :key="index" class="col-md-4 py-3">
                     <div class="news_item shadow text-center">
 
-                        <img class="image" v-if="post.image" :src="getImageUrl(post.image)" alt="Gambar" />
+                        <img class="image" style="width: 100%;" v-if="post.image" :src="getImageUrl(post.image)" alt="Gambar" />
 
                         <div class="news_desc">
                             <h3 class="text-capitalize font-light darkcolor" style="font-weight: bold;"><a href="#.">{{

@@ -49,10 +49,12 @@
         <hr>
         <div class="message">
             <p>Dear <strong>{{ $data['name'] }}</strong>,</p>
-            <p>Setelah kami verifikasi data anda, ada beberapa data yang perlu di perbaiki, silakan akses <a href="https://asprosdma.id/registration/confirm/{{ $data['id'] }}/edit"> link ini </a> untuk memperbaiki data anda</p>
+            <p>Setelah kami verifikasi data anda, ada beberapa data yang perlu di perbaiki, silakan akses link konfirmasi di <a href="https://asprosdma.id/registration/confirm/{{ $data['id'] }}/edit"> https://asprosdma.id/konfirmasi-data</p>
             <p>Kami akan memproses usulan anda, setelah data anda diperbaiki.</p>
-            <p>Jika anda mendapatkan kendala silakan <a href="https://asprosdma.id/kontak-kami"><u>hubungi kami.</u></a></p>
-                       
+            <p>Jika anda mendapatkan <strong> kendala atau butuh informasi lebih lanjut </strong> dapat menghubungi <strong>sdr. Dimas melalui
+                pesan whatsapp </strong> dengan kontak 0812-1559-3147 </p>
+                <p>atau kunjungi halaman <a href="https://asprosdma.id/kontak-kami"><u>hubungi kami.</u></a></p>
+
             <p>Demikian informasi dari kami.</p>
             <p>Terimakasih,</p>
             <p>Tim Keanggotaan Aspro</p>

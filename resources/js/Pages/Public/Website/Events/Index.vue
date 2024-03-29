@@ -49,8 +49,7 @@
             <div class="row mb-4">
                 <div v-for="(event, index) in events.data" :key="index" class="col-md-4 mt-5">
                     <div class="news_item shadow">
-                        <img class="image" v-if="event.image" :src="getImageUrl(event.image)" alt="Gambar" />
-
+                        <img class="image" style="width: 100%;" v-if="event.image" :src="getImageUrl(event.image)" alt="Gambar" />
                         <div class="news_desc">
                             <h4 class="text-capitalize font-light darkcolor"
                                 style="font-weight: bold; text-align: center">
@@ -60,21 +59,23 @@
                                 <span v-if="event.status === 'active'" class="badge bg-success">Open</span>
                                 <span v-else-if="event.status === 'closed'" class="badge bg-danger">Closed</span>
                             </div>
-                            <ul class="meta-tags top20 bottom20">
+                            <ul class="top20 bottom20 ">
                                 <li>
                                     <a href="#."> <i class="fa fa-calendar me-2" title="Tanggal pelaksanaa"></i>{{
-            event.date }}</a>
-                                </li>
-                                <li>
-                                    <a href="#.">
+                             event.date }}</a>
+
+                             <a class="ms-4" href="#.">
                                         <i class="fa fa-user-o me-2" title="Jumlah peserta"></i>
                                         {{ event.participant }}</a>
+                                </li>
+                                <li>
+
                                 </li>
 
                                 <p>Pendaftaran ditutup pada {{ event.enddate }}</p>
 
                             </ul>
-                            <p class="bottom35">{{ event.body }}</p>
+
                             <div class="text-center">
                                 <Link v-if="event.status == 'active'" :href="`/events/${event.slug}`" title="join"
                                     class="button btnprimary" type="button">

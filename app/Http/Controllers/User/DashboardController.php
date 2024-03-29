@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Models\Post;
+use App\Models\Event;
+use App\Models\Member;
+use App\Models\Merchan;
 use Illuminate\Http\Request;
 use App\Models\ProfileDataMain;
 use App\Models\ProfileDataPosition;
 use App\Http\Controllers\Controller;
-use App\Models\Event;
-use App\Models\Merchan;
-use App\Models\Post;
 
 class DashboardController extends Controller
 {
@@ -18,8 +19,7 @@ class DashboardController extends Controller
         $main = ProfileDataMain::where('nip',auth()->guard('member')->user()->nip)
         ->first();
 
-        $profile = ProfileDataPosition::with('main')
-        ->where('main_id',$main->id)
+        $profile = Member::where('nip',$main)
         ->first();
 
         $events = Event::whereNot('title','media')->when(request()->q, function($query) {

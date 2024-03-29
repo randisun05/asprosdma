@@ -24,7 +24,6 @@ class EventFactory extends Factory
             'enddate' => $this->faker->dateTimeThisMonth(),
             'place' => $this->faker->city(),
             'link'=> $this->faker->url(),
-            'team' => $this->faker->numberBetween(0, 10),
             'participant'  => $this->faker->numberBetween(0, 10),
             'image' => $this->faker->imageUrl(),
             'status' => $this->faker->randomElement(['active', 'closed']),

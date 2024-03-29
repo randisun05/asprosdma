@@ -51,7 +51,7 @@
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="/events">Kegiatan</a></li>
                                 <li><a class="dropdown-item" href="/berita">Berita</a></li>
-                                <li><a class="dropdown-item" href="/cerita">Cerita</a></li>
+
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
