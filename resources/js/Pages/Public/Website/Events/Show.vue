@@ -33,10 +33,6 @@
                     <div class="news_item text-center mt-5 px-2">
                         <div class="cbp-item web print graphic">
                             <img class="image" style="width: 100%;" v-if="event.image" :src="getImageUrl(event.image)" alt="Gambar" />
-                            <div class="overlay center-block whitecolor">
-                                <a class="plus" data-fancybox="gallery" :href="getImageUrl(event.image)"></a>
-                                <p>View</p>
-                            </div>
                         </div>
                     </div>
                 </div>
