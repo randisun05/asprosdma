@@ -77,10 +77,10 @@
                             </ul>
 
                             <div class="text-center">
-                                <!-- <Link v-if="event.status == 'active'" :href="`/events/${event.slug}`" title="join"
+                                <Link v-if="event.status == 'active'" :href="`/events/${event.slug}`" title="join"
                                     class="button btnprimary" type="button">
                                 Join
-                                </Link> -->
+                                </Link>
 
                             </div>
 
