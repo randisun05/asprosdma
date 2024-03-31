@@ -73,7 +73,7 @@
 
             <p>Demikian informasi dari kami.</p>
             <p>Terimakasih,</p>
-            <p>Tim Keanggotaan Aspro SDMA</p>
+            <p>Tim Bidang Keanggotaan dan Organisasi</p>
         </div>
     </div>
 </body>

@@ -28,7 +28,7 @@
                     <Link href="/admin/member" class="nav-link d-flex justify-content-between">
                     <span>
                         <span class="sidebar-icon">
-                           <i class="fa fa-6 fa-lg" aria-hidden="true"></i>
+                           <i class="fa fa-user fa-lg" aria-hidden="true"></i>
                         </span>
                         <span class="sidebar-text ms-3">Anggota</span>
                     </span>

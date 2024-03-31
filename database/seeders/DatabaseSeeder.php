@@ -96,6 +96,7 @@ class DatabaseSeeder extends Seeder
             'name'      => 'Administrator',
             'email'      => 'admin@gmail.com',
             'password'      => 'password',
+            'agency'      => 'BKN',
         ]);
         Member::create([
             'nip'      => '199501052022031002',
@@ -103,6 +104,7 @@ class DatabaseSeeder extends Seeder
             'name'      => 'Randi',
             'email'      => 'randi@gmail.com',
             'password'      => 'password',
+            'agency'      => 'BKN'
         ]);
 
         Member::create([
@@ -111,6 +113,7 @@ class DatabaseSeeder extends Seeder
             'name'      => 'Adi',
             'email'      => 'adi@gmail.com',
             'password'      => 'password',
+            'agency'      => 'BKN'
         ]);
 
         ProfileDataMain::create([

@@ -53,7 +53,7 @@
                                 <thead class="thead-dark">
                                     <tr class="border-0 text-center">
                                         <th class="border-0 rounded-start" style="width:5%">No.</th>
-                                        <th class="border-0">Title</th>
+                                        <th class="border-0">Titleee</th>
                                         <th class="border-0">Author</th>
                                         <th class="border-0">Kategori</th>
                                         <th class="border-0">Status</th>
@@ -71,7 +71,9 @@
                                             <span v-else-if="post.status === 'private'" class="badge bg-warning" title="hanya untuk konsumsi pribadi">{{ post.status }}</span>
                                             <span v-else-if="post.status === 'perlu ada perbaikan'" class="badge bg-warning" title="silakan dicek kembali">{{ post.status }}</span>
                                             <span v-else-if="post.status === 'rejected'" class="badge bg-danger" title="ditolak untuk publish">{{ post.status }}</span>
-                                            <span v-else-if="post.status === 'submission'" class="badge bg-secondary">{{ post.status }}</span></td>
+                                            <span v-else-if="post.status === 'submission'" class="badge bg-secondary">{{ post.status }}</span>
+                                            <span v-else-if="post.status === 'return'" class="badge bg-danger" title="ditolak untuk publish">{{ post.status }}</span>
+                                            <span v-else-if="post.status === 'limited'" class="badge bg-secondary">{{ post.status }}</span></td>
                                         <td class="text-center">
                                             <Link :href="`/admin/posts/${post.id}`" title="view" class="btn btn-sm btn-primary border-0 shadow me-2" type="button"><i class="fa fa-eye fa-lg" aria-hidden="true"></i></Link>
                                             <button @click="handleApprove(post.id)" title="setuju untuk publish" class="btn btn-sm btn-success border-0 shadow me-2" type="button"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i></button>
@@ -80,6 +82,7 @@
                                             <Link v-if="post.member_id !== 1" @click="handleReturn(post.id)" title="kembalikan" class="btn btn-sm btn-warning border-0 shadow me-2">
                                             <i class="fa fa-recycle fa-lg" aria-hidden="true"></i>
                                             </Link>
+                                            <button @click="handleLimited(post.id)" title="setuju untuk limited publish" class="btn btn-sm btn-success border-0 shadow me-2" type="button"><i class="fa fa-user-circle fa-lg" aria-hidden="true"></i></button>
                                             <button @click="handleReject(post.id)" title="tolak" class="btn btn-sm btn-danger border-0 shadow me-2"><i class="fa fa-times-circle fa-lg" aria-hidden="true"></i></button>
                                         </td>
                                     </tr>
@@ -324,6 +327,32 @@
                 })
             }
 
+            const handleLimited = (id) => {
+            Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: "Publikasi akan bersifat terbatas!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Aprrove it!'
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+
+                        Inertia.get(`/admin/posts/${id}/limited`);
+
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Status Limited!.',
+                            icon: 'success',
+                            timer: 2000,
+                            showConfirmButton: false,
+                        });
+                    }
+                })
+            }
+
 
 
 
@@ -334,7 +363,8 @@
                 handleReject,
                 handleApprove,
                 handleReturn,
-                handleCancel
+                handleCancel,
+                handleLimited
 
 
         }

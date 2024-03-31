@@ -52,12 +52,14 @@
                                             <span v-else-if="post.status === 'private'" class="badge bg-warning" title="hanya untuk konsumsi pribadi">{{ post.status }}</span>
                                             <span v-else-if="post.status === 'perlu ada perbaikan'" class="badge bg-warning" title="silakan dicek kembali">{{ post.status }}</span>
                                             <span v-else-if="post.status === 'rejected'" class="badge bg-danger" title="ditolak untuk publish">{{ post.status }}</span>
-                                            <span v-else-if="post.status === 'submission'" class="badge bg-secondary" title="sedang diajukan, fitur edit nonaktif">{{ post.status }}</span></td>
+                                            <span v-else-if="post.status === 'submission'" class="badge bg-secondary" title="sedang diajukan, fitur edit nonaktif">{{ post.status }}</span>
+                                            <span v-else-if="post.status === 'return'" class="badge bg-danger" title="ditolak untuk publish">{{ post.status }}</span>
+                                            <span v-else-if="post.status === 'limited'" class="badge bg-danger" title="ditolak untuk publish">{{ post.status }}</span></td>
                                         <td class="text-center">
-                                            <Link v-if="post.status !== 'submission' && post.status !== 'rejected'" :href="`/user/posts/${post.id}/edit`" class="btn btn-sm btn-warning border-0 shadow me-2" type="button" title="edit"><i class="fa fa-pencil"></i></Link>
+                                            <Link v-if="post.status !== 'submission' && post.status !== 'rejected' && post.status !== 'approved'&& post.status !== 'limited'" :href="`/user/posts/${post.id}/edit`" class="btn btn-sm btn-warning border-0 shadow me-2" type="button" title="edit"><i class="fa fa-pencil"></i></Link>
                                             <Link :href="`/user/posts/${post.id}`" class="btn btn-sm btn-info border-0 shadow me-2" type="button"><i class="fa fa-eye" title="lihat detail"></i></Link>
-                                            <Link  v-if="post.status !== 'submission' && post.status !== 'rejected'" @click.prevent="handleSubmission(post.id)" class="btn btn-sm btn-success border-0 shadow me-2" type="button" title="pengajuan publish"><i class="fa fa-envelope"></i></Link>
-                                            <button @click.prevent="destroy(post.id)" class="btn btn-sm btn-danger border-0 me-2"><i class="fa fa-trash" title="hapus"></i></button>
+                                            <Link  v-if="post.status !== 'submission' && post.status !== 'rejected' && post.status !== 'approved' && post.status !== 'limited'" @click.prevent="handleSubmission(post.id)" class="btn btn-sm btn-success border-0 shadow me-2" type="button" title="pengajuan publish"><i class="fa fa-envelope"></i></Link>
+                                            <button v-if="post.status !== 'submission' && post.status !== 'rejected' && post.status !== 'approved' && post.status !== 'limited'" @click.prevent="destroy(post.id)" class="btn btn-sm btn-danger border-0 me-2"><i class="fa fa-trash" title="hapus"></i></button>
                                         </td>
                                     </tr>
                                 </tbody>

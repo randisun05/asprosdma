@@ -49,7 +49,8 @@
         <hr>
         <div class="message">
             <p>Dear <strong>{{ $data['name'] }}</strong>,</p>
-            <p>Selamat akun anda telah aktif, silakan mengakses halaman login <a href="https://asprosdma.id/user/login">https://asprosdma.id/user/login</a>, dengan:  </p>
+            <p>Terima kasih telah mendaftar menjadi Anggota Aspro SDMA, Asosiasi Profesi Jabatan Fungsional Analis dan Pranata Sumber Daya Manusia Aparatur.</p>
+            <p>Silakan mengakses halaman login <a href="https://asprosdma.id/user/login">https://asprosdma.id/user/login</a>, dengan:  </p>
             <ul>
                 <li>username : {{ $data['nip'] }}</li>
                 <li>password : {{ $data['nip'] }}</li>
@@ -57,12 +58,18 @@
             </ul>
             <p>untuk diperhatikan!, informasi akun ini bersifat rahasia dan menjadi tanggung jawab pemilik akun.</p>
             <p>diwajibkan untuk merubah password pada saat login pertama anda, pada halaman setting.</p>
-            <p>Jika anda mendapatkan kendala saat login, silakan <a href="https://asprosdma.id/kontak-kami"><u>hubungi kami.</u></a></p>
+
+            <p>Untuk menjaga silaturahmi, kami membuat Group Telegram 'Aspro SDMA’ Group ini khusus bagi PNS yang sudah mendapatkan Verivikasi Anggota Resmi Aspro SDMA.
+            Silakan diskusi, bertanya, dan sharing sesama Aktor Manajemen Sumber Daya Manusia Aparatur di Indonesia.
+            Silakan bergabung melalui link ini: https://t.me/+TA6d0U4Tc-U5NGM1</p>
 
             <p>Demikian informasi dari kami.</p>
             <p>Terimakasih,</p>
-            <p>Tim Keanggotaan Aspro</p>
+            <p>Tim Bidang Keanggotaan dan Organisasi</p>
         </div>
     </div>
 </body>
 </html>
+
+
+

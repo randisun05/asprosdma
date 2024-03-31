@@ -126,7 +126,7 @@
                                     <tr v-for="(detail, index) in details.data" :key="index">
                                         <td class="fw-bold text-center">{{ ++index + (details.current_page - 1) * details.per_page }}</td>
                                         <td>{{ detail.member.name }}</td>
-                                        <td>{{ detail.member.name }}</td>
+                                        <td>{{ detail.member.agency }}</td>
                                         <td class="text-center">
                                             <button title="tolak" class="btn btn-sm btn-danger border-0 shadow me-2"><i class="fa fa-times-circle fa-lg" aria-hidden="true"></i></button>
                                         </td>
