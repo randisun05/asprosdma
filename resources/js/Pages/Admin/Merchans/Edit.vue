@@ -2,7 +2,7 @@
     <Head>
         <title>Update Merchandise</title>
     </Head>
-    <div class="container mb-5 mt-5 text-black">
+    <div class="container padding px-5 text-black">
         <div class="row mt-1">
             <div class="col-md-12">
                 <div class="card border-0 shadow">
@@ -29,7 +29,7 @@
                                                     <input type="text" class="form-control" placeholder="Masukan Title" v-model="form.title">
                                                 </div>
                                                 <div v-if="errors.title" class="alert alert-danger mt-2">
-                                                    {{ errors.title }}    
+                                                    {{ errors.title }}
                                                 </div>
                                             </div>
 
@@ -113,17 +113,8 @@
                                                         {{ errors[0] }}
                                                     </div>
                                                 </div>
-                                                
-                                                <div class="col-md-6">
-                                                    <span>
-                                                    Status
-                                                    </span>
-                                                <select class="form-select mt-1" v-model="form.status">
-                                                        <option value="" disabled selected>Pilih salah satu opsi</option>
-                                                        <option value="aktif">Aktif</option>
-                                                        <option value="non">Non</option>
-                                                    </select>
-                                                </div>
+
+
                                 </div>
                                         <div class="row d-flex justify-content-center">
                                             <div class="col-md-2">
@@ -142,7 +133,7 @@
 <script>
     //import layout
     import LayoutAdmin from '../../../Layouts/Admin.vue';
-   
+
     //import Heade and Link from Inertia
     import {
         Head,
@@ -154,7 +145,7 @@
 
     //import ref from vue
     import {
-        ref, reactive, 
+        ref, reactive,
     } from 'vue';
 
     //import inertia adapter
@@ -178,7 +169,7 @@
         props: {
             errors: Object,
             merchan: Object
-           
+
         },
 
 
@@ -190,7 +181,6 @@
                 title: props.merchan.title,
                 body: props.merchan.body,
                 image: '',
-                status: props.merchan.status,
                 how: props.merchan.how,
                 subtitle: props.merchan.subtitle,
                 color: props.merchan.color,
@@ -208,12 +198,11 @@
                     title: form.title,
                     body: form.body,
                     image: form.image,
-                    status: form.status,
                     how: form.how,
                     price: form.price,
                     subtitle: form.subtitle,
                     color: form.color,
-                   
+
                 } ,{
                     onSuccess: () => {
                         //show success alert
@@ -232,12 +221,12 @@
             form.image = event.target.files[0];
         };
 
- 
+
             //return
             return {
                 form,
                 submit,
-                updateImage               
+                updateImage
         }
     }
 }

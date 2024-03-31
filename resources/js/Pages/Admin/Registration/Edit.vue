@@ -4,7 +4,7 @@
         <title>Registrasi Keanggotaan Aspro</title>
     </Head>
 
-<section id="registration" class="padding">
+<section id="registration" class="padding px-5">
    <div class="container">
       <div class="row d-flex justify-content-center">
          <div class="col-lg-12 col-md-12 col-sm-10">
@@ -22,7 +22,7 @@
                                 {{ errors.nip }}
                             </div>
                         </div>
-                        
+
                      </div>
 
                     <div class="col-md-6 col-sm-6">
@@ -36,7 +36,7 @@
                             </div>
                         </div>
                      </div>
-                     
+
                      <div class="col-md-6 col-sm-6">
                         <span class="ms-4">
                                  Email
@@ -88,7 +88,7 @@
                             </div>
                         </div>
                      </div>
-                     
+
 
                      <div class="col-md-3 col-sm-3">
                         <span class="ms-4">
@@ -116,7 +116,7 @@
                             <div v-if="errors.level" class="alert alert-danger mt-2">
                                 {{ errors.level }}
                             </div>
-                        </div>  
+                        </div>
                      </div>
 
                      <div class="col-md-6 col-sm-6">
@@ -148,11 +148,11 @@
                                 </div> -->
                             </div>
                      </div>
-                     
+
                      <div class="row d-flex justify-content-center">
                         <button type="submit" class="button btnprimary" style="width: 300px;">Submit</button>
                     </div>
-                    
+
                   </div>
                </form>
             </div>
@@ -167,7 +167,7 @@
 <script>
     //import layout
     import LayoutAuth from '../../../Layouts/Auth.vue';
- 
+
     //import Head from Inertia
     import {
         Head
@@ -194,7 +194,7 @@
         //register component
         components: {
             Head,
-            
+
         },
 
         //props
@@ -203,7 +203,7 @@
             session: Object,
             register: Object
         },
-        
+
         //define composition API
         setup(props) {
 
@@ -250,7 +250,7 @@
                         });
                     },
                 });
-                
+
             }
             // Method to update the document file
             const updateDocument = (event) => {
@@ -268,7 +268,7 @@
                 form,
                 submit,
                 updateDocument,
-                updateImage 
+                updateImage
             };
 
         }

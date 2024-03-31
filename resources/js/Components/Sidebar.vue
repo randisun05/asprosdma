@@ -1,6 +1,5 @@
 <template>
-    
-     <nav class="navbar navbar-expand-md sidebar-nav">
+     <nav class="navbar navbar-expand-md sidebar-nav mt-5">
       <div class="collapse navbar-collapse" id="xenav">
          <ul class="navbar-nav ms-auto">
             <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/dashboard') }">
@@ -13,7 +12,7 @@
                     </span>
                     </Link>
                 </li>
-            
+
                 <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/registration') }">
                     <Link href="/admin/registration" class="nav-link d-flex justify-content-between">
                     <span>
@@ -21,6 +20,17 @@
                            <i class="fa fa-users fa-lg" aria-hidden="true"></i>
                         </span>
                         <span class="sidebar-text ms-3">Registration</span>
+                    </span>
+                    </Link>
+                </li>
+
+                <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/member') }">
+                    <Link href="/admin/member" class="nav-link d-flex justify-content-between">
+                    <span>
+                        <span class="sidebar-icon">
+                           <i class="fa fa-6 fa-lg" aria-hidden="true"></i>
+                        </span>
+                        <span class="sidebar-text ms-3">Anggota</span>
                     </span>
                     </Link>
                 </li>

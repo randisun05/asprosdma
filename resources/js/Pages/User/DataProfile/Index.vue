@@ -4,7 +4,7 @@
         <title>Profile Anggota</title>
     </Head>
 
-    <section id="profile" class="container mt-4">
+    <section id="profile" class="container padding">
         <div class="container-fluid px-5">
             <div class="row d-flex justify-content-center">
                 <!-- First group of columns -->
@@ -39,16 +39,14 @@
                     <div class="container py-4">
                         <div class="row">
                             <div class="col-lg-2 col-md-2">
-
-                        <div class="text-center">
-                            <img v-if="form.image" :src="getImageUrl(form.image)" alt="" class="img-fluid rounded-circle"
-                                        title="Ubah foto profil" />
-                                        <img v-else src="/assets/images/team-grey-1.jpg" alt="" class="img-fluid rounded-circle"
-                                        title="Ubah foto profil" />
-                        </div>
-
-
+                                <div class="text-center">
+                                    <img v-if="form.image" :src="getImageUrl(form.image)" alt=""
+                                        class="img-fluid rounded-circle" title="Ubah foto profil" style="width: 100%; height: 200px;" />
+                                    <img v-else src="/assets/images/team-grey-1.jpg" alt=""
+                                        class="img-fluid rounded-circle" title="Ubah foto profil" style="width: 100%; height: 200px;" />
+                                </div>
                             </div>
+
                             <div class="col-lg-2 ms-5">
                                 <div class="mt-3">
                                     <span> NIP </span>
@@ -158,6 +156,22 @@
                     </div>
                     <div class="row ms-2 mb-3">
                         <div class="col-md-6 col-sm-6">
+                            <span class="text-black"> Provinsi </span>
+                            <div class="form-group mt-1">
+                                <input type="text" class="form-control" v-model="form.province" disabled />
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <span class="text-black"> Kab/Kota </span>
+                            <div class="form-group mt-1">
+                                <input type="text" class="form-control" v-model="form.regency" disabled />
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row ms-2 mb-3">
+                        <div class="col-md-6 col-sm-6">
                             <span class="text-black"> Kelurahan </span>
                             <div class="form-group mt-1">
                                 <input type="text" class="form-control" v-model="form.villages" disabled />
@@ -170,20 +184,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row ms-2 mb-3">
-                        <div class="col-md-6 col-sm-6">
-                            <span class="text-black"> Kecamatan </span>
-                            <div class="form-group mt-1">
-                                <input type="text" class="form-control" v-model="form.regency" disabled />
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-sm-6">
-                            <span class="text-black"> Provinsi </span>
-                            <div class="form-group mt-1">
-                                <input type="text" class="form-control" v-model="form.province" disabled />
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
 
                 <div class="col-sm-12 card shadow mt-4">

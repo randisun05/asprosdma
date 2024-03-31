@@ -6,6 +6,8 @@ use App\Models\Event;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\DetailEvent;
+use App\Models\ProfileDataMain;
+use App\Models\ProfileDataPosition;
 
 class EventController extends Controller
 {
@@ -97,11 +99,13 @@ class EventController extends Controller
     public function show($id)
     {
         $event = Event::findOrFail($id);
-        $details = DetailEvent::
-        when(request()->q, function($query) {
-            $query->where('name', 'like', '%' . request()->q . '%');
+
+
+        $details = DetailEvent::where('event_id',$id)
+        ->with('member','event')
+        ->when(request()->q, function($query) {
+            $query->where('title', 'like', '%' . request()->q . '%');
         })
-        ->with('event','member')
         ->latest()
         ->paginate(10);
 
@@ -111,7 +115,6 @@ class EventController extends Controller
             'event' => $event,
             'details' => $details
         ]);
-
         //redirect
         return redirect()->route('admin.events.index');
     }

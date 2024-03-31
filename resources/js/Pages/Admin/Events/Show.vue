@@ -2,7 +2,7 @@
     <Head>
         <title>Administrator</title>
     </Head>
-    <div class="container mb-5 mt-5">
+    <div class="container padding px-5">
         <div class="row mt-1">
             <div class="col-md-12">
                 <div class="card border-0 shadow">
@@ -126,7 +126,7 @@
                                     <tr v-for="(detail, index) in details.data" :key="index">
                                         <td class="fw-bold text-center">{{ ++index + (details.current_page - 1) * details.per_page }}</td>
                                         <td>{{ detail.member.name }}</td>
-                                        <td>{{ detail.member_id }}</td>
+                                        <td>{{ detail.member.name }}</td>
                                         <td class="text-center">
                                             <button title="tolak" class="btn btn-sm btn-danger border-0 shadow me-2"><i class="fa fa-times-circle fa-lg" aria-hidden="true"></i></button>
                                         </td>

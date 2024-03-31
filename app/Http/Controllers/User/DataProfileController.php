@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use Inertia\Inertia;
 use App\Models\instansi;
 use Illuminate\Http\Request;
 use App\Models\ProfileDataMain;
@@ -159,6 +160,7 @@ class DataProfileController extends Controller
     public function update(Request $request)
     {
 
+        return $request;
           $request->validate([
                 'nip' => ['required','string', 'regex:/^\d{18}$/'],
                 'name' => 'required',
@@ -205,15 +207,6 @@ class DataProfileController extends Controller
         $main = ProfileDataMain::where('nip',auth()->guard('member')->user()->nip)
         ->first();
 
-        $image = $request->file('image');
-        if ($image) {
-            $image = $request->file('image')->storePublicly('/images');
-            // Proceed with storing or processing the uploaded file
-        };
-
-        $image = ImageManager::imagick()->read('images/example.jpg');
-
-        $image = $image->resizeDown(2000, 100); // 800 x 100
 
         //update data main
         $main->update([
@@ -236,7 +229,6 @@ class DataProfileController extends Controller
                 'regency' => $request->regency,
                 'province' => $request->province,
                 'religion' => $request->religion,
-                'image' => $image,
         ]);
 
         $position = ProfileDataPosition::where('main_id',$main->id)
@@ -308,22 +300,20 @@ class DataProfileController extends Controller
 
         public function updateImage(Request $request)
         {
-            return $request;
-            $image = $request->file('picture');
+
+            $image = $request->file('image');
             if ($image) {
-                $image = $request->file('picture')->storePublicly('/images');
+                $image = $request->file('image')->storePublicly('/images');
                 // Proceed with storing or processing the uploaded file
             };
-
             $main = ProfileDataMain::where('nip',auth()->guard('member')->user()->nip)
             ->first();
-
             //update data main
             $main->update([
                     'image' => $image,
             ]);
 
-             return redirect()->route('user.profile.data-utama');
+            return Inertia::location('/user/profile/edit');
     }
 
     /**

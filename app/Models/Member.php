@@ -15,7 +15,8 @@ class Member extends Authenticatable
         'name',
         'email',
         'password',
-        'nomember'
+        'nomember',
+        'agency'
     ];
 
 

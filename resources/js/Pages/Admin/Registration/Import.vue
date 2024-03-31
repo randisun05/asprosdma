@@ -2,7 +2,7 @@
     <Head>
         <title>Administrator</title>
     </Head>
-    <div class="container-fluid mb-5 mt-5">
+    <div class="container-fluid padding px-5">
         <div class="row mt-1">
             <div class="col-md-12">
                 <Link href="/admin/registration" class="btn btn-md btn-primary border-0 shadow mb-3" type="button"><i class="fa fa-arrow-left" aria-hidden="true"> </i>
@@ -37,7 +37,7 @@
                         <button type="submit" class="button btnprimary" style="width: 300px;">Upload</button>
                         <button type="reset" class="button btnsecondary ms-3" style="width: 300px;">Reset</button>
                     </div>
-                    
+
                   </div>
                </form>
                     </div>
@@ -85,7 +85,7 @@
             errors: Object,
             session: Object
         },
-        
+
         //define composition API
         setup() {
 
@@ -113,9 +113,9 @@
                         });
                     },
                 });
-                
+
             }
-           
+
             //return form state and submit method
             return {
                 form,

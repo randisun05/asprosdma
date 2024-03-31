@@ -2,7 +2,7 @@
     <Head>
         <title>Media</title>
     </Head>
-    <div class="container-fluid mb-5 mt-5">
+    <div class="container-fluid padding px-5">
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
@@ -38,6 +38,7 @@
                                         <th class="border-0"></th>
                                         <th class="border-0">Title</th>
                                         <th class="border-0">Kegiatan</th>
+                                        <th class="border-0">Path</th>
                                         <th class="border-0 rounded-end" style="width:12%">Aksi</th>
                                     </tr>
                                 </thead>
@@ -48,8 +49,9 @@
                                         <td style="width: 380px;"><img class="image" v-if="media.media" :src="getImageUrl(media.media)" alt="Gambar" /></td>
                                         <td>{{ media.title }}</td>
                                         <td>{{ media.event.title }}</td>
+                                        <td>storage/{{ media.media }}</td>
                                         <td class="text-center" >
-                                            <Link :href="`/admin/medias/${media.id}/edit`" class="btn btn-sm btn-warning border-0 shadow me-2" type="button" title="edit"><i class="fa fa-undo"></i></Link>
+                                            <Link :href="`/admin/medias/${media.id}/edit`" class="btn btn-sm btn-warning border-0 shadow me-2" type="button" title="edit"><i class="fa fa-pencil"></i></Link>
                                             <button @click.prevent="destroy(media.id)" class="btn btn-sm btn-danger border-0 me-2"><i class="fa fa-trash" title="hapus"></i></button>
                                         </td>
                                     </tr>
@@ -106,12 +108,12 @@
 
         },
 
-        
+
 
         //inisialisasi composition API
         setup() {
 
-      
+
             //define state search
             const search = ref('' || (new URL(document.location)).searchParams.get('q'));
 
@@ -161,8 +163,8 @@
                 search,
                 handleSearch,
                 destroy,
-                getImageUrl,            
- 
+                getImageUrl,
+
         }
     }
 }

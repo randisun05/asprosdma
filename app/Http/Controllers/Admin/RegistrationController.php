@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Exports\RegistrationPaid;
 use Carbon\Carbon;
 use App\Models\Member;
 use App\Models\instansi;
@@ -14,11 +13,13 @@ use App\Mail\SendEmailAprrove;
 use App\Mail\SendEmailConfirm;
 use App\Models\ProfileDataMain;
 use Illuminate\Validation\Rule;
+use App\Exports\RegistrationPaid;
 use App\Models\RegistrationGroup;
 use App\Imports\RegistrationImport;
 use App\Mail\SendEmailRegistration;
 use App\Models\ProfileDataPosition;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -111,8 +112,6 @@ class RegistrationController extends Controller
      } else { // Create registration
         $registration = Registration::create(array_merge($validatedData, ['document_jab' => $document_jab,]));
     }
-
-    Mail::to($registration['email'])->send(new SendEmailRegistration($registration));
 
      //redirect
      return redirect()->route('admin.registration.index');
@@ -259,10 +258,13 @@ class RegistrationController extends Controller
     public function approve($id)
     {
 
-        $password = $this->generatePassword();
-        //get register
+
         $register = Registration::findOrFail($id);
         // return $register;
+
+         $password = Hash::make($register->nip);
+        //get register
+
 
         if ($register->position === "Analis SDM Aparatur") {
             $number = Registration::where('status', 'approved')
@@ -280,6 +282,7 @@ class RegistrationController extends Controller
             'nip'            => $register->nip,
             'name'           => $register->name,
             'email'          => $register->email,
+            'agency'          => $register->agency,
             'nomember'      => $code,
             'password'       => $password,
         ]);

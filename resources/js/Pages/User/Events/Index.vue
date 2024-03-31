@@ -3,13 +3,11 @@
     <Head>
         <title>Berbagi Cerita</title>
     </Head>
-    <div class="px-4 shadow mb-5 mt-5">
+    <div class="px-5 shadow padding">
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-1 col-12 mb-2">
-                    </div>
-                    <div class="col-md-6 col-12 mb-2 ms-2">
+                    <div class="col-md-6 col-12 mb-2 py-3">
                         <form @submit.prevent="handleSearch">
                             <div class="input-group">
                                 <input type="text" class="form-control border-0 shadow" v-model="search"
@@ -33,7 +31,7 @@
                 <div class="row mb-4">
                     <div v-for="(event, index) in events.data" :key="index" class="col-md-4 mt-5">
                         <div class="news_item shadow">
-                                <img class="image" v-if="event.image" :src="getImageUrl(event.image)" alt="Gambar" style="width: 100%;"/>
+                                <img class="image" v-if="event.image" :src="getImageUrl(event.image)" alt="Gambar" style="display: flex; justify-content: center; align-items: center; width: 100%;" />
                             <div class="news_desc">
                                 <h4 class="text-capitalize font-light darkcolor" style="font-weight: bold;"><a
                                         href="#.">{{ event.title }}</a></h4>
@@ -53,7 +51,7 @@
 
                                 </ul>
                                 <div class="text-center">
-                                    <Link v-if="event.status == 'active'" :href="`/events/${event.slug}`" title="join"
+                                    <Link v-if="event.status == 'active'" :href="`/user/events/${event.slug}`" title="join"
                                         class="button btnprimary" type="button">
                                     Join
                                     </Link>
@@ -119,15 +117,6 @@ export default {
     //inisialisasi composition API
     setup() {
 
-        // Define local variable role
-        let role = '';
-
-        const handleRoleChange = (event) => {
-            role = event.target.value;
-        };
-
-
-
         //define state search
         const search = ref('' || (new URL(document.location)).searchParams.get('q'));
 
@@ -140,35 +129,6 @@ export default {
             });
         }
 
-        //define method destroy
-        const join = (id) => {
-            Swal.fire({
-                title: 'Apakah Anda yakin?',
-                text: "Anda akan mendaftar pada event ini!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, Daftarkan!'
-            })
-                .then((result) => {
-                    if (result.isConfirmed) {
-
-                        Inertia.put(`/user/events/${id}/join`, {
-                            'role': role
-                        });
-
-                        Swal.fire({
-                            title: 'Berhasil!',
-                            text: `Anda berhasil bergabung sebagai peserta`,
-                            icon: 'success',
-                            timer: 2000,
-                            showConfirmButton: false,
-                        });
-                    }
-                })
-        }
-
         // Method to get the URL of the document
         const getImageUrl = (imageName) => {
             return `/storage/${imageName}`;
@@ -178,11 +138,7 @@ export default {
         return {
             search,
             handleSearch,
-            join,
             getImageUrl,
-            handleRoleChange,
-            role,
-
 
         }
     }

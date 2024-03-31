@@ -4,7 +4,7 @@
         <title>Profile Anggota</title>
     </Head>
 
-    <section id="profile" class="container mt-4">
+    <section id="profile" class="container padding">
         <div class="container-fluid px-5">
             <div class="row d-flex justify-content-center">
                 <!-- First group of columns -->

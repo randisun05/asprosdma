@@ -2,7 +2,7 @@
     <Head>
         <title>Berbagi Cerita</title>
     </Head>
-    <div class="container-fluid mb-5 mt-5">
+    <div class="container-fluid padding px-5">
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
@@ -109,7 +109,7 @@
         //props
         props: {
             posts :Object,
-            
+
         },
 
         //inisialisasi composition API
@@ -177,17 +177,17 @@
                     }
                 })
             }
-            
-            
 
-        
+
+
+
             //return
             return {
                 search,
                 handleSearch,
                 destroy,
                 handleSubmission
-               
+
         }
     }
 }

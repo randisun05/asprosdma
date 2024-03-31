@@ -1,7 +1,7 @@
 <template>
 
 <!-- Our Blogs -->
-<section id="dashboard" class="container-fluid">
+<section id="dashboard" class="container-fluid padding px-5">
    <div class="card shadow py-5">
     <h3 class="text-center">Monitoring Registration</h3>
       <div class="row px-5">

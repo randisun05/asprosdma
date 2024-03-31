@@ -140,7 +140,7 @@ class PostController extends Controller
     public function show($id)
     {
 
-        $post = Post::findOrFail($id)->with('member','category')->first();
+        $post = Post::where('id',$id)->with('member','category')->first();
         return inertia('Admin/Posts/Show', [
            'post' => $post
         ]);

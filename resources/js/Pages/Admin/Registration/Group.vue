@@ -2,7 +2,7 @@
     <Head>
         <title>Administrator</title>
     </Head>
-    <div class="container-fluid mb-5 mt-5">
+    <div class="container-fluid padding px-5">
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
@@ -64,7 +64,7 @@
                                             <span v-else-if="register.status === 'rejected'" class="badge bg-danger">{{ register.status }}</span>
                                             <span v-else-if="register.status === 'submission'" class="badge bg-secondary">{{ register.status }}</span>
                                         </td>
-            
+
                                         <td class="text-center">
                                             <button v-if="register.status !== 'done' && register.status !== 'rejected'"  @click="handleDone(register.id)" class="btn btn-sm btn-success border-0 shadow me-2"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i></button>
                                             <button @click="handleConfirm(register.id)" class="btn btn-sm btn-warning border-0 shadow me-2"><i class="fa fa-question-circle fa-lg" aria-hidden="true"></i></button>

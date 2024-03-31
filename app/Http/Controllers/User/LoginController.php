@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
+use Inertia\Inertia;
 use App\Models\Member;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\Else_;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Intervention\Image\Colors\Rgb\Channels\Red;
 
 class LoginController extends Controller
 {
@@ -17,27 +21,24 @@ class LoginController extends Controller
     public function __invoke(Request $request)
     {
 
-        //validate the form data
-        $this->validate($request, [
-            'nip'      => 'required',
-            'password'  => 'required',
-        ]);
+       // Validate the form data
+            $this->validate($request, [
+                'nip'      => 'required',
+                'password'  => 'required',
+            ]);
 
-        //cek nisn dan password
-        $member = Member::where([
-            'nip'      => $request->nip,
-            'password'  => $request->password
-        ])->first();
+            // Cek nip dan password
+            $member = Member::where('nip', $request->nip)->first();
 
-        if(!$member) {
-            return redirect()->back()->with('error', 'NIP atau Password salah');
-        }
+            if(!$member || !password_verify($request->password, $member->password)) {
+                return redirect()->back()->with('error', 'NIP atau Password salah');
+            }
 
-        //login the user
-        auth()->guard('member')->login($member);
+            // Login the user
+            auth()->guard('member')->login($member);
 
-        //redirect to dashboard
-        return redirect()->route('user.dashboard');
+            // Redirect to dashboard
+            return redirect()->route('user.dashboard');
     }
 
     public function setting()
@@ -45,16 +46,48 @@ class LoginController extends Controller
         $member = Member::where('nip',auth()->guard('member')->user()->nip)
         ->first();
 
+
         return inertia('User/Setting/Index', [
             'member' => $member,
          ]);
+
+
 
     }
 
     public function resetPassword(Request $request)
     {
 
-        //validate the form data
+        $member = Member::where('nip', auth()->guard('member')->user()->nip)->first();
 
+        $request->validate([
+            'oldpassword' => 'required',
+            'password' => [
+                'required',
+                'min:8',
+                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/'
+                // At least one lowercase, one uppercase, one number, and one special character
+            ],
+        ],[
+            'password.regex' => 'Password terdiri dari kombinasi huruf, angka dan karakter spesial, contoh:A5proSDM@',
+            'oldpassword.required' => 'Password lama harus diisi',
+            'password.required' => 'Password baru harus diisi',
+            'oldpassword.min:8' => 'Password baru minimal 8 karakter'
+        ]);
+
+        // Check if the old password matches
+            if (!$member || !Hash::check($request->oldpassword, $member->password)) {
+                return back()->withErrors(['oldpassword' => 'Password lama yang Anda masukkan tidak cocok']);
+            }
+
+            // Hash the new password
+            $newPasswordHash = Hash::make($request->password);
+
+            // Update the member's password
+            $member->update([
+                'password' => $newPasswordHash,
+            ]);
+
+            return redirect()->route('user.dashboard')->with('success', 'Password berhasil diperbarui.');
     }
 }

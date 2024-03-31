@@ -1,11 +1,11 @@
 <template>
 
-   <nav class="navbar navbar-expand-md sidebar-nav padding">
+   <nav class="navbar navbar-expand-md sidebar-nav padding padding_m">
     <div class="collapse navbar-collapse" id="xenav">
        <ul class="navbar-nav ms-auto">
         <li class="nav-item py-3">
         </li>
-        
+
           <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/dashboard') }">
                   <Link href="/user/dashboard" class="nav-link d-flex justify-content-between">
                   <span>
@@ -16,7 +16,7 @@
                   </span>
                   </Link>
               </li>
-          
+
               <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/registration') }">
                   <Link href="/user/profile" class="nav-link d-flex justify-content-between">
                   <span>
