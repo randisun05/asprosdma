@@ -126,12 +126,30 @@ class RegistrationController extends Controller
      */
     public function show($id)
     {
-        $register = Registration::findOrFail($id);
-        //render with inertia
-       return inertia('Admin/Registration/Show', [
-        'register' => $register,
-    ]);
+        $user = auth()->user()->name;
 
+        $register = Registration::findOrFail($id);
+        $admin = $register->admin;
+
+        if (empty($admin)) {
+            // Jika bidang 'admin' kosong, lakukan pembaruan dengan nilai dari $user
+            $register->update([
+                'admin' => $user,
+            ]);
+        } else {
+            // Jika bidang 'admin' sudah terisi, periksa apakah sama dengan $user
+            if ($admin !== $user) {
+                // Jika tidak sama, kembalikan respons JSON "Sedang dalam verifikasi"
+                return inertia('Admin/Registration/Show', [
+                    'register' => $register,
+                ])->with('errors','Sedang dalam verifikasi ' . $admin);
+            }
+        }
+
+        // Lanjutkan ke halaman jika telah melalui verifikasi
+        return inertia('Admin/Registration/Show', [
+            'register' => $register,
+        ]);
     }
 
     /**

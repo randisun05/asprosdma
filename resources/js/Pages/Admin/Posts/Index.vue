@@ -12,7 +12,7 @@
                          Tambah</Link>
                     </div>
                     <div class="col-md-1 col-12 mb-2">
-                        <Link href="/admin/posts/category/create" class="btn btn-md btn-warning border-0 shadow w-100" type="button">
+                        <Link href="/admin/category/create" class="btn btn-md btn-warning border-0 shadow w-100" type="button">
                             <i class="fa fa-plus-circle"></i>  Kategori
                         </Link>
                     </div>
@@ -42,6 +42,9 @@
                             </li>
                             <li class="nav-item">
                             <a class="nav-link" :class="{ active: activeTab === 'approved' }" @click="setActiveTab('approved')">Publish</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link" :class="{ active: activeTab === 'limited' }" @click="setActiveTab('limited')">Limited</a>
                             </li>
                             <li class="nav-item">
                             <a class="nav-link" :class="{ active: activeTab === 'category' }" @click="setActiveTab('category')">Category</a>
@@ -117,6 +120,33 @@
                             </table>
                         </div>
 
+                        <div v-show="activeTab === 'limited'" class="table-responsive" id="limited">
+                            <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
+                                <thead class="thead-dark">
+                                    <tr class="border-0 text-center">
+                                        <th class="border-0 rounded-start" style="width:5%">No.</th>
+                                        <th class="border-0">Title</th>
+                                        <th class="border-0">Kategori</th>
+                                        <th class="border-0">Author</th>
+                                        <th class="border-0 rounded-end" style="width:12%">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <div class="mt-2"></div>
+                                <tbody>
+                                    <tr v-for="(limited, index) in limiteds.data" :key="index">
+                                        <td class="fw-bold text-center">{{ ++index + (limiteds.current_page - 1) * limiteds.per_page }}</td>
+                                        <td>{{ limited.title }}</td>
+                                        <td>{{ limited.category.title }}</td>
+                                        <td>{{ limited.member.name !== 1 ? limited.member.name : 'Administrator' }} </td>
+                                        <td class="text-center">
+                                            <Link :href="`/admin/posts/${limited.id}`" title="view" class="btn btn-sm btn-primary border-0 shadow me-2" type="button"><i class="fa fa-eye fa-lg" aria-hidden="true"></i></Link>
+                                            <button @click="handleCancel(limited.id)" title="tolak" class="btn btn-sm btn-danger border-0 shadow me-2"><i class="fa fa-times-circle fa-lg" aria-hidden="true"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
                         <div v-show="activeTab === 'category'" class="table-responsive" id="category">
                             <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
                                 <thead class="thead-dark">
@@ -142,6 +172,7 @@
 
                         <Pagination v-if="activeTab === 'sub'" :links="posts.links" align="end" />
                         <Pagination v-if="activeTab === 'approved'" :links="publishs.links" align="end" />
+                        <Pagination v-if="activeTab === 'limited'" :links="limiteds.links" align="end" />
                         <Pagination v-if="activeTab === 'category'" :links="categories.links" align="end" />
                     </div>
                 </div>
@@ -195,6 +226,7 @@
             posts: Object,
             publishs: Object,
             categories: Object,
+            limiteds: Object,
         },
 
         data() {

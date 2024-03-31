@@ -165,7 +165,6 @@ class PostsController extends Controller
       $request->validate([
         'title' => 'required|string',
         'body' => 'required|',
-
     ]);
 
     $slug = strtolower(str_replace(' ', '-', $request->title));
@@ -188,14 +187,17 @@ class PostsController extends Controller
     if ($document) {
         $document = $request->file('document')->storePublicly('/documents');
         // Proceed with storing or processing the uploaded file
+    } else {
+        $document = Post::where ('id', $id)->value('document');
     };
 
     $image = $request->file('picture');
     if ($image) {
         $image = $request->file('picture')->storePublicly('/images');
         // Proceed with storing or processing the uploaded file
+    }  else {
+        $image = Post::where ('id', $id)->value('image');
     };
-
 
         Post::where('id',$id)->update([
             'title' => $request->title,

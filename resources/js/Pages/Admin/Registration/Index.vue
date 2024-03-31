@@ -91,6 +91,8 @@
                                                 class="badge bg-primary">paid</a>
                                             <span v-else-if="register.status === 'submission'"
                                                 class="badge bg-secondary">{{ register.status }}</span>
+                                                <span v-if="register.admin"
+                                                class="badge bg-primary">{{ register.admin }}</span>
                                         </td>
 
                                         <td class="text-center">

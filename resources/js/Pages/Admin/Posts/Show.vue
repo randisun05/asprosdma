@@ -20,7 +20,6 @@
                             </div>
                         </div>
                         <h3 class="text-center" style="">Preview Cerita/Artikel/Berita</h3>
-
                         <div class="row px-5 py-3">
                             <h3 class="text-center">{{ post.title }}</h3>
                             <p class="mb-0 mt-2">Kategori: {{ post.category.title }}</p>

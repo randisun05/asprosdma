@@ -2,6 +2,7 @@
     <Head>
         <title>Administrator</title>
     </Head>
+
     <div class="container-fluid padding px-5">
         <div class="row">
             <div class="col-md-12">
@@ -12,6 +13,10 @@
                 <div class="card border-0 shadow">
                     <div class="card-body">
                         <h5><i class="fa fa-bookmark"></i> Data Pengusul</h5>
+                        <div v-if="errors && Object.keys(errors).length > 0" class="alert alert-danger mt-2">
+                            {{ errors }}
+                        </div>
+
                         <hr>
                         <div class="row">
                             <div class="col-md-6 col-sm-6">
@@ -113,6 +118,7 @@
             </div>
         </div>
     </div>
+
 </template>
 
 <script>
@@ -147,7 +153,10 @@
 
         //props
         props: {
+            errors: Object,
             register: Object,
+
+
         },
 
 

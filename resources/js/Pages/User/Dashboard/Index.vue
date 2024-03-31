@@ -172,14 +172,14 @@
                     </div>
                     <div class="col-lg-6">
                     <div class="news_desc">
-                        <h3 class="text-capitalize font-light darkcolor"><a href="blog-detail.html">{{ post.title }}</a>
+                        <h3 class="text-capitalize font-light darkcolor"><a href="#">{{ post.title }}</a>
                         </h3>
                         <ul class="meta-tags top20 bottom20">
                             <li><a href="#."><i class="fa fa-user"></i>{{ post.member.name}}</a></li>
                             <li><a href="#."><i class="fa fa-calendar"></i>{{ post.publish_at }}</a></li>
                         </ul>
                         <p class="bottom35">{{ post.excerpt }}</p>
-                        <Link :href="`/berita/${post.slug}`" title="join" class="button btnprimary" type="button">View
+                        <Link :href="`/user/posts/list/${post.slug}`" title="join" class="button btnprimary" type="button">View
                         </Link>
                     </div>
                     </div>

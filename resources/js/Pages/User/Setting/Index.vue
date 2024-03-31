@@ -134,6 +134,7 @@ export default {
                     //data
                     oldpassword: form.oldpassword,
                     password: form.password,
+                    password_confirmation: form.password_confirmation,
 
                 },
                 {

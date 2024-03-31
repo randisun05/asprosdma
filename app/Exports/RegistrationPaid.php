@@ -36,7 +36,7 @@ class RegistrationPaid implements FromCollection, WithMapping, WithHeadings
             $paids->position.' '.$paids->level,
             $paids->email,
             $paids->contact,
-            $paids->paid
+            "https://asprosdma.id/storage/images/".$paids->paid
         ] ;
     }
 

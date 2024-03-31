@@ -49,7 +49,7 @@
         <hr>
         <div class="message">
             <p>Dear <strong>{{ $data['name'] }}</strong>,</p>
-            <p>Terima kasih telah mendaftar menjadi Anggota Aspro SDMA, Asosiasi Profesi Jabatan Fungsional Analis dan Pranata Sumber Daya Manusia Aparatur.</p>
+            <p>Terima kasih telah mendaftar menjadi Anggota Aspro SDMA, Asosiasi Profesi Jabatan Fungsional Sumber Daya Manusia Aparatur.</p>
             <p>Silakan mengakses halaman login <a href="https://asprosdma.id/user/login">https://asprosdma.id/user/login</a>, dengan:  </p>
             <ul>
                 <li>username : {{ $data['nip'] }}</li>
