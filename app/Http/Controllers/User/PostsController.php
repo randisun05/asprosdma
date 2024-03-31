@@ -244,4 +244,34 @@ class PostsController extends Controller
         //redirect
         return redirect()->route('user.posts.index');
     }
+
+    public function list()
+    {
+
+        $posts = Post::with('member')
+        ->when(request()->q, function($query) {
+            $query->where('title', 'like', '%' . request()->q . '%');
+        })
+        ->where(function($query) {
+            $query->where('status', 'approved')
+                ->orWhere('status', 'limited');
+        })
+        ->latest()
+        ->paginate(6);
+
+        $posts->appends(['q' => request()->q]);
+
+        return inertia('User/Posts/List', [
+            'posts' => $posts
+        ]);
+    }
+    public function showlist(Post $post)
+    {
+        $post->load('member', 'category'); // Mengambil relasi 'member' dan 'category'
+
+        return inertia('User/Posts/ListShow', [
+            'post' => $post
+        ]);
+    }
+
 }

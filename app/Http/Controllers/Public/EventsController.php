@@ -60,7 +60,7 @@ class EventsController extends Controller
     public function show(Event $event)
     {
         return inertia('Public/Website/Events/Show', [
-            'title' => $event->slug,
+            'title' => $event->title,
             'event' => $event
         ]);
     }

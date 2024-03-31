@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
-use App\Models\DetailEvent;
 use App\Models\Event;
-use GuzzleHttp\Promise\Create;
+use App\Models\Member;
+use App\Models\DetailEvent;
+use App\Mail\SendEmailEvent;
 use Illuminate\Http\Request;
+use GuzzleHttp\Promise\Create;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 
 class EventController extends Controller
 {
@@ -36,12 +39,34 @@ class EventController extends Controller
 
     public function join($id, Request $request)
     {
-      DetailEvent::create([
-        'event_id' => $id,
-        'member_id' => auth()->guard('member')->user()->id,
-        'title' => $request->role,
-        'status' => "approved",
-      ]);
+
+        $detailEvent = DetailEvent::firstOrCreate(
+            [
+                'event_id' => $id,
+                'member_id' => auth()->guard('member')->user()->id,
+            ],
+            [
+                'title' => "peserta",
+                'status' => "approved",
+            ]
+        );
+
+        if ($detailEvent->wasRecentlyCreated) {
+            // Baru saja dibuat, berarti belum terdaftar sebelumnya
+            // Tampilkan pesan bahwa mereka berhasil terdaftar
+            $event = Event::where('id',$detailEvent->event_id)->first();
+            $email = Member::where('id', $detailEvent->member_id)->first();
+
+            Mail::to($email['email'])->send(new SendEmailEvent($event));
+
+            return redirect()->route('user.events.index');
+        } else {
+            // Sudah ada, berarti sudah terdaftar sebelumnya
+            // Tampilkan pesan bahwa mereka sudah terdaftar sebelumnya
+            return redirect()->route('user.events.index');
+        }
+
+
 
       //redirect
      return redirect()->route('user.events.index');
@@ -75,9 +100,13 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Event $event)
     {
-        //
+
+        return inertia('User/Events/Show', [
+            'event' => $event,
+
+         ]);
     }
 
     /**

@@ -2,7 +2,7 @@
     <Head>
         <title>Merchans</title>
     </Head>
-    <div class="container-fluid mb-5 mt-5">
+    <div class="container-fluid padding px-5">
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
@@ -51,7 +51,9 @@
                                         <p>{{ merchan.subtitle }}</p></td>
                                         <td><p v-html="merchan.body"></p>
                                             <p v-html="merchan.how"></p></td>
-                                        <td>{{ merchan.status }}</td>
+                                            <td> <button v-if="merchan.status === 'active'" @click="changeStatus(merchan.id)" class="badge bg-success">{{ merchan.status }}</button>
+                                            <button v-else-if="merchan.status === 'non-active'" @click="changeStatus(merchan.id)" class="badge bg-warning">{{ merchan.status }}</button>
+                                        </td>
                                         <td class="text-center" >
                                             <Link :href="`/admin/merchans/${merchan.id}/edit`" class="btn btn-sm btn-warning border-0 shadow me-2" type="button" title="edit"><i class="fa fa-pencil"></i></Link>
                                             <Link :href="`/admin/merchans/${merchan.id}`" class="btn btn-sm btn-info border-0 shadow me-2" type="button"><i class="fa fa-eye" title="lihat detail"></i></Link>
@@ -111,12 +113,12 @@
 
         },
 
-        
+
 
         //inisialisasi composition API
         setup() {
 
-      
+
             //define state search
             const search = ref('' || (new URL(document.location)).searchParams.get('q'));
 
@@ -156,6 +158,34 @@
                     })
             }
 
+             //define method destroy
+             const changeStatus = (id) => {
+                Swal.fire({
+                        title: 'Apakah Anda yakin?',
+                        text: "Anda akan mengganti status merchan!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, change it!'
+                    })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+
+                            Inertia.get(`/admin/merchans/${id}/change`);
+
+                            Swal.fire({
+                                title: 'Changed!',
+                                text: 'Status Merchan Berhasil Dirubah!.',
+                                icon: 'success',
+                                timer: 2000,
+                                showConfirmButton: false,
+                            });
+                        }
+                    })
+            }
+
+
             // Method to get the URL of the document
          const getImageUrl = (imageName) => {
             return `/storage/${imageName}`;
@@ -166,8 +196,9 @@
                 search,
                 handleSearch,
                 destroy,
-                getImageUrl,            
- 
+                getImageUrl,
+                changeStatus
+
         }
     }
 }

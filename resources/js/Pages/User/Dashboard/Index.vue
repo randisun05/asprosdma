@@ -1,43 +1,43 @@
 <template>
     <!-- Our Blogs -->
-    <section id="member-card" class="">
+    <section id="member-card" class="padding_m mt-4">
         <div class="ms-5">
             <div class="row">
                 <div class="col-12 col-sm-6 col-xl-4 me-4">
                     <div class="card shadow top60">
                         <div class="text-center">
-                            <h4>Kartu Anggota</h4>
+                            <h4>Informasi Anggota</h4>
                             <h4>Aspro SDM Aparatur</h4>
                             <hr class="mt-0">
                         </div>
                         <div class="row mb-4">
-                            <div class="col-sm-4">
-                                <!-- Foto disini -->
-                                <img src="/assets/images/team-grey-1.jpg" alt="Foto Anda" class="img-fluid ms-3">
-                            </div>
-                            <!-- <div class="col-sm-8">
-                                <div class="row py-1 ms-2">
+                            <!-- <div class="col-sm-4">
+                                <img v-if="profile.main.nomember" :src="getImageUrl(profile.main.image)" alt="" style="width: 100%; height: 200px;" class="ms-3" />
+                                <img v-else src="/assets/images/team-grey-1.jpg" alt="" />
+                            </div> -->
+                            <div class="col-sm-8">
+                                <div class="row py-1 ms-2 mb-2">
                                     <div class="col-sm-3">
                                         <h5>No.</h5>
                                     </div>
                                     <div class="col-sm-9">
-                                        <h5>: {{ profile.nomember }}</h5>
+                                        <h5>: {{ profile.main.nomember }}</h5>
                                     </div>
                                 </div>
-                                <div class="row py-1 ms-2">
+                                <div class="row py-1 ms-2 mb-2">
                                     <div class="col-sm-3">
                                         <h5>NIP</h5>
                                     </div>
                                     <div class="col-sm-9">
-                                        <h5>: {{ profile.nip }}</h5>
+                                        <h5>: {{ profile.main.nip }}</h5>
                                     </div>
                                 </div>
-                                <div class="row py-1 ms-2">
+                                <div class="row py-1 ms-2  mb-2">
                                     <div class="col-sm-3">
                                         <h5>Nama</h5>
                                     </div>
                                     <div class="col-sm-9">
-                                        <h5>: {{ profile.name }}</h5>
+                                        <h5>: {{ profile.main.name }}</h5>
                                     </div>
                                 </div>
                                 <div class="row py-1 ms-2">
@@ -48,7 +48,7 @@
                                         <h5>: {{ profile.agency }}</h5>
                                     </div>
                                 </div>
-                            </div> -->
+                            </div>
                         </div>
 
                     </div>
@@ -65,22 +65,37 @@
         </div>
         <carousel :items-to-show="1" :center-mode="false" :autoplay="5000" wrap-around="true">
             <slide v-for="(event, index) in events.data" :key="index">
-                <div class="news_item shadow text-center row me-5">
-                    <div class="col-lg-6">
-                        <img class="image" style="width: 50%;" v-if="event.image" :src="getImageUrl(event.image)" alt="Gambar" />
+                <div class="news_item shadow row">
+                    <div class="col-lg-6" style="display: flex; justify-content: center; align-items: center;">
+                        <img class="image" v-if="event.image" :src="getImageUrl(event.image)" alt="Gambar"
+                            style="width: 100%;" />
                     </div>
-                    <div class="col-lg-6">
-                        <div class="news_desc">
-                            <h4 class="text-capitalize font-light darkcolor">{{ event.title }}</h4>
-                            <ul class="top20 bottom20">
-                                <li><a href="#."><i class="fa fa-calendar me-2"></i>{{ event.date }}</a> <a href="#." class="ms-4"> <i class="fa fa-user-o me-2"></i>{{ event.participant }}</a></li>
-                                <p>Pendaftaran ditutup pada {{ event.enddate }} </p>
-                            </ul>
-                            <Link :href="`/events/${event.id}`" title="join" class="button btnprimary" type="button">
-                            Join</Link>
+                <div class="col-lg-6">
+                    <div class="news_desc">
+                        <h4 class="text-capitalize font-light darkcolor" style="font-weight: bold;"><a href="#.">{{
+                                            event.title }}</a></h4>
+                        <div class="mt-2 text-center">
+                            <span v-if="event.status === 'active'" class="badge bg-success">Open</span>
+                            <span v-else-if="event.status === 'closed'" class="badge bg-danger">Closed</span>
+                        </div>
+                        <ul class="top20 bottom20">
+                            <li>
+                                <a href="#."><i class="fa fa-calendar me-2" title="Tanggal pelaksanaa"></i>{{
+                                            event.date }}
+                                    <a href="#." class="ms-4"> <i class="fa fa-user-o me-2" title="Jumlah peserta"></i>
+                                        {{ event.participant }}</a></a>
+                            </li>
+                            <p>Pendaftaran ditutup pada {{ event.enddate }}</p>
 
+                        </ul>
+                        <div class="text-center">
+                            <Link v-if="event.status == 'active'" :href="`/user/events/${event.slug}`" title="join"
+                                class="button btnprimary" type="button">
+                            Join
+                            </Link>
                         </div>
                     </div>
+                </div>
                 </div>
             </slide>
 
@@ -107,6 +122,7 @@
                         <img class="image" v-if="merchan.image" :src="getImageUrl(merchan.image)" alt="Gambar"
                             style="max-width: 100%; max-height: 100%; width: auto; height: auto;" />
                     </div>
+
                     <div class="col-lg-6">
                         <div class="col product-details" style="text-align: left;">
                             <h5 class="product-brand">{{ merchan.title }}</h5>
@@ -123,7 +139,7 @@
                             <h6 class="mb-1">Bagaimana Cara Kamu Beli:</h6>
                             <div v-html="merchan.how" style="font-size: 10px;"></div>
                             <div class="mt-3">
-                                <Link :href="`/merchans/${merchan.id}`" title="join" class="button btnprimary"
+                                <Link :href="`/user/merchans/${merchan.id}`" title="join" class="button btnprimary"
                                     type="button">View</Link>
                             </div>
                         </div>
@@ -148,19 +164,24 @@
 
         <carousel :items-to-show="1" :center-mode="false" :autoplay="5000" wrap-around="true">
             <slide v-for="(post, index) in posts.data" :key="index">
-                <div class="news_item shadow text-center">
-                    <a class="image" href="blog-detail.html">
-                        <img class="image" v-if="post.image" :src="getImageUrl(post.image)" alt="Gambar" />
-                    </a>
+                <div class="news_item shadow row">
+                    <div class="col-lg-6" style="display: flex; justify-content: center; align-items: center;">
+                        <a class="image" href="blog-detail.html">
+                            <img class="image" v-if="post.image" :src="getImageUrl(post.image)" alt="Gambar" style="width: 100%;" />
+                        </a>
+                    </div>
+                    <div class="col-lg-6">
                     <div class="news_desc">
                         <h3 class="text-capitalize font-light darkcolor"><a href="blog-detail.html">{{ post.title }}</a>
                         </h3>
                         <ul class="meta-tags top20 bottom20">
-                            <li><a href="#."><i class="fa fa-calendar"></i>{{ post.excerpt }}</a></li>
+                            <li><a href="#."><i class="fa fa-user"></i>{{ post.member.name}}</a></li>
+                            <li><a href="#."><i class="fa fa-calendar"></i>{{ post.publish_at }}</a></li>
                         </ul>
-                        <p class="bottom35">{{ post.body }}</p>
+                        <p class="bottom35">{{ post.excerpt }}</p>
                         <Link :href="`/berita/${post.slug}`" title="join" class="button btnprimary" type="button">View
                         </Link>
+                    </div>
                     </div>
                 </div>
             </slide>
@@ -170,7 +191,7 @@
             </template>
         </carousel>
         <div class="text-center py-3">
-            <a href="/user/posts" class="btn btnprimary">Lihat Semua Post</a>
+            <a href="/user/posts/list" class="btn btnprimary">Lihat Semua Post</a>
         </div>
     </section>
 
@@ -182,7 +203,7 @@ import LayoutUser from '../../../Layouts/User.vue';
 
 //import Heade from Inertia
 import {
-    Head,
+    Head, Link
 } from '@inertiajs/inertia-vue3';
 
 import 'vue3-carousel/dist/carousel.css'
@@ -206,7 +227,7 @@ export default {
 
     //register components
     components: {
-        Head, Carousel, Slide, Pagination, Navigation
+        Head, Carousel, Slide, Pagination, Navigation, Link
     },
 
     //props

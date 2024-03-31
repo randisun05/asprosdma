@@ -89,6 +89,8 @@
 <!--WOw animations-->
 <script src="{{ asset('assets/js/wow.min.js') }}"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+
 <!--Revolution SLider-->
 <script src="{{ asset('assets/js/revolution/jquery.themepunch.tools.min.js') }}"></script>
 <script src="{{ asset('assets/js/revolution/jquery.themepunch.revolution.min.js') }}"></script>

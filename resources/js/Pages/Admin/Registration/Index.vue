@@ -3,7 +3,7 @@
     <Head>
         <title>Administrator</title>
     </Head>
-    <div class="container-fluid mb-5 mt-5">
+    <div class="container-fluid padding px-5">
         <div class="row">
             <div class="col-md-12">
                 <div class="row">

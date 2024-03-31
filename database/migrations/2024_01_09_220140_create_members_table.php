@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('nomember')->nullable();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('agency');
             $table->string('password');
             $table->timestamps();
         });

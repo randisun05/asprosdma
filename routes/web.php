@@ -64,6 +64,7 @@ Route::prefix('admin')->group(function() {
         Route::post('/medias/{id}', [\App\Http\Controllers\Admin\MediaController::class, 'update'])->name('admin.medias.update');
         Route::resource('/medias', \App\Http\Controllers\Admin\MediaController::class, ['as' => 'admin']);
         Route::post('/merchans/{id}', [\App\Http\Controllers\Admin\MerchanController::class, 'update'])->name('admin.merchans.update');
+        Route::get('/merchans/{id}/change', [\App\Http\Controllers\Admin\MerchanController::class, 'change'])->name('admin.merchans.status');
         Route::resource('/merchans', \App\Http\Controllers\Admin\MerchanController::class, ['as' => 'admin']);
     });
 });
@@ -93,7 +94,7 @@ Route::prefix('user')->group(function() {
         Route::get('/dashboard', App\Http\Controllers\User\DashboardController::class)->name('user.dashboard');
         Route::get('/profile', [\App\Http\Controllers\User\DataProfileController::class, 'index'])->name('user.profile');
         Route::get('/profile/data-utama', [\App\Http\Controllers\User\DataProfileController::class, 'indexIndiv'])->name('user.profile.data-utama');
-        Route::put('/profile/data-utama/image', [\App\Http\Controllers\User\DataProfileController::class, 'updateImage'])->name('user.profile.data-utama.image');
+        Route::post('/profile/image', [\App\Http\Controllers\User\DataProfileController::class, 'updateImage'])->name('user.profile.data-utama.image');
         Route::get('/profile/data-jabatan', [\App\Http\Controllers\User\DataProfileController::class, 'indexPosition'])->name('user.profile.jabatan');
         Route::get('/profile/data-lainnya', [\App\Http\Controllers\User\DataProfileController::class, 'indexOther'])->name('user.profile.lainnya');
         Route::get('/main-data', [\App\Http\Controllers\User\DataProfileController::class, 'indexIndiv'])->name('user.main-data');
@@ -101,13 +102,18 @@ Route::prefix('user')->group(function() {
         Route::post('/profile/edit', [\App\Http\Controllers\User\DataProfileController::class, 'update'])->name('user.profile.update');
         Route::get('/profile/data-jabatan/edit', [\App\Http\Controllers\User\DataProfileController::class, 'editPosition'])->name('user.profile.editposition');
         Route::post('/profile/data-jabatan/edit', [\App\Http\Controllers\User\DataProfileController::class, 'updatePosition'])->name('user.profile.updateposition');
+        Route::get('/posts/list', [\App\Http\Controllers\User\PostsController::class, 'list'])->name('user.posts.list');
+        Route::get('/posts/list/{post:slug}', [\App\Http\Controllers\User\PostsController::class, 'showlist'])->name('user.posts.showlist');
         Route::post('/posts/{id}', [\App\Http\Controllers\User\PostsController::class, 'update'])->name('user.posts.update');
         Route::resource('/posts', \App\Http\Controllers\User\PostsController::class, ['as' => 'user']);
         Route::get('/posts/{id}/submission', [\App\Http\Controllers\User\PostsController::class, 'submission'])->name('user.posts.submission');
         Route::resource('/events', \App\Http\Controllers\User\EventController::class, ['as' => 'user']);
-        Route::put('/events/{id}/join', [\App\Http\Controllers\User\EventController::class, 'join'])->name('user.events.join');
+        Route::get('/events/{event:slug}', [\App\Http\Controllers\User\EventController::class, 'show'])->name('user.events.join');
+        Route::post('/events/{id}/join', [\App\Http\Controllers\User\EventController::class, 'join'])->name('user.events.join');
         Route::get('/setting', [App\Http\Controllers\User\LoginController::class, 'setting'])->name('user.setting');
-        Route::get('/setting/update', [App\Http\Controllers\User\LoginController::class, 'updatePassword'])->name('user.setting.update');
+        Route::put('/setting/update', [App\Http\Controllers\User\LoginController::class, 'resetPassword'])->name('user.setting.update');
+        Route::get('/merchans/', [\App\Http\Controllers\User\MerchansController::class, 'index'])->name('user.merchan.index');
+        Route::get('/merchans/{id}', [\App\Http\Controllers\User\MerchansController::class, 'show'])->name('user.merchan.show');
     });
 });
 

@@ -2,7 +2,7 @@
     <Head>
         <title>Administrator</title>
     </Head>
-    <div class="container-fluid mb-5 mt-5">
+    <div class="container-fluid padding px-5">
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
@@ -16,7 +16,7 @@
                             <i class="fa fa-plus-circle"></i>  Kategori
                         </Link>
                     </div>
-                   
+
                     <div class="col-md-6 col-12 mb-2">
                         <form @submit.prevent="handleSearch">
                             <div class="input-group">
@@ -129,7 +129,7 @@
                                         <td class="fw-bold text-center">{{ ++index + (categories.current_page - 1) * categories.per_page }}</td>
                                         <td>{{ category.title }}</td>
                                         <td class="text-center">
-                                            
+
                                             <button @click.prevent="destroy(category.id)" class="btn btn-sm btn-danger border-0 me-2"><i class="fa fa-trash" title="hapus"></i></button>
                                         </td>
                                     </tr>
@@ -143,11 +143,11 @@
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
     </div>
 
 
-                    
+
 
 </template>
 
@@ -197,7 +197,7 @@
         data() {
             return {
               activeTab: 'sub', // Set the default active tab
-        
+
             };
           },
 
@@ -270,7 +270,7 @@
                 })
             }
 
-            
+
 
             const handleReject = (id) => {
             Swal.fire({
@@ -324,9 +324,9 @@
                 })
             }
 
-                 
 
-        
+
+
             //return
             return {
                 search,
@@ -335,7 +335,7 @@
                 handleApprove,
                 handleReturn,
                 handleCancel
- 
+
 
         }
     }

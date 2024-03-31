@@ -3,7 +3,7 @@
     <Head>
         <title>Profile Anggota</title>
     </Head>
-    <form @submit.prevent="submit" class="getin_form border-form" id="data">
+    <form @submit.prevent="submit" class="getin_form border-form padding" id="data">
         <section id="profile" class="container mt-4">
             <div class="container-fluid px-5">
                 <div class="row d-flex justify-content-center">
@@ -28,18 +28,10 @@
                         <div class="container py-4">
                             <div class="row">
                                 <div class="col-lg-2 col-md-2">
-                                    <div class="text-center" onclick="document.getElementById('image').click()">
-                                        <img v-if="form.image" :src="getImageUrl(form.image)" alt=""
-                                        class="img-fluid rounded-circle" title="Ubah foto profil" />
-                                        <img v-else src="/assets/images/team-grey-1.jpg" alt="" class="img-fluid rounded-circle"
-                                            title="Ubah foto profil" />
-                                        <input type="file" id="image" style="display: none" placeholder="Ubah Foto"
-                                            title="ubah foto profile" @change="updateImage"
-                                            accept=".jpg, .jpeg, .png," />
-                                    </div>
-                                    <div>
-                                        <input type="file" name="image" id="image" placeholder="Masukan Gambar/Foto"
-                                            @change="updateImage" accept=".jpg, .jpeg, .png">
+                                    <div class="text-center">
+                                        <img :src="getImageUrl(form.image)" alt="Foto Profil" class="img-fluid rounded-circle" title="Ubah foto profil" style="width: 100%; height: 200px;" />
+                                        <input ref="fileInput" type="file" style="display: none" @change="updateImage" accept=".jpg, .jpeg, .png" />
+                                        <button @click="openFileInput" type="button" class="btn btn-secondary mt-2">Ubah Foto</button>
                                     </div>
                                 </div>
 
@@ -54,7 +46,7 @@
                                         </div>
 
                                         <div class="col-lg-8">
-                                            <input type="text" class="form-control" v-model="form.nip" maxlength="18" disabled
+                                            <input type="text" class="form-control" v-model="form.nip" maxlength="18" readonly
                                                 onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
                                             <div v-if="errors.nip" class="alert-danger mt-1 rounded">
                                                 {{ errors.nip }}
@@ -268,8 +260,16 @@
                             <div class="col-md-6 col-sm-6">
                                 <span class="text-black"> Provinsi </span>
                                 <div class="form-group mt-1">
-                                    <input type="text" class="form-control" v-model="form.province" />
+                                    <!-- <input type="text" class="form-control" v-model="form.province" /> -->
+                                    <select id="province" v-model="selectedProvince" class="form-control" @change="getCities">
+                                    <option value="">Pilih Provinsi</option>
+                                    <option v-for="province in provinces" :key="province.id" :value="province.name">
+                                    {{ province.name }}
+                                    </option>
+                                </select>
+
                                 </div>
+
                                 <div v-if="errors.province" class="rounded alert-danger mt-2">
                                     {{ errors.province }}
                                 </div>
@@ -278,7 +278,13 @@
                             <div class="col-md-6 col-sm-6">
                                 <span class="text-black"> Kota/Kabupaten </span>
                                 <div class="form-group mt-1">
-                                    <input type="text" class="form-control" v-model="form.regency" />
+                                    <!-- <input type="text" class="form-control" v-model="form.regency" /> -->
+                                    <select class="form-control" id="city" v-model="selectedCity" @change="getDistricts">
+                                    <option value="">Pilih Kota/Kabupaten</option>
+                                    <option v-for="city in cities" :key="city.id" :value="city.name">
+                                        {{ city.name }}
+                                    </option>
+                                    </select>
                                 </div>
                                 <div v-if="errors.regency" class="rounded alert-danger mt-2">
                                     {{ errors.regency }}
@@ -286,23 +292,39 @@
                             </div>
 
                             <div class="col-md-6 col-sm-6">
-                                <span class="text-black"> Kelurahan </span>
-                                <div class="form-group mt-1">
-                                    <input type="text" class="form-control" v-model="form.villages" />
-                                </div>
-                                <div v-if="errors.villages" class="rounded alert-danger mt-2">
-                                    {{ errors.villages }}
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-6">
+
                                 <span class="text-black"> Kecamatan </span>
                                 <div class="form-group mt-1">
-                                    <input type="text" class="form-control" v-model="form.district" />
+                                    <!-- <input type="text" class="form-control" v-model="form.district" /> -->
+                                    <select class="form-control" id="district" v-model="selectedDistrict" @change="getVillages">
+                                        <option value="">Pilih Kecamatan</option>
+                                        <option v-for="district in districts" :key="district.id" :value="district.name">
+                                            {{ district.name }}
+                                        </option>
+                                        </select>
+                                        <!-- <input type="text" class="form-control" :value="getSelectedDistrictName()" readonly> -->
                                 </div>
                                 <div v-if="errors.district" class="rounded alert-danger mt-2">
                                     {{ errors.district }}
                                 </div>
                             </div>
+                            <div class="col-md-6 col-sm-6">
+                                <span class="text-black"> Kelurahan </span>
+                                <div class="form-group mt-1">
+                                    <!-- <input type="text" class="form-control" v-model="form.villages" /> -->
+                                    <select class="form-control" id="village" v-model="selectedVillage">
+                                    <option value="">Pilih Kelurahan/Desa</option>
+                                    <option v-for="village in villages" :key="village.id" :value="village.name">
+                                        {{ village.name }}
+                                    </option>
+                                    </select>
+                                    <!-- <input type="text" class="form-control" :value="getSelectedVillageName()" readonly> -->
+                                </div>
+                                <div v-if="errors.villages" class="rounded alert-danger mt-2">
+                                    {{ errors.villages }}
+                                </div>
+                            </div>
+
                         </div>
                         <div class="row ms-2 mb-3">
 
@@ -350,7 +372,7 @@
                         </div>
                     </div>
                     <div class="row d-flex justify-content-center py-5">
-                        <button type="submit" class="button btnprimary" style="width: 300px;">Submit</button>
+                        <button type="submit" class="button btnprimary" style="width: 300px;">Simpan</button>
                         <a href="/user/profile" class="button btnsecondary" style="width: 300px;">Batal</a>
                     </div>
                 </div>
@@ -380,7 +402,15 @@ export default {
     data() {
         return {
             searchInstansi: '',
-            showDropdown: false
+            showDropdown: false,
+            provinces: [],
+            cities: [],
+            districts: [],
+            villages: [],
+            selectedProvince: '',
+            selectedCity: '',
+            selectedDistrict: '',
+            selectedVillage: ''
         };
     },
 
@@ -391,6 +421,9 @@ export default {
                 instansi.title.toLowerCase().includes(this.searchInstansi.toLowerCase())
             );
         }
+    },
+    mounted() {
+      this.getProvinces();
     },
 
     methods: {
@@ -419,7 +452,54 @@ export default {
             this.form.agency = instansi.title;
             this.searchInstansi = ''; // reset search input after selection
             this.showDropdown = false; // hide dropdown after selection
-        }
+        },
+        openFileInput() {
+            this.$refs.fileInput.click();
+        },
+        updateImage(event) {
+            this.form.image = event.target.files[0];
+        },
+        getProvinces() {
+        fetch('https://randisun05.github.io/api-wilayah-indonesia/api/provinces.json')
+          .then(response => response.json())
+          .then(provinces => {
+            this.provinces = provinces;
+          })
+          .catch(error => {
+            console.error('Error fetching provinces:', error);
+          });
+      },
+      getCities() {
+        fetch(`https://randisun05.github.io/api-wilayah-indonesia/api/regencies/${this.selectedProvince}.json`)
+          .then(response => response.json())
+          .then(cities => {
+            this.cities = cities;
+          })
+          .catch(error => {
+            console.error('Error fetching cities:', error);
+          });
+      },
+      getDistricts() {
+        fetch(`https://randisun05.github.io/api-wilayah-indonesia/api/districts/${this.selectedCity}.json`)
+          .then(response => response.json())
+          .then(districts => {
+            this.districts = districts;
+          })
+          .catch(error => {
+            console.error('Error fetching districts:', error);
+          });
+      },
+      getVillages() {
+        fetch(`https://randisun05.github.io/api-wilayah-indonesia/api/villages/${this.selectedDistrict}.json`)
+          .then(response => response.json())
+          .then(villages => {
+            this.villages = villages;
+          })
+          .catch(error => {
+            console.error('Error fetching villages:', error);
+          });
+      },
+
     },
 
     //layout
@@ -492,7 +572,6 @@ export default {
                     district: form.district,
                     regency: form.regency,
                     province: form.province,
-                    image: form.image,
                     agency: form.agency
 
                 },
@@ -511,23 +590,39 @@ export default {
             );
         };
 
+
+            //send data to server
+
+
         // Method to get the URL of the document
         const getImageUrl = (imageName) => {
-            return `/storage/${imageName}`;
+            return imageName ? `/storage/${imageName}` : "/assets/images/team-grey-1.jpg";
         }
 
         const updateImage = (event) => {
-            form.image = event.target.files[0];
+            // Buat objek FormData
+            const formData = new FormData();
+            // Tambahkan file gambar yang dipilih ke FormData
+            formData.append('image', event.target.files[0]);
+            // Kirim permintaan dengan Inertia
+            Inertia.post(`/user/profile/image`, formData);
         };
+
 
         //return form state and submit method
         return {
             form,
             submit,
             getImageUrl,
-            updateImage
+            updateImage,
+
         };
     },
 };
 </script>
-<style></style>
+<style>
+.dropdown-select {
+  max-height: 200px; /* Tentukan tinggi maksimal dropdown */
+  overflow-y: auto; /* Aktifkan pengguliran vertikal jika item melebihi tinggi maksimal */
+}
+</style>

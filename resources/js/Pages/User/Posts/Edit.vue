@@ -2,7 +2,7 @@
     <Head>
         <title>Edit Cerita</title>
     </Head>
-    <div class="container mb-5 mt-5">
+    <div class="container padding">
         <div class="row mt-1">
             <div class="col-md-12">
                 <div class="card border-0 shadow">
@@ -20,7 +20,7 @@
                             </div>
                             <h3 class="text-center">Update Cerita/Artikel/Berita</h3>
                         <form @submit.prevent="submit">
-                           
+
                                 <div class="row py-4 ms-5">
                                             <div class="col-md-11">
                                                 <span class="text-black">
@@ -30,7 +30,7 @@
                                                     <input type="text" class="form-control" placeholder="Masukan Judul Cerita/Artikel/Berita" v-model="form.title">
                                                 </div>
                                                 <div v-if="errors.title" class="alert alert-danger mt-2">
-                                                    {{ errors.title }}    
+                                                    {{ errors.title }}
                                                 </div>
                                             </div>
 
@@ -40,12 +40,12 @@
                                                 </span>
                                                 <div class="form-group mt-1 mb-4">
                                                     <select class="form-select" v-model="form.category">
-                                                     
+
                                                         <option v-for="(category, index) in categories" :key="index" :value="category.id">{{ category.title }}</option>
                                                     </select>
                                                 </div>
                                                 <div v-if="errors.category" class="alert alert-danger mt-2">
-                                                    {{ errors.category }}    
+                                                    {{ errors.category }}
                                                 </div>
                                             </div>
 
@@ -64,7 +64,7 @@
                                                         }"
                                                     />
                                                 </div>
-                                              
+
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-5">
@@ -80,10 +80,10 @@
                                                     <div v-if="errors[0]" class="alert alert-danger mt-2">
                                                         {{ errors[0] }}
                                                     </div>
-                                                
+
                                                 </div>
                                                 <div class="col-md-1">
-                                                    
+
                                                 </div>
                                                 <div class="col-md-5">
                                                     <span class="text-black">
@@ -98,7 +98,7 @@
                                                 <div v-if="errors[0]" class="alert alert-danger mt-2">
                                                     {{ errors[0] }}
                                                 </div>
-                                            
+
 
                                                 </div>
                                             </div>
@@ -120,7 +120,7 @@
 <script>
     //import layout
     import LayoutUser from '../../../Layouts/User.vue';
-   
+
     //import Heade and Link from Inertia
     import {
         Head,
@@ -132,7 +132,7 @@
 
     //import ref from vue
     import {
-        ref, reactive, 
+        ref, reactive,
     } from 'vue';
 
     //import inertia adapter
@@ -187,7 +187,7 @@
                     body: form.body,
                     picture: form.picture,
                     document: form.document,
-                   
+
                 } ,{
                     onSuccess: () => {
                         //show success alert
@@ -202,7 +202,7 @@
                 });
             }
 
-            
+
             // Method to update the document file
             const updateDocument = (event) => {
                 form.document = event.target.files[0];
@@ -212,7 +212,7 @@
             form.picture = event.target.files[0];
         };
 
- 
+
             //return
             return {
                 form,

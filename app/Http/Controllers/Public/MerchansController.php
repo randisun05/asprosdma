@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
+use App\Models\Merchan;
 use Illuminate\Http\Request;
 
 class MerchansController extends Controller
@@ -14,7 +15,18 @@ class MerchansController extends Controller
      */
     public function index()
     {
-        //
+        $merchans = Merchan::when(request()->q, function($query) {
+            $query->where('title', 'like', '%' . request()->q . '%');
+        })
+        ->latest()
+        ->paginate(3);
+
+        $merchans->appends(['q' => request()->q]);
+
+        return inertia('Public/Website/Merchans/Index', [
+            'title' => "Merchandise",
+            'merchans' => $merchans
+        ]);
     }
 
     /**

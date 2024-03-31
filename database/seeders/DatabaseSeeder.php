@@ -26,8 +26,6 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-
-
         User::create([
             'nip'      => '123',
             'name'      => 'Administrator',

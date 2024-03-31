@@ -52,10 +52,11 @@
             <p>Selamat akun anda telah aktif, silakan mengakses halaman login <a href="https://asprosdma.id/user/login">https://asprosdma.id/user/login</a>, dengan:  </p>
             <ul>
                 <li>username : {{ $data['nip'] }}</li>
-                <li>password : {{ $data['password'] }}</li>
+                <li>password : {{ $data['nip'] }}</li>
                 <li>nomor anggota : {{ $data['nomember'] }}</li>
             </ul>
             <p>untuk diperhatikan!, informasi akun ini bersifat rahasia dan menjadi tanggung jawab pemilik akun.</p>
+            <p>diwajibkan untuk merubah password pada saat login pertama anda, pada halaman setting.</p>
             <p>Jika anda mendapatkan kendala saat login, silakan <a href="https://asprosdma.id/kontak-kami"><u>hubungi kami.</u></a></p>
 
             <p>Demikian informasi dari kami.</p>

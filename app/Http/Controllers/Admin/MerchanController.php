@@ -144,7 +144,6 @@ class MerchanController extends Controller
                 'image' =>  $image,
                 'body' => $request->body,
                 'how' => $request->how,
-                'status' => $request->status,
                 'subtitle' => $request->subtitle,
                 'color' => $request->color,
                 'price' => $request->price,
@@ -169,5 +168,24 @@ class MerchanController extends Controller
 
         //redirect
         return redirect()->route('admin.merchans.index');
+    }
+
+    public function change($id)
+    {
+
+        $status = Merchan::where('id', $id)->value('status');
+
+        if ($status == 'active') {
+            Merchan::where('id',$id)->update([
+                'status' => "non-active",
+            ]);
+        } else {
+            Merchan::where('id',$id)->update([
+                'status' => "active",
+            ]);
+        }
+
+     //redirect
+     return redirect()->route('admin.merchans.index');
     }
 }

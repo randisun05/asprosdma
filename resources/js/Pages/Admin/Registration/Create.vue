@@ -2,7 +2,7 @@
     <Head>
         <title>Administrator</title>
     </Head>
-    <div class="container-fluid mb-5 mt-5">
+    <div class="container-fluid padding px-5">
         <div class="row mt-1">
             <div class="col-md-12">
                 <Link href="/admin/registration" class="btn btn-md btn-primary border-0 shadow mb-3" type="button"><i class="fa fa-arrow-left" aria-hidden="true"> </i>
@@ -22,7 +22,7 @@
                                 {{ errors.nip }}
                             </div>
                         </div>
-                        
+
                      </div>
 
                     <div class="col-md-6 col-sm-6">
@@ -36,7 +36,7 @@
                             </div>
                         </div>
                      </div>
-                     
+
                      <div class="col-md-6 col-sm-6">
                         <span class="ms-4">
                                  Email
@@ -78,7 +78,7 @@
                                 <template v-else>
                                     <div class="dropdown-item disabled">Instansi tidak ditemukan</div>
                                 </template>
-                                
+
                                 </div>
                             </div>
                                 <div v-if="errors.agency" class="alert alert-danger mt-2">
@@ -102,7 +102,7 @@
                             </div>
                         </div>
                      </div>
-                     
+
 
                      <div class="col-md-3 col-sm-3">
                         <span class="ms-4">
@@ -130,7 +130,7 @@
                             <div v-if="errors.level" class="alert alert-danger mt-2">
                                 {{ errors.level }}
                             </div>
-                        </div>  
+                        </div>
                      </div>
 
                      <div class="col-md-6 col-sm-6">
@@ -165,11 +165,11 @@
                                 </div>
                             </div>
                      </div>
-                     
+
                      <div class="row d-flex justify-content-center">
                         <button type="submit" class="button btnprimary" style="width: 300px;">Submit</button>
                     </div>
-                    
+
                   </div>
                </form>
                     </div>
@@ -263,7 +263,7 @@
             session: Object,
             instansis: Array
         },
-        
+
         //define composition API
         setup() {
 
@@ -308,7 +308,7 @@
                         });
                     },
                 });
-                
+
             }
             // Method to update the document file
             const updateDocument = (event) => {
@@ -327,7 +327,7 @@
                 submit,
                 updateDocument,
                 updateImage,
- 
+
             };
 
         }

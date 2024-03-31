@@ -1,7 +1,8 @@
 <template>
 <!-- header -->
 
-   <nav class="navbar navbar-expand-lg">
+<header class="site-header userbg">
+        <nav class="navbar navbar-expand-lg  static-nav">
         <div class="container">
          <a class="navbar-brand" href="index.html">
           <img src="/assets/images/logo.png" alt="logo" style="width: 70%;">
@@ -69,12 +70,17 @@
                 </div>
             </a>
                     <ul class="dropdown-menu" aria-labelledby="sidemenu_toggle">
-                        <Link class="dropdown-item d-flex align-items-center" href="/logout" method="POST" as="button">
+                        <Link class="dropdown-item d-flex align-items-center" href="/user/setting" method="GET" as="button">
+                        Setting
+                        </Link>
+                        <Link class="dropdown-item d-flex align-items-center mt-2" href="/logout" method="POST" as="button">
                         Logout
                         </Link>
+
                     </ul>
         </div>
    </nav>
+</header>
 
 </template>
 
@@ -83,21 +89,68 @@
 import { Link } from '@inertiajs/inertia-vue3';
 
 export default {
-
     //register component
     components: {
         Link,
-    }
+    },
+
+    data() {
+        return {
+            dropdowns: {
+                home: false,
+                profile: false,
+                program: false,
+                publikasi: false,
+                keanggotaan: false,
+                kontak: false,
+            },
+            dropdownItems: {
+                profile: ["Tentang Aspro", "Ketua Umum", "Struktur Organisasi", "Visi Misi", "Sejarah Terbentuknya Aspro", "Peraturan Organisasi"],
+                program: ["Pelatihan", "Sertifikasi", "Kegiatan Aspro"],
+                publikasi: ["Pengumuman", "Artikel", "Berita", "Media"],
+                keanggotaan: ["Login", "Registrasi"],
+            },
+
+        };
+    },
+
+
+
+
 }
-
-
 </script>
 
 
 <style>
+/* CSS for red background */
+/* CSS for red background */
 
 
-.navbar {
-    background-color: #83c1ff; /* Ubah sesuai keinginan Anda */
-} 
+/* CSS for fixed header */
+.fixedmenu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: background-color 0.3s ease-in-out; /* Smooth transition for background color */
+}
+
+.userbg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: -webkit-linear-gradient(90deg, #423f9c, #862359);
+    background: -webkit-gradient(linear, left top, right top, color-stop(#423f9c), color-stop(#862359));
+    background: -webkit-linear-gradient(left, #423f9c, #862359);
+    background: -o-linear-gradient(left, #423f9c, #862359);
+    background: -webkit-gradient(linear, left top, right top, from(#423f9c), to(#862359));
+    background: linear-gradient(90deg, #423f9c, #862359);
+    z-index: 100000;
+}
+
+
+
 </style>

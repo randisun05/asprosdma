@@ -1,7 +1,15 @@
 <template>
-
+<header class="site-header userbg">
     <nav class="navbar navbar-expand-lg">
         <div class="container">
+            <a class="navbar-brand" href="index.html">
+          <img src="/assets/images/logo.png" alt="logo" style="width: 70%;">
+          </a>
+          <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#xenav">
+             <span> </span>
+             <span> </span>
+             <span> </span>
+          </button>
         </div>
         <!--side menu open button-->
         <div class="dropdown">
@@ -23,6 +31,7 @@
                     </ul>
         </div>
    </nav>
+</header>
 
 </template>
 
@@ -42,5 +51,30 @@
 </script>
 
 <style>
+
+/* CSS for fixed header */
+.fixedmenu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: background-color 0.3s ease-in-out; /* Smooth transition for background color */
+}
+
+.userbg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: -webkit-linear-gradient(90deg, #423f9c, #862359);
+    background: -webkit-gradient(linear, left top, right top, color-stop(#423f9c), color-stop(#862359));
+    background: -webkit-linear-gradient(left, #423f9c, #862359);
+    background: -o-linear-gradient(left, #423f9c, #862359);
+    background: -webkit-gradient(linear, left top, right top, from(#423f9c), to(#862359));
+    background: linear-gradient(90deg, #423f9c, #862359);
+    z-index: 100000;
+}
 
 </style>

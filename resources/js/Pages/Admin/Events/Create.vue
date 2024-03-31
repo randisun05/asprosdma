@@ -2,7 +2,7 @@
     <Head>
         <title>Buat Cerita</title>
     </Head>
-    <div class="container mb-5 mt-5 text-black">
+    <div class="container padding px-5 text-black">
         <div class="row mt-1">
             <div class="col-md-12">
                 <div class="card border-0 shadow">

@@ -68,7 +68,7 @@
 	    <div class="cbp-item print">
             <img src="/assets/images/galery6.jpg" alt="">
             <div class="overlay center-block whitecolor">
-               <a class="plus" data-fancybox="gallery" href="images/galery6.jpg"></a>
+               <a class="plus" data-fancybox="gallery" href="/assets/images/galery6.jpg"></a>
                <p>Pembacaan sumpah oleh Ketua Umum Aspro SDMA terpilih</p>
             </div>
 

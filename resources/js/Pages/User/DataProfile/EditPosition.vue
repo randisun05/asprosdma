@@ -3,7 +3,7 @@
     <Head>
         <title>Profile Anggota</title>
     </Head>
-    <form @submit.prevent="submit" class="getin_form border-form" id="data">
+    <form @submit.prevent="submit" class="getin_form border-form padding" id="data">
         <section id="profile" class="container mt-4">
             <div class="container-fluid px-5">
                 <div class="row d-flex justify-content-center">
@@ -48,11 +48,12 @@
                                 <div class="col-md-6 col-sm-6">
                                     <span> Status </span>
                                     <div class="form-group mt-1">
-                                        <select type="form-select" class="form-control" v-model="form.status">
+                                        <input type="text" class="form-control" v-model="form.status" readonly>
+                                        <!-- <select type="form-select" class="form-control" v-model="form.status">
                                             <option value="" disabled selected>Pilih salah satu opsi</option>
                                             <option value="Aktif">Aktif</option>
                                             <option value="Non-Aktif">Non-Aktif</option>
-                                        </select>
+                                        </select> -->
                                     </div>
                                     <div v-if="errors.status" class="rounded alert-danger mt-2">
                                         {{ errors.status }}
@@ -63,7 +64,8 @@
                                 <div class="col-md-6 col-sm-6">
                                     <span> Instansi </span>
                                     <div class="form-group mt-1">
-                                        <div class="position-relative" ref="dropdownWrapper">
+                                        <input type="text" class="form-control" v-model="form.agency" readonly>
+                                        <!-- <div class="position-relative" ref="dropdownWrapper">
                                             <div class="form-group mt-1">
                                                 <input type="text" class="form-control" placeholder="Pilih Instansi"
                                                     v-model="form.agency" @click="toggleSearch" readonly>
@@ -83,7 +85,7 @@
                                                 </template>
 
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-6">
@@ -120,11 +122,12 @@
                                 <div class="col-md-3 col-sm-3">
                                     <span> Jabatan </span>
                                     <div class="form-group mt-1">
-                                        <select type="form-select" class="form-control" v-model="form.position">
+                                        <input type="text" class="form-control" v-model="form.position" readonly>
+                                        <!-- <select type="form-select" class="form-control" v-model="form.position">
                                             <option value="" disabled>Pilih Jabatan</option>
                                             <option value="Analis SDM Aparatur">Analis SDM Aparatur</option>
                                             <option value="Pranata SDM Aparatur">Pranata SDM Aparatur</option>
-                                        </select>
+                                        </select> -->
                                         <div v-if="errors.position" class="alert alert-danger mt-2">
                                             {{ errors.position }}
                                         </div>
@@ -133,7 +136,8 @@
                                 <div class="col-md-3 col-sm-3">
                                     <span> Jenjang </span>
                                     <div class="form-group mt-1">
-                                        <select type="form-select" class="form-control" v-model="form.level">
+                                        <input type="text" class="form-control" v-model="form.level" readonly>
+                                        <!-- <select type="form-select" class="form-control" v-model="form.level">
                                             <template v-if="form.position === ''">
                                                 <option value="" disabled selected>Jabatan Harus Dipilih</option>
                                             </template>
@@ -150,7 +154,7 @@
                                                 <option value="Mahir">Mahir</option>
                                                 <option value="Penyelia">Penyelia</option>
                                             </template>
-                                        </select>
+                                        </select> -->
                                         <div v-if="errors.level" class="alert alert-danger mt-2">
                                             {{ errors.level }}
                                         </div>
@@ -209,7 +213,7 @@
                         </div>
                     </div>
                     <div class="row d-flex justify-content-center py-5">
-                        <button type="submit" class="button btnprimary" style="width: 300px;">Submit</button>
+                        <button type="submit" class="button btnprimary" style="width: 300px;">Simpan</button>
                         <a href="/user/profile/data-jabatan" class="button btnsecondary" style="width: 300px;">Batal</a>
                     </div>
                 </div>

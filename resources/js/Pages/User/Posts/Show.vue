@@ -3,7 +3,7 @@
     <Head>
         <title>Preview Cerita</title>
     </Head>
-    <div class="container mb-5 mt-5">
+    <div class="container padding">
         <div class="row mt-1">
             <div class="col-md-12">
                 <div class="card border-0 shadow">

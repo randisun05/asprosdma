@@ -51,6 +51,7 @@
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="/events">Kegiatan</a></li>
                                 <li><a class="dropdown-item" href="/berita">Berita</a></li>
+                                <li><a class="dropdown-item" href="/merchans">Merchandise</a></li>
 
                             </ul>
                         </li>
@@ -85,10 +86,7 @@
                     <Link class="dropdown-item d-flex align-items-center" href="/user/dashboard" as="button">
                     Profile
                     </Link>
-                    <Link class="dropdown-item d-flex align-items-center" href="/logout" method="POST" as="button">
-                    <Link class="dropdown-item d-flex align-items-center" href="/user/setting" as="button">
-                    Setting
-                    </Link>
+                    <Link class="dropdown-item d-flex align-items-center mt-2" href="/logout" method="POST" as="button">
                     Logout
                     </Link>
                 </ul>
