@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\ProfileDataMain;
 use App\Models\ProfileDataPosition;
 use App\Http\Controllers\Controller;
+use App\Models\refCity;
+use App\Models\refProvince;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Laravel\Facades\Image;
 
@@ -127,10 +129,15 @@ class DataProfileController extends Controller
         ->where('main_id',$main->id)
         ->first();
 
+        $provinces = refProvince::get();
+        $cities = refCity::get();
+
         $instansis = instansi::get();
         return inertia('User/DataProfile/Edit', [
            'data' => $data,
            'instansis' => $instansis,
+           'provinces' => $provinces,
+           'cities' => $cities,
         ]);
     }
 
@@ -138,6 +145,8 @@ class DataProfileController extends Controller
     {
         $main = ProfileDataMain::where('nip',auth()->guard('member')->user()->nip)
         ->first();
+
+
 
         $data = ProfileDataPosition::with('main')
         ->where('main_id',$main->id)
@@ -147,6 +156,7 @@ class DataProfileController extends Controller
         return inertia('User/DataProfile/EditPosition', [
            'data' => $data,
            'instansis' => $instansis,
+
         ]);
     }
 

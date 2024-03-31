@@ -142,10 +142,10 @@
                                             </template>
                                             <template v-if="form.position === 'Analis SDM Aparatur'">
                                                 <option value="" disabled>Pilih Jenjang</option>
-                                                <option value="Pertama">Pertama</option>
-                                                <option value="Muda">Muda</option>
-                                                <option value="Madya">Madya</option>
-                                                <option value="Utama">Utama</option>
+                                                <option value="Pertama">Ahli Pertama</option>
+                                                <option value="Muda">Ahli Muda</option>
+                                                <option value="Madya">Ahli Madya</option>
+                                                <option value="Utama">Ahli Utama</option>
                                             </template>
                                             <template v-if="form.position === 'Pranata SDM Aparatur'">
                                                 <option value="" disabled>Pilih Jenjang</option>

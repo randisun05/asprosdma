@@ -90,7 +90,7 @@
                                                     Dokumen
                                                     </span>
                                                     <div class="form-group mt-1">
-                                                        <input type="file" class="form-control" placeholder="Masukan Dokumen" @change="updateDocument">
+                                                        <input type="file" class="form-control" placeholder="Masukan Dokumen" @change="updateDocument" accept=".pdf">
                                                     </div>
                                                     <div v-if="errors.document" class="alert alert-danger mt-2">
                                                     {{ errors.document }}

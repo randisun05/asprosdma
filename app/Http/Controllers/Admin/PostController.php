@@ -32,6 +32,15 @@ class PostController extends Controller
              ->latest()
              ->paginate(10);
 
+             $limiteds = Post::where('status', 'limited')
+             ->when(request()->q, function($query) {
+                 $query->where('title', 'like', '%' . request()->q . '%');
+             })
+
+             ->with('member','category')
+             ->latest()
+             ->paginate(10);
+
              $categories = Category::latest()
              ->paginate(10);
 
@@ -41,7 +50,8 @@ class PostController extends Controller
         return inertia('Admin/Posts/Index', [
             'posts' => $posts,
             'publishs' => $publishs,
-            'categories' => $categories
+            'categories' => $categories,
+            'limiteds' => $limiteds
          ]);
     }
 
@@ -175,8 +185,7 @@ class PostController extends Controller
       $request->validate([
         'title' => 'required|string',
         'body' => 'required|',
-        'document' => 'file|mimes:pdf|max:2048|nullable',
-        'image' => '|image|mimes:jpeg,png,jpg,gif,svg|max:2048|nullable',
+
     ]);
 
     $slug = strtolower(str_replace(' ', '-', $request->title));
@@ -311,6 +320,33 @@ class PostController extends Controller
 
 
         //redirect
+        return redirect()->route('admin.posts.index');
+
+    }
+
+    public function categoryCreate()
+    {
+
+        return inertia('Admin/Posts/CreateCategory', [
+         ]);
+        //redirect
+        return redirect()->route('admin.posts.index');
+
+    }
+
+    public function categoryStore(Request $request)
+    {
+
+        $request->validate([
+            'title' => 'required|unique',
+        ] , [
+            'title.unique' => 'Kategori sudah tersedia'
+        ]);
+
+        Category::create([
+            'title' => $request->title
+        ]);
+
         return redirect()->route('admin.posts.index');
 
     }

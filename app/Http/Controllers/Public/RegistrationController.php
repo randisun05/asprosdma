@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Public;
 
+use Inertia\Inertia;
 use App\Models\instansi;
 use App\Models\Registration;
 use Illuminate\Http\Request;
@@ -53,7 +54,7 @@ class RegistrationController extends Controller
      */
     public function store(Request $request)
     {
-  
+
       // Validate request including file validation
       $validatedData = $request->validate([
         'nip' => ['required', 'string', 'regex:/^\d{18}$/', 'unique:registrations,nip'],
@@ -64,8 +65,8 @@ class RegistrationController extends Controller
         'position' => 'required|string',
         'level' => 'required|string',
         'document_jab' => 'required|file|mimes:pdf|max:2048', // Ensure 'document_jab' is a valid file
-        
-        
+
+
     ],
     [
         'nip.regex' => 'NIP harus terdiri dari 18 angka.',
@@ -80,7 +81,7 @@ class RegistrationController extends Controller
         'position.required' => 'Jabatan harus diisi.',
         'level.required' => 'Jenjang harus diisi.',
         'document_jab.required' => 'SK jabatan harus diisi.',
-       
+
     ]);
 
     $request->validate([
@@ -100,7 +101,7 @@ class RegistrationController extends Controller
     // Create registration
     $registration = Registration::create(array_merge($validatedData, ['document_jab' => $document_jab, 'from' => 'individu']));
     $token = $registration->id;
-    
+
      //redirect
      return redirect()->route('registration.success')->with([
         'token' => $token,
@@ -128,7 +129,7 @@ class RegistrationController extends Controller
            'register' => $register,
         ]);
 
-        
+
     }
 
     /**
@@ -140,7 +141,7 @@ class RegistrationController extends Controller
     public function edit($id)
     {
         $register = Registration::findOrFail($id);
-        
+
         if( $register->status !== 'confirm')
         // Jika status registrasi bukan 'confirm', arahkan pengguna kembali atau tampilkan pesan kesalahan
         return redirect()->route('/')->with('error', 'Link konfirmasi telah ditutup.');
@@ -197,11 +198,11 @@ class RegistrationController extends Controller
         'level.required' => 'Jenjang harus diisi.',
         'document_jab.required' => 'SK jabatan harus diisi.',
     ]);
-    
+
             // Store the file using Laravel's file storage system
             $document_jab = $request->file('document_jab');
             $paid = $request->file('paid');
-        
+
             if ($document_jab && $paid) {
                 // Jika keduanya diisi, update semua
                 $document_jab = $document_jab->storePublicly('/document');
@@ -210,7 +211,7 @@ class RegistrationController extends Controller
                     'document_jab' => $document_jab,
                     'paid' => $paid,
                     'status' => "paid"
-                ]));    
+                ]));
             } elseif ($document_jab) {
                 $document_jab = $document_jab->storePublicly('/images');
                 // Jika hanya document_jab diisi, update semua kecuali paid
@@ -223,7 +224,7 @@ class RegistrationController extends Controller
                 Registration::where('id',$id)->update(array_merge($validatedData, [
                     'paid' => $paid,
                     'status' => "paid"
-                ]));  
+                ]));
             } else { // Buat registration
                 Registration::where('id',$id)->update(array_merge($validatedData, [ 'status' => 'submission'
                 ]));
@@ -251,7 +252,7 @@ class RegistrationController extends Controller
     $request->validate([
         'paid' => 'required|max:2048', // Adjust validation rule for file
     ]);
-    
+
     // Store the file using Laravel's file storage system
     $paid = $request->file('paid')->storePublicly('/images');
 
@@ -259,7 +260,7 @@ class RegistrationController extends Controller
     Registration::where('id', $id)->update(['paid' => $paid, 'status' => "paid"]);
 
      //redirect
-     return redirect()->route('/');
+     return redirect('/')->with('success','Data berhasil diupdate');
 
     }
 
@@ -303,7 +304,7 @@ class RegistrationController extends Controller
                 'term.in' => 'Checklist jika bersedia.',
             ]);
 
-    
+
     // Store the file using Laravel's file storage system
     $file = $request->file('file')->storePublicly('/documents');
 
@@ -322,9 +323,9 @@ class RegistrationController extends Controller
     public function confirm($id)
     {
         return inertia('Public/Registration/Confirm', [
-  
+
         ]);
     }
 
-    
+
 }

@@ -260,14 +260,10 @@
                             <div class="col-md-6 col-sm-6">
                                 <span class="text-black"> Provinsi </span>
                                 <div class="form-group mt-1">
-                                    <!-- <input type="text" class="form-control" v-model="form.province" /> -->
-                                    <select id="province" v-model="selectedProvince" class="form-control" @change="getCities">
-                                    <option value="">Pilih Provinsi</option>
-                                    <option v-for="province in provinces" :key="province.id" :value="province.name">
-                                    {{ province.name }}
-                                    </option>
-                                </select>
-
+                                    <select class="form-select" v-model="form.province">
+                                        <option value="" disabled selected>Pilih salah satu opsi</option>
+                                        <option v-for="(province, index) in provinces" :key="index" :value="province.name">{{ province.name }}</option>
+                                    </select>
                                 </div>
 
                                 <div v-if="errors.province" class="rounded alert-danger mt-2">
@@ -278,18 +274,18 @@
                             <div class="col-md-6 col-sm-6">
                                 <span class="text-black"> Kota/Kabupaten </span>
                                 <div class="form-group mt-1">
-                                    <!-- <input type="text" class="form-control" v-model="form.regency" /> -->
-                                    <select class="form-control" id="city" v-model="selectedCity" @change="getDistricts">
-                                    <option value="">Pilih Kota/Kabupaten</option>
-                                    <option v-for="city in cities" :key="city.id" :value="city.name">
-                                        {{ city.name }}
-                                    </option>
+                                    <select class="form-select" v-model="form.regency">
+                                        <option value="" disabled selected>Pilih salah satu opsi</option>
+                                        <!-- Filter kota/kabupaten berdasarkan provinsi yang dipilih -->
+                                        <option v-for="(city, index) in filteredCities" :key="index" :value="city.name">{{ city.name }}</option>
                                     </select>
                                 </div>
                                 <div v-if="errors.regency" class="rounded alert-danger mt-2">
                                     {{ errors.regency }}
                                 </div>
                             </div>
+
+
 
                             <div class="col-md-6 col-sm-6">
 
@@ -389,7 +385,7 @@ import LayoutUser from "../../../Layouts/User.vue";
 import { Head, Link } from "@inertiajs/inertia-vue3";
 
 //import reactive
-import { reactive } from "vue";
+import { reactive, watch, ref, computed } from "vue";
 
 //import sweet alert2
 import Swal from "sweetalert2";
@@ -403,14 +399,7 @@ export default {
         return {
             searchInstansi: '',
             showDropdown: false,
-            provinces: [],
             cities: [],
-            districts: [],
-            villages: [],
-            selectedProvince: '',
-            selectedCity: '',
-            selectedDistrict: '',
-            selectedVillage: ''
         };
     },
 
@@ -420,11 +409,9 @@ export default {
             return this.instansis.filter(instansi =>
                 instansi.title.toLowerCase().includes(this.searchInstansi.toLowerCase())
             );
-        }
+        },
     },
-    mounted() {
-      this.getProvinces();
-    },
+
 
     methods: {
         // method to toggle dropdown visibility
@@ -459,47 +446,6 @@ export default {
         updateImage(event) {
             this.form.image = event.target.files[0];
         },
-        getProvinces() {
-        fetch('https://randisun05.github.io/api-wilayah-indonesia/api/provinces.json')
-          .then(response => response.json())
-          .then(provinces => {
-            this.provinces = provinces;
-          })
-          .catch(error => {
-            console.error('Error fetching provinces:', error);
-          });
-      },
-      getCities() {
-        fetch(`https://randisun05.github.io/api-wilayah-indonesia/api/regencies/${this.selectedProvince}.json`)
-          .then(response => response.json())
-          .then(cities => {
-            this.cities = cities;
-          })
-          .catch(error => {
-            console.error('Error fetching cities:', error);
-          });
-      },
-      getDistricts() {
-        fetch(`https://randisun05.github.io/api-wilayah-indonesia/api/districts/${this.selectedCity}.json`)
-          .then(response => response.json())
-          .then(districts => {
-            this.districts = districts;
-          })
-          .catch(error => {
-            console.error('Error fetching districts:', error);
-          });
-      },
-      getVillages() {
-        fetch(`https://randisun05.github.io/api-wilayah-indonesia/api/villages/${this.selectedDistrict}.json`)
-          .then(response => response.json())
-          .then(villages => {
-            this.villages = villages;
-          })
-          .catch(error => {
-            console.error('Error fetching villages:', error);
-          });
-      },
-
     },
 
     //layout
@@ -516,11 +462,15 @@ export default {
         errors: Object,
         session: Object,
         data: Object,
-        instansis: Array
+        instansis: Array,
+        provinces: Array,
+        cities: Array,
     },
 
     //define composition API
     setup(props) {
+
+
         //define form state
         const form = reactive({
             nip: props.data.main.nip,
@@ -545,6 +495,15 @@ export default {
             agency: props.data.agency,
             image: props.data.main.image
         });
+
+      // Deklarasikan properti terkomputasi filteredCities
+    const filteredCities = computed(() => {
+        if (form.province) {
+            return props.cities.filter(city => city.province_id === form.province.id);
+        } else {
+            return [];
+        }
+    });
 
         //submit method
         const submit = () => {
@@ -615,6 +574,7 @@ export default {
             submit,
             getImageUrl,
             updateImage,
+            filteredCities
 
         };
     },

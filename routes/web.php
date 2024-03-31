@@ -67,6 +67,9 @@ Route::prefix('admin')->group(function() {
         Route::post('/merchans/{id}', [\App\Http\Controllers\Admin\MerchanController::class, 'update'])->name('admin.merchans.update');
         Route::get('/merchans/{id}/change', [\App\Http\Controllers\Admin\MerchanController::class, 'change'])->name('admin.merchans.status');
         Route::resource('/merchans', \App\Http\Controllers\Admin\MerchanController::class, ['as' => 'admin']);
+        Route::post('/category/store', [\App\Http\Controllers\Admin\PostController::class, 'categoryStore'])->name('admin.category.store');
+        Route::get('/category/create', [\App\Http\Controllers\Admin\PostController::class, 'categoryCreate'])->name('admin.category.create');
+
     });
 });
 
