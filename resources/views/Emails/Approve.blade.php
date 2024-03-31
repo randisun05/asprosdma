@@ -54,7 +54,7 @@
             <ul>
                 <li>username : {{ $data['nip'] }}</li>
                 <li>password : {{ $data['nip'] }}</li>
-                <li>nomor anggota : {{ $data['nomember'] }}</li>
+
             </ul>
             <p>untuk diperhatikan!, informasi akun ini bersifat rahasia dan menjadi tanggung jawab pemilik akun.</p>
             <p>diwajibkan untuk merubah password pada saat login pertama anda, pada halaman setting.</p>
