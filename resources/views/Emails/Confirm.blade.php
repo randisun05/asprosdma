@@ -57,7 +57,7 @@
 
             <p>Demikian informasi dari kami.</p>
             <p>Terimakasih,</p>
-            <p>Tim Keanggotaan Aspro</p>
+            <p>Tim Bidang Keanggotaan dan Organisasi</p>
         </div>
     </div>
 </html>

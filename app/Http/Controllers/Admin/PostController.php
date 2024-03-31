@@ -285,7 +285,7 @@ class PostController extends Controller
         return redirect()->route('admin.posts.index');
     }
 
-    public function Cancel($id)
+    public function cancel($id)
     {
 
         $public = PublicPost::findOrFail($id);
@@ -297,7 +297,21 @@ class PostController extends Controller
         $public->delete();
 
         //redirect
-        return redirect()->route('admin.posts.index',['activeTab','approved']);
+        return redirect()->route('admin.posts.index');
+
+    }
+
+    public function limited($id)
+    {
+        $post = Post::findOrFail($id);
+
+        $post->update([
+            'status' => 'limited'
+        ]);
+
+
+        //redirect
+        return redirect()->route('admin.posts.index');
 
     }
 
