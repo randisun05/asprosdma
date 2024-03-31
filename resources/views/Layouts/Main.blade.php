@@ -49,7 +49,7 @@
 @include('Layouts.Components.Tekko')
 @include('Layouts.Components.Kontak')
 @include('Layouts.Components.Footer')
-@include('Layouts.Components.Popup')
+{{-- @include('Layouts.Components.Popup') --}}
 
 @yield('content')
 

@@ -13,14 +13,14 @@
                <h2 class="whitecolor font-light bottom30"></h2>
                <ul class="breadcrumb justify-content-center">
                  <li class="breadcrumb-item"><h3>Konfirmasi Pembayaran</h3></li>
-               
+
                </ul>
             </div>
          </div>
       </div>
    </div>
 </section>
-<!--page Header ends--> 
+<!--page Header ends-->
 
 <section id="registration" class="">
    <div class="container">
@@ -52,7 +52,7 @@
                             </div>
                         </div>
                      </div>
-                     
+
                      <div class="col-md-6 col-sm-6">
                         <span class="ms-4">
                                  Bukti Transfer   ( Bentuk File Image/Pdf )
@@ -74,7 +74,7 @@
                      <div class="row d-flex justify-content-center">
                         <button type="submit" class="button btnprimary" style="width: 300px;">Submit</button>
                     </div>
-                    
+
                   </div>
                </form>
             </div>
@@ -89,7 +89,7 @@
 <script>
     //import layout
     import LayoutWebsite from '../../../Layouts/Website.vue';
- 
+
     //import Head from Inertia
     import {
         Head,
@@ -100,7 +100,7 @@
     import {
         reactive
     } from 'vue';
- 
+
     //import sweet alert2
     import Swal from 'sweetalert2';
 
@@ -118,7 +118,7 @@
         components: {
             Head,
             Link
-            
+
         },
 
         //props
@@ -127,7 +127,7 @@
             session: Object,
             register: Object,
         },
-        
+
         //define composition API
         setup(props) {
 
@@ -167,7 +167,7 @@
             return {
                 form,
                 submit,
-                updateImage 
+                updateImage
             };
 
         }
