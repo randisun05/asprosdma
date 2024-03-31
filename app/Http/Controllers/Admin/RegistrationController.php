@@ -38,7 +38,7 @@ class RegistrationController extends Controller
             ->orWhere('agency', 'like', '%'. request()->q . '%')
             ->orWhere('status', 'like', '%'. request()->q . '%')
             ->orWhere('position', 'like', '%'. request()->q . '%');
-        })->latest()->paginate(10);
+        })->oldest()->paginate(10);
 
         //append query string to pagination links
         $registers->appends(['q' => request()->q]);
@@ -276,7 +276,6 @@ class RegistrationController extends Controller
     public function approve($id)
     {
 
-
         $register = Registration::findOrFail($id);
         // return $register;
 
@@ -296,12 +295,13 @@ class RegistrationController extends Controller
             $code = str_pad($number, 5, '0', STR_PAD_LEFT) . "/02/ASPROSDMA";
         }
 
+
         Member::create([
             'nip'            => $register->nip,
             'name'           => $register->name,
             'email'          => $register->email,
             'agency'          => $register->agency,
-            'nomember'      => $code,
+            'nomember'         => $code,
             'password'       => $password,
         ]);
 
