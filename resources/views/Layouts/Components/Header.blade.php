@@ -41,7 +41,7 @@
                   <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/events">Kegiatan</a></li>
                         <li><a class="dropdown-item" href="/berita">Berita</a></li>
-
+                        <li><a class="dropdown-item" href="/merchans">Merchandises</a></li>
                      </ul>
                </li>
                <li class="nav-item dropdown">
@@ -52,7 +52,7 @@
                      </ul>
                </li>
                <li class="nav-item">
-                  <a class="nav-link pagescroll" href="/kontak-kami">Kontak Kami</a>
+                  <a class="nav-link" href="/kontak-kami">Kontak Kami</a>
                </li>
             </ul>
          </div>

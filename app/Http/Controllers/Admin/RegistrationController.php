@@ -37,8 +37,15 @@ class RegistrationController extends Controller
             ->orWhere('nip', 'like', '%'. request()->q . '%')
             ->orWhere('agency', 'like', '%'. request()->q . '%')
             ->orWhere('status', 'like', '%'. request()->q . '%')
-            ->orWhere('position', 'like', '%'. request()->q . '%');
-        })->oldest()->paginate(10);
+            ->orWhere('position', 'like', '%'. request()->q . '%')
+            ->orWhere('admin', 'like', '%'. request()->q . '%');
+        })->orderByRaw("CASE
+        WHEN status = 'submission' THEN 1
+        WHEN status = 'paid' THEN 2
+        WHEN status = 'confirm' THEN 3
+        WHEN status = 'approved' THEN 4
+        ELSE 5
+    END")->oldest()->paginate(10);
 
         //append query string to pagination links
         $registers->appends(['q' => request()->q]);

@@ -29,9 +29,13 @@
                             <div class="row">
                                 <div class="col-lg-2 col-md-2">
                                     <div class="text-center">
-                                        <img :src="getImageUrl(form.image)" alt="Foto Profil" class="img-fluid rounded-circle" title="Ubah foto profil" style="width: 100%; height: 200px;" />
-                                        <input ref="fileInput" type="file" style="display: none" @change="updateImage" accept=".jpg, .jpeg, .png" />
-                                        <button @click="openFileInput" type="button" class="btn btn-secondary mt-2">Ubah Foto</button>
+                                        <img :src="getImageUrl(form.image)" alt="Foto Profil"
+                                            class="img-fluid rounded-circle" title="Ubah foto profil"
+                                            style="width: 100%; height: 200px;" />
+                                        <input ref="fileInput" type="file" style="display: none" @change="updateImage"
+                                            accept=".jpg, .jpeg, .png" />
+                                        <button @click="openFileInput" type="button" class="btn btn-secondary mt-2">Ubah
+                                            Foto</button>
                                     </div>
                                 </div>
 
@@ -46,7 +50,8 @@
                                         </div>
 
                                         <div class="col-lg-8">
-                                            <input type="text" class="form-control" v-model="form.nip" maxlength="18" readonly
+                                            <input type="text" class="form-control" v-model="form.nip" maxlength="18"
+                                                readonly
                                                 onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
                                             <div v-if="errors.nip" class="alert-danger mt-1 rounded">
                                                 {{ errors.nip }}
@@ -105,22 +110,6 @@
                                                 <div class="form-group mt-1">
                                                     <input type="text" class="form-control" placeholder="Pilih Instansi"
                                                         v-model="form.agency" @click="toggleSearch" readonly>
-                                                </div>
-                                                <div v-if="showDropdown" class="dropdown-menu position-absolute w-100">
-                                                    <input type="text" class="form-control mb-2"
-                                                        placeholder="Cari Instansi" v-model="searchInstansi">
-                                                    <div class="dropdown-item-list" v-if="filteredInstansis.length > 0">
-                                                        <button v-for="(instansi, index) in filteredInstansis"
-                                                            :key="index" class="dropdown-item"
-                                                            @click="selectInstansi(instansi)">
-                                                            {{ instansi.title }}
-                                                        </button>
-                                                    </div>
-                                                    <template v-else>
-                                                        <div class="dropdown-item disabled">Instansi tidak ditemukan
-                                                        </div>
-                                                    </template>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -243,89 +232,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row ms-2 mb-3">
-                            <div class="col-md-12 col-sm-12">
-                                <span class="text-black"> Alamat </span>
-                                <div class="form-group mt-1">
-                                    <input type="text" class="form-control" v-model="form.address"
-                                        style="height: 80px" />
-                                </div>
-                                <div v-if="errors.address" class="rounded alert-danger mt-2">
-                                    {{ errors.address }}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row ms-2 mb-3">
-                            <div class="col-md-6 col-sm-6">
-                                <span class="text-black"> Provinsi </span>
-                                <div class="form-group mt-1">
-                                    <select class="form-select" v-model="form.province">
-                                        <option value="" disabled selected>Pilih salah satu opsi</option>
-                                        <option v-for="(province, index) in provinces" :key="index" :value="province.name">{{ province.name }}</option>
-                                    </select>
-                                </div>
-
-                                <div v-if="errors.province" class="rounded alert-danger mt-2">
-                                    {{ errors.province }}
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 col-sm-6">
-                                <span class="text-black"> Kota/Kabupaten </span>
-                                <div class="form-group mt-1">
-                                    <select class="form-select" v-model="form.regency">
-                                        <option value="" disabled selected>Pilih salah satu opsi</option>
-                                        <!-- Filter kota/kabupaten berdasarkan provinsi yang dipilih -->
-                                        <option v-for="(city, index) in filteredCities" :key="index" :value="city.name">{{ city.name }}</option>
-                                    </select>
-                                </div>
-                                <div v-if="errors.regency" class="rounded alert-danger mt-2">
-                                    {{ errors.regency }}
-                                </div>
-                            </div>
-
-
-
-                            <div class="col-md-6 col-sm-6">
-
-                                <span class="text-black"> Kecamatan </span>
-                                <div class="form-group mt-1">
-                                    <!-- <input type="text" class="form-control" v-model="form.district" /> -->
-                                    <select class="form-control" id="district" v-model="selectedDistrict" @change="getVillages">
-                                        <option value="">Pilih Kecamatan</option>
-                                        <option v-for="district in districts" :key="district.id" :value="district.name">
-                                            {{ district.name }}
-                                        </option>
-                                        </select>
-                                        <!-- <input type="text" class="form-control" :value="getSelectedDistrictName()" readonly> -->
-                                </div>
-                                <div v-if="errors.district" class="rounded alert-danger mt-2">
-                                    {{ errors.district }}
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-6">
-                                <span class="text-black"> Kelurahan </span>
-                                <div class="form-group mt-1">
-                                    <!-- <input type="text" class="form-control" v-model="form.villages" /> -->
-                                    <select class="form-control" id="village" v-model="selectedVillage">
-                                    <option value="">Pilih Kelurahan/Desa</option>
-                                    <option v-for="village in villages" :key="village.id" :value="village.name">
-                                        {{ village.name }}
-                                    </option>
-                                    </select>
-                                    <!-- <input type="text" class="form-control" :value="getSelectedVillageName()" readonly> -->
-                                </div>
-                                <div v-if="errors.villages" class="rounded alert-danger mt-2">
-                                    {{ errors.villages }}
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="row ms-2 mb-3">
-
-
-                        </div>
                     </div>
 
                     <div class="col-sm-12 card shadow mt-4">
@@ -396,50 +302,49 @@ import { Inertia } from "@inertiajs/inertia";
 export default {
 
     data() {
-        return {
-            searchInstansi: '',
-            showDropdown: false,
-            cities: [],
-        };
+        // return {
+        //     searchInstansi: '',
+        //     showDropdown: false,
+        // };
     },
 
     // computed property to filter instansis based on search input
-    computed: {
-        filteredInstansis() {
-            return this.instansis.filter(instansi =>
-                instansi.title.toLowerCase().includes(this.searchInstansi.toLowerCase())
-            );
-        },
-    },
+    // computed: {
+    //     filteredInstansis() {
+    //         return this.instansis.filter(instansi =>
+    //             instansi.title.toLowerCase().includes(this.searchInstansi.toLowerCase())
+    //         );
+    //     },
+    // },
 
 
     methods: {
-        // method to toggle dropdown visibility
-        toggleSearch() {
-            this.showDropdown = !this.showDropdown;
-            if (this.showDropdown) {
-                // Menambahkan event listener ke elemen body
-                document.body.addEventListener('click', this.closeDropdownOutside);
-            } else {
-                // Menghapus event listener dari elemen body
-                document.body.removeEventListener('click', this.closeDropdownOutside);
-            }
-        },
+        // // method to toggle dropdown visibility
+        // toggleSearch() {
+        //     this.showDropdown = !this.showDropdown;
+        //     if (this.showDropdown) {
+        //         // Menambahkan event listener ke elemen body
+        //         document.body.addEventListener('click', this.closeDropdownOutside);
+        //     } else {
+        //         // Menghapus event listener dari elemen body
+        //         document.body.removeEventListener('click', this.closeDropdownOutside);
+        //     }
+        // },
 
-        // method to close dropdown when clicked outside
-        closeDropdownOutside(event) {
-            if (!this.$refs.dropdownWrapper.contains(event.target)) {
-                this.showDropdown = false;
-                document.body.removeEventListener('click', this.closeDropdownOutside);
-            }
-        },
+        // // method to close dropdown when clicked outside
+        // closeDropdownOutside(event) {
+        //     if (!this.$refs.dropdownWrapper.contains(event.target)) {
+        //         this.showDropdown = false;
+        //         document.body.removeEventListener('click', this.closeDropdownOutside);
+        //     }
+        // },
 
-        // method to select an instansi from dropdown
-        selectInstansi(instansi) {
-            this.form.agency = instansi.title;
-            this.searchInstansi = ''; // reset search input after selection
-            this.showDropdown = false; // hide dropdown after selection
-        },
+        // // method to select an instansi from dropdown
+        // selectInstansi(instansi) {
+        //     this.form.agency = instansi.title;
+        //     this.searchInstansi = ''; // reset search input after selection
+        //     this.showDropdown = false; // hide dropdown after selection
+        // },
         openFileInput() {
             this.$refs.fileInput.click();
         },
@@ -487,23 +392,9 @@ export default {
             nodocid: props.data.main.nodocid,
             gender: props.data.main.gender,
             religion: props.data.main.religion,
-            address: props.data.main.address,
-            villages: props.data.main.villages,
-            district: props.data.main.district,
-            regency: props.data.main.regency,
-            province: props.data.main.province,
             agency: props.data.agency,
             image: props.data.main.image
         });
-
-      // Deklarasikan properti terkomputasi filteredCities
-    const filteredCities = computed(() => {
-        if (form.province) {
-            return props.cities.filter(city => city.province_id === form.province.id);
-        } else {
-            return [];
-        }
-    });
 
         //submit method
         const submit = () => {
@@ -526,12 +417,7 @@ export default {
                     contact: form.contact,
                     gender: form.gender,
                     religion: form.religion,
-                    address: form.address,
-                    villages: form.villages,
-                    district: form.district,
-                    regency: form.regency,
-                    province: form.province,
-                    agency: form.agency
+
 
                 },
                 {
@@ -550,7 +436,7 @@ export default {
         };
 
 
-            //send data to server
+        //send data to server
 
 
         // Method to get the URL of the document
@@ -574,7 +460,6 @@ export default {
             submit,
             getImageUrl,
             updateImage,
-            filteredCities
 
         };
     },
@@ -582,7 +467,9 @@ export default {
 </script>
 <style>
 .dropdown-select {
-  max-height: 200px; /* Tentukan tinggi maksimal dropdown */
-  overflow-y: auto; /* Aktifkan pengguliran vertikal jika item melebihi tinggi maksimal */
+    max-height: 200px;
+    /* Tentukan tinggi maksimal dropdown */
+    overflow-y: auto;
+    /* Aktifkan pengguliran vertikal jika item melebihi tinggi maksimal */
 }
 </style>

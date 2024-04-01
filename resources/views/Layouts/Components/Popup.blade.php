@@ -4,11 +4,18 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Info Aspro SDMA</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Info Registrasi AsproSDMA</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Registrasi belum dibuka, mohon menunggu pengumuman dari pihak Aspro SDMA
+
+                <div class="cbp-item web logo">
+                    <img src="/assets/images/tanggalregis.jpeg" alt="" style="width: 100%">
+                        <div class="overlay center-block whitecolor">
+                        <a class="plus" data-fancybox="" href="/assets/images/tanggalregis.jpeg"></a>
+                        </div>
+                </div>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

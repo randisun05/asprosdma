@@ -47,11 +47,11 @@
 
                                 <div class="col-md-6 col-sm-6">
                                     <span class="ms-4">
-                                        Nama
+                                        Nama Lengkap
                                     </span>
                                     <div class="form-group bottom35 mt-1">
                                         <input type="text" class="form-control" v-model="form.name"
-                                            placeholder="Masukan Nama Lengkap">
+                                            placeholder="Masukan Nama Lengkap Tanpa Gelar">
                                         <div v-if="errors.name" class="alert alert-danger mt-2">
                                             {{ errors.name }}
                                         </div>
@@ -129,7 +129,6 @@
                                         </div>
                                     </div>
                                 </div>
-
 
                                 <div class="col-md-3 col-sm-3">
                                     <span class="ms-4">
@@ -242,20 +241,23 @@
                         berikut:</p>
                     <strong>Kewajiban:</strong>
                     <ul class="mb-2">
-                        <li>1.Menjaga dan menjunjung tinggi martabat serta kehormatan Aspro SDMA;</li>
-                        <li>2. Mematuhi Anggaran Dasar, Anggaran Rumah Tangga, serta peraturan keputusan organisasi;
-                        </li>
-                        <li>3. Mematuhi kode etik dan kode perilaku Aspro SDMA;</li>
-                        <li>4. Berpartisipasi aktif dalam kegiatan Aspro SDMA; dan</li>
-                        <li>5. Membayar iuran anggota bagi Anggota Biasa dan Luar Biasa.</li>
+                        <p class="mb-0">1. Menjaga dan menjunjung tinggi martabat serta kehormatan Aspro SDMA;</p>
+                        <p class="mb-0">2. Mematuhi Anggaran Dasar, Anggaran Rumah Tangga, serta peraturan keputusan
+                            organisasi;
+                        </p>
+                        <p class="mb-0">3. Mematuhi kode etik dan kode perilaku Aspro SDMA;</p>
+                        <p class="mb-0">4. Berpartisipasi aktif dalam kegiatan Aspro SDMA; dan</p>
+                        <p class="mb-0">5. Membayar iuran anggota bagi Anggota Biasa dan Luar Biasa.</p>
                     </ul>
                     <strong>Hak:</strong>
+
                     <ul class="mb-2">
-                        <li>1. Memperoleh layanan organisasi;</li>
-                        <li>2.Memperoleh hak keterbukaan informasi terkait operasional organisasi;</li>
-                        <li>3. Memilih dan dipilih sebagai pengurus; dan</li>
-                        <li>4. Memberikan masukan dan saran kepada pengurus.</li>
+                        <p class="mb-0">1. Memperoleh layanan organisasi;</p>
+                        <p class="mb-0">2.Memperoleh hak keterbukaan informasi terkait operasional organisasi;</p>
+                        <p class="mb-0">3. Memilih dan dipilih sebagai pengurus; dan</p>
+                        <p class="mb-0">4. Memberikan masukan dan saran kepada pengurus.</p>
                     </ul>
+
                     <strong class="mt-2">DISCLAIMER</strong>
                     <p style="text-align: justify;">Seluruh informasi, keterangan dan dokumen formulir pendaftaran
                         keanggotaan Aspro SDMA yang disampaikan melalui website https://asprosdma.id/ Asosiasi Profesi

@@ -70,32 +70,33 @@
                         <img class="image" v-if="event.image" :src="getImageUrl(event.image)" alt="Gambar"
                             style="width: 100%;" />
                     </div>
-                <div class="col-lg-6">
-                    <div class="news_desc">
-                        <h4 class="text-capitalize font-light darkcolor" style="font-weight: bold;"><a href="#.">{{
+                    <div class="col-lg-6">
+                        <div class="news_desc">
+                            <h4 class="text-capitalize font-light darkcolor" style="font-weight: bold;"><a href="#.">{{
                                             event.title }}</a></h4>
-                        <div class="mt-2 text-center">
-                            <span v-if="event.status === 'active'" class="badge bg-success">Open</span>
-                            <span v-else-if="event.status === 'closed'" class="badge bg-danger">Closed</span>
-                        </div>
-                        <ul class="top20 bottom20">
-                            <li>
-                                <a href="#."><i class="fa fa-calendar me-2" title="Tanggal pelaksanaa"></i>{{
+                            <div class="mt-2 text-center">
+                                <span v-if="event.status === 'active'" class="badge bg-success">Open</span>
+                                <span v-else-if="event.status === 'closed'" class="badge bg-danger">Closed</span>
+                            </div>
+                            <ul class="top20 bottom20">
+                                <li>
+                                    <a href="#."><i class="fa fa-calendar me-2" title="Tanggal pelaksanaa"></i>{{
                                             event.date }}
-                                    <a href="#." class="ms-4"> <i class="fa fa-user-o me-2" title="Jumlah peserta"></i>
-                                        {{ event.participant }}</a></a>
-                            </li>
-                            <p>Pendaftaran ditutup pada {{ event.enddate }}</p>
+                                        <a href="#." class="ms-4"> <i class="fa fa-user-o me-2"
+                                                title="Jumlah peserta"></i>
+                                            {{ event.participant }}</a></a>
+                                </li>
+                                <p>Pendaftaran ditutup pada {{ event.enddate }}</p>
 
-                        </ul>
-                        <div class="text-center">
-                            <Link v-if="event.status == 'active'" :href="`/user/events/${event.slug}`" title="join"
-                                class="button btnprimary" type="button">
-                            Join
-                            </Link>
+                            </ul>
+                            <div class="text-center">
+                                <Link v-if="event.status == 'active'" :href="`/user/events/${event.slug}`" title="join"
+                                    class="button btnprimary" type="button">
+                                Join
+                                </Link>
+                            </div>
                         </div>
                     </div>
-                </div>
                 </div>
             </slide>
 
@@ -166,22 +167,22 @@
             <slide v-for="(post, index) in posts.data" :key="index">
                 <div class="news_item shadow row">
                     <div class="col-lg-6" style="display: flex; justify-content: center; align-items: center;">
-                        <a class="image" href="blog-detail.html">
-                            <img class="image" v-if="post.image" :src="getImageUrl(post.image)" alt="Gambar" style="width: 100%;" />
-                        </a>
+                        <img class="image" v-if="post.image" :src="getImageUrl(post.image)" alt="Gambar"
+                            style="width: 100%;" />
                     </div>
                     <div class="col-lg-6">
-                    <div class="news_desc">
-                        <h3 class="text-capitalize font-light darkcolor"><a href="#">{{ post.title }}</a>
-                        </h3>
-                        <ul class="meta-tags top20 bottom20">
-                            <li><a href="#."><i class="fa fa-user"></i>{{ post.member.name}}</a></li>
-                            <li><a href="#."><i class="fa fa-calendar"></i>{{ post.publish_at }}</a></li>
-                        </ul>
-                        <p class="bottom35">{{ post.excerpt }}</p>
-                        <Link :href="`/user/posts/list/${post.slug}`" title="join" class="button btnprimary" type="button">View
-                        </Link>
-                    </div>
+                        <div class="news_desc">
+                            <h3 class="text-capitalize font-light darkcolor"><a href="#">{{ post.title }}</a>
+                            </h3>
+                            <ul class="meta-tags top20 bottom20">
+                                <li><a href="#."><i class="fa fa-user"></i>{{ post.member.name }}</a></li>
+                                <li><a href="#."><i class="fa fa-calendar"></i>{{ post.publish_at }}</a></li>
+                            </ul>
+                            <p class="bottom35">{{ post.excerpt }}</p>
+                            <Link :href="`/user/posts/list/${post.slug}`" title="join" class="button btnprimary"
+                                type="button">View
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </slide>

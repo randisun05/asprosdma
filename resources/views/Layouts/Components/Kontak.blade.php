@@ -1,4 +1,4 @@
-<!-- Contact US -->  
+<!-- Contact US -->
 <section id="kontak-kami">
    <div class="container">
       <div class="row">
@@ -15,7 +15,7 @@
             <a class="pickus" href="#." data-text="Get Directions">Get Directions</a>
                <div class="col-md-6 col-sm-12 our-address top20">
                   <h5>Telepon</h5>
-                  <p class="bottom15"><span>Segera
+                  <p class="bottom15"><span><p class="bottom15"><span><a href="https://api.whatsapp.com/send/?phone=6282319192189&text&type=phone_number&app_absent=0">Iceu wa.me/6282319192189</a>
                   </span> </p>
                   <a class="pickus" href="#." data-text="Call Us">Call Us</a>
                </div>

@@ -260,7 +260,7 @@ class RegistrationController extends Controller
     Registration::where('id', $id)->update(['paid' => $paid, 'status' => "paid"]);
 
      //redirect
-     return redirect('/')->with('success','Data berhasil diupdate');
+     return redirect('/')->with('success','Data berhasil diupdate.');
 
     }
 

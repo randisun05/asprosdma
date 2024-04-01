@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="preconnect" href="https://fonts.gstatic.com">
-<title>Web-Aspro</title>
+{{-- <title>Web-Aspro</title> --}}
 <link href="{{ asset('assets/images/logo.png') }}" rel="icon">
 <link rel="stylesheet" href="{{ asset('assets/css/plugins.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
