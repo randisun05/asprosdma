@@ -207,7 +207,7 @@
 import { ref } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
 //import Link
-import { Link } from '@inertiajs/inertia-vue3';
+import { Link,  } from '@inertiajs/inertia-vue3';
 
 
 

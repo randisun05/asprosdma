@@ -24,7 +24,7 @@
                         <ul class="nav nav-tabs">
                             <li class="nav-item">
                                 <Link href="/user/profile/" class="nav-link active" type="button">
-                                Data</Link>
+                                Profile</Link>
                             </li>
 
                             <li class="nav-item">
@@ -41,9 +41,11 @@
                             <div class="col-lg-2 col-md-2">
                                 <div class="text-center">
                                     <img v-if="form.image" :src="getImageUrl(form.image)" alt=""
-                                        class="img-fluid rounded-circle" title="Ubah foto profil" style="width: 100%; height: 200px;" />
+                                        class="img-fluid rounded-circle" title="Ubah foto profil"
+                                        style="width: 100%; height: 200px;" />
                                     <img v-else src="/assets/images/team-grey-1.jpg" alt=""
-                                        class="img-fluid rounded-circle" title="Ubah foto profil" style="width: 100%; height: 200px;" />
+                                        class="img-fluid rounded-circle" title="Ubah foto profil"
+                                        style="width: 100%; height: 200px;" />
                                 </div>
                             </div>
 
@@ -145,46 +147,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row ms-2 mb-3">
-                        <div class="col-md-12 col-sm-12">
-                            <span class="text-black"> Alamat </span>
-                            <div class="form-group mt-1">
-                                <input type="text" class="form-control" v-model="form.address" disabled
-                                    style="height: 80px" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row ms-2 mb-3">
-                        <div class="col-md-6 col-sm-6">
-                            <span class="text-black"> Provinsi </span>
-                            <div class="form-group mt-1">
-                                <input type="text" class="form-control" v-model="form.province" disabled />
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-sm-6">
-                            <span class="text-black"> Kab/Kota </span>
-                            <div class="form-group mt-1">
-                                <input type="text" class="form-control" v-model="form.regency" disabled />
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="row ms-2 mb-3">
-                        <div class="col-md-6 col-sm-6">
-                            <span class="text-black"> Kelurahan </span>
-                            <div class="form-group mt-1">
-                                <input type="text" class="form-control" v-model="form.villages" disabled />
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-sm-6">
-                            <span class="text-black"> Kecamatan </span>
-                            <div class="form-group mt-1">
-                                <input type="text" class="form-control" v-model="form.district" disabled />
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
 
                 <div class="col-sm-12 card shadow mt-4">

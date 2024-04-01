@@ -7,7 +7,7 @@
                <li><a href="javascript:void(0)"><i class="fa fa-twitter"></i> </a> </li>
                <li><a href="javascript:void(0)"><i class="fa fa-google-plus"></i> </a> </li>
                <li><a href="javascript:void(0)"><i class="fa fa-linkedin"></i> </a> </li>
-               <li><a href="javascript:void(0)"><i class="fa fa-instagram"></i> </a> </li>
+               <li><a href="https://www.instagram.com/asprosdma.id/"><i class="fa fa-instagram"></i> </a> </li>
                <li><a href="javascript:void(0)"><i class="fa fa-envelope-o"></i> </a> </li>
             </ul>
             <p class="copyrights wow fadeInUp" data-wow-delay="350ms"> &copy; 2024 Aspro.</p>

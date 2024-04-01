@@ -20,7 +20,7 @@
       </div>
    </div>
 </section>
-<!--page Header ends--> 
+<!--page Header ends-->
 
 <section id="registration" class="">
    <div class="container">
@@ -34,12 +34,12 @@
                                  NIP
                         </span>
                         <div class="form-group bottom35 mt-1">
-                                <input type="text" class="form-control" v-model="form.nip" placeholder="Masukan NIP" maxlength="18" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                                <input type="text" class="form-control" v-model="form.nip" placeholder="Masukan NIP" maxlength="18" onkeypress="return event.charCode >= 48 && event.charCode <= 57" readonly>
                             <div v-if="errors.nip" class="alert alert-danger mt-2">
                                 {{ errors.nip }}
                             </div>
                         </div>
-                        
+
                      </div>
 
                     <div class="col-md-6 col-sm-6">
@@ -47,13 +47,13 @@
                                  Nama
                         </span>
                         <div class="form-group bottom35 mt-1">
-                                <input type="text" class="form-control" v-model="form.name" placeholder="Masukan Nama Lengkap">
+                                <input type="text" class="form-control" v-model="form.name" placeholder="Masukan Nama Lengkap Tanpa Gelar">
                             <div v-if="errors.name" class="alert alert-danger mt-2">
                                 {{ errors.name }}
                             </div>
                         </div>
                      </div>
-                     
+
                      <div class="col-md-6 col-sm-6">
                         <span class="ms-4">
                                  Email
@@ -95,7 +95,7 @@
                                 <template v-else>
                                     <div class="dropdown-item disabled">Instansi tidak ditemukan</div>
                                 </template>
-                                
+
                                 </div>
                             </div>
                                 <div v-if="errors.agency" class="alert alert-danger mt-2">
@@ -119,7 +119,7 @@
                             </div>
                         </div>
                      </div>
-                     
+
 
                      <div class="col-md-3 col-sm-3">
                         <span class="ms-4">
@@ -147,7 +147,7 @@
                             <div v-if="errors.level" class="alert alert-danger mt-2">
                                 {{ errors.level }}
                             </div>
-                        </div>  
+                        </div>
                      </div>
 
                      <div class="col-md-6 col-sm-6">
@@ -198,7 +198,7 @@
                      <div class="row d-flex justify-content-center">
                         <button type="submit" class="button btnprimary" style="width: 300px;">Submit</button>
                     </div>
-                    
+
                   </div>
                </form>
             </div>
@@ -213,7 +213,7 @@
 <script>
     //import layout
     import LayoutWebsite from '../../../Layouts/Website.vue';
- 
+
     //import Head from Inertia
     import {
         Head
@@ -285,7 +285,7 @@
         //register component
         components: {
             Head,
-            
+
         },
 
         //props
@@ -295,7 +295,7 @@
             register: Object,
             instansis :Array
         },
-        
+
         //define composition API
         setup(props) {
 
@@ -343,7 +343,7 @@
                         });
                     },
                 });
-                
+
             }
             // Method to update the document file
             const updateDocument = (event) => {
@@ -361,7 +361,7 @@
                 form,
                 submit,
                 updateDocument,
-                updateImage 
+                updateImage
             };
 
         }

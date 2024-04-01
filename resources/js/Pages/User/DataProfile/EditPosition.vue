@@ -64,8 +64,7 @@
                                 <div class="col-md-6 col-sm-6">
                                     <span> Instansi </span>
                                     <div class="form-group mt-1">
-                                        <input type="text" class="form-control" v-model="form.agency" readonly>
-                                        <!-- <div class="position-relative" ref="dropdownWrapper">
+                                        <div class="position-relative" ref="dropdownWrapper">
                                             <div class="form-group mt-1">
                                                 <input type="text" class="form-control" placeholder="Pilih Instansi"
                                                     v-model="form.agency" @click="toggleSearch" readonly>
@@ -85,7 +84,7 @@
                                                 </template>
 
                                             </div>
-                                        </div> -->
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-6">
@@ -122,12 +121,11 @@
                                 <div class="col-md-3 col-sm-3">
                                     <span> Jabatan </span>
                                     <div class="form-group mt-1">
-                                        <input type="text" class="form-control" v-model="form.position" readonly>
-                                        <!-- <select type="form-select" class="form-control" v-model="form.position">
+                                        <select type="form-select" class="form-control" v-model="form.position">
                                             <option value="" disabled>Pilih Jabatan</option>
                                             <option value="Analis SDM Aparatur">Analis SDM Aparatur</option>
                                             <option value="Pranata SDM Aparatur">Pranata SDM Aparatur</option>
-                                        </select> -->
+                                        </select>
                                         <div v-if="errors.position" class="alert alert-danger mt-2">
                                             {{ errors.position }}
                                         </div>
@@ -136,17 +134,16 @@
                                 <div class="col-md-3 col-sm-3">
                                     <span> Jenjang </span>
                                     <div class="form-group mt-1">
-                                        <input type="text" class="form-control" v-model="form.level" readonly>
-                                        <!-- <select type="form-select" class="form-control" v-model="form.level">
+                                        <select type="form-select" class="form-control" v-model="form.level">
                                             <template v-if="form.position === ''">
                                                 <option value="" disabled selected>Jabatan Harus Dipilih</option>
                                             </template>
                                             <template v-if="form.position === 'Analis SDM Aparatur'">
                                                 <option value="" disabled>Pilih Jenjang</option>
-                                                <option value="Pertama">Pertama</option>
-                                                <option value="Muda">Muda</option>
-                                                <option value="Madya">Madya</option>
-                                                <option value="Utama">Utama</option>
+                                                <option value="Pertama">Ahli Pertama</option>
+                                                <option value="Muda">Ahli Muda</option>
+                                                <option value="Madya">Ahli Madya</option>
+                                                <option value="Utama">Ahli Utama</option>
                                             </template>
                                             <template v-if="form.position === 'Pranata SDM Aparatur'">
                                                 <option value="" disabled>Pilih Jenjang</option>
@@ -154,7 +151,7 @@
                                                 <option value="Mahir">Mahir</option>
                                                 <option value="Penyelia">Penyelia</option>
                                             </template>
-                                        </select> -->
+                                        </select>
                                         <div v-if="errors.level" class="alert alert-danger mt-2">
                                             {{ errors.level }}
                                         </div>

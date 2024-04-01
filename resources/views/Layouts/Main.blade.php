@@ -49,9 +49,45 @@
 @include('Layouts.Components.Tekko')
 @include('Layouts.Components.Kontak')
 @include('Layouts.Components.Footer')
-{{-- @include('Layouts.Components.Popup') --}}
+@include('Layouts.Components.Popup')
 
 @yield('content')
+
+<script>
+
+    //import Head from Inertia
+    import {
+        Head
+    } from '@inertiajs/inertia-vue3';
+
+    //import reactive
+    import {
+        reactive
+    } from 'vue';
+
+    //import inertia adapter
+    import {
+        Inertia
+    } from '@inertiajs/inertia';
+
+    export default {
+
+
+        //register component
+        components: {
+            Head
+        },
+
+        //props
+        props: {
+            errors: Object,
+            session: Object
+        },
+
+
+    }
+
+</script>
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
@@ -96,5 +132,7 @@
 <!--Google Map API-->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJnKEvlwpyjXfS_h-J1Cne2fPMqeb44Mk"></script>
 <script src="{{ asset('assets/js/functions.js') }}"></script>
+
+
 </body>
 </html>

@@ -13,9 +13,11 @@
             text-align: left;
             font-family: Arial, sans-serif;
         }
+
         .message {
             margin-bottom: 20px;
         }
+
         .cta-button {
             display: inline-block;
             padding: 10px 20px;
@@ -24,41 +26,69 @@
             text-decoration: none;
             border-radius: 5px;
         }
+
         .logo-container {
             text-align: center;
             margin-bottom: 20px;
         }
+
         .logo-container img {
             width: 50%;
         }
+
         hr {
             border: none;
             border-top: 1px solid #ccc;
             margin: 20px auto;
             width: 100%;
         }
+
     </style>
 </head>
 <body>
     <div class="container">
-        {{-- <div class="logo-container">
-            <a class="navbar-brand" href="index.html">
-               <img src="{{ asset('assets/images/logo.png') }}" alt="Logo">
-            </a>
-        </div> --}}
         <hr>
         <div class="message">
-            <p>Anda sudah terdaftar dalam event {{ $data['title'] }}</p>
-            <p>silakan hadir pada:</p>
+            <p>Halo Rekan JF SDM Aparatur!</p>
+            <p class="mb-0">ATerima kasih telah mendaftar pada kegiatan Komunitas Belajar by Asosiasi Profesi JF SDM Aparatur dengan tema:</p>
+                "{{ $data['title'] }}" </p>
+            <p>pada:</p>
             <ul>
-                <li>tanggal : {{ $data['date'] }}</li>
-                <li>link    : {{ $data['link'] }}</li>
-                <li>penamaan zoom : Nomor Anggota-Nama</li>
+                <li>Tanggal : {{ $data['date'] }}</li>
+                <li>Jam : Sesuai tertera pada pengumuman </li>
             </ul>
 
-            <p>Demikian informasi dari kami.</p>
-            <p>Terimakasih,</p>
-            <p>Tim Aspro</p>
+            <p class="mb-0"> Untuk dapat bergabung ke ruang diskusi, silakan klik link zoom meeting berikut: 👇🏽👇🏽👇🏽
+                Join Zoom Meeting </p>
+            <p>{{ $data['link'] }}</p>
+
+            <p class="mb-0">Berikut beberapa himbauan untuk seluruh peserta kegiatan Komunitas Belajar:</p>
+            <ul>
+                <li>✅Wajib menggunakan Nomor Anggota-Nama Depan (Contoh: 00001/01/ASPROSDMA-Dhanu)</li>
+                <li>✅Wajib menggunakan Virtual background yg dapat diunduh di: https://linktr.ee/halo.asprosdma
+                </li>
+                <li>✅Persiapkan diri untuk pembelajaran yang sangat bermanfaat ini
+                </li>
+                <li>✅Wajib mematikan (unmute) microphone dan menyalakan kamera
+                </li>
+                <li>✅Mari senantiasa mengedepankan etika dalam berdiskusi melalui ruang maya
+                </li>
+            </ul>
+
+            <p>Daftarkan diri anda sebagai Anggota Asosiasi Profesi JF SDM Aparatur sekarang!
+                Pelajari lebih lanjut dengan klik tautan <a href="ww.asprosdma.id">www.asprosdma.id</a></p>
+
+            <p>Jika memerlukan bantuan dapat menghubungi:
+                📳: Iceu <a href="https://api.whatsapp.com/send/?phone=6282319192189&text&type=phone_number&app_absent=0">wa.me/6282319192189</a></p>
+
+            <p class="mb-0">Media Partner:</p>
+            <ul>
+                <li>@sharing.asn - https://www.instagram.com/sharing.asn/</li>
+                <li>@bkngoidofficial - https://www.instagram.com/bkngoidofficial/</li>
+            </ul>
+
+            <p class="mb-0">Sampai bertemu di Komunitas Belajar!!😁‍️</p>
+            <p class="">💪 Salam JF SDM Aparatur!! 💪</p>
         </div>
     </div>
 </body>

@@ -170,7 +170,6 @@ class DataProfileController extends Controller
     public function update(Request $request)
     {
 
-        return $request;
           $request->validate([
                 'nip' => ['required','string', 'regex:/^\d{18}$/'],
                 'name' => 'required',
