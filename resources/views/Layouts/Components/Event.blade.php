@@ -23,7 +23,7 @@
                                                 <span class="badge bg-danger">Closed</span>
                                                 @endif
                                             </div>
-                                            <ul class="top20 bottom20">
+                                            <ul class="top20 bottom20 text-center">
                                                 <li>
                                                     <a href="#."><i class="fa fa-calendar me-2" title="Tanggal pelaksanaa"></i>{{ $event->date }}</a>
                                                     <a class="ms-4" href="#."><i class="fa fa-user-o me-2" title="Jumlah peserta"></i>{{ $event->participant }}</a>
@@ -60,7 +60,7 @@
                 <div class="image text-center">
                     <!-- Gambar -->
                     <div class="image mt-4 ms-5">
-                        <img alt="SEO" src="/assets/images/narsumkomjar.png" style="width: 100% " class="mt-2">
+                        <img alt="SEO" src="/assets/images/narsumkomjar.jpeg" style="width: 100% " class="mt-2">
                         <!-- Tombol Join -->
                         <a href="https://asprosdma.id/berita/open-call-narasumber-komunitas-belajar" title="Join" class="button btnsecondary" style="position: absolute; top: 94%; left: 50%; transform: translate(-50%, -50%); z-index: 1;">  DAFTAR  </a>
                     </div>
