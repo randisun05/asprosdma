@@ -41,6 +41,7 @@
 
 @include('Layouts.Components.Header')
 @include('Layouts.Components.Slider')
+@include('Layouts.Components.Event')
 @include('Layouts.Components.About')
 @include('Layouts.Components.RegistrationFlow')
 @include('Layouts.Components.Registration')

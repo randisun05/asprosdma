@@ -3,7 +3,7 @@
     <Head>
         <title>{{ title }}</title>
     </Head>
-  
+
  <!--page Header-->
 <section class="page-header parallaxie padding_top center-block">
    <div class="container">
@@ -20,7 +20,7 @@
       </div>
    </div>
 </section>
-<!--page Header ends--> 
+<!--page Header ends-->
 
 
 <section id="our-testimonial" class="padding_m">
@@ -29,12 +29,23 @@
          <div class="col-md-12 col-sm-12 text-center">
             <div class="heading-title bottom30">
                <span><h2>Sejarah Aspro SDMA</h2></span>
-              
+               <div class="image hover-effect bottom30">
+                <div><img alt="SEO" src="/assets/images/sejarah.jpg"></div>
+               </div>
+         </div>
+                <div style="text-align: justify;">
+                    <p class="h6 bottom20 darkcolor mb-4">Hadirnya Asosiasi Profesi Jabatan Fungsional Sumber Daya Manusia Aparatur pada tanggal 23 Oktober 2023 tidak terlepas dari semangat tranformasi dari  Jabatan  Fungsional Analis Kepegawaian  menjadi  Analis  Sumber  Daya  Manusia  Aparatur  dan  Pranata  SDM  Aparatur .  Jabatan ini bernaung dalam Asosiasi Profesi bernama Ikatan Profesi Analis Kepegawaian Republik Indonesia atau  IPAKRI yang  lahir  pada  tanggal 15 Mei 2015. IPAKRI merupakan bentuk pemutakhiran dari Organisasi  Profesi  Analis  Kepegawaian  sebelumnya  yaitu Ikatan Analis Kepegawaian Indonesia atau IAKI, yang lahir pada tanggal 13 September 2012. </p>
+
+                    <p class="h6 bottom20 darkcolor mb-4">IPAKRI di bawah kepemimpinan H. Jono, S.Sos., M.M.,  telah  menorehkan banyak  kiprah  dalam  membangun profesionalisme para pejabat Analis Kepegawaian serta memberikan pengalaman  berorganisasi  bagi  para pejabat  fungsional  Analis Kepegawaian. Bersama tujuh Kepengurusan Cabang, IPAKRI berhasil memberikan landasan yang kokoh bagi terbangunnya Aspro SDMA yang sebagaian besar memiliki nafas dan semangat serta filosofi yang sama sebagai Insan Kepegawaian.
+                    </p>
+                    <p class="h6 bottom20 darkcolor mb-4">Aspro SDMA yang merupakan tranformasi dari IPAKRI merupakan langkah baru dalam upaya membangun organisasi yang dinamis dan sejalan dengan tuntutan jaman.  Aspro SDMA merupakan langkah awal para Analis SDM Aparatur dan Pranata SDM Aparatur yang senantiasa terbuka pada goresan kiprah dan karya para anggotanya sebagai wujud sejarah organisasi ini di masa yang akan datang.
+                    </p>
+                </div>
+
             </div>
          </div>
-         <h4 class="darkcolor">Deskripsi</h4>
       </div>
-   </div>
+
 </section>
 <!--Testimonials Ends-->
 
@@ -44,7 +55,7 @@
 <script>
     //import layout
     import LayoutWebsite from '../../../../Layouts/Website.vue';
- 
+
     //import reactive
     import {
         reactive
@@ -68,7 +79,7 @@
 
         //register component
         components: {
-            Head,            
+            Head,
         },
 
         //props
@@ -76,8 +87,8 @@
             title:Object
 
         },
-        
-       
+
+
 
     }
 

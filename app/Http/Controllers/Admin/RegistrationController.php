@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\RegistrationExport;
 use Carbon\Carbon;
 use App\Models\Member;
 use App\Models\instansi;
@@ -499,6 +500,13 @@ class RegistrationController extends Controller
                     ->get();
 
                 return Excel::download(new RegistrationPaid($paids), 'Konfirmasi-'.Carbon::now().'.xlsx');
+            }
+
+            public function exportRegistration()
+            {
+                $datas = Registration::oldest()->get();
+
+                return Excel::download(new RegistrationExport($datas), 'DataRegistrasiPer-'.Carbon::now().'.xlsx');
             }
 
 

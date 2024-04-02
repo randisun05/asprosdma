@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Event;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,10 @@ class PublicController extends Controller
 
     public function index()
     {
-        //
+        $events = Event::whereNot('title','media')->latest()->take(3)->get();
+        return view('index', [
+            "events" => $events
+        ]);
     }
 
     /**
@@ -28,7 +32,7 @@ class PublicController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**

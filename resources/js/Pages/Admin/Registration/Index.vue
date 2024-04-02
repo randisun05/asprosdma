@@ -26,9 +26,16 @@
 
                     <div class="col-md-1 col-12 mb-2">
                         <a :href="`/admin/registration/paid/export`" target="_blank"
+                            class="btn btn-warning btn-md border-0 shadow w-100 text-white"><i
+                                class="fa fa-download"></i>
+                            Export Paid</a>
+                    </div>
+
+                    <div class="col-md-1 col-12 mb-2">
+                        <a :href="`/admin/registration/data/export`" target="_blank"
                             class="btn btn-success btn-md border-0 shadow w-100 text-white"><i
                                 class="fa fa-download"></i>
-                            Export</a>
+                            Export Data</a>
                     </div>
 
                     <div class="col-md-6 col-12 mb-2">
