@@ -31,7 +31,7 @@
            <div class="col-md-4">
               <div class="team-box top60">
                <div class="image">
-                  <img src="/assets/images/ketua.jpg" alt="">
+                  <img src="/assets/images/ritakardinasari.png" alt="">
                </div>
                <div class="team-content gradient_bg whitecolor">
                   <h3>Dr. Rita Kardinasari, S.Psi, M.Si, Dipl. TAA</h3>

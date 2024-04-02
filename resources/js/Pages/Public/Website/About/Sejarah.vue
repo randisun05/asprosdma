@@ -28,9 +28,8 @@
       <div class="row">
          <div class="col-md-12 col-sm-12 text-center">
             <div class="heading-title bottom30">
-               <span><h2>Sejarah Aspro SDMA</h2></span>
                <div class="image hover-effect bottom30">
-                <div><img alt="SEO" src="/assets/images/sejarah.jpg"></div>
+                <div class="mt-3"><img alt="SEO" src="/assets/images/sejarah.jpg"></div>
                </div>
          </div>
                 <div style="text-align: justify;">
