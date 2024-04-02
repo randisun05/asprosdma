@@ -141,9 +141,9 @@
                                                         <img src="/assets/images/fungky.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
-                                                        <h6>Fungki</h6>
+                                                        <h6>Fungky</h6>
                                                         <p>Anggota Bendahara I</p>
-                                                        <p>Badan Kepegawaian Negara</p>
+                                                        <p>Pemerintah Provinsi Jawa Barat</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -182,7 +182,7 @@
                                                         <img src="/assets/images/agung.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
-                                                        <h4>Agung Sugiarto, S.H., M.H.</h4>
+                                                        <h4>Agung Sugiarto</h4>
                                                         <h5>Sekretaris I</h5>
                                                         <p>Badan Kepegawaian Negara</p>
                                                     </div>
@@ -254,7 +254,7 @@
                                                         <img src="/assets/images/anto.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
-                                                        <h4>Riyanto, S.A.P., M.AP.</h4>
+                                                        <h4>Riyanto</h4>
                                                         <h5>Sekretaris II</h5>
                                                         <p>Badan Pemeriksa Keuangan</p>
                                                     </div>
@@ -715,7 +715,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
 
                                                 <div class="col-lg-2 col-md-6">
                                                     <div class="team-box no-hover">

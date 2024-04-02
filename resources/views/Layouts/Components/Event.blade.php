@@ -60,9 +60,9 @@
                 <div class="image text-center">
                     <!-- Gambar -->
                     <div class="image mt-4 ms-5">
-                        <img alt="SEO" src="/assets/images/narsumkomjar.png" style="width: 83%" class="mt-2">
+                        <img alt="SEO" src="/assets/images/narsumkomjar.png" style="width: 100% " class="mt-2">
                         <!-- Tombol Join -->
-                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSf8SC55r5cYlMDvrEE4A7S1MsGpQ9ldxfLS-XuqrOtf256uqg/viewform" title="Join" class="button btnsecondary" style="position: absolute; top: 94%; left: 42%; transform: translate(-50%, -50%); z-index: 1;">DAFTAR</a>
+                        <a href="https://asprosdma.id/berita/open-call-narasumber-komunitas-belajar" title="Join" class="button btnsecondary" style="position: absolute; top: 94%; left: 50%; transform: translate(-50%, -50%); z-index: 1;">  DAFTAR  </a>
                     </div>
                 </div>
             </div>
