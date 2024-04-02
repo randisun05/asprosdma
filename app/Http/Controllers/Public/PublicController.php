@@ -20,7 +20,7 @@ class PublicController extends Controller
     public function index()
     {
         $events = Event::whereNot('title','media')->latest()->take(3)->get();
-        return view('index', [
+        return view('Index', [
             "events" => $events
         ]);
     }
