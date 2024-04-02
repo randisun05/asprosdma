@@ -3,7 +3,7 @@
     <Head>
         <title>{{ title }}</title>
     </Head>
-  
+
  <!--page Header-->
 <section class="page-header parallaxie padding_top center-block">
    <div class="container">
@@ -20,7 +20,7 @@
       </div>
    </div>
 </section>
-<!--page Header ends--> 
+<!--page Header ends-->
 
 
 <section id="our-testimonial" class="padding_m">
@@ -31,7 +31,7 @@
                <span><h2>Program</h2></span>
             </div>
          </div>
-        
+
          <div class="col-md-4">
             <ul class="nav nav-pills flex-column" id="program-list">
                <li class="nav-item">
@@ -46,43 +46,43 @@
                <li class="nav-item">
                   <a class="nav-link" :class="{ active: activeTab === 'program4' }" @click="setActiveTab('program4')">Mengkaji aspek hukum terkait kebijakan manajemen sumber daya manusia aparatur</a>
                </li>
-               
+
             </ul>
          </div>
 
          <div class="col-md-8">
             <div class="program-description" id="program-description-1">
                <div v-show="activeTab === 'program1'" class="tab-pane fade show active" id="program1">
-                  
-                           Deskripsi Program 1
-                    
+
+
+
                </div>
             </div>
 
             <div class="program-description" id="program-description-1">
                <div v-show="activeTab === 'program2'" class="tab-pane fade show active" id="program2">
-                 
-                           Deskripsi Program 2
+
+
 
                </div>
             </div>
-    
+
             <div class="program-description" id="program-description-1">
                <div v-show="activeTab === 'program3'" class="tab-pane fade show active" id="program3">
-                
-                           Deskripsi Program 3
-               
+
+
+
                </div>
             </div>
 
             <div class="program-description" id="program-description-1">
                <div v-show="activeTab === 'program4'" class="tab-pane fade show active" id="program4">
-               
-                           Deskripsi Program 4
-                    
+
+
+
                </div>
             </div>
-         
+
          </div>
       </div>
    </div>
@@ -95,7 +95,7 @@
 <script>
     //import layout
     import LayoutWebsite from '../../../../Layouts/Website.vue';
- 
+
 
     //import reactive
     import {
@@ -120,7 +120,7 @@
         //register component
         components: {
             Head,
-            
+
         },
 
         //props
@@ -131,7 +131,7 @@
         data() {
             return {
               activeTab: 'program1', // Set the default active tab
-        
+
             };
           },
 
@@ -140,8 +140,8 @@
               this.activeTab = tabName;
             },
           },
-        
-       
+
+
 
     }
 

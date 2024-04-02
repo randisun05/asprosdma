@@ -1,5 +1,5 @@
 
-<!-- Pricing Tables -->  
+<!-- Pricing Tables -->
 <section id="our-pricings" class="padding_m gradient_bg_second">
    <div class="container-fluid style="text-align: center;">
       <div class="row">
@@ -11,7 +11,7 @@
       </div>
       <div class="row three-col-pricing center-content">
          <div class="col-lg-2 col-sm-12">
-            <div class="price-table top60">
+            <div class="price-table top60" style="height:450px;">
                <h4 class="bottom20 darkcolor">Bidang Keanggotaan Dan Organisasi</h4>
                <p>SEGERA</p>
                <ul class="top20">
@@ -23,7 +23,7 @@
             </div>
          </div>
          <div class="col-lg-2 col-sm-12">
-            <div class="price-table active top60">
+            <div class="price-table active top60" style="height:450px;">
                <h4 class="bottom20 darkcolor">Bidang Pengembangan Kapasitas Insani</h4>
                <p>SEGERA</p>
                <ul class="top20">
@@ -36,7 +36,7 @@
             </div>
          </div>
          <div class="col-lg-2 col-sm-12">
-            <div class="price-table top60">
+            <div class="price-table top60" style="height:450px;">
                <h4 class="bottom20 darkcolor">Bidang Hukum dan Advokasi</h4>
                <p>SEGERA</p>
                <ul class="top20">
@@ -49,7 +49,7 @@
             </div>
          </div>
          <div class="col-lg-2 col-sm-12">
-            <div class="price-table active top60">
+            <div class="price-table active top60" style="height:450px;">
                <h4 class="bottom20 darkcolor">Bidang Hubungan Masyarakat dan Kerja Sama</h4>
                <p>SEGERA</p>
                <ul class="top20">
@@ -62,7 +62,7 @@
             </div>
          </div>
          <div class="col-lg-2 col-sm-12">
-            <div class="price-table top60">
+            <div class="price-table top60" style="height:450px;">
                <h4 class="bottom20 darkcolor">Bidang Sumber Pendanaan Organisasi</h4>
                <p>SEGERA</p>
                <ul class="top20">

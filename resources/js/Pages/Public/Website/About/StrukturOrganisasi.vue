@@ -62,15 +62,14 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row justify-content-center">
+                                        <div class="row justify-content-center padding_m">
                                             <div class="col-lg-3 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/ketua.jpg" alt="">
+                                                        <img src="/assets/images/ritakardinasari.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
-                                                        <h4>Dr. Rita Kardinasari, S.Psi, M.Si, Dipl.
-                                                            TAA</h4>
+                                                        <h4>Rita Kardinasari</h4>
                                                         <h5>Ketua Umum Aspro SDMA</h5>
                                                         <p>Pemerintah Provinsi Jawa Barat</p>
                                                     </div>
@@ -82,10 +81,10 @@
                                             <div class="col-lg-3 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/wakil.jpeg" alt="">
+                                                        <img src="/assets/images/nitavibri.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
-                                                        <h4>Nita Vibriyanti Situmorang, S.AP., M.Si.
+                                                        <h4>Nita Vibriyanti Situmorang
                                                         </h4>
                                                         <h5>Wakil Ketua Umum Aspro SDMA</h5>
                                                         <p>Badan Kepegawaian Negara</p>
@@ -98,7 +97,7 @@
                                             <div class="col-lg-3 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/dianadriani.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h4 class="">Dian Andriani</h4>
@@ -111,7 +110,7 @@
                                             <div class="col-lg-3 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/kurnia.jpeg" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h4 class="">Kurnia Dianandari</h4>
@@ -126,7 +125,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/henniqurratul.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Henni Qurratul Aini</h6>
@@ -139,7 +138,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/fungky.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Fungki</h6>
@@ -151,7 +150,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/evafadella.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Eva Fadella</h6>
@@ -165,7 +164,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/profile.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Dini</h6>
@@ -180,7 +179,7 @@
                                             <div class="col-lg-3 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/agung.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h4>Agung Sugiarto, S.H., M.H.</h4>
@@ -197,7 +196,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/endang.jpeg" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Endang Kristuti</h6>
@@ -210,7 +209,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/dzikri.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Mohamad Dzikri Fadillah</h6>
@@ -223,7 +222,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/yuliarn.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Yulia Razila Ningsih</h6>
@@ -236,7 +235,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/ekokusdianto.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Eko Kusdianto</h6>
@@ -252,7 +251,7 @@
                                             <div class="col-lg-3 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/anto.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h4>Riyanto, S.A.P., M.AP.</h4>
@@ -269,7 +268,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/agussetiyo.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Agus Setiyo Utomo</h6>
@@ -282,7 +281,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/yenita.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Yenita Anggraini</h6>
@@ -295,7 +294,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/rafrianika.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Rafrian ika</h6>
@@ -310,7 +309,7 @@
                                             <div class="col-lg-3 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/adejajang.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h4>Ade Jajang Jatnika</h4>
@@ -325,10 +324,10 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/anggiyudhanto.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
-                                                        <h6>Anggi Yudha</h6>
+                                                        <h6>Anggi Yudhanto</h6>
                                                         <p>Anggota Bidang I</p>
                                                         <p>Badan Kepegawaian Negara</p>
                                                     </div>
@@ -338,7 +337,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/dadimulyadi.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Dadi Mulyadi</h6>
@@ -351,7 +350,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/agusamirudin.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Agus Amirudin</h6>
@@ -364,7 +363,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/sabtutik.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Sabtutik Handayani</h6>
@@ -376,7 +375,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/erwinsopyana.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Erwin Sopyana</h6>
@@ -392,7 +391,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/riosetiawan.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Rio Setiawan</h6>
@@ -405,7 +404,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/iceu.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Iceu Novida</h6>
@@ -420,7 +419,7 @@
                                             <div class="col-lg-3 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/fxsunaryanta.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h4>FX. Sunaryanta</h4>
@@ -435,7 +434,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/profile.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Firna Novi Anggoro</h6>
@@ -448,7 +447,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/rakhmatfajar.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Rakhmat Fajar Nugraha</h6>
@@ -461,7 +460,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/adityasar.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Aditya Sarsito Sukarsono</h6>
@@ -474,7 +473,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/putrirahmalya.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Putri Rahmalya</h6>
@@ -487,7 +486,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/soebagdja.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Achmad Soebagdja</h6>
@@ -500,7 +499,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/hendro.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Hendro Rusmanto</h6>
@@ -515,7 +514,7 @@
                                             <div class="col-lg-3 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/miadian.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h4>Mia Dian Ratnasari</h4>
@@ -530,7 +529,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/profile.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Hakim</h6>
@@ -543,7 +542,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/desinapitulu.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Desi Napitupulu</h6>
@@ -556,7 +555,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/asepbudiman.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Asep Budiman</h6>
@@ -569,7 +568,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/pamuji.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Pamuji</h6>
@@ -582,7 +581,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/iwan.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Iwan Prasetyo</h6>
@@ -595,7 +594,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/agustiniirmawati.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Agustini Irmawati</h6>
@@ -610,7 +609,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/andysetyawan.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Andy Setyawan</h6>
@@ -623,7 +622,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/sunsya.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Sunsya Putri Ratu Pertiwi</h6>
@@ -636,7 +635,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/vinarizkanti.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Vina Rizkanti</h6>
@@ -653,7 +652,7 @@
                                             <div class="col-lg-3 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/andrea.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h4>Andre</h4>
@@ -668,7 +667,7 @@
                                                 <div class="col-lg-2 col-md-6">
                                                     <div class="team-box no-hover">
                                                         <div class="image">
-                                                            <img src="/assets/images/team-7.jpg" alt="">
+                                                            <img src="/assets/images/claudia.png" alt="">
                                                         </div>
                                                         <div class="team-content gradient_bg">
                                                             <h6>Claudia Frederika Margaretha</h6>
@@ -681,7 +680,7 @@
                                                 <div class="col-lg-2 col-md-6">
                                                     <div class="team-box no-hover">
                                                         <div class="image">
-                                                            <img src="/assets/images/team-7.jpg" alt="">
+                                                            <img src="/assets/images/debby.png" alt="">
                                                         </div>
                                                         <div class="team-content gradient_bg">
                                                             <h6>Debby Yelviona</h6>
@@ -694,7 +693,7 @@
                                                 <div class="col-lg-2 col-md-6">
                                                     <div class="team-box no-hover">
                                                         <div class="image">
-                                                            <img src="/assets/images/team-7.jpg" alt="">
+                                                            <img src="/assets/images/harylasmana.png" alt="">
                                                         </div>
                                                         <div class="team-content gradient_bg">
                                                             <h6>Hary Lasmana</h6>
@@ -707,7 +706,7 @@
                                                 <div class="col-lg-2 col-md-6">
                                                     <div class="team-box no-hover">
                                                         <div class="image">
-                                                            <img src="/assets/images/team-7.jpg" alt="">
+                                                            <img src="/assets/images/imasfatimah.png" alt="">
                                                         </div>
                                                         <div class="team-content gradient_bg">
                                                             <h6>Imas Siti Fatimah</h6>
@@ -721,7 +720,7 @@
                                                 <div class="col-lg-2 col-md-6">
                                                     <div class="team-box no-hover">
                                                         <div class="image">
-                                                            <img src="/assets/images/team-7.jpg" alt="">
+                                                            <img src="/assets/images/profile.png" alt="">
                                                         </div>
                                                         <div class="team-content gradient_bg">
                                                             <h6>Saepul</h6>
@@ -734,7 +733,7 @@
                                                 <div class="col-lg-2 col-md-6">
                                                     <div class="team-box no-hover">
                                                         <div class="image">
-                                                            <img src="/assets/images/team-7.jpg" alt="">
+                                                            <img src="/assets/images/bimoadi.png" alt="">
                                                         </div>
                                                         <div class="team-content gradient_bg">
                                                             <h6>Bimo Adi Prianggoro</h6>
@@ -749,7 +748,7 @@
                                             <div class="col-lg-3 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/dhanu.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h4>Dhanu Sukma Utomo</h4>
@@ -764,7 +763,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/giyarsi.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Giyarsi</h6>
@@ -777,7 +776,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/dimas.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Dimas Anugrah Dwi Saputra</h6>
@@ -790,7 +789,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/afreza.jpeg" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Afreza Zail Fahmi</h6>
@@ -803,12 +802,12 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/aisyahhuwaida.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Aisyah Huwaida Siregar</h6>
                                                         <p>Anggota Bidang V</p>
-                                                        <p>Anggota Jawa Barat</p>
+                                                        <p>Badan Perlindungan Pekerja Migran</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -816,7 +815,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/novaliafajri.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Novalia Fajri</h6>
@@ -831,7 +830,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/luxmaning.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Luxmaning Hutaki Widiastari</h6>
@@ -843,7 +842,7 @@
                                             <div class="col-lg-2 col-md-6">
                                                 <div class="team-box no-hover">
                                                     <div class="image">
-                                                        <img src="/assets/images/team-7.jpg" alt="">
+                                                        <img src="/assets/images/hestiany.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h6>Hestiani</h6>
@@ -903,7 +902,7 @@
                                                     </div>
                                                     <div class="team-content gradient_bg">
                                                         <h4>Hj. Imas Sukmariah, S.Sos., MAP.</h4>
-                                                        <h5>Sekretaris Utama Badan Kepegawaian Negara</h5>
+                                                        <h5>Sekretaris Utama</h5>
                                                         <p>Badan Kepegawaian Negara</p>
 
                                                     </div>

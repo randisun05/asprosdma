@@ -1,4 +1,4 @@
-<!--Tentang Aspro -->  
+<!--Tentang Aspro -->
 <section id="video-bg" class="video-parallax mt-4">
    <div class="container">
       <div class="row">
@@ -12,13 +12,17 @@
                   <a href="/tentang-aspro" class="button btnsecondary">Selengkapnya</a>
             </div>
          </div>
-         <div class="col-md-5 col-sm-5 padding_bottom wow fadeInRight" data-wow-delay="350ms">
-            <div class="image hover-effect">
-                <div class="image top60"><img alt="SEO" src="/assets/images/galery4.jpg"></div>
+         <div class="col-md-5 col-sm-5 padding_bottom mt-4 wow fadeInRight" data-wow-delay="350ms">
+            <div class="image mt-2">
+                <video width="100%" controls>
+                    <source src="/assets/video/video1.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                {{-- <div class="image top60"><img alt="SEO" src="/assets/images/galery4.jpg"></div> --}}
             </div>
          </div>
       </div>
    </div>
 </section>
 
-<!--Tentang Aspro ends-->  
+<!--Tentang Aspro ends-->
