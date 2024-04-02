@@ -81,6 +81,7 @@ class RegistrationController extends Controller
         'position.required' => 'Jabatan harus diisi.',
         'level.required' => 'Jenjang harus diisi.',
         'document_jab.required' => 'SK jabatan harus diisi.',
+        'document_jab.max' => 'Ukuran Dokumen tidak boleh lebih dari 2MB.',
 
     ]);
 
