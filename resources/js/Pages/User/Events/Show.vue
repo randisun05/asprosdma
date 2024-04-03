@@ -43,7 +43,7 @@
 
                                 <div v-html="event.body" style="text-align:justify;text-justify: "></div>
                                 <div class="text-center">
-                                    <button @click.prevent="join(event.id)"
+                                    <button v-if="event.status === 'active'" @click.prevent="join(event.id)"
                                         class="button btnprimary border-0 me-2 mt-4"> Join </button>
                                 </div>
                             </div>

@@ -94,6 +94,10 @@
                                     class="button btnprimary" type="button">
                                 Join
                                 </Link>
+                                <Link v-else :href="`/user/events/${event.slug}`" title="join"
+                                    class="button btnprimary" type="button">
+                                View
+                                </Link>
                             </div>
                         </div>
                     </div>
