@@ -13,7 +13,7 @@
                     </Link>
                 </li>
 
-                <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/registration') }">
+                <li v-if="$page.props.auth.user.role === 'keanggotaan' && 'administrator'" class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/registration') }">
                     <Link href="/admin/registration" class="nav-link d-flex justify-content-between">
                     <span>
                         <span class="sidebar-icon">
@@ -24,7 +24,7 @@
                     </Link>
                 </li>
 
-                <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/member') }">
+                <li v-if="$page.props.auth.user.role === 'keanggotaan' || $page.props.auth.user.role === 'administrator'" class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/member') }">
                     <Link href="/admin/member" class="nav-link d-flex justify-content-between">
                     <span>
                         <span class="sidebar-icon">
@@ -35,7 +35,7 @@
                     </Link>
                 </li>
 
-                <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/posts') }">
+                <li v-if="$page.props.auth.user.role === 'humas' || $page.props.auth.user.role === 'administrator'" class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/posts') }">
                     <Link href="/admin/posts" class="nav-link d-flex justify-content-between">
                     <span>
                         <span class="sidebar-icon">
@@ -46,7 +46,7 @@
                     </Link>
                 </li>
 
-                <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/events') }">
+                <li v-if="$page.props.auth.user.role === 'humas' || $page.props.auth.user.role === 'administrator'" class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/events') }">
                     <Link href="/admin/events" class="nav-link d-flex justify-content-between">
                     <span>
                         <span class="sidebar-icon">
@@ -57,7 +57,7 @@
                     </Link>
                 </li>
 
-                <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/medias') }">
+                <li v-if="$page.props.auth.user.role === 'humas' || $page.props.auth.user.role === 'administrator'" class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/medias') }">
                     <Link href="/admin/medias" class="nav-link d-flex justify-content-between">
                     <span>
                         <span class="sidebar-icon">
@@ -68,7 +68,7 @@
                     </Link>
                 </li>
 
-                <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/merchans') }">
+                <li v-if="$page.props.auth.user.role === 'humas' || $page.props.auth.user.role === 'administrator'" class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/merchans') }">
                     <Link href="/admin/merchans" class="nav-link d-flex justify-content-between">
                     <span>
                         <span class="sidebar-icon">

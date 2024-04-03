@@ -122,7 +122,7 @@ class PublicController extends Controller
     public function sejarah()
     {
         return inertia('Public/Website/About/Sejarah', [
-            'title' => "Sejarah Terbentuknya Aspro SDMAmys",
+            'title' => "Sejarah Terbentuknya Aspro SDMA",
         ]);
     }
 

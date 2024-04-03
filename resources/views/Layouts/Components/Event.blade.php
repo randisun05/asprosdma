@@ -34,9 +34,12 @@
                                             </ul>
                                             <div class="text-center">
                                                 @if($event->status == 'active')
-                                                <a href="/events/{{ $event->slug }}" title="join" class="button btnprimary" type="button">Join</a>
+                                                    <a href="/events/{{ $event->slug }}" title="join" class="button btnprimary" type="button">Join</a>
+                                                @else
+                                                    <a href="/events/{{ $event->slug }}" title="join" class="button btnprimary" type="button">View</a>
                                                 @endif
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>

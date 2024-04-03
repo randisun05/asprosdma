@@ -80,11 +80,8 @@
                                         <td class="text-center">
                                             <Link :href="`/admin/posts/${post.id}`" title="view" class="btn btn-sm btn-primary border-0 shadow me-2" type="button"><i class="fa fa-eye fa-lg" aria-hidden="true"></i></Link>
                                             <button @click="handleApprove(post.id)" title="setuju untuk publish" class="btn btn-sm btn-success border-0 shadow me-2" type="button"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i></button>
-                                            <Link v-if="post.member_id === 1" :href="`/admin/posts/${post.id}/edit`" title="edit" class="btn btn-sm btn-warning border-0 shadow me-2">
+                                            <Link href="`/admin/posts/${post.id}/edit`" title="edit" class="btn btn-sm btn-warning border-0 shadow me-2">
                                             <i class="fa fa-pencil fa-lg" aria-hidden="true"></i></Link>
-                                            <Link v-if="post.member_id !== 1" @click="handleReturn(post.id)" title="kembalikan" class="btn btn-sm btn-warning border-0 shadow me-2">
-                                            <i class="fa fa-recycle fa-lg" aria-hidden="true"></i>
-                                            </Link>
                                             <button @click="handleLimited(post.id)" title="setuju untuk limited publish" class="btn btn-sm btn-success border-0 shadow me-2" type="button"><i class="fa fa-user-circle fa-lg" aria-hidden="true"></i></button>
                                             <button @click="handleReject(post.id)" title="tolak" class="btn btn-sm btn-danger border-0 shadow me-2"><i class="fa fa-times-circle fa-lg" aria-hidden="true"></i></button>
                                         </td>

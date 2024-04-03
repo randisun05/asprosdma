@@ -34,7 +34,7 @@
                  <p>Kami akan senang hati membaca/mendengar pertanyaan, masukan, atau keinginan berkolaborasi Anda. Tim kami siap membantu!</p>
             </div>
         </div>
-         <div class="col-md-6 col-sm-12 margin_bottom our-address">
+         <div class="col-md-6 col-sm-12 margin_bottom our-address heading_space wow fadeInUp">
            <h5>Alamat Kami</h5>
             <p>Kantor Badan Kepegawaian Negara Pusat, Gedung II, Lantai 6, Jl. Mayor Jendral Sutoyo No.12 4, RT.4/RW.14, Cililitan, Kec. Kramat jati, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13640 </p>
                <div class="col-md-6 col-sm-12 our-address top20">
