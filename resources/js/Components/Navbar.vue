@@ -22,8 +22,7 @@
                 </div>
             </a>
                     <ul class="dropdown-menu" aria-labelledby="sidemenu_toggle">
-                        <Link class="dropdown-item d-flex align-items-center" href="/setting" as="button">
-                        Setting
+                        <Link v-if="$page.props.auth.user.role === 'administrator'" href="/admin/setting" class="dropdown-item d-flex align-items-center" role="button">Setting
                         </Link>
                         <Link class="dropdown-item d-flex align-items-center" href="/logout" method="POST" as="button">
                         Logout

@@ -20,17 +20,16 @@
       </div>
    </div>
 </section>
-<!--page Header ends--> 
- 
+<!--page Header ends-->
 
 <section id="registration" class="">
    <div class="container">
       <div class="row d-flex justify-content-center">
          <div class="col-lg-12 col-md-12 col-sm-10">
             <div class="logincontainer">
-               <h3 class="darkcolor bottom35 text-center">Terimakasih {{ form.name }} telah melakukan registrasi</h3>
-               <h4 class="darkcolor bottom35 text-left">Kami telah mengirimkan informasi registrasi ke email {{ form.email }}</h4>
-               <h4 class="darkcolor bottom35 text-left">Mohon untuk mengecek kotak masuk atau spam email anda</h4>
+                <h3 class="darkcolor bottom35 text-center">Terimakasih {{ form.name }} Telah Melakukan Registrasi</h3>
+               <h4 class="darkcolor bottom35 text-left">Kami akan melakukan verifikasi terhadap data yang anda kirim, mohon untuk mengecek kotak masuk atau spam email anda secara berkala. </h4>
+               <h4 class="darkcolor bottom35 text-left"><strong>Waspada terhadap berbagai penipuan yang mengatasnamakan Asosiasi Profesi SDM Aparatur (Aspro SDMA).</strong></h4>
                <h4 class="darkcolor bottom35 text-left">Jika anda mendapatkan kendala silakan <a href="/kontak-kami"><u>hubungi kami.</u></a></h4>
                <div class="text-center mt-4"> <Link :href="'/registration'" class="btn btn-md btn-primary border-0 shadow" type="button">Kembali</Link></div>
             </div>
@@ -38,7 +37,6 @@
       </div>
    </div>
 </section>
-
 
 </template>
 
@@ -80,7 +78,7 @@
             register: Object,
 
         },
-        
+
         //define composition API
         setup(props) {
 
@@ -91,7 +89,7 @@
                 'email':props.register.email,
             });
 
-        
+
             //return form state and submit method
             return {
                 form,

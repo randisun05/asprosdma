@@ -31,15 +31,31 @@
                   <div class="row">
                     <div class="col-md-6 col-sm-6">
                         <label for="agency" class="ms-4">Instansi</label>
-                        <div class="form-group bottom35 mt-1">
-                            <input type="text" class="form-control" v-model="form.agency" @input="searchAgencies" placeholder="Masukkan nama instansi" />
-                            <ul v-if="form.agency && searchResults.length" class="list-group" style="position: absolute; width: 100%; z-index: 999; overflow-y: auto; max-height: 200px;">
-                                <div class="col-md-4 col-sm-4">
-                                <li class="list-group-item" v-for="(result, index) in searchResults" :key="index" @click="selectAgency(result)">{{ result }}</li>
-                                </div>
-                            </ul>
-                            <div v-if="errors.agency" class="alert alert-danger mt-2">{{ errors.agency }}</div>
-                        </div>
+                                    <div class="form-group bottom35 mt-1">
+                                        <div class="position-relative" ref="dropdownWrapper">
+                                            <div class="form-group mt-1">
+                                                <input type="text" class="form-control" placeholder="Pilih Instansi"
+                                                    v-model="form.agency" @click="toggleSearch" readonly>
+                                            </div>
+                                            <div v-if="showDropdown" class="dropdown-menu position-absolute w-100">
+                                                <input type="text" class="form-control mb-2" placeholder="Cari Instansi"
+                                                    v-model="searchInstansi">
+                                                <div class="dropdown-item-list" v-if="filteredInstansis.length > 0">
+                                                    <button v-for="(instansi, index) in filteredInstansis" :key="index"
+                                                        class="dropdown-item" @click="selectInstansi(instansi)">
+                                                        {{ instansi.title }}
+                                                    </button>
+                                                </div>
+                                                <template v-else>
+                                                    <div class="dropdown-item disabled">Instansi tidak ditemukan</div>
+                                                </template>
+
+                                            </div>
+                                        </div>
+                                        <div v-if="errors.agency" class="alert alert-danger mt-2">
+                                            {{ errors.agency }}
+                                        </div>
+                                    </div>
                     </div>
 
 
@@ -85,7 +101,7 @@
                         </span>
                         <div class="form-group bottom35 mt-1">
                                 <input type="number" class="form-control" v-model="form.total" placeholder="Masukan Jumlah Data" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
-                            <div v-if="errors.agency" class="alert alert-danger mt-2">
+                            <div v-if="errors.total" class="alert alert-danger mt-2">
                                 {{ errors.total }}
                             </div>
                         </div>
@@ -117,7 +133,7 @@
                                 Saya menyetujui peraturan organisasi.
                             </label>
                             </button>
-                            <div v-if="errors.term" class="col-md-4 alert alert-danger mt-2">
+                            <div v-if="errors.term" class="col-md-5 alert alert-danger mt-2">
                                 {{ errors.term }}
                             </div>
                         </div>
@@ -155,50 +171,65 @@
    </div>
 </section>
 
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Peraturan Organisasi</h5>
-      </div>
-      <div class="modal-body">
-        <p>Sesuai dalam ART Aspro SDMA:</p>
-        <p>Pasal 18 Kewajiban dan Hak Anggota</p>
-                <p>(1) Anggota Aspro SDMA berkewajiban untuk:</p>
-                <ol type="a">
-                    <li>Menjaga dan menjunjung tinggi martabat serta kehormatan Aspro SDMA;</li>
-                    <li>Mematuhi Anggaran Dasar, Anggaran Rumah Tangga, serta peraturan keputusan organisasi;</li>
-                    <li>Mematuhi kode etik dan kode perilaku Aspro SDMA;</li>
-                    <li>Berpartisipasi aktif dalam kegiatan Aspro SDMA; dan</li>
-                    <li>Membayar iuran anggota bagi Anggota Biasa dan Luar Biasa.</li>
-                </ol>
-                <p>(2) Hak Anggota Biasa:</p>
-                <ul>
-                    <li>Memperoleh layanan organisasi;</li>
-                    <li>Memperoleh hak keterbukaan informasi terkait operasional organisasi;</li>
-                    <li>Memilih dan dipilih sebagai pengurus; dan</li>
-                    <li>Memberikan masukan dan saran kepada pengurus.</li>
-                </ul>
-                <p>(3) Hak Anggota Luar Biasa:</p>
-                <ul>
-                    <li>Memperoleh layanan organisasi;</li>
-                    <li>Memberikan masukan dan saran kepada pengurus;</li>
-                    <li>Memilih pengurus.</li>
-                </ul>
-                <p>(4) Hak Anggota Kehormatan:</p>
-                <ul>
-                    <li>Memperoleh layanan organisasi;</li>
-                    <li>Memberikan masukan dan saran kepada pengurus.</li>
-                </ul>
-      </div>
-      <div class="modal-footer">
-        <button type="checkbox" class="btn btn-primary" data-bs-dismiss="modal">Saya Setuju</button>
+ <!-- Modal -->
+ <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Peraturan Organisasi</h5>
+                </div>
+                <div class="modal-body">
+                    <p>Kewajiban dan Hak Anggota sesuai dengan Pasal 18 Anggaran Rumah Tangga Aspro SDMA adalah sebagai
+                        berikut:</p>
+                    <strong>Kewajiban:</strong>
+                    <ul class="mb-2">
+                        <p class="mb-0">1. Menjaga dan menjunjung tinggi martabat serta kehormatan Aspro SDMA;</p>
+                        <p class="mb-0">2. Mematuhi Anggaran Dasar, Anggaran Rumah Tangga, serta peraturan keputusan
+                            organisasi;
+                        </p>
+                        <p class="mb-0">3. Mematuhi kode etik dan kode perilaku Aspro SDMA;</p>
+                        <p class="mb-0">4. Berpartisipasi aktif dalam kegiatan Aspro SDMA; dan</p>
+                        <p class="mb-0">5. Membayar iuran anggota bagi Anggota Biasa dan Luar Biasa.</p>
+                    </ul>
+                    <strong>Hak:</strong>
 
-      </div>
+                    <ul class="mb-2">
+                        <p class="mb-0">1. Memperoleh layanan organisasi;</p>
+                        <p class="mb-0">2.Memperoleh hak keterbukaan informasi terkait operasional organisasi;</p>
+                        <p class="mb-0">3. Memilih dan dipilih sebagai pengurus; dan</p>
+                        <p class="mb-0">4. Memberikan masukan dan saran kepada pengurus.</p>
+                    </ul>
+
+                    <strong class="mt-2">DISCLAIMER</strong>
+                    <p style="text-align: justify;">Seluruh informasi, keterangan dan dokumen formulir pendaftaran
+                        keanggotaan Aspro SDMA yang disampaikan melalui website https://asprosdma.id/ Asosiasi Profesi
+                        Jabatan Fungsional Sumber Daya Manusia Aparatur (Aspro SDMA) yaitu informasi dan/atau keterangan
+                        yang merupakan alat bukti hukum yang sah, karenanya Dokumen Elektronik tersebut bersifat
+                        mengikat.
+                        Mengacu pada Pasal 5 UU ITE No. 11 Tahun 2008 mengenai Informasi, Dokumen, dan Tanda Tangan
+                        Elektronik.</p>
+                    <p style="text-align: justify;">Sehubungan dengan Dokumen Elektronik merupakan data yang diberikan
+                        oleh
+                        pengguna dan dengan ini pengguna memberikan jaminan atas kekinian, keakuratan, dan kelengkapan,
+                        atau
+                        keandalan informasi yang diberikan.</p>
+                    <p style="text-align: justify;">Oleh karenanya, segala hal yang berkaitan dengan diterimanya
+                        dan/atau
+                        dipergunakannya Dokumen Elektronik tersebut sebagai data yang diberikan oleh pengguna merupakan
+                        tanggung jawab pribadi atas segala risiko yang mungkin timbul.</p>
+                    <p style="text-align: justify;">Sehubungan dengan risiko dan tanggung jawab pribadi atas Dokumen
+                        Elektronik, pengguna dengan ini menyetujui untuk melepaskan segala tanggung jawab dan risiko
+                        hukum
+                        kepada Aspro SDMA atas diterimanya dan/atau dipergunakannya Dokumen Elektronik tersebut.</p>
+                    <p style="text-align: right;"><strong>Bidang Hukum dan Advokasi</strong></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="checkbox" class="btn btn-primary" data-bs-dismiss="modal">Saya Setuju</button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
 
 
@@ -228,6 +259,61 @@
 
     export default {
 
+        data() {
+        return {
+            searchInstansi: '',
+            showDropdown: false,
+            form: {
+                term: false // Default value of the checkbox
+            }
+        };
+    },
+
+    // computed property to filter instansis based on search input
+    computed: {
+        filteredInstansis() {
+            return this.instansis.filter(instansi =>
+                instansi.title.toLowerCase().includes(this.searchInstansi.toLowerCase())
+            );
+        }
+    },
+
+    methods: {
+        // method to toggle dropdown visibility
+        toggleSearch() {
+            this.showDropdown = !this.showDropdown;
+            if (this.showDropdown) {
+                // Menambahkan event listener ke elemen body
+                document.body.addEventListener('click', this.closeDropdownOutside);
+            } else {
+                // Menghapus event listener dari elemen body
+                document.body.removeEventListener('click', this.closeDropdownOutside);
+            }
+        },
+
+        // method to close dropdown when clicked outside
+        closeDropdownOutside(event) {
+            if (!this.$refs.dropdownWrapper.contains(event.target)) {
+                this.showDropdown = false;
+                document.body.removeEventListener('click', this.closeDropdownOutside);
+            }
+        },
+
+        // method to select an instansi from dropdown
+        selectInstansi(instansi) {
+            this.form.agency = instansi.title;
+            this.searchInstansi = ''; // reset search input after selection
+            this.showDropdown = false; // hide dropdown after selection
+        },
+
+        openModal() {
+            if (!this.form.term) {
+                // Show modal only if the checkbox is not checked
+                $('#staticBackdrop').modal('show');
+            }
+        }
+    },
+
         //layout
         layout: LayoutWebsite,
 
@@ -240,7 +326,8 @@
         //props
         props: {
             errors: Object,
-            session: Object
+            session: Object,
+            instansis: Array
         },
 
         //define composition API
@@ -258,29 +345,6 @@
                 term: ''
             });
 
-              // Define searchResults reactive variable to store search results
-              const searchResults = reactive([]);
-            // Method to search agencies based on input
-
-                const searchAgencies = async () => {
-                            try {
-                            const response = await fetch('https://api.sheety.co/6be80dfe79437b6dcf36a18e88b21c5b/permintaanNoSertifikat/instansi');
-                            const data = await response.json();
-                            if (data && data.instansi) {
-                                // Extract only the name of the institution
-                                const names = data.instansi.map(item => item.namaInstansi.toLowerCase());
-                                // Filter names based on the input value
-                                searchResults.splice(0, searchResults.length, ...names.filter(name => name.includes(form.agency.toLowerCase())));
-                            }
-                            } catch (error) {
-                            console.error('Error searching agencies:', error);
-                            }
-                            };
-                            const selectAgency = (agency) => {
-                                form.agency = agency;
-                                // Clear searchResults setelah memilih instansi
-                                searchResults.splice(0, searchResults.length);
-                            };
 
             //submit method
             const submit = () => {
@@ -345,9 +409,6 @@
                 updateDocument,
                 refreshCaptcha,
                 code,
-                searchResults,
-                searchAgencies,
-                selectAgency,
             };
 
         }

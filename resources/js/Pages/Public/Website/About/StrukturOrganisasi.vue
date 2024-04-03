@@ -115,7 +115,7 @@
                                                     <div class="team-content gradient_bg">
                                                         <h4 class="">Kurnia Dianandari</h4>
                                                         <h5 class="mt-1">Bendahara II</h5>
-                                                        <p>Provinsi Provinsi DKI Jakarta</p>
+                                                        <p>Pemerintah Provinsi DKI Jakarta</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -424,7 +424,7 @@
                                                     <div class="team-content gradient_bg">
                                                         <h4>FX. Sunaryanta</h4>
                                                         <h5>Ketua Bidang Hukum dan Advokasi</h5>
-                                                        <p>Pemerintahan Kabupaten Pemalang</p>
+                                                        <p>Pemerintah Kabupaten Pemalang</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -646,8 +646,6 @@
                                             </div>
                                         </div>
 
-
-
                                         <div class="row justify-content-center mt-4">
                                             <div class="col-lg-3 col-md-6">
                                                 <div class="team-box no-hover">
@@ -655,7 +653,7 @@
                                                         <img src="/assets/images/andrea.png" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
-                                                        <h4>Andre</h4>
+                                                        <h4>Andrea</h4>
                                                         <h5>Ketua Bidang Sumber Pendanaan Organisasi</h5>
                                                         <p>Badan Pengawas Obat dan Makanan</p>
                                                     </div>
@@ -791,7 +789,7 @@
                                                         <img src="/assets/images/afreza.jpeg" alt="">
                                                     </div>
                                                     <div class="team-content gradient_bg">
-                                                        <h6>Afreza Zail Fahmi</h6>
+                                                        <h6>Afreza Zeil Fahmi Aziz</h6>
                                                         <p>Anggota Bidang V</p>
                                                         <p>Badan Kepegawaian Negara</p>
                                                     </div>
