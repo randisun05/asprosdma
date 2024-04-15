@@ -338,7 +338,7 @@ class PostController extends Controller
     {
 
         $request->validate([
-            'title' => 'required|unique',
+            'title' => 'required|unique:categories',
         ] , [
             'title.unique' => 'Kategori sudah tersedia'
         ]);

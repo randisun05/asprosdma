@@ -45,7 +45,7 @@
                             </div>
                             <div class="col-md-6 col-sm-6">
                                 <span>
-                                    Status AKTIF / tidak AKTIf
+                                    Status
                                 </span>
                                 <div class="form-group mt-1">
                                     <input type="text" class="form-control" v-model="form.status" disabled>
@@ -89,12 +89,21 @@
                             </div>
                         </div>
                         <div class="row ms-2 mb-3">
-                            <div class="col-md-6 col-sm-6">
+                            <div class="col-md-3 col-sm-3">
                                 <span>
                                     Jabatan
                                 </span>
                                 <div class="form-group mt-1">
                                     <input type="text" class="form-control" v-model="form.position" disabled>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-sm-3">
+                                <span>
+                                    level
+                                </span>
+                                <div class="form-group mt-1">
+                                    <input type="text" class="form-control" v-model="form.level" disabled>
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-6">
@@ -221,6 +230,7 @@ export default {
             subunit: props.data.subunit,
             location: props.data.location,
             position: props.data.position,
+            level: props.data.level,
             tmtpos: props.data.tmtpos,
             golru: props.data.golru,
             tmtgolru: props.data.tmtgolru,

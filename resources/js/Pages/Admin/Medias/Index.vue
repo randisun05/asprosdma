@@ -49,7 +49,7 @@
                                         <td style="width: 380px;"><img class="image" v-if="media.media" :src="getImageUrl(media.media)" alt="Gambar" /></td>
                                         <td>{{ media.title }}</td>
                                         <td>{{ media.event.title }}</td>
-                                        <td>storage/{{ media.media }}</td>
+                                        <td>/storage/{{ media.media }}</td>
                                         <td class="text-center" >
                                             <Link :href="`/admin/medias/${media.id}/edit`" class="btn btn-sm btn-warning border-0 shadow me-2" type="button" title="edit"><i class="fa fa-pencil"></i></Link>
                                             <button @click.prevent="destroy(media.id)" class="btn btn-sm btn-danger border-0 me-2"><i class="fa fa-trash" title="hapus"></i></button>

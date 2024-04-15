@@ -123,8 +123,8 @@
                                     <div class="form-group mt-1">
                                         <select type="form-select" class="form-control" v-model="form.position">
                                             <option value="" disabled>Pilih Jabatan</option>
-                                            <option value="Analis SDM Aparatur">Analis SDM Aparatur</option>
-                                            <option value="Pranata SDM Aparatur">Pranata SDM Aparatur</option>
+                                            <option value="Analis SDM Aparatur" :selected="form.position === 'Analis SDM Aparatur'">Analis SDM Aparatur</option>
+                                            <option value="Pranata SDM Aparatur" :selected="form.position === 'Pranata SDM Aparatur'">Pranata SDM Aparatur</option>
                                         </select>
                                         <div v-if="errors.position" class="alert alert-danger mt-2">
                                             {{ errors.position }}
@@ -135,21 +135,17 @@
                                     <span> Jenjang </span>
                                     <div class="form-group mt-1">
                                         <select type="form-select" class="form-control" v-model="form.level">
-                                            <template v-if="form.position === ''">
-                                                <option value="" disabled selected>Jabatan Harus Dipilih</option>
-                                            </template>
+                                            <option :value="''" disabled selected>Jabatan Harus Dipilih</option>
                                             <template v-if="form.position === 'Analis SDM Aparatur'">
-                                                <option value="" disabled>Pilih Jenjang</option>
-                                                <option value="Pertama">Ahli Pertama</option>
-                                                <option value="Muda">Ahli Muda</option>
-                                                <option value="Madya">Ahli Madya</option>
-                                                <option value="Utama">Ahli Utama</option>
+                                                <option value="Ahli Pertama" :selected="form.level === 'Ahli Pertama'">Ahli Pertama</option>
+                                                <option value="Ahli Muda" :selected="form.level === 'Ahli Muda'">Ahli Muda</option>
+                                                <option value="Ahli Madya" :selected="form.level === 'Ahli Madya'">Ahli Madya</option>
+                                                <option value="Ahli Utama" :selected="form.level === 'Ahli Utama'">Ahli Utama</option>
                                             </template>
-                                            <template v-if="form.position === 'Pranata SDM Aparatur'">
-                                                <option value="" disabled>Pilih Jenjang</option>
-                                                <option value="Terampil">Terampil</option>
-                                                <option value="Mahir">Mahir</option>
-                                                <option value="Penyelia">Penyelia</option>
+                                            <template v-else-if="form.position === 'Pranata SDM Aparatur'">
+                                                <option value="Terampil" :selected="form.level === 'Terampil'">Terampil</option>
+                                                <option value="Mahir" :selected="form.level === 'Mahir'">Mahir</option>
+                                                <option value="Penyelia" :selected="form.level === 'Penyelia'">Penyelia</option>
                                             </template>
                                         </select>
                                         <div v-if="errors.level" class="alert alert-danger mt-2">
@@ -157,6 +153,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-md-6 col-sm-6">
                                     <span> TMT Jabatan </span>
                                     <div class="form-group mt-1">

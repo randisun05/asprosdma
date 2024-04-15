@@ -23,7 +23,7 @@ class DashboardController extends Controller
         $regissub = Registration::where('status','submission')->count();
         $regispaid = Registration::where('status','paid')->count();
         $regisconfirm = Registration::where('status','confirm')->count();
-        $regisaccepted = Registration::where('status','accepted')->count();
+        $regisaccepted = Registration::where('status','approved')->count();
         $regisrejected = Registration::where('status','rejected')->count();
 
         $postsubmission = Post::where('status','submission')->count();

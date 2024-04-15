@@ -232,7 +232,7 @@ class RegistrationController extends Controller
             }
 
      //redirect
-     return redirect()->route('/')->with('success', 'Registrasi berhasil dikonfirmasi.');
+     return redirect()->route('/registration')->with('success', 'Registrasi berhasil dikonfirmasi.');
     }
 
     /**
@@ -261,7 +261,7 @@ class RegistrationController extends Controller
     Registration::where('id', $id)->update(['paid' => $paid, 'status' => "paid"]);
 
      //redirect
-     return redirect('/')->with('success','Data berhasil diupdate.');
+     return redirect('/registration')->with('success','Data berhasil diupdate.');
 
     }
 
@@ -327,6 +327,14 @@ class RegistrationController extends Controller
 
         ]);
     }
+
+    public function berhasil()
+    {
+        return inertia('Public/Registration/Berhasil', [
+
+        ]);
+    }
+
 
 
 }
