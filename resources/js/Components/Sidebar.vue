@@ -13,7 +13,7 @@
                     </Link>
                 </li>
 
-                <li v-if="$page.props.auth.user.role === 'keanggotaan' && 'administrator'" class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/registration') }">
+                <li v-if="$page.props.auth.user.role === 'keanggotaan' || $page.props.auth.user.role === 'administrator'" class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/registration') }">
                     <Link href="/admin/registration" class="nav-link d-flex justify-content-between">
                     <span>
                         <span class="sidebar-icon">
@@ -24,8 +24,8 @@
                     </Link>
                 </li>
 
-                <li v-if="$page.props.auth.user.role === 'keanggotaan' || $page.props.auth.user.role === 'administrator'" class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/member') }">
-                    <Link href="/admin/member" class="nav-link d-flex justify-content-between">
+                <li v-if="$page.props.auth.user.role === 'keanggotaan' || $page.props.auth.user.role === 'administrator'" class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/members') }">
+                    <Link href="/admin/members" class="nav-link d-flex justify-content-between">
                     <span>
                         <span class="sidebar-icon">
                            <i class="fa fa-user fa-lg" aria-hidden="true"></i>

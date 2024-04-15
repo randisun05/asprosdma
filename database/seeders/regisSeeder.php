@@ -22,7 +22,7 @@ class regisSeeder extends Seeder
             'contact'     => '008',
             'agency'     => 'bkn',
             'position'     => 'Analis SDM Aparatur',
-            'level'     => 'pertama',
+            'level'     => 'Ahli Pertama',
             'document_jab'     => 'aa',
             'status'     => 'submission',
         ]);
@@ -34,7 +34,7 @@ class regisSeeder extends Seeder
             'contact'     => '009',
             'agency'     => 'bkn',
             'position'     => 'Analis SDM Aparatur',
-            'level'     => 'muda',
+            'level'     => 'Ahli Muda',
             'document_jab'     => 'aa',
             'status'     => 'submission',
         ]);
@@ -46,7 +46,7 @@ class regisSeeder extends Seeder
             'contact'     => '0010',
             'agency'     => 'bkn',
             'position'     => 'Pranata SDM Aparatur',
-            'level'     => 'mahir',
+            'level'     => 'Mahir',
             'document_jab'     => 'aa',
             'status'     => 'submission',
         ]);
@@ -58,7 +58,7 @@ class regisSeeder extends Seeder
             'contact'     => '0011',
             'agency'     => 'bkn',
             'position'     => 'Pranata SDM Aparatur',
-            'level'     => 'penyelia',
+            'level'     => 'Penyelia',
             'document_jab'     => 'aa',
             'status'     => 'submission',
         ]);

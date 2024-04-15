@@ -106,7 +106,7 @@ export default {
         const submit = () => {
 
             //send data to server
-            Inertia.post('/admin/cetegory/store', {
+            Inertia.post('/admin/category/store', {
 
                 //data
                 title: form.title,

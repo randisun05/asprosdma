@@ -57,6 +57,7 @@
                                                     <Editor
                                                         api-key="g43acxcw0cg4k3asm2ttsaio4antpmaa2e3bckfo6y3kpaqg"
                                                         v-model="form.body"
+                                                        style="height: 500px;"
                                                         :init="{
                                                             menubar: false,
                                                             plugins: 'lists link image emoticons',

@@ -182,11 +182,11 @@ class DataProfileController extends Controller
                 'email' => 'required|email|',
                 'contact' => 'required|string|',
                 'gender' => 'required',
-                'address' => 'required',
-                'villages' => 'required',
-                'district' => 'required',
-                'regency' => 'required',
-                'province' => 'required',
+                // 'address' => 'required',
+                // 'villages' => 'required',
+                // 'district' => 'required',
+                // 'regency' => 'required',
+                // 'province' => 'required',
                 'religion' => 'required',
         ],[
             'nip.regex' => 'NIP harus terdiri dari 18 angka.',
@@ -205,11 +205,11 @@ class DataProfileController extends Controller
             'dob.required' => 'Tanggal lahir harus diisi.',
             'docid.required' => 'Jenis dokumen identitas harus diisi.',
             'nodocid.required' => 'Nomor dokumen identitas harus diisi.',
-            'address.required' => 'Alamat harus diisi.',
-            'villages.required' => 'Desa/Kelurahan harus diisi.',
-            'district.required' => 'Kecamatan harus diisi.',
-            'regency.required' => 'Kabupaten/Kota harus diisi.',
-            'province.required' => 'Provinsi harus diisi.',
+            // 'address.required' => 'Alamat harus diisi.',
+            // 'villages.required' => 'Desa/Kelurahan harus diisi.',
+            // 'district.required' => 'Kecamatan harus diisi.',
+            // 'regency.required' => 'Kabupaten/Kota harus diisi.',
+            // 'province.required' => 'Provinsi harus diisi.',
             'religion.required' => 'Agama harus diisi.',
         ]);
 
@@ -232,11 +232,11 @@ class DataProfileController extends Controller
                 'email' => $request->email,
                 'contact' => $request->contact,
                 'gender' => $request->gender,
-                'address' => $request->address,
-                'villages' => $request->villages,
-                'district' => $request->district,
-                'regency' => $request->regency,
-                'province' => $request->province,
+                // 'address' => $request->address,
+                // 'villages' => $request->villages,
+                // 'district' => $request->district,
+                // 'regency' => $request->regency,
+                // 'province' => $request->province,
                 'religion' => $request->religion,
         ]);
 
@@ -252,7 +252,6 @@ class DataProfileController extends Controller
 
     public function updatePosition(Request $request)
     {
-
 
           $request->validate([
                 'type' => 'required',
