@@ -8,7 +8,7 @@
             <div class="col-md-12 col-sm-6 col-xl-2 me-4">
                 <div class="row three-col-pricing">
                     <div class="price-table top60">
-                        <h3 class="bottom20 darkcolor">Pendaftar</h3>
+                        <h4 class="bottom20 darkcolor">Pendaftar</h4>
                         <div class="ammount">
                             <h2 class="defaultcolor">{{ regissub }}</h2>
                         </div>
@@ -19,7 +19,7 @@
             <div class="col-md-12 col-sm-6 col-xl-2 me-4">
                 <div class="row three-col-pricing">
                     <div class="price-table top60">
-                        <h3 class="bottom20 darkcolor">Permintaan Pembayaran</h3>
+                        <h4 class="bottom20 darkcolor">Permintaan Pembayaran</h4>
                         <div class="ammount">
                             <h2 class="defaultcolor">{{ sendpayment }}</h2>
                         </div>
@@ -30,7 +30,7 @@
             <div class="col-12 col-sm-6 col-xl-2 me-4">
                 <div class="row three-col-pricing">
                     <div class="price-table top60">
-                        <h3 class="bottom20 darkcolor">Upload Bukti Pembayaran</h3>
+                        <h4 class="bottom20 darkcolor">Upload Bukti Pembayaran</h4>
                         <div class="ammount">
                             <h2 class="defaultcolor">{{ regispaid }}</h2>
                         </div>
@@ -41,7 +41,7 @@
             <div class="col-12 col-sm-6 col-xl-2 me-4">
                 <div class="row three-col-pricing">
                     <div class="price-table top60">
-                        <h3 class="bottom20 darkcolor">Perbaikan</h3>
+                        <h4 class="bottom20 darkcolor">Perbaikan</h4>
                         <div class="ammount">
                             <h2 class="defaultcolor">{{ regisconfirm }}</h2>
                         </div>
@@ -52,7 +52,7 @@
             <div class="col-12 col-sm-6 col-xl-2 me-4">
                 <div class="row three-col-pricing">
                     <div class="price-table top60">
-                        <h3 class="bottom20 darkcolor">Selesai</h3>
+                        <h4 class="bottom20 darkcolor">Selesai</h4>
                         <div class="ammount">
                             <h2 class="defaultcolor">{{ regisaccepted }}</h2>
                         </div>
@@ -63,7 +63,7 @@
             <div class="col-12 col-sm-6 col-xl-2 me-4">
                 <div class="row three-col-pricing">
                     <div class="price-table top60">
-                        <h3 class="bottom20 darkcolor">Tolak</h3>
+                        <h4 class="bottom20 darkcolor">Tolak</h4>
                         <div class="ammount">
                             <h2 class="defaultcolor">{{ regisrejected }}</h2>
                         </div>
@@ -78,7 +78,7 @@
             <div class="col-12 col-sm-6 col-xl-2 me-4">
                 <div class="row three-col-pricing">
                     <div class="price-table top60">
-                        <h3 class="bottom20 darkcolor">Post Sub</h3>
+                        <h4 class="bottom20 darkcolor">Post Sub</h4>
                         <div class="ammount">
                             <h2 class="defaultcolor">{{ postsubmission }}</h2>
                         </div>
@@ -89,7 +89,7 @@
             <div class="col-12 col-sm-6 col-xl-2 me-4">
                 <div class="row three-col-pricing">
                     <div class="price-table top60">
-                        <h3 class="bottom20 darkcolor">Post Publish</h3>
+                        <h4 class="bottom20 darkcolor">Post Publish</h4>
                         <div class="ammount">
                             <h2 class="defaultcolor">{{ postpublis }}</h2>
                         </div>
@@ -100,7 +100,7 @@
             <div class="col-12 col-sm-6 col-xl-2 me-4">
                 <div class="row three-col-pricing">
                     <div class="price-table top60">
-                        <h3 class="bottom20 darkcolor">Total Event</h3>
+                        <h4 class="bottom20 darkcolor">Total Event</h4>
                         <div class="ammount">
                             <h2 class="defaultcolor">{{ event }}</h2>
                         </div>
@@ -111,7 +111,7 @@
             <div class="col-12 col-sm-6 col-xl-2 me-4">
                 <div class="row three-col-pricing">
                     <div class="price-table top60">
-                        <h3 class="bottom20 darkcolor">Active Event</h3>
+                        <h4 class="bottom20 darkcolor">Active Event</h4>
                         <div class="ammount">
                             <h2 class="defaultcolor">{{ eventactive }}</h2>
                         </div>
@@ -122,7 +122,7 @@
             <div class="col-12 col-sm-6 col-xl-2 me-4">
                 <div class="row three-col-pricing">
                     <div class="price-table top60">
-                        <h3 class="bottom20 darkcolor">Merchans</h3>
+                        <h4 class="bottom20 darkcolor">Merchans</h4>
                         <div class="ammount">
                             <h2 class="defaultcolor">{{ merchan }}</h2>
                         </div>
