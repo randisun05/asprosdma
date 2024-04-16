@@ -19,7 +19,7 @@
                         <span class="sidebar-icon">
                            <i class="fa fa-users fa-lg" aria-hidden="true"></i>
                         </span>
-                        <span class="sidebar-text ms-3">Registration</span>
+                        <span class="sidebar-text ms-3">Pendaftaran</span>
                     </span>
                     </Link>
                 </li>

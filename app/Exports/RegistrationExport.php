@@ -39,6 +39,7 @@ class RegistrationExport implements FromCollection, WithMapping, WithHeadings
             $datas->position,
             $datas->level,
             $datas->document_jab,
+            $datas->emailstatus,
         ] ;
     }
 
@@ -53,6 +54,7 @@ class RegistrationExport implements FromCollection, WithMapping, WithHeadings
            'Jabatan',
            'Jenjang',
            'Dokumen',
+           'Status',
         ] ;
     }
 }

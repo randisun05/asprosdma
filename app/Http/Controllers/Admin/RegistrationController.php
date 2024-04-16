@@ -41,13 +41,15 @@ class RegistrationController extends Controller
             ->orWhere('position', 'like', '%'. request()->q . '%')
             ->orWhere('admin', 'like', '%'. request()->q . '%')
             ->orWhere('emailstatus', 'like', '%'. request()->q . '%');
-        })->orderByRaw("CASE
+        })
+        ->orderByRaw("CASE
         WHEN status = 'submission' THEN 1
         WHEN status = 'paid' THEN 2
         WHEN status = 'confirm' THEN 3
         WHEN status = 'approved' THEN 4
         ELSE 5
-    END")->inRandomOrder()->paginate(10);
+    END")->orderBy('emailstatus', 'asc')
+    ->orderBy('created_at', 'asc')->paginate(10);
 
         //append query string to pagination links
         $registers->appends(['q' => request()->q]);

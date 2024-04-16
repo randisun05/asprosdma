@@ -20,14 +20,15 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $regissub = Registration::where('status','submission')->count();
+        $regissub = Registration::count();
         $regispaid = Registration::where('status','paid')->count();
         $regisconfirm = Registration::where('status','confirm')->count();
         $regisaccepted = Registration::where('status','approved')->count();
         $regisrejected = Registration::where('status','rejected')->count();
+        $sendpayment = Registration::where('emailstatus', '!=', 0)->count();
 
         $postsubmission = Post::where('status','submission')->count();
-        $postpublis = Post::where('status','accepted')->count();
+        $postpublis = Post::where('status','approved')->count();
 
         $event = Event::count();
         $eventactive = Event::where('status','active')->count();
@@ -46,6 +47,7 @@ class DashboardController extends Controller
             'event' => $event,
             'eventactive' => $eventactive,
             'merchan' => $merchan,
+            'sendpayment' => $sendpayment,
         ]);
     }
 }
