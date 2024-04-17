@@ -21,7 +21,7 @@ class DashboardController extends Controller
     public function __invoke(Request $request)
     {
         $regissub = Registration::count();
-        $regispaid = Registration::where('status','paid')->count();
+        $regispaid = Registration::whereNotNull('paid')->count();
         $regisconfirm = Registration::where('status','confirm')->count();
         $regisaccepted = Registration::where('status','approved')->count();
         $regisrejected = Registration::where('status','rejected')->count();
