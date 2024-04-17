@@ -129,15 +129,10 @@ class DataProfileController extends Controller
         ->where('main_id',$main->id)
         ->first();
 
-        $provinces = refProvince::get();
-        $cities = refCity::get();
-
         $instansis = instansi::get();
         return inertia('User/DataProfile/Edit', [
            'data' => $data,
            'instansis' => $instansis,
-           'provinces' => $provinces,
-           'cities' => $cities,
         ]);
     }
 
@@ -145,8 +140,6 @@ class DataProfileController extends Controller
     {
         $main = ProfileDataMain::where('nip',auth()->guard('member')->user()->nip)
         ->first();
-
-
 
         $data = ProfileDataPosition::with('main')
         ->where('main_id',$main->id)
@@ -177,8 +170,8 @@ class DataProfileController extends Controller
                 'lastedu' => 'required',
                 'place' => 'required',
                 'dob' => 'required',
-                'docid' => 'required',
-                'nodocid' => 'required',
+                // 'docid' => 'required',
+                // 'nodocid' => 'required',
                 'email' => 'required|email|',
                 'contact' => 'required|string|',
                 'gender' => 'required',
@@ -203,8 +196,8 @@ class DataProfileController extends Controller
             'lastedu.required' => 'Pendidikan terakhir harus diisi.',
             'place.required' => 'Tempat lahir harus diisi.',
             'dob.required' => 'Tanggal lahir harus diisi.',
-            'docid.required' => 'Jenis dokumen identitas harus diisi.',
-            'nodocid.required' => 'Nomor dokumen identitas harus diisi.',
+            // 'docid.required' => 'Jenis dokumen identitas harus diisi.',
+            // 'nodocid.required' => 'Nomor dokumen identitas harus diisi.',
             // 'address.required' => 'Alamat harus diisi.',
             // 'villages.required' => 'Desa/Kelurahan harus diisi.',
             // 'district.required' => 'Kecamatan harus diisi.',
@@ -216,7 +209,6 @@ class DataProfileController extends Controller
         $main = ProfileDataMain::where('nip',auth()->guard('member')->user()->nip)
         ->first();
 
-
         //update data main
         $main->update([
                 'nip' => $request->nip,
@@ -227,8 +219,8 @@ class DataProfileController extends Controller
                 'lastedu' => $request->lastedu,
                 'place' => $request->place,
                 'dob' => $request->dob,
-                'docid' => $request->docid,
-                'nodocid' => $request->nodocid,
+                // 'docid' => $request->docid,
+                // 'nodocid' => $request->nodocid,
                 'email' => $request->email,
                 'contact' => $request->contact,
                 'gender' => $request->gender,
@@ -240,12 +232,12 @@ class DataProfileController extends Controller
                 'religion' => $request->religion,
         ]);
 
-        $position = ProfileDataPosition::where('main_id',$main->id)
-        ->first();
+        // $position = ProfileDataPosition::where('main_id',$main->id)
+        // ->first();
 
-        $position->update([
-                'agency' => $request->agency,
-             ]);
+        // $position->update([
+        //         'agency' => $request->agency,
+        //      ]);
 
              return redirect()->route('user.profile')->with('success','data berhasil diupdate');
     }
@@ -299,8 +291,8 @@ class DataProfileController extends Controller
                 'tmtpos' => $request->tmtpos,
                 'golru' => $request->golru,
                 'tmtgolru' => $request->tmtgolru,
-                'wyear' => $request->wyear,
-                'wmonth' => $request->wmonth,
+                // 'wyear' => $request->wyear,
+                // 'wmonth' => $request->wmonth,
              ]);
 
              return redirect()->route('user.profile.jabatan');

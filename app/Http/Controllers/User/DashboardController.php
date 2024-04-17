@@ -10,6 +10,7 @@ use App\Models\Member;
 use App\Models\Merchan;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
 use App\Models\ProfileDataMain;
 use App\Models\ProfileDataPosition;
 use App\Http\Controllers\Controller;
@@ -27,6 +28,10 @@ class DashboardController extends Controller
 
         $user = Member::where('nip',$main->nip)
         ->first();
+
+        $date = Member::where('nip', $main->nip)->first('created_at');
+
+        $formattedDate = Carbon::parse($date->created_at)->format('d F Y');
 
 
 
@@ -56,12 +61,14 @@ class DashboardController extends Controller
         $merchans->appends(['q' => request()->q]);
         $posts->appends(['q' => request()->q]);
 
+
         return inertia('User/Dashboard/Index', [
             'profile' => $profile,
             'events' => $events,
             'merchans' => $merchans,
             'posts' => $posts,
-            'user' => $user
+            'user' => $user,
+            'formattedDate' => $formattedDate
         ]);
     }
 

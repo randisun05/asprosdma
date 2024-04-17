@@ -31,7 +31,7 @@
                         <div class="py-4" id="jabatan">
                             <div class="row ms-2 mb-3">
                                 <div class="col-md-6 col-sm-6">
-                                    <span> Jenis Pegawai PNS/NON PNS </span>
+                                    <span> Jenis Pegawai </span>
                                     <div class="form-group mt-1">
                                         <select type="form-select" class="form-control" v-model="form.type">
                                             <option value="" disabled selected>Pilih salah satu opsi</option>
@@ -190,7 +190,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row ms-2 mb-3">
+                            <!-- <div class="row ms-2 mb-3">
                                 <div class="col-md-6 col-sm-6">
                                     <span> Masa Kerja (Tahun) </span>
                                     <div class="form-group mt-1">
@@ -203,7 +203,7 @@
                                         <input type="number" class="form-control" v-model="form.wmonth" />
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="row d-flex justify-content-center py-5">
@@ -310,8 +310,8 @@ export default {
             tmtpos: props.data.tmtpos,
             golru: props.data.golru,
             tmtgolru: props.data.tmtgolru,
-            wyear: props.data.wyear,
-            wmonth: props.data.wmonth,
+            // wyear: props.data.wyear,
+            // wmonth: props.data.wmonth,
         });
 
         //submit method
@@ -332,8 +332,8 @@ export default {
                     tmtpos: form.tmtpos,
                     golru: form.golru,
                     tmtgolru: form.tmtgolru,
-                    wyear: form.wyear,
-                    wmonth: form.wmonth,
+                    // wyear: form.wyear,
+                    // wmonth: form.wmonth,
 
                 },
                 {
