@@ -232,7 +232,7 @@ class RegistrationController extends Controller
             }
 
      //redirect
-     return redirect()->route('/registration')->with('success', 'Registrasi berhasil dikonfirmasi.');
+     return redirect()->route('registration.berhasil')->with('success', 'Registrasi berhasil dikonfirmasi.');
     }
 
     /**
