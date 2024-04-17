@@ -150,7 +150,7 @@
                             </div>
                         </div>
 
-                        <div class="row ms-2 mb-3">
+                        <!-- <div class="row ms-2 mb-3">
                             <div class="col-md-6 col-sm-6">
                                 <span class="text-black">
                                     Jenis Dokumen Identitas
@@ -178,7 +178,7 @@
                                     {{ errors.nodocid }}
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="row ms-2 mb-3">
                             <div class="col-md-6 col-sm-6">
                                 <span class="text-black"> Kontak </span>
@@ -388,8 +388,8 @@ export default {
             lastedu: props.data.main.lastedu,
             place: props.data.main.place,
             dob: props.data.main.dob,
-            docid: props.data.main.docid,
-            nodocid: props.data.main.nodocid,
+            // docid: props.data.main.docid,
+            // nodocid: props.data.main.nodocid,
             gender: props.data.main.gender,
             religion: props.data.main.religion,
             agency: props.data.agency,
@@ -411,8 +411,8 @@ export default {
                     lastedu: form.lastedu,
                     place: form.place,
                     dob: form.dob,
-                    docid: form.docid,
-                    nodocid: form.nodocid,
+                    // docid: form.docid,
+                    // nodocid: form.nodocid,
                     email: form.email,
                     contact: form.contact,
                     gender: form.gender,

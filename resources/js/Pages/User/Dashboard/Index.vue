@@ -3,7 +3,7 @@
     <section id="member-card" class="padding_m mt-4">
         <div class="ms-5">
             <div class="row">
-                <div class="col-12 col-sm-6 col-xl-4 me-4">
+                <div class="col-12 col-sm-4 col-xl-4 me-4">
                     <div class="card shadow top60">
                         <div class="text-center">
                             <h4>Informasi Anggota</h4>
@@ -16,36 +16,44 @@
                                 <img v-else src="/assets/images/team-grey-1.jpg" alt="" />
                             </div> -->
                             <div class="col-sm-8">
-                                <div class="row py-1 ms-2 mb-2">
-                                    <div class="col-sm-3">
+                                <div class="row py-1 ms-2">
+                                    <div class="col-sm-4">
                                         <h5>No.</h5>
                                     </div>
-                                    <div class="col-sm-9">
+                                    <div class="col-sm-8">
                                         <h5>: {{ profile.main.nomember }}</h5>
                                     </div>
                                 </div>
-                                <div class="row py-1 ms-2 mb-2">
-                                    <div class="col-sm-3">
+                                <div class="row py-1 ms-2">
+                                    <div class="col-sm-4">
                                         <h5>NIP</h5>
                                     </div>
-                                    <div class="col-sm-9">
+                                    <div class="col-sm-8">
                                         <h5>: {{ profile.main.nip }}</h5>
                                     </div>
                                 </div>
-                                <div class="row py-1 ms-2  mb-2">
-                                    <div class="col-sm-3">
+                                <div class="row py-1 ms-2">
+                                    <div class="col-sm-4">
                                         <h5>Nama</h5>
                                     </div>
-                                    <div class="col-sm-9">
+                                    <div class="col-sm-8">
                                         <h5>: {{ profile.main.name }}</h5>
                                     </div>
                                 </div>
                                 <div class="row py-1 ms-2">
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-4">
                                         <h5>Instansi</h5>
                                     </div>
-                                    <div class="col-sm-9">
+                                    <div class="col-sm-8">
                                         <h5>: {{ profile.agency }}</h5>
+                                    </div>
+                                </div>
+                                <div class="row py-1 ms-2">
+                                    <div class="col-sm-4">
+                                        <h5>Tanggal</h5>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <h5>: {{ formattedDate }}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -241,6 +249,7 @@ export default {
         events: Object,
         merchans: Object,
         posts: Object,
+        formattedDate: Object
     },
 
     //inisialisasi composition API

@@ -37,7 +37,7 @@
                         <div class="row ms-2 mb-3">
                             <div class="col-md-6 col-sm-6">
                                 <span>
-                                    Jenis Pegawai PNS/NON PNS
+                                    Jenis Pegawai
                                 </span>
                                 <div class="form-group mt-1">
                                     <input type="text" class="form-control" v-model="form.type" disabled maxlength="16">
@@ -100,7 +100,7 @@
 
                             <div class="col-md-3 col-sm-3">
                                 <span>
-                                    level
+                                    Jenjang
                                 </span>
                                 <div class="form-group mt-1">
                                     <input type="text" class="form-control" v-model="form.level" disabled>
@@ -133,7 +133,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row ms-2 mb-3">
+                        <!-- <div class="row ms-2 mb-3">
                             <div class="col-md-6 col-sm-6">
                                 <span>
                                     Masa Kerja (Tahun)
@@ -150,7 +150,7 @@
                                     <input type="text" class="form-control" v-model="form.wmonth" disabled>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 

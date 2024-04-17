@@ -101,7 +101,7 @@
                         </div>
                     </div>
 
-                    <div class="row ms-2 mb-3">
+                    <!-- <div class="row ms-2 mb-3">
                         <div class="col-md-6 col-sm-6">
                             <span class="text-black">
                                 Jenis Dokumen Identitas
@@ -118,7 +118,7 @@
                                 <input type="text" class="form-control" v-model="form.nodocid" disabled />
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row ms-2 mb-3">
                         <div class="col-md-6 col-sm-6">
                             <span class="text-black"> Kontak </span>
