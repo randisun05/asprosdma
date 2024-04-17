@@ -19,11 +19,17 @@ class DataMembersController extends Controller
     {
 
         $datas = ProfileDataPosition::with('main')
-             ->when(request()->q, function($query) {
-                 $query->where('title', 'like', '%' . request()->q . '%');
-             })
-             ->latest()
-             ->paginate(10);
+    ->when(request()->q, function($query) {
+        $query->whereHas('main', function($query) {
+            $query->where('name', 'like', '%' . request()->q . '%')
+                  ->orWhere('agency', 'like', '%' . request()->q . '%')
+                  ->orWhere('nip', 'like', '%' . request()->q . '%');
+        });
+    })
+    ->latest()
+    ->paginate(10);
+
+
 
         $datas->appends(['q' => request()->q]);
 
