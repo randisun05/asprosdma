@@ -30,7 +30,6 @@
                                 <thead class="thead-dark">
                                     <tr class="border-0 text-center">
                                         <th class="border-0 rounded-start" style="width:5%">No.</th>
-                                        <th class="border-0">NIP</th>
                                         <th class="border-0">No Anggota</th>
                                         <th class="border-0">Nama</th>
                                         <th class="border-0">Jabatan</th>
@@ -42,7 +41,6 @@
                                 <tbody>
                                     <tr v-for="(data, index) in datas.data" :key="index">
                                         <td class="fw-bold text-center">{{ ++index + (datas.current_page - 1) * datas.per_page }}</td>
-                                        <td>{{ data.id }}</td>
                                         <td>{{ data.main.nomember}}</td>
                                         <td>{{ data.main.name }}</td>
                                         <td>{{ data.position }} {{ data.level }}</td>
