@@ -499,8 +499,7 @@ class RegistrationController extends Controller
             public function exportPaid()
             {
                 $paids = Registration::whereNotNull('paid')
-                    ->whereNotIn('status', ['approved'])
-                    ->get();
+                ->get();
 
                 return Excel::download(new RegistrationPaid($paids), 'Konfirmasi-'.Carbon::now().'.xlsx');
             }
