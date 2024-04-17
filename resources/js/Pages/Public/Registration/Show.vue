@@ -152,7 +152,7 @@
                         text: 'Konfirmasi Pembayaran Berhasil',
                         icon: 'success',
                         showConfirmButton: false,
-                        timer: 2000
+                        timer: 5000
                     });
                 },
             });
