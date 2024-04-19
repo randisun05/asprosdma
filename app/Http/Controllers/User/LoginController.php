@@ -65,12 +65,12 @@ class LoginController extends Controller
             'password' => [
                 'required',
                 'min:8',
-                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/',
+                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]+$/',
                 'confirmed',
                 // At least one lowercase, one uppercase, one number, and one special character
             ],
         ],[
-            'password.regex' => 'Password terdiri dari kombinasi huruf, angka dan karakter spesial, contoh:A5proSDM@',
+            'password.regex' => 'Password terdiri dari kombinasi huruf kapaital, huruf kecil, angka dan karakter spesial, contoh:A5proSDM@',
             'oldpassword.required' => 'Password lama harus diisi',
             'password.required' => 'Password baru harus diisi',
             'password.confirmed' => 'Konfirmasi password tidak sama',
