@@ -59,7 +59,7 @@
             <p>untuk diperhatikan!, informasi akun ini bersifat rahasia dan menjadi tanggung jawab pemilik akun.</p>
             <p>diwajibkan untuk merubah password pada saat login pertama anda, pada halaman setting.</p>
 
-            <p>Untuk menjaga silaturahmi, kami membuat Group Telegram 'Aspro SDMA’ Group ini khusus bagi PNS yang sudah mendapatkan Verivikasi Anggota Resmi Aspro SDMA.
+            <p>Untuk menjaga silaturahmi, kami membuat Group Telegram 'Aspro SDMA’ Group ini khusus bagi ASN yang sudah mendapatkan Verivikasi Anggota Resmi Aspro SDMA.
             Silakan diskusi, bertanya, dan sharing sesama Aktor Manajemen Sumber Daya Manusia Aparatur di Indonesia.
             Silakan bergabung melalui link ini: https://t.me/+TA6d0U4Tc-U5NGM1</p>
 

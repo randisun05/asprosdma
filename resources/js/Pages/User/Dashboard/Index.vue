@@ -3,7 +3,7 @@
     <section id="member-card" class="padding_m mt-4">
         <div class="ms-5">
             <div class="row">
-                <div class="col-12 col-sm-4 col-xl-4 me-4">
+                <div class="col-12 col-sm-6 col-xl-6 me-4">
                     <div class="card shadow top60">
                         <div class="text-center">
                             <h4>Informasi Anggota</h4>
