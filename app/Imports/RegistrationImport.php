@@ -17,8 +17,23 @@ class RegistrationImport implements ToModel, WithHeadingRow, WithValidation
     */
     public function model(array $row)
     {
-        
-        return new Registration([   
+        $documentJabPath = null;
+
+if (isset($row['document_jab'])) {
+    $documentJabPath = $row['document_jab']; // Path langsung dari Excel
+}
+
+// Jika ada path file, simpan ke penyimpanan dan dapatkan URL-nya
+if ($documentJabPath) {
+    // Copy file ke direktori penyimpanan
+    $documentJabFileName = basename($documentJabPath);
+    $storagePath = Storage::putFileAs('/documents', $documentJabPath, $documentJabFileName);
+
+    // Dapatkan URL file yang disimpan
+    $documentJab = str_replace('/storage', '', $storagePath);
+}
+
+        return new Registration([
             'nip' => (int) $row['nip'],
             'name' => $row['name'],
             'email' => $row['email'],
@@ -27,7 +42,9 @@ class RegistrationImport implements ToModel, WithHeadingRow, WithValidation
             'position' => $row['jabatan'],
             'level' => $row['jenjang'],
             'from' => "collective",
-        
+            'document_jab' => $documentJab,
+            'paid' => $documentJab,
+
         ]);
         // Membuat array data untuk dikembalikan
 // $data = [
@@ -38,12 +55,12 @@ class RegistrationImport implements ToModel, WithHeadingRow, WithValidation
 //     'agency' => $row['instansi'],
 //     'position' => $row['jabatan'],
 //     'level' => $row['jenjang'],
-//     'document_jab' => $documentJab, 
+//     'document_jab' => $documentJab,
 //     'paid' => $row['paid'],
 // ];
 
 // return $data;
-        
+
     }
 
     public function rules(): array
