@@ -6,7 +6,9 @@ use App\Models\Post;
 use App\Models\Event;
 use App\Models\Member;
 use App\Models\Category;
+use App\Models\Registration;
 use Illuminate\Http\Request;
+use App\Models\RegistrationGroup;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendEmailForgetPassword;
@@ -23,8 +25,19 @@ class PublicController extends Controller
     public function index()
     {
         $events = Event::whereNot('title','media')->latest()->take(3)->get();
+        $analisdone = Registration::where('position','Analis SDM Aparatur')->where('status','approved')->count();
+        $analisproses = Registration::where('position','Analis SDM Aparatur')->whereNot('status','approved')->whereNot('status','rejected')->count();
+        $pranatadone = Registration::where('position','Pranata SDM Aparatur')->where('status','approved')->count();
+        $pranataproses = Registration::where('position','Pranata SDM Aparatur')->whereNot('status','approved')->whereNot('status','rejected')->count();
+        $agencydone = Registration::distinct()->count('agency');
+
         return view('Index', [
-            "events" => $events
+            "events" => $events,
+            'analisdone' => $analisdone,
+            'analisproses' => $analisproses,
+            'pranatadone' => $pranatadone,
+            'pranataproses' => $pranataproses,
+            'agencydone' => $agencydone,
         ]);
     }
 

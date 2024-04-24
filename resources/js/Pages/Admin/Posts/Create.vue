@@ -59,8 +59,8 @@
                                                         style="height: 500px;"
                                                         :init="{
                                                             menubar: false,
-                                                            plugins: 'lists link image emoticons',
-                                                            toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons'
+                                                            plugins: 'lists link image emoticons media',
+                                                            toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons | media'
                                                         }"
                                                     />
                                                 </div>
