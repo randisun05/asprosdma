@@ -17,21 +17,21 @@ class RegistrationImport implements ToModel, WithHeadingRow, WithValidation
     */
     public function model(array $row)
     {
-        $documentJabPath = null;
+//         $documentJabPath = null;
 
-if (isset($row['document_jab'])) {
-    $documentJabPath = $row['document_jab']; // Path langsung dari Excel
-}
+// if (isset($row['document_jab'])) {
+//     $documentJabPath = $row['document_jab']; // Path langsung dari Excel
+// }
 
 // Jika ada path file, simpan ke penyimpanan dan dapatkan URL-nya
-if ($documentJabPath) {
-    // Copy file ke direktori penyimpanan
-    $documentJabFileName = basename($documentJabPath);
-    $storagePath = Storage::putFileAs('/documents', $documentJabPath, $documentJabFileName);
+// if ($documentJabPath) {
+//     // Copy file ke direktori penyimpanan
+//     $documentJabFileName = basename($documentJabPath);
+//     $storagePath = Storage::putFileAs('/documents', $documentJabPath, $documentJabFileName);
 
     // Dapatkan URL file yang disimpan
-    $documentJab = str_replace('/storage', '', $storagePath);
-}
+//     $documentJab = str_replace('/storage', '', $storagePath);
+// }
 
         return new Registration([
             'nip' => (int) $row['nip'],
@@ -42,8 +42,8 @@ if ($documentJabPath) {
             'position' => $row['jabatan'],
             'level' => $row['jenjang'],
             'from' => "collective",
-            'document_jab' => $documentJab,
-            'paid' => $documentJab,
+            'document_jab' => $row['document_jab'],
+            'paid' => $row['paid'],
 
         ]);
         // Membuat array data untuk dikembalikan
