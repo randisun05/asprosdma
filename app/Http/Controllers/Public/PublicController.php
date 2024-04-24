@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Public;
 
-use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\Event;
 use App\Models\Post;
+use App\Models\Event;
+use App\Models\Member;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendEmailForgetPassword;
 
 class PublicController extends Controller
 {
@@ -204,4 +207,38 @@ class PublicController extends Controller
             'title' => "Kontak Kami",
         ]);
     }
+
+    public function forgetPassword()
+    {
+        return inertia('User/Auth/Forget', [
+
+        ]);
+    }
+
+    public function emailforgetPassword(Request $request)
+    {
+
+        $request->validate([
+            'nip' => 'required',
+            'email' => 'required|email', // Tambahkan validasi email
+        ], [
+            'nip.required' => 'Nip harus diisi',
+            'email.required' => 'Email terdaftar harus diisi',
+            'email.email' => 'Format email tidak valid', // Pesan untuk validasi email
+        ]);
+
+        $data = Member::where('nip', $request->nip)->first();
+
+        // Periksa apakah data ditemukan dan email sesuai dengan yang dimasukkan pengguna
+        if ($data && $data->email === $request->email) {
+            Mail::to($data->email)->send(new SendEmailForgetPassword($data));
+            return back()->with('success', 'Email telah dikirimkan untuk reset password.');
+        }
+
+        // Jika data tidak ditemukan atau email tidak sesuai
+        return redirect()->back()->with('error','Data tidak sesuai.');
+
+
+    }
+
 }

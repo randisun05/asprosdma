@@ -511,5 +511,17 @@ class RegistrationController extends Controller
                 return Excel::download(new RegistrationExport($datas), 'DataRegistrasiPer-'.Carbon::now().'.xlsx');
             }
 
+            public function sendemailApprove($id)
+    {
+        $register = Registration::findOrFail($id);
+
+        Mail::to($register['email'])->send(new SendEmailAprrove($register));
+
+        Registration::where('id', $id)->increment('emailstatus');
+        //redirect
+        return redirect()->route('admin.registration.index');
+    }
+
+
 
 }

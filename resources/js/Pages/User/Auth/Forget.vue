@@ -1,7 +1,7 @@
 <template>
 
     <Head>
-        <title>Login Anggota</title>
+        <title>Lupa Password</title>
     </Head>
 
 
@@ -13,7 +13,7 @@
             <div class="page-titles text-center">
                <h2 class="whitecolor font-light bottom30"></h2>
                <ul class="breadcrumb justify-content-center">
-                 <li class="breadcrumb-item"><h3> Login Anggota</h3></li>
+                 <li class="breadcrumb-item"><h3>Lupa Password</h3></li>
                  <li class="breadcrumb-item active" aria-current="page"></li>
                </ul>
             </div>
@@ -29,7 +29,6 @@
       <div class="row d-flex justify-content-center">
          <div class="col-lg-4 col-md-6 col-sm-10">
             <div class="bglight logincontainer">
-               <h3 class="darkcolor bottom35">Masuk </h3>
                <div v-if="errors.message" class="alert alert-danger mt-2">
                     {{ errors.message }}
                     </div>
@@ -57,20 +56,18 @@
                         <div class="form-group bottom35">
                             <div class="input-group">
                                  <span class="input-group-text" id="basic-addon1">
-                                    <i class="fa fa-lock"></i>
+                                    <i class="fa fa-envelope"></i>
                                 </span>
-                                <input type="password" placeholder="Password" class="form-control" v-model="form.password">
+                                <input type="email" placeholder="Email Terdaftar" class="form-control" v-model="form.email">
                             </div>
-                            <div v-if="errors.password" class="alert alert-danger mt-2">
-                                {{ errors.password }}
+                            <div v-if="errors.email" class="alert alert-danger mt-2">
+                                {{ errors.email }}
                             </div>
                         </div>
                      </div>
 
                      <div class="col-sm-12">
-                        <button type="submit" class="button btnprimary">Login</button>
-                        <p class="top20 log-meta"> Belum Memiliki Akun? <u><a href="/registration">Daftar Sekarang</a></u> </p>
-                        <p class="top20 log-meta"> <u><a href="/forget-password">Lupa Password</a></u> </p>
+                        <button type="submit" class="button btnprimary">Reset</button>
                      </div>
                   </div>
                </form>
@@ -130,11 +127,10 @@
             const submit = () => {
 
                 //send data to server
-                Inertia.post('/user/login', {
-
+                Inertia.get('/forget-password/email', {
                     //data
                     nip: form.nip,
-                    password: form.password,
+                    email: form.email,
                 });
             }
 

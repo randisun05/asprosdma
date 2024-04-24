@@ -3,7 +3,7 @@
     <Head>
         <title>{{ title }}</title>
     </Head>
-  
+
  <!--page Header-->
 <section class="page-header parallaxie padding_top center-block">
    <div class="container">
@@ -20,7 +20,7 @@
       </div>
    </div>
 </section>
-<!--page Header ends--> 
+<!--page Header ends-->
 
 
 <section id="our-team-two" class="padding_m">
@@ -62,6 +62,18 @@
                </div>
             </div>
          </div>
+         <div class="col-lg-3 col-md-3">
+            <div class="team-box grey-shade top60">
+               <div class="image">
+                  <a href="/assets/excel/kode-etik-aspro.pdf" class="text-center mt-4" download="">
+                  <img src="assets/images/kodeetik.png" alt="">
+                  </a>
+               </div>
+               <div class="team-content darkcolor">
+                  <h4>Pedoman Kode Etik Dan Kode Prilaku Aspro SDMA</h4>
+               </div>
+            </div>
+         </div>
       </div>
    </div>
 </section>
@@ -98,7 +110,7 @@
         //register component
         components: {
             Head,
-            
+
         },
 
         //props
@@ -106,8 +118,8 @@
             title:Object
 
         },
-        
-       
+
+
 
     }
 

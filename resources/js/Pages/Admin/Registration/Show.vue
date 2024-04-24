@@ -104,13 +104,13 @@
                                 <a v-if="register.paid" :href="getImageUrl(register.paid)" target="_blank" class="badge bg-primary fs-5 ms-4">Paid</a>
                                 <span class="badge bg-warning fs-5 ms-4">{{ register.from }}</span>
                             </div>
-
                 </div>
                                 <div class="text-center">
-                            <button v-if="register.status !== 'approved' && register.status !== 'rejected'" @click="handleApprove(register.id)" class="btn btn-sm btn-success border-0 shadow me-2"><i class="fa fa-check-circle fa-lg me-1" aria-hidden="true"></i>Selesai</button>
+                            <button v-if="register.status !== 'rejected' && register.status !== 'approved'" @click="handleApprove(register.id)" class="btn btn-sm btn-success border-0 shadow me-2"><i class="fa fa-check-circle fa-lg me-1" aria-hidden="true"></i>Selesai</button>
                             <button v-if="register.status !== 'approved'" @click="handleConfirm(register.id)" class="btn btn-sm btn-warning border-0 shadow me-2"><i class="fa fa-question-circle fa-lg me-1" aria-hidden="true"></i>Perbaikan</button>
                             <button v-if="register.status !== 'approved' && register.status !== 'rejected'" @click="handleReject(register.id)" class="btn btn-sm btn-danger border-0 shadow me-2"><i class="fa fa-times-circle fa-lg me-1" aria-hidden="true"></i>Tolak</button>
                             <button v-if="register.status !== 'approved' && register.status !== 'rejected' && register.from !== 'collective'" @click="sendEmail(register.id)" class="btn btn-sm btn-primary border-0 shadow me-2"><i class="fa fa-envelope fa-lg me-1" aria-hidden="true"></i>Permintaan Pembayaran</button>
+                            <button v-if="register.status !== 'rejected' " @click="handleemailApprove(register.id)" class="btn btn-sm btn-success border-0 shadow me-2"><i class="fa fa-check-circle fa-lg me-1" aria-hidden="true"></i>Kirim Ulang Email Selesai</button>
                                 </div>
 
                     </div>
@@ -288,6 +288,32 @@
                 })
             }
 
+            const handleemailApprove = (id) => {
+            Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: "Anda akan kirim ulang email!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Send it!'
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+
+                        Inertia.get(`/admin/registration/${id}/email-approve`);
+
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Status Sent!.',
+                            icon: 'success',
+                            timer: 2000,
+                            showConfirmButton: false,
+                        });
+                    }
+                })
+            }
+
         const getDocumentUrl = (documentName) => {
             return `/storage/${documentName}`;
         }
@@ -305,7 +331,8 @@ return {
     handleReject,
     handleConfirm,
     getImageUrl,
-    sendEmail
+    sendEmail,
+    handleemailApprove
 }
 
 }

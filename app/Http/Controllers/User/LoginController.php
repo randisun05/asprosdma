@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\Else_;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Intervention\Image\Colors\Rgb\Channels\Red;
 
 class LoginController extends Controller
@@ -75,6 +76,37 @@ class LoginController extends Controller
             'password.required' => 'Password baru harus diisi',
             'password.confirmed' => 'Konfirmasi password tidak sama',
             'oldpassword.min:8' => 'Password baru minimal 8 karakter'
+        ]);
+
+        // Check if the old password matches
+            if (!$member || !Hash::check($request->oldpassword, $member->password)) {
+                return back()->withErrors(['oldpassword' => 'Password lama yang Anda masukkan tidak cocok']);
+            }
+
+            // Hash the new password
+            $newPasswordHash = Hash::make($request->password);
+
+            // Update the member's password
+            $member->update([
+                'password' => $newPasswordHash,
+            ]);
+
+            return redirect()->route('user.dashboard')->with('success', 'Password berhasil diperbarui.');
+    }
+
+
+    public function forgetPassword(Request $request)
+    {
+
+        return $request;
+
+        $request->validate([
+            'nip' => 'required',
+            'email' => 'required',
+        ],[
+            'nip.required' => 'Nip harus diisi',
+            'email.required' => 'Email terdaftar harus diisi',
+
         ]);
 
         // Check if the old password matches

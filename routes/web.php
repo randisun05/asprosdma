@@ -48,6 +48,7 @@ Route::prefix('admin')->group(function() {
         Route::get('/registration/group/{id}/reject', [\App\Http\Controllers\Admin\RegistrationController::class, 'rejectGroup'])->name('admin.registration.group.reject');
         Route::post('/registration/import', [\App\Http\Controllers\Admin\RegistrationController::class, 'importStore'])->name('admin.registration.import.store');
         Route::get('/registration/import', [\App\Http\Controllers\Admin\RegistrationController::class, 'import'])->name('admin.registration.import');
+        Route::get('/registration/{id}/email-approve', [\App\Http\Controllers\Admin\RegistrationController::class, 'Sendemailapprove'])->name('admin.registration.email.approve');
         Route::get('/registration/{id}/approve', [\App\Http\Controllers\Admin\RegistrationController::class, 'approve'])->name('admin.registration.approve');
         Route::get('/registration/{id}/confirm', [\App\Http\Controllers\Admin\RegistrationController::class, 'confirm'])->name('admin.registration.confirm');
         Route::post('/registration/{id}/paid', [\App\Http\Controllers\Admin\RegistrationController::class, 'paid'])->name('admin.registration.paid');
@@ -159,12 +160,15 @@ Route::get('/events/{event:slug}', [\App\Http\Controllers\Public\EventsControlle
 Route::resource('/events', \App\Http\Controllers\Public\EventsController::class);
 Route::resource('/berita', \App\Http\Controllers\Public\PostsController::class);
 Route::resource('/merchans', \App\Http\Controllers\Public\MerchansController::class);
+Route::get('/forget-password', [\App\Http\Controllers\Public\PublicController::class, 'forgetPassword'])->name('forget.password');
+Route::get('/forget-password/email', [\App\Http\Controllers\Public\PublicController::class, 'emailforgetPassword'])->name('forget.password.email');
 
+// Route::get('/forget-password/email', [\App\Http\Controllers\User\LoginController::class, 'emailforgetPassword'])->name('forget.password.email');
 
 Route::get('/documents/{filename}', function ($filename) {
     $path = storage_path('app/public/document/' . $filename);
 
-    if (!file_exists($path)) {
+    if (!file_exists($path)) {//
         abort(404);
     }
 
