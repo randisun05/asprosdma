@@ -27,7 +27,7 @@
                <h4 class="bottom20 darkcolor">Bidang Pengembangan Kapasitas Insani</h4>
                <p>SEGERA</p>
                <ul class="top20">
-                  <li><span>SEGERA</span></li>
+                  <li><span>Komunitas Belajar</span></li>
                   <li><span>SEGERA</span></li>
                   <li><span>SEGERA</span></li>
                </ul>
@@ -66,7 +66,7 @@
                <h4 class="bottom20 darkcolor">Bidang Sumber Pendanaan Organisasi</h4>
                <p>SEGERA</p>
                <ul class="top20">
-                  <li><span>SEGERA</span></li>
+                  <li><span>Merchandise</span></li>
                   <li><span>SEGERA</span></li>
                   <li><span>SEGERA</span></li>
                </ul>
