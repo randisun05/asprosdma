@@ -41,9 +41,10 @@ class RegistrationImport implements ToModel, WithHeadingRow, WithValidation
             'agency' => $row['instansi'],
             'position' => $row['jabatan'],
             'level' => $row['jenjang'],
-            'from' => "collective",
             'document_jab' => $row['document_jab'],
             'paid' => $row['paid'],
+            'from' => "collective",
+
 
         ]);
         // Membuat array data untuk dikembalikan

@@ -22,6 +22,7 @@ use App\Models\ProfileDataPosition;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Intervention\Image\Colors\Rgb\Channels\Red;
 use Maatwebsite\Excel\Facades\Excel;
 
 class RegistrationController extends Controller
@@ -284,7 +285,7 @@ class RegistrationController extends Controller
 
     }
 
-    public function approve($id)
+    public function approve($id, Request $request)
     {
 
         $register = Registration::findOrFail($id);
@@ -325,6 +326,10 @@ class RegistrationController extends Controller
             'contact'        => $register->contact,
             'active_at'      => $today,
             'nomember'      => $code,
+        ]);
+
+        $register->update([
+            'info'   => $request->info,
         ]);
 
          //get id relation
@@ -414,21 +419,21 @@ class RegistrationController extends Controller
         Excel::import(new RegistrationImport(), $request->file('file'));
 
 
-        $registrations = Registration::where('emailstatus', 0)
-        ->where('from', 'colective')
-        ->latest()
-        ->get();
+        // $registrations = Registration::where('emailstatus', 0)
+        // ->where('from', 'colective')
+        // ->latest()
+        // ->get();
 
 
          // Kirim email setelah import selesai
-         foreach ($registrations as $registration) {
+        //  foreach ($registrations as $registration) {
 
             // Kirim email kepada setiap member
-            Mail::to($registration['email'])->send(new SendEmailRegistration($registration));
+            // Mail::to($registration['email'])->send(new SendEmailRegistration($registration));
 
             // Update status_email untuk setiap peserta
-            $registration->increment('emailstatus');
-        }
+        //     $registration->increment('emailstatus');
+        // }
 
         //redirect
         return redirect()->route('admin.registration.index');
