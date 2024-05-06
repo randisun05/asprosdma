@@ -41,6 +41,7 @@ class RegistrationExport implements FromCollection, WithMapping, WithHeadings
             $datas->document_jab,
             $datas->status,
             $datas->emailstatus,
+            $datas->created_at,
         ] ;
     }
 
@@ -57,6 +58,7 @@ class RegistrationExport implements FromCollection, WithMapping, WithHeadings
            'Dokumen',
            'StatusPendaftaran',
            'StatusEmail',
+           'Tanggal',
         ] ;
     }
 }

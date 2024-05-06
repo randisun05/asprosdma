@@ -110,17 +110,17 @@ class LoginController extends Controller
         ]);
 
         // Check if the old password matches
-            if (!$member || !Hash::check($request->oldpassword, $member->password)) {
-                return back()->withErrors(['oldpassword' => 'Password lama yang Anda masukkan tidak cocok']);
-            }
+            // if (!$member || !Hash::check($request->oldpassword, $member->password)) {
+            //     return back()->withErrors(['oldpassword' => 'Password lama yang Anda masukkan tidak cocok']);
+            // }
 
             // Hash the new password
             $newPasswordHash = Hash::make($request->password);
 
             // Update the member's password
-            $member->update([
-                'password' => $newPasswordHash,
-            ]);
+            // $member->update([
+            //     'password' => $newPasswordHash,
+            // ]);
 
             return redirect()->route('user.dashboard')->with('success', 'Password berhasil diperbarui.');
     }
