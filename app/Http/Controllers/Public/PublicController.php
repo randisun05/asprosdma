@@ -238,6 +238,13 @@ class PublicController extends Controller
         ]);
     }
 
+    public function faq()
+    {
+        return inertia('Public/Website/FAQ/faq', [
+            'title' => "FAQ",
+        ]);
+    }
+
     public function forgetPassword()
     {
         return inertia('User/Auth/Forget', [
