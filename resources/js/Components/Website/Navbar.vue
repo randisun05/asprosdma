@@ -61,6 +61,7 @@
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="/registration">Daftar</a></li>
                                 <li><a class="dropdown-item" href="/user/login">Masuk</a></li>
+                                <li><a class="dropdown-item" href="/faq">FAQ</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">

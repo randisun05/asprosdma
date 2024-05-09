@@ -156,6 +156,7 @@ Route::get('/kontak-kami', [\App\Http\Controllers\Public\PublicController::class
 Route::get('/berita', [\App\Http\Controllers\Public\PublicController::class, 'berita'])->name('berita');
 Route::get('/berita/{post:slug}', [\App\Http\Controllers\Public\PublicController::class, 'beritaView'])->name('berita.view');
 Route::get('/data-anggota', [\App\Http\Controllers\Public\PublicController::class, 'dataAnggota'])->name('data-anggota');
+Route::get('/faq', [\App\Http\Controllers\Public\PublicController::class, 'faq'])->name('faq');
 Route::get('/events/{event:slug}', [\App\Http\Controllers\Public\EventsController::class, 'show'])->name('event.show');
 Route::resource('/events', \App\Http\Controllers\Public\EventsController::class);
 Route::resource('/berita', \App\Http\Controllers\Public\PostsController::class);
