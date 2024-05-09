@@ -155,7 +155,7 @@ Route::get('/bidang-sumber-pendanaan-organisasi', [\App\Http\Controllers\Public\
 Route::get('/kontak-kami', [\App\Http\Controllers\Public\PublicController::class, 'kontak'])->name('kontak');
 Route::get('/berita', [\App\Http\Controllers\Public\PublicController::class, 'berita'])->name('berita');
 Route::get('/berita/{post:slug}', [\App\Http\Controllers\Public\PublicController::class, 'beritaView'])->name('berita.view');
-Route::get('/cerita', [\App\Http\Controllers\Public\PublicController::class, 'cerita'])->name('cerita');
+Route::get('/data-anggota', [\App\Http\Controllers\Public\PublicController::class, 'dataAnggota'])->name('data-anggota');
 Route::get('/events/{event:slug}', [\App\Http\Controllers\Public\EventsController::class, 'show'])->name('event.show');
 Route::resource('/events', \App\Http\Controllers\Public\EventsController::class);
 Route::resource('/berita', \App\Http\Controllers\Public\PostsController::class);

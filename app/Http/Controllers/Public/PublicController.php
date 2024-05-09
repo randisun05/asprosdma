@@ -26,9 +26,17 @@ class PublicController extends Controller
     {
         $events = Event::whereNot('title','media')->latest()->take(3)->get();
         $analisdone = Registration::where('position','Analis SDM Aparatur')->where('status','approved')->count();
-        $analisproses = Registration::where('position','Analis SDM Aparatur')->whereNot('status','approved')->whereNot('status','rejected')->count();
+        $analisproses = Registration::where('position','Analis SDM Aparatur')->where('status','submission')->where('emailstatus',0)->count();
+        $analispaid = Registration::where('position', 'Analis SDM Aparatur')
+        ->where('emailstatus', '>', 0)
+        ->whereNotIn('status', ['approved', 'rejected'])
+        ->count();
         $pranatadone = Registration::where('position','Pranata SDM Aparatur')->where('status','approved')->count();
-        $pranataproses = Registration::where('position','Pranata SDM Aparatur')->whereNot('status','approved')->whereNot('status','rejected')->count();
+        $pranataproses = Registration::where('position','Pranata SDM Aparatur')->where('status','submission')->where('emailstatus','0')->count();
+        $pranatapaid = Registration::where('position','Pranata SDM Aparatur')->where('emailstatus', '>', 0)
+        ->whereNotIn('status', ['approved', 'rejected'])
+        ->count();
+
         $agencydone = Registration::distinct()->count('agency');
 
         return view('Index', [
@@ -38,6 +46,8 @@ class PublicController extends Controller
             'pranatadone' => $pranatadone,
             'pranataproses' => $pranataproses,
             'agencydone' => $agencydone,
+            'pranatapaid' => $pranatapaid,
+            'analispaid' => $analispaid,
         ]);
     }
 
@@ -218,6 +228,13 @@ class PublicController extends Controller
     {
         return inertia('Public/Website/About/Kontak-kami', [
             'title' => "Kontak Kami",
+        ]);
+    }
+
+    public function dataAnggota()
+    {
+        return inertia('Public/Website/Posts/DataAnggota', [
+            'title' => "Data Keanggotaan",
         ]);
     }
 

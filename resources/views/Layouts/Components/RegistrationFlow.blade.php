@@ -1,4 +1,4 @@
-<!-- Work Process-->  
+<!-- Work Process-->
 <section id="our-process" class="padding_m gradient_bg_default">
    <div class="container">
       <div class="row">
@@ -18,12 +18,12 @@
             <li class="whitecolor wow fadeIn" data-wow-delay="400ms">
                <span class="pro-step bottom20">02</span>
                <p class="fontbold bottom25">Data</p>
-               <p>Input Data Yang Diperlukan</p>
+               <p>Input Data Yang Diperlukan dan Menunggu Email Konfirmasi Pembayaran</p>
             </li>
             <li class="whitecolor wow fadeIn" data-wow-delay="500ms">
                <span class="pro-step bottom20">03</span>
                <p class="fontbold bottom25">Pembayaran</p>
-               <p>Lakukan Pembayaran</p>
+               <p>Lakukan Pembayaran dan Upload Bukti Pembayaran pada Email Konfirmasi Pembayaran</p>
             </li>
             <li class="whitecolor wow fadeIn" data-wow-delay="600ms">
                <span class="pro-step bottom20">04</span>
@@ -33,10 +33,10 @@
             <li class="whitecolor wow fadeIn" data-wow-delay="700ms">
                <span class="pro-step bottom20">05</span>
                <p class="fontbold bottom25">Selesai</p>
-               <p>Mendapat Persetujuan Menjadi Anggota</p>
+               <p>Mendapat Persetujuan Menjadi Anggota dan Menerima Email Berisi Password untuk Masuk ke Dalam Web</p>
             </li>
          </ul>
       </div>
    </div>
 </section>
-<!--WOrk Process ends--> 
+<!--WOrk Process ends-->

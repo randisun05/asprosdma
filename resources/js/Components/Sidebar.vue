@@ -24,7 +24,7 @@
                     </Link>
                 </li>
 
-                <li v-if="$page.props.auth.user.role === 'keanggotaan' || $page.props.auth.user.role === 'administrator'" class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/members') }">
+                <li v-if="$page.props.auth.user.role === 'keanggotaan' || $page.props.auth.user.role === 'administrator' || $page.props.auth.user.role === 'humas'" class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/members') }">
                     <Link href="/admin/members" class="nav-link d-flex justify-content-between">
                     <span>
                         <span class="sidebar-icon">

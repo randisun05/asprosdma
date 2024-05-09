@@ -52,7 +52,7 @@
                                 <li><a class="dropdown-item" href="/events">Kegiatan</a></li>
                                 <li><a class="dropdown-item" href="/berita">Berita</a></li>
                                 <li><a class="dropdown-item" href="/merchans">Merchandise</a></li>
-
+                                <li><a class="dropdown-item" href="/data-anggota">Data Anggota</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
