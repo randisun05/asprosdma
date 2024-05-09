@@ -19,7 +19,7 @@
             <div class="col-md-12 col-sm-6 col-xl-2 me-4">
                 <div class="row three-col-pricing">
                     <div class="price-table top60">
-                        <h4 class="bottom20 darkcolor">Permintaan Pembayaran</h4>
+                        <h4 class="bottom20 darkcolor">Telah Dilakukan Verifikasi</h4>
                         <div class="ammount">
                             <h2 class="defaultcolor">{{ sendpayment }}</h2>
                         </div>

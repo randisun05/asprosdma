@@ -19,5 +19,10 @@ class Member extends Authenticatable
         'agency'
     ];
 
+    protected $hidden = [
+        'email',
+        'password',
+    ];
+
 
 }

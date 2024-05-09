@@ -124,14 +124,14 @@
                <div class="service-box">
                   <span class="bottom25"><i class="fa fa-address-book" aria-hidden="true" style="font-size: 50px;"></i></span>
                   <h4 class="bottom10"><a href="javascript:void(0)">Analis SDM Aparatur</a></h4>
-                  <p>{{ $analisdone }} orang Analis SDM Aparatur telah terdaftar dan {{ $analisproses }} orang sudah dalam proses pendaftaran</p>
+                  <p>{{ $analisdone }} orang Analis SDM Aparatur telah terdaftar, {{ $analispaid }} orang dalam proses pembayaran dan {{ $analisproses }} orang dalam proses verifikasi</p>
                </div>
             </div>
             <div class="item">
                <div class="service-box">
                   <span class="bottom25"><i class="fa fa-user-circle" aria-hidden="true" style="font-size: 50px;"></i></span>
                   <h4 class="bottom10"><a href="javascript:void(0)">Pranata SDM Aparatur</a></h4>
-                     <p>{{ $pranatadone }} orang Pranata SDM Aparatur telah terdaftar dan {{ $pranataproses }} orang sudah dalam proses pendaftaran</p>
+                     <p>{{ $pranatadone }} orang Pranata SDM Aparatur telah terdaftar dan {{ $pranatapaid }} orang dalam proses pembayaran dan {{ $pranataproses }} orang dalam proses verifikasi</p>
                </div>
             </div>
             <div class="item">

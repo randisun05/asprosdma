@@ -1,4 +1,4 @@
-<template>
+    <template>
     <!-- header -->
 
     <header class="site-header userbg">
@@ -55,9 +55,11 @@
                                 <a class="nav-link pagescroll dropdown-toggle" data-bs-toggle="dropdown"
                                     href="#publikasi" role="button" aria-expanded="false">Publikasi</a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="/berita">Berita</a></li>
-                                    <li><a class="dropdown-item" href="/artikel">Artikel</a></li>
-                                    <li><a class="dropdown-item" href="/cerita">Cerita</a></li>
+                                    <li><a class="dropdown-item" href="/events">Kegiatan</a></li>
+                                <li><a class="dropdown-item" href="/berita">Berita</a></li>
+                                <li><a class="dropdown-item" href="/merchans">Merchandise</a></li>
+                                <li><a class="dropdown-item" href="/data-anggota">Data Anggota</a></li>
+
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
