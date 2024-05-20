@@ -372,9 +372,7 @@ class RegistrationController extends Controller
         ->whereNotIn('status', ['approved', 'rejected'])
         ->get();
 
-        return $registrations->count();
-
-        foreach ($registrations as $register) {
+             foreach ($registrations as $register) {
             $password = Hash::make($register->nip);
             $register->update(['status' => 'approved']);
             // Anda bisa menambahkan logika lain seperti mengirim email konfirmasi di sini
