@@ -18,11 +18,20 @@
                         Import</Link>
                     </div>
 
-                    <div class="col-md-2 col-12 mb-2">
+                    <div class="col-md-1 col-12 mb-2">
                         <Link href="/admin/registration/group" class="btn btn-md btn-success border-0 shadow w-100"
                             type="button"><i class="fa fa-plus-circle"></i>
-                        File Kolektif</Link>
+                        Kolektif</Link>
                     </div>
+
+                    <div class="col-md-1 col-12 mb-2">
+                        <button
+                            @click="handleApproveGroup"
+                            class="btn btn-sm btn-success border-0 shadow me-2">
+                            <i class="fa fa-check-circle fa-lg me-2" aria-hidden="true"
+                            title="approve"></i>Approve Group</button>
+                    </div>
+
 
                     <div class="col-md-1 col-12 mb-2">
                         <a :href="`/admin/registration/paid/export`" target="_blank"
@@ -62,6 +71,9 @@
                             <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
                                 <thead class="thead-dark">
                                     <tr class="border-0 text-center">
+                                        <th class="border-0 rounded-start" style="width:5%">
+                                            <input type="checkbox" v-model="form.allSelected" @change="selectAll" v-if="!allApprovedOrRejected" />
+                                        </th>
                                         <th class="border-0 rounded-start" style="width:5%">No.</th>
                                         <th class="border-0">NIP</th>
                                         <th class="border-0">Nama</th>
@@ -76,8 +88,14 @@
                                 <div class="mt-2"></div>
                                 <tbody>
                                     <tr v-for="(register, index) in registers.data" :key="index">
+                                        <td class="text-center">
+                                            <!-- <input type="checkbox" v-model="form.registration_ids" :id="register.id" :value="register.id" number :checked="form.allSelected" v-if="!allApprovedOrRejected"/> -->
+                                            <input
+                                                v-if="register.status !== 'approved' && register.status !== 'rejected'"
+                                                type="checkbox" v-model="form.registration_ids" :id="register.id" :value="register.id" number :checked="form.allSelected" />
+                                        </td>
                                         <td class="fw-bold text-center">{{ ++index + (registers.current_page - 1) *
-                            registers.per_page }}</td>
+                                            registers.per_page }}</td>
                                         <td>{{ register.nip }}</td>
                                         <td>{{ register.name }}</td>
                                         <td>{{ register.agency }}</td>
@@ -148,7 +166,7 @@ import {
 
 //import ref from vue
 import {
-    ref
+    ref, reactive, toRefs, computed
 } from 'vue';
 
 //import inertia adapter
@@ -175,10 +193,35 @@ export default {
     },
 
     //inisialisasi composition API
-    setup() {
+    setup(props) {
 
         //define state search
         const search = ref('' || (new URL(document.location)).searchParams.get('q'));
+
+        const { registers } = toRefs(props); // Menggunakan toRefs untuk memastikan reaktivitas
+
+        //define form with reactive
+        const form = reactive({
+        registration_ids: [],
+        allSelected: false,
+        });
+
+        //define method "selectAll"
+        const selectAll = () => {
+            if (form.allSelected && registers.value && Array.isArray(registers.value.data)) {
+                form.registration_ids = registers.value.data.map(register => register.id);
+            } else {
+                form.registration_ids = [];
+            }
+        };
+
+        const allApprovedOrRejected = computed(() => {
+            return registers.value.data.every(register =>
+                register.status === 'approved' || register.status === 'rejected'
+            );
+        });
+
+
 
         //define method search
         const handleSearch = () => {
@@ -222,6 +265,38 @@ export default {
                     }
                 })
         }
+
+        const handleApproveGroup = () => {
+            if (form.registration_ids.length === 0) {
+                Swal.fire('Error', 'No registrations selected.', 'error');
+                return;
+            }
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Anda akan menyetujui grup usulan ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Approve it!'
+            })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        Inertia.get(`/admin/registration/group/approve`, {
+                            registration_ids: form.registration_ids
+                        });
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Status Approved!.',
+                            icon: 'success',
+                            timer: 5000,
+                            showConfirmButton: false,
+                        });
+                    }
+                })
+        }
+
+        console.log("Approving these IDs:", form.registration_ids);
 
         const handleConfirm = (id) => {
             Swal.fire({
@@ -288,7 +363,11 @@ export default {
             handleApprove,
             handleConfirm,
             getImageUrl,
-            paidExport
+            paidExport,
+            selectAll,
+            form,
+            handleApproveGroup,
+            allApprovedOrRejected
 
         }
     }

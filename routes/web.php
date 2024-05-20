@@ -49,6 +49,7 @@ Route::prefix('admin')->group(function() {
         Route::post('/registration/import', [\App\Http\Controllers\Admin\RegistrationController::class, 'importStore'])->name('admin.registration.import.store');
         Route::get('/registration/import', [\App\Http\Controllers\Admin\RegistrationController::class, 'import'])->name('admin.registration.import');
         Route::get('/registration/{id}/email-approve', [\App\Http\Controllers\Admin\RegistrationController::class, 'Sendemailapprove'])->name('admin.registration.email.approve');
+        Route::get('/registration/group/approve', [\App\Http\Controllers\Admin\RegistrationController::class, 'approveGroup'])->name('admin.registration.group.approve');
         Route::get('/registration/{id}/approve', [\App\Http\Controllers\Admin\RegistrationController::class, 'approve'])->name('admin.registration.approve');
         Route::get('/registration/{id}/confirm', [\App\Http\Controllers\Admin\RegistrationController::class, 'confirm'])->name('admin.registration.confirm');
         Route::post('/registration/{id}/paid', [\App\Http\Controllers\Admin\RegistrationController::class, 'paid'])->name('admin.registration.paid');
@@ -163,8 +164,8 @@ Route::resource('/berita', \App\Http\Controllers\Public\PostsController::class);
 Route::resource('/merchans', \App\Http\Controllers\Public\MerchansController::class);
 Route::get('/forget-password', [\App\Http\Controllers\Public\PublicController::class, 'forgetPassword'])->name('forget.password');
 Route::get('/forget-password/email', [\App\Http\Controllers\Public\PublicController::class, 'emailforgetPassword'])->name('forget.password.email');
-
-// Route::get('/forget-password/email', [\App\Http\Controllers\User\LoginController::class, 'emailforgetPassword'])->name('forget.password.email');
+Route::get('/user/forget-password/{id}', [\App\Http\Controllers\Public\PublicController::class, 'IndexforgetPassword'])->name('forget.password.index');
+Route::put('/user/forget-password/{id}/reset', [\App\Http\Controllers\Public\PublicController::class, 'ResetPassword'])->name('forget.password.reset');
 
 Route::get('/documents/{filename}', function ($filename) {
     $path = storage_path('app/public/document/' . $filename);

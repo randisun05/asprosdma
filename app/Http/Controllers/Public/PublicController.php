@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Public;
 
+use Log;
 use App\Models\Post;
 use App\Models\Event;
 use App\Models\Member;
@@ -10,6 +11,7 @@ use App\Models\Registration;
 use Illuminate\Http\Request;
 use App\Models\RegistrationGroup;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendEmailForgetPassword;
 
@@ -264,7 +266,14 @@ class PublicController extends Controller
             'email.email' => 'Format email tidak valid', // Pesan untuk validasi email
         ]);
 
+
         $data = Member::where('nip', $request->nip)->first();
+
+        // Generate a UUID for the password code
+            $passwordCode = \Illuminate\Support\Str::uuid()->toString();
+            $data->update([
+                'code-password' => $passwordCode,
+            ]);
 
         // Periksa apakah data ditemukan dan email sesuai dengan yang dimasukkan pengguna
         if ($data && $data->email === $request->email) {
@@ -274,8 +283,47 @@ class PublicController extends Controller
 
         // Jika data tidak ditemukan atau email tidak sesuai
         return redirect()->back()->with('error','Data tidak sesuai.');
+    }
+
+    public function IndexforgetPassword(Member $member, $id)
+    {
+        $member = $member->where('code-password', $id)->first();
+        if(!$member || $member->{'code-password'} === null)
+        // Jika status registrasi bukan 'confirm', arahkan pengguna kembali atau tampilkan pesan kesalahan
+        return redirect()->route('user.login')->with('error', 'Link telah ditutup.');
 
 
+        return inertia('User/Auth/Index', [
+            'member' => $member
+        ]);
+    }
+
+    public function ResetPassword(Request $request, $id)
+    {
+
+        $request->validate([
+            'password' => [
+                'required',
+                'min:8',
+                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]+$/',
+                'confirmed',
+                // At least one lowercase, one uppercase, one number, and one special character
+            ],
+        ],[
+            'password.regex' => 'Password terdiri dari kombinasi huruf kapaital, huruf kecil, angka dan karakter spesial, contoh:A5proSDM@',
+            'password.required' => 'Password baru harus diisi',
+            'password.confirmed' => 'Konfirmasi password tidak sama',
+            'oldpassword.min:8' => 'Password baru minimal 8 karakter'
+        ]);
+
+        $member = Member::Where('code-password', $id)->first();
+
+        $member->update([
+            'password' => Hash::make($request->password),
+            'code-password' => null,
+        ]);
+
+        return redirect()->route('user.login')->with('success', 'Password berhasil direset.');
     }
 
 }

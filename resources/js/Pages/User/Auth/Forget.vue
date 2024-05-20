@@ -36,6 +36,11 @@
                     {{ $page.props.session.error }}
                     </div>
 
+                    <div v-if="$page.props.session.success" class="alert alert-success mt-2">
+                    {{ $page.props.session.success }}
+                    </div>
+
+
                <form @submit.prevent="submit" class="getin_form border-form" id="login">
                   <div class="row">
                      <div class="col-md-12 col-sm-12">
@@ -111,7 +116,9 @@
         //props
         props: {
             errors: Object,
-            session: Object
+            session: Object,
+
+
         },
 
         //define composition API

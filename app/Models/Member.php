@@ -16,7 +16,8 @@ class Member extends Authenticatable
         'email',
         'password',
         'nomember',
-        'agency'
+        'agency',
+        'code-password'
     ];
 
     protected $hidden = [
