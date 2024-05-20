@@ -36,6 +36,9 @@
                     <div v-if="$page.props.session.error" class="alert alert-danger mt-2">
                     {{ $page.props.session.error }}
                     </div>
+                    <div v-if="$page.props.session.success" class="alert alert-success mt-2">
+                                    {{ $page.props.session.success }}
+                    </div>
 
                <form @submit.prevent="submit" class="getin_form border-form" id="login">
                   <div class="row">

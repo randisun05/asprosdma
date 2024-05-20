@@ -49,7 +49,7 @@
         <hr>
         <div class="message">
             <p>Dear <strong>{{ $data['name'] }}</strong>,</p>
-            <p>Klik ini <a href="https://asprosdma.id/user/forget-password/{{ $data['id'] }}"> Lupa Password </a>untuk mengatur ulang password anda,</p>
+            <p>Klik ini <a href="https://asprosdma.id/user/forget-password/{{ $data['code-password'] }}"> Lupa Password </a>untuk mengatur ulang password anda,</p>
             <p>Jika anda mendapatkan <strong> kendala atau butuh informasi lebih lanjut </strong> dapat menghubungi <strong>sdr. Dimas melalui
                 pesan whatsapp </strong> dengan kontak 0812-1559-3147 </p>
                 <p>atau kunjungi halaman <a href="https://asprosdma.id/kontak-kami"><u>hubungi kami.</u></a></p>

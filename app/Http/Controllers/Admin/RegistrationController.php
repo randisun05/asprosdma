@@ -358,6 +358,87 @@ class RegistrationController extends Controller
         return redirect()->route('admin.registration.index');
     }
 
+    public function approveGroup(Request $request)
+    {
+        $registrationIds = $request->input('registration_ids', []);
+
+        // Memastikan bahwa array tidak kosong
+        if (empty($registrationIds)) {
+            return response()->json(['message' => 'No registration IDs provided'], 400);
+        }
+
+        // Menemukan registrasi yang belum approved atau rejected
+        $registrations = Registration::whereIn('id', $registrationIds)
+        ->whereNotIn('status', ['approved', 'rejected'])
+        ->get();
+
+        return $registrations->count();
+
+        foreach ($registrations as $register) {
+            $password = Hash::make($register->nip);
+            $register->update(['status' => 'approved']);
+            // Anda bisa menambahkan logika lain seperti mengirim email konfirmasi di sini
+
+            if ($register->position === "Analis SDM Aparatur") {
+                $number = Registration::where('status', 'approved')
+                    ->where('position', 'Analis SDM Aparatur')
+                    ->count() + 1; // Tambahkan 1 karena ini adalah pendaftaran baru
+                $code = str_pad($number, 5, '0', STR_PAD_LEFT) . "/01/ASPROSDMA";
+            } else {
+                $number = Registration::where('status', 'approved')
+                    ->where('position', 'Pranata SDM Aparatur')
+                    ->count() + 1; // Tambahkan 1 karena ini adalah pendaftaran baru
+                $code = str_pad($number, 5, '0', STR_PAD_LEFT) . "/02/ASPROSDMA";
+            }
+
+            Member::create([
+                'nip'            => $register->nip,
+                'name'           => $register->name,
+                'email'          => $register->email,
+                'agency'          => $register->agency,
+                'nomember'         => $code,
+                'password'       => $password,
+            ]);
+
+            $today = Carbon::now()->format('Y-m-d H:i:s');
+              //create data profile
+            ProfileDataMain::create([
+                'nip'             => $register->nip,
+                'name'            => $register->name,
+                'email'           => $register->email,
+                'contact'        => $register->contact,
+                'active_at'      => $today,
+                'nomember'      => $code,
+            ]);
+
+            $register->update([
+                'info'   => $request->info,
+            ]);
+
+             //get id relation
+            $data = ProfileDataMain::where('nip',$register->nip)->first();
+
+             //create data positiono
+            ProfileDataPosition::create([
+                'main_id'           => $data->id,
+                'agency'           => $register->agency,
+                'position'         => $register->position,
+                'level'         => $register->level,
+            ]);
+
+            $email = Member::where('nip',$register->nip)->first();
+
+            //email
+             Mail::to($register['email'])->send(new SendEmailAprrove($email));
+
+            Registration::where('id', $register->id)->increment('emailstatus');
+        }
+
+        //redirect
+        return redirect()->route('admin.registration.index');
+    }
+
+
     public function reject($id)
     {
 
