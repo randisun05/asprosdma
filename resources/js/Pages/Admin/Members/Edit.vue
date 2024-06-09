@@ -43,7 +43,7 @@
 
                                         <div class="col-lg-8">
                                             <input type="text" class="form-control" v-model="form.nip" maxlength="18"
-                                                readonly
+
                                                 onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
                                             <div v-if="errors.nip" class="alert-danger mt-1 rounded">
                                                 {{ errors.nip }}
@@ -572,33 +572,33 @@ export default {
                 {
                     //data
                     nip: form.nip,
-                    name: form.name,
-                    fname: form.fname,
-                    lname: form.lname,
-                    leveledu: form.leveledu,
-                    lastedu: form.lastedu,
-                    place: form.place,
-                    dob: form.dob,
-                    docid: form.docid,
-                    nodocid: form.nodocid,
-                    email: form.email,
-                    contact: form.contact,
-                    gender: form.gender,
-                    religion: form.religion,
+                    // name: form.name,
+                    // fname: form.fname,
+                    // lname: form.lname,
+                    // leveledu: form.leveledu,
+                    // lastedu: form.lastedu,
+                    // place: form.place,
+                    // dob: form.dob,
+                    // docid: form.docid,
+                    // nodocid: form.nodocid,
+                    // email: form.email,
+                    // contact: form.contact,
+                    // gender: form.gender,
+                    // religion: form.religion,
 
-                    level: form.level,
-                    type: form.type,
-                    status: form.status,
-                    agency: form.agency,
-                    unit: form.unit,
-                    subunit: form.subunit,
-                    location: form.location,
-                    position: form.position,
-                    tmtpos: form.tmtpos,
-                    golru: form.golru,
-                    tmtgolru: form.tmtgolru,
-                    wyear: form.wyear,
-                    wmonth: form.wmonth,
+                    // level: form.level,
+                    // type: form.type,
+                    // status: form.status,
+                    // agency: form.agency,
+                    // unit: form.unit,
+                    // subunit: form.subunit,
+                    // location: form.location,
+                    // position: form.position,
+                    // tmtpos: form.tmtpos,
+                    // golru: form.golru,
+                    // tmtgolru: form.tmtgolru,
+                    // wyear: form.wyear,
+                    // wmonth: form.wmonth,
 
                 },
                 {
