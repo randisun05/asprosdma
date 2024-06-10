@@ -93,7 +93,7 @@
                                                         v-model="form.how"
                                                         :init="{
                                                             menubar: false,
-                                                            plugins: 'lists emoticons',
+                                                            plugins: 'lists link image emoticons media',
                                                             toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons'
                                                         }"
                                                     />

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Exports\RegistrationExport;
 use Carbon\Carbon;
 use App\Models\Member;
 use App\Models\instansi;
@@ -16,14 +15,16 @@ use App\Models\ProfileDataMain;
 use Illuminate\Validation\Rule;
 use App\Exports\RegistrationPaid;
 use App\Models\RegistrationGroup;
+use Illuminate\Support\Facades\DB;
+use App\Exports\RegistrationExport;
 use App\Imports\RegistrationImport;
 use App\Mail\SendEmailRegistration;
 use App\Models\ProfileDataPosition;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Intervention\Image\Colors\Rgb\Channels\Red;
 use Maatwebsite\Excel\Facades\Excel;
+use Intervention\Image\Colors\Rgb\Channels\Red;
 
 class RegistrationController extends Controller
 {
@@ -52,8 +53,6 @@ class RegistrationController extends Controller
     END")->orderBy('emailstatus', 'asc')
     ->orderBy('created_at', 'asc')->paginate(10);
 
-        //append query string to pagination links
-        $registers->appends(['q' => request()->q]);
 
         //render with inertia
         return inertia('Admin/Registration/Index', [
@@ -289,10 +288,11 @@ class RegistrationController extends Controller
     {
 
         $register = Registration::findOrFail($id);
-        // return $register;
+
 
          $password = Hash::make($register->nip);
-        //get register
+
+
 
 
         if ($register->position === "Analis SDM Aparatur") {

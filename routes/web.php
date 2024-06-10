@@ -1,6 +1,7 @@
 <?php
 
 use App\Mail\SendEmailRegistration;
+use App\Mail\SendEmailReject;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
@@ -167,6 +168,8 @@ Route::get('/forget-password/email', [\App\Http\Controllers\Public\PublicControl
 Route::get('/user/forget-password/{id}', [\App\Http\Controllers\Public\PublicController::class, 'IndexforgetPassword'])->name('forget.password.index');
 Route::put('/user/forget-password/{id}/reset', [\App\Http\Controllers\Public\PublicController::class, 'ResetPassword'])->name('forget.password.reset');
 
+
+
 Route::get('/documents/{filename}', function ($filename) {
     $path = storage_path('app/public/document/' . $filename);
 
@@ -181,10 +184,10 @@ Route::get('/documents/{filename}', function ($filename) {
 Route::get('/send-email',function(){
     $data = [
         'name' => 'Syahrizal As',
-        'body' => 'Testing Kirim Email di Santri Koding'
+
     ];
 
-    Mail::to('randisun1995@gmail.com')->send(new SendEmailRegistration($data));
+    Mail::to('randisun1995@gmail.com')->send(new SendEmailReject($data));
 
     dd("Email Berhasil dikirim.");
 });

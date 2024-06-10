@@ -55,24 +55,18 @@
                                         href="#.">{{ merchan.title }}</a></h4>
                                         <div class="col product-details">
                                     <h4 class="product-name">{{ merchan.subtitle }}</h4>
-                                    <p class="product-color">Warna : {{ merchan.color }}</p>
-                                    <div class="product-rating">
-                                        <span class="rating-star">★</span>
-                                        <span class="rating-star">★</span>
-                                        <span class="rating-star">★</span>
-                                        <span class="rating-star">★</span>
-                                        <span class="rating-star">★</span>
-                                    </div>
                                     <p class="product-price">Rp.{{ merchan.price }}</p>
-                                    <span>Bagaimana Cara Kamu Beli:</span>
+                                    <p class="product-color">Warna : {{ merchan.color }}</p>
                                     <div v-html="merchan.how"></div>
 
                                 </div>
                                 <div class="text-center mt-4">
-                                    <Link :href="`/user/merchans/${merchan.id}`" title="join"
-                                        class="button btnprimary" type="button">
-                                    View
-                                    </Link>
+                                    <div class="text-center mt-4">
+                                        <a :href="cleanUrl(merchan.how)" title="join"
+                                            class="button btnprimary" type="button" target="_blank">
+                                        Beli
+                                    </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -140,6 +134,12 @@ export default {
         const getImageUrl = (imageName) => {
             return `/storage/${imageName}`;
         };
+        // Method to clean HTML from URLs
+        const cleanUrl = (url) => {
+            const div = document.createElement('div');
+            div.innerHTML = url;
+            return div.textContent || div.innerText || "";
+        };
 
 
         //return
@@ -147,6 +147,7 @@ export default {
             search,
             handleSearch,
             getImageUrl,
+            cleanUrl,
         };
     },
 };
