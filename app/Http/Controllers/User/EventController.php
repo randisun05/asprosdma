@@ -20,6 +20,7 @@ class EventController extends Controller
      */
     public function index()
     {
+
         $events = Event::whereNot('title','Media')
         ->when(request()->q, function($query) {
             $query->where('title', 'like', '%' . request()->q . '%');
@@ -33,7 +34,6 @@ class EventController extends Controller
          return inertia('User/Events/Index', [
              'events' => $events,
           ]);
-
 
     }
 

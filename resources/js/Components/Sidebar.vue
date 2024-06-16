@@ -68,7 +68,7 @@
                     </Link>
                 </li>
 
-                <li v-if="$page.props.auth.user.role === 'humas' || $page.props.auth.user.role === 'administrator'" class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/merchans') }">
+                <li v-if="$page.props.auth.user.role === 'pendanaan' || $page.props.auth.user.role === 'administrator'" class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/merchans') }">
                     <Link href="/admin/merchans" class="nav-link d-flex justify-content-between">
                     <span>
                         <span class="sidebar-icon">

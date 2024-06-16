@@ -34,7 +34,20 @@
                   </a>
                </div>
                <div class="team-content darkcolor">
-                  <h4>Data Keanggotaan Aspro SDMA</h4>
+                  <h4>Data Keanggotaan Aspro SDMA Periode April 2024</h4>
+               </div>
+            </div>
+         </div>
+
+         <div class="col-lg-3 col-md-3">
+            <div class="team-box grey-shade top60">
+               <div class="image">
+                  <a href="/assets/excel/data-anggota-mei.pdf" class="text-center mt-4" download="">
+                     <img src="/assets/images/data-anggota-mei.png" alt="">
+                  </a>
+               </div>
+               <div class="team-content darkcolor">
+                  <h4>Data Keanggotaan Aspro SDMA Periode Mei 2024</h4>
                </div>
             </div>
          </div>

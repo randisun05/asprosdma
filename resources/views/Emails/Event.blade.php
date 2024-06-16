@@ -50,7 +50,7 @@
         <hr>
         <div class="message">
             <p>Halo Rekan JF SDM Aparatur!</p>
-            <p class="mb-0">ATerima kasih telah mendaftar pada kegiatan Komunitas Belajar by Asosiasi Profesi JF SDM Aparatur dengan tema:</p>
+            <p class="mb-0">Terima kasih telah mendaftar pada kegiatan Komunitas Belajar by Asosiasi Profesi JF SDM Aparatur dengan tema:</p>
                 "{{ $data['title'] }}" </p>
             <p>pada:</p>
             <ul>
@@ -64,7 +64,7 @@
 
             <p class="mb-0">Berikut beberapa himbauan untuk seluruh peserta kegiatan Komunitas Belajar:</p>
             <ul>
-                <li>✅Wajib menggunakan Nomor Anggota-Nama Depan (Contoh: 00001/01/ASPROSDMA-Dhanu)</li>
+                <li>✅Wajib menggunakan Nama Depan-Nomor Anggota (Contoh Nomor Anggota 00001/01/ASPROSDMA dan Nama Depan Dhanu, maka menjadi Dhanu-00001-01)</li>
                 <li>✅Wajib menggunakan Virtual background yg dapat diunduh di: https://linktr.ee/halo.asprosdma
                 </li>
                 <li>✅Persiapkan diri untuk pembelajaran yang sangat bermanfaat ini
