@@ -1,7 +1,7 @@
 <template>
 
     <Head>
-        <title>Berbagi Cerita</title>
+        <title>Kegiatan</title>
     </Head>
     <div class="px-5 shadow padding">
         <div class="row">
