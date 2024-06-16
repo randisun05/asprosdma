@@ -43,8 +43,10 @@
 
                                 <div v-html="event.body" style="text-align:justify;text-justify: "></div>
                                 <div class="text-center">
-                                    <button v-if="event.status === 'active'" @click.prevent="join(event.id)"
+                                    <button v-if="event.status === 'active' && status === 0" @click.prevent="join(event.id)"
                                         class="button btnprimary border-0 me-2 mt-4"> Join </button>
+                                        <button v-if="event.status === 'active' && status === 1"
+                                        class="button btnthrid border-0 me-2 mt-4"> Anda Sudah Terdaftar </button>
                                 </div>
                             </div>
                         </div>
@@ -97,6 +99,7 @@ export default {
         title: Object,
         errors: Object,
         event: Object,
+        status: Object,
     },
 
     //inisialisasi composition API

@@ -51,7 +51,7 @@
         <div class="message">
             <p>Halo Rekan JF SDM Aparatur!</p>
             <p class="mb-0">Terima kasih telah mendaftar pada kegiatan Komunitas Belajar by Asosiasi Profesi JF SDM Aparatur dengan tema:</p>
-                "{{ $data['title'] }}" </p>
+                {{ $data['title'] }} </p>
             <p>pada:</p>
             <ul>
                 <li>Tanggal : {{ $data['date'] }}</li>
@@ -69,7 +69,7 @@
                 </li>
                 <li>✅Persiapkan diri untuk pembelajaran yang sangat bermanfaat ini
                 </li>
-                <li>✅Wajib mematikan (unmute) microphone dan menyalakan kamera
+                <li>✅Wajib mematikan (mute) microphone dan menyalakan kamera
                 </li>
                 <li>✅Mari senantiasa mengedepankan etika dalam berdiskusi melalui ruang maya
                 </li>

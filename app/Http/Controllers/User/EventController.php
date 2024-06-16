@@ -103,10 +103,23 @@ class EventController extends Controller
     public function show(Event $event)
     {
 
+        $memberId = auth()->guard('member')->user()->id;
+        $status = $memberId ? 1 : 0;
+
+        if($memberId){
+            $detailEvent = DetailEvent::where('member_id', $memberId)->first();
+            $status = $detailEvent ? 1 : 0;
+        }
+
         return inertia('User/Events/Show', [
             'event' => $event,
+            'status' => $status,
 
-         ]);
+        ]);
+        return inertia('User/Events/Show', [
+            'event' => $event,
+            'status' => $status,
+        ]);
     }
 
     /**
