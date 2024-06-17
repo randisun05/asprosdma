@@ -269,14 +269,16 @@ class PublicController extends Controller
 
         $data = Member::where('nip', $request->nip)->first();
 
-        // Generate a UUID for the password code
-            $passwordCode = \Illuminate\Support\Str::uuid()->toString();
-            $data->update([
-                'code-password' => $passwordCode,
-            ]);
+
 
         // Periksa apakah data ditemukan dan email sesuai dengan yang dimasukkan pengguna
         if ($data && $data->email === $request->email) {
+             // Generate a UUID for the password code
+             $passwordCode = \Illuminate\Support\Str::uuid()->toString();
+             $data->update([
+                 'code-password' => $passwordCode,
+             ]);
+
             Mail::to($data->email)->send(new SendEmailForgetPassword($data));
             return back()->with('success', 'Email telah dikirimkan untuk reset password.');
         }
