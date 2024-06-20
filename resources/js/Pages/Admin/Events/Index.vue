@@ -57,6 +57,7 @@
                                             <Link :href="`/admin/events/${event.id}`" title="view" class="btn btn-sm btn-primary border-0 shadow me-2" type="button"><i class="fa fa-eye fa-lg" aria-hidden="true"></i></Link>
                                             <Link :href="`/admin/events/${event.id}/edit`" title="edit" class="btn btn-sm btn-warning border-0 shadow me-2"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i> </Link>
                                             <button @click="destroy(event.id)" title="tolak" class="btn btn-sm btn-danger border-0 shadow me-2"><i class="fa fa-times-circle fa-lg" aria-hidden="true"></i></button>
+                                            <a :href="`/admin/events/${event.id}/export`" title="download" class="btn btn-sm btn-success border-0 shadow me-2"><i class="fa fa-download fa-lg" aria-hidden="true"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Event;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\DetailEvent;
+use Illuminate\Http\Request;
 use App\Models\ProfileDataMain;
 use App\Models\ProfileDataPosition;
+use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\EventParticipantsExport;
 
 class EventController extends Controller
 {
@@ -218,5 +220,24 @@ class EventController extends Controller
      //redirect
      return redirect()->route('admin.events.index');
     }
+
+
+    public function exportParticipant($id)
+    {
+        $event = Event::findOrFail($id);
+
+        $details = DetailEvent::where('event_id',$id)
+        ->with('member','event')
+        ->when(request()->q, function($query) {
+            $query->where('title', 'like', '%' . request()->q . '%');
+        })
+        ->latest()
+        ->get();
+
+        return Excel::download(new EventParticipantsExport($details), 'participants.xlsx');
+
+    }
+
+
 
 }
