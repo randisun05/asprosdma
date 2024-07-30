@@ -14,7 +14,7 @@
          </div>
          <div class="col-md-5 col-sm-5 padding_bottom mt-4 wow fadeInRight" data-wow-delay="350ms">
             <div class="image mt-2">
-                <video width="100%" controls>
+                <video width="100%" controls poster="/assets/images/tb-aspro-1.png">
                     <source src="/assets/video/video1.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>

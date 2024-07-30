@@ -3,7 +3,7 @@
    <nav class="navbar navbar-expand-lg transparent-bg static-nav">
       <div class="container">
          <a class="navbar-brand" href="/">
-          <img src="/assets/images/logo.png" alt="logo" style="width: 70%;">
+          <img src="/assets/images/logo2.png" alt="logo" style="width: 70%;">
          </a>
          <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#xenav">
             <span> </span>
