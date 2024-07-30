@@ -11,9 +11,8 @@
       </div>
       <div class="row three-col-pricing center-content">
          <div class="col-lg-2 col-sm-12">
-            <div class="price-table top60" style="height:450px;">
+            <div class="price-table top60" style="height:500px;">
                <h4 class="bottom20 darkcolor">Bidang Keanggotaan Dan Organisasi</h4>
-               <p>SEGERA</p>
                <ul class="top20">
                   <li><span>Pendaftaran Anggota</span></li>
                   <li><span>Pemeliharaan dan Penyajian Data Keanggotaan</span></li>
@@ -23,9 +22,8 @@
             </div>
          </div>
          <div class="col-lg-2 col-sm-12">
-            <div class="price-table active top60" style="height:450px;">
+            <div class="price-table active top60" style="height:500px;">
                <h4 class="bottom20 darkcolor">Bidang Pengembangan Kapasitas Insani</h4>
-               <p>SEGERA</p>
                <ul class="top20">
                   <li><span>Komunitas Belajar</span></li>
                   <li><span>SEGERA</span></li>
@@ -36,9 +34,8 @@
             </div>
          </div>
          <div class="col-lg-2 col-sm-12">
-            <div class="price-table top60" style="height:450px;">
+            <div class="price-table top60" style="height:500px;">
                <h4 class="bottom20 darkcolor">Bidang Hukum dan Advokasi</h4>
-               <p>SEGERA</p>
                <ul class="top20">
                   <li><span>SEGERA</span></li>
                   <li><span>SEGERA</span></li>
@@ -49,22 +46,20 @@
             </div>
          </div>
          <div class="col-lg-2 col-sm-12">
-            <div class="price-table active top60" style="height:450px;">
+            <div class="price-table active top60" style="height:500px;">
                <h4 class="bottom20 darkcolor">Bidang Hubungan Masyarakat dan Kerja Sama</h4>
-               <p>SEGERA</p>
                <ul class="top20">
-                  <li><span>SEGERA</span></li>
-                  <li><span>SEGERA</span></li>
-                  <li><span>SEGERA</span></li>
+                  <li><span>Layanan Informasi dan Kehumasan</span></li>
+                  <li><span>Penulisan dan Publikasi</span></li>
+                  <li><span>Pengelolaan Media Elektronik dan Media Sosial</span></li>
                </ul>
                <div class="clearfix"></div>
                <a href="javascript:void(0)" class="button btnsecondary top50">Selengkapnya</a>
             </div>
          </div>
          <div class="col-lg-2 col-sm-12">
-            <div class="price-table top60" style="height:450px;">
+            <div class="price-table top60" style="height:500px;">
                <h4 class="bottom20 darkcolor">Bidang Sumber Pendanaan Organisasi</h4>
-               <p>SEGERA</p>
                <ul class="top20">
                   <li><span>Merchandise</span></li>
                   <li><span>SEGERA</span></li>
