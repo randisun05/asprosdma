@@ -51,7 +51,22 @@
                </div>
             </div>
          </div>
+         <div class="col-lg-3 col-md-3">
+            <div class="team-box grey-shade top60">
+               <div class="image">
+                  <a href="/assets/excel/data-anggota-juni.pdf" class="text-center mt-4" download="">
+                     <img src="/assets/images/data-anggota-juni.png" alt="">
+                  </a>
+               </div>
+               <div class="team-content darkcolor">
+                  <h4>Data Keanggotaan Aspro SDMA Periode Juni 2024</h4>
+               </div>
+            </div>
+         </div>
+
+
       </div>
+
    </div>
 </section>
 <!--Testimonials Ends-->
