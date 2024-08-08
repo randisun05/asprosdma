@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('link');
             $table->string('image')->nullable();
             $table->enum('status',['active','closed','media']);
+            $table->enum('file',['Y','N'])->default('N');
             $table->timestamps();
         });
     }

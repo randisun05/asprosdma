@@ -39,6 +39,15 @@ class EventController extends Controller
 
     public function join($id, Request $request)
     {
+        $event = Event::findOrFail($id);
+
+        if ($event->file = "Y"){
+            $request->validate([
+                'document' => 'required',
+            ]);
+        }
+        // Store the file using Laravel's file storage system
+        $document = $request->file('document')->storePublicly('/documents');
 
         $detailEvent = DetailEvent::firstOrCreate(
             [
@@ -48,6 +57,7 @@ class EventController extends Controller
             [
                 'title' => "peserta",
                 'status' => "approved",
+                'desc' => $document
             ]
         );
 

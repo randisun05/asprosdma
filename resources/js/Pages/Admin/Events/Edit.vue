@@ -89,6 +89,21 @@
                                                 </div>
                                             </div>
 
+                                            <div class="col-md-2">
+                                                <span class="text-black">
+                                                Upload File
+                                                </span>
+                                                <div class="form-group mt-1 mb-4">
+                                                   <select type="form-select" class="form-control" id="file" v-model="form.file">
+                                                    <option value="N" selected>N</option>
+                                                    <option value="Y">Y</option>
+                                                   </select>
+                                                </div>
+                                                <div v-if="errors.participant" class="alert alert-danger mt-2">
+                                                    {{ errors.participant }}
+                                                </div>
+                                            </div>
+
                                             <div class="col-md-11">
                                                 <span class="text-black">
                                                 Tempat Pelaksanaan
@@ -199,6 +214,7 @@
                 link: props.event.link,
                 participant: props.event.participant,
                 image: props.event.image,
+                file: props.event.file
 
             });
 
@@ -217,7 +233,7 @@
                     image: form.image,
                     place: form.place,
                     link: form.link,
-
+                    file: form.file
                 } ,{
                     onSuccess: () => {
                         //show success alert

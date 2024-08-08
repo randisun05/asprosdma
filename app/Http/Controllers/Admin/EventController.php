@@ -56,6 +56,7 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
+
         // Validate request including file validation
       $request->validate([
         'title' => 'required|string',
@@ -66,6 +67,7 @@ class EventController extends Controller
         'date' => 'required',
         'place' => 'required',
         'image' => '|image|mimes:jpeg,png,jpg,gif,svg|max:5048|nullable',
+        'file' => 'required',
     ]);
 
     $slug = strtolower(str_replace(' ', '-', $request->title));
@@ -85,6 +87,7 @@ class EventController extends Controller
             'image' => $image,
             'place' => $request->place,
             'link' => $request->link,
+            'file' => $request->file
         ]);
 
 
@@ -157,6 +160,7 @@ class EventController extends Controller
         'enddate' => 'required',
         'date' => 'required',
         'place' => 'required',
+        'file' => 'required',
     ]);
 
     $slug = strtolower(str_replace(' ', '-', $request->title));
@@ -179,6 +183,7 @@ class EventController extends Controller
             'image' => $image,
             'place' => $request->place,
             'link' => $request->link,
+            'file' => $request->file
         ]);
 
 

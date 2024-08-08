@@ -42,6 +42,22 @@
                                 </ul>
 
                                 <div v-html="event.body" style="text-align:justify;text-justify: "></div>
+
+                                <div v-if="event.file === 'Y' && status != 1" class="form-group bottom35 mt-1">
+                                    <label>Upload File ( Bentuk File .Pdf Maks 2Mb)</label>
+                                        <div class="input-group">
+                                            <input type="file" class="form-control" @change="updateDocument"
+                                                accept=".pdf">
+                                        </div>
+
+                                            <div v-if="errors.document" class="alert alert-danger mt-2">
+                                                {{ errors.document }}
+                                            </div>
+                                            <div v-if="errors[0]" class="alert alert-danger mt-2">
+                                                {{ errors[0] }}
+                                            </div>
+
+                                    </div>
                                 <div class="text-center">
                                     <button v-if="event.status === 'active' && status === 0" @click.prevent="join(event.id)"
                                         class="button btnprimary border-0 me-2 mt-4"> Join </button>
@@ -74,7 +90,7 @@ import {
 
 //import ref from vue
 import {
-    ref
+    ref, reactive
 } from 'vue';
 
 //import inertia adapter
@@ -105,30 +121,40 @@ export default {
     //inisialisasi composition API
     setup() {
 
-        //define method destroy
-        const join = (id) => {
-            Swal.fire({
-                title: 'Anda akan mendaftar pada event ini?',
-                text: "",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, Daftarkan!'
-            })
-                .then((result) => {
-                    if (result.isConfirmed) {
-                        Inertia.post(`/user/events/${id}/join`);
-                        Swal.fire({
-                            title: 'Berhasil!',
-                            text: `Anda sudah berhasil bergabung sebagai peserta`,
-                            icon: 'success',
-                            timer: 2000,
-                            showConfirmButton: false,
-                        });
-                    }
-                })
+        //define form state
+        const form = reactive({
+                document: '',
+            });
+
+            const join = (id) => {
+    Swal.fire({
+        title: 'Anda akan mendaftar pada event ini?',
+        text: "",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Daftarkan!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Inertia.post(`/user/events/${id}/join`, {
+                // Assuming form.document is available in the current scope
+                document: form.document,
+            }, {
+                onSuccess: () => {
+                    Swal.fire({
+                        title: 'Berhasil!',
+                        text: 'Anda sudah berhasil bergabung sebagai peserta',
+                        icon: 'success',
+                        timer: 2000,
+                        showConfirmButton: false,
+                    });
+                }
+            });
         }
+    });
+}
+
 
 
         // Method to get the URL of the document
@@ -136,10 +162,17 @@ export default {
             return `/storage/${imageName}`;
         }
 
+        // Method to update the document file
+        const updateDocument = (event) => {
+            form.document = event.target.files[0];
+        };
+
         //return
         return {
             getImageUrl,
-            join
+            join,
+            updateDocument,
+            form
         }
     }
 
