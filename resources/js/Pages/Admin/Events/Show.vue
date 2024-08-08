@@ -129,6 +129,8 @@
                                         <td>{{ detail.member.agency }}</td>
                                         <td class="text-center">
                                             <button title="tolak" class="btn btn-sm btn-danger border-0 shadow me-2"><i class="fa fa-times-circle fa-lg" aria-hidden="true"></i></button>
+                                            <a v-if="detail.desc" :href="getDocumentUrl(detail.desc)" title="file"
+                                            target="_blank" class="btn btn-sm btn-info border-0 shadow me-2"><i class="fa fa-file fa-lg" aria-hidden="true"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -219,11 +221,17 @@ import Pagination from '../../../Components/Pagination.vue';
                 });
             }
 
+             // Method to get the URL of the document
+            const getDocumentUrl = (documentName) => {
+                return `/storage/${documentName}`;
+            }
+
 
 
 
             //return
             return {
+                getDocumentUrl
 
         }
     }
