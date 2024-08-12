@@ -117,9 +117,10 @@ class EventController extends Controller
         $status = $memberId ? 1 : 0;
 
         if($memberId){
-            $detailEvent = DetailEvent::where('member_id', $memberId)->first();
+            $detailEvent = DetailEvent::where('event_id',$event->id)->where('member_id', $memberId)->first();
             $status = $detailEvent ? 1 : 0;
         }
+
 
         return inertia('User/Events/Show', [
             'event' => $event,
