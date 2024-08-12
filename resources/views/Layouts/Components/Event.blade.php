@@ -25,7 +25,7 @@
                                             </div>
                                             <ul class="top20 bottom20 text-center">
                                                 <li>
-                                                    <a href="#."><i class="fa fa-calendar me-2" title="Tanggal pelaksanaa"></i>{{ $event->date }}</a>
+                                                    <a href="#."><i class="fa fa-calendar me-2" title="Tanggal pelaksanaa"></i>{{ $event->enddate }}</a>
                                                     <a class="ms-4" href="#."><i class="fa fa-user-o me-2" title="Jumlah peserta"></i>{{ $event->participant }}</a>
                                                 </li>
                                                 <li>
