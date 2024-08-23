@@ -16,6 +16,7 @@
                <ul class="top20">
                   <li><span>Pendaftaran Anggota</span></li>
                   <li><span>Pemeliharaan dan Penyajian Data Keanggotaan</span></li>
+                  <li><span>SDM Aparatur Dalam Sepekan</span></li>
                </ul>
                <div class="clearfix"></div>
                <a href="javascript:void(0)" class="button btnsecondary top50">Selengkapnya</a>
@@ -26,7 +27,7 @@
                <h4 class="bottom20 darkcolor">Bidang Pengembangan Kapasitas Insani</h4>
                <ul class="top20">
                   <li><span>Komunitas Belajar</span></li>
-                  <li><span>SEGERA</span></li>
+                  <li><span>Sayembara Literasi SDM Aparatur</span></li>
                   <li><span>SEGERA</span></li>
                </ul>
                <div class="clearfix"></div>

@@ -6,7 +6,7 @@
            <div class="heading-title heading_space wow fadeInUp" data-wow-delay="300ms">
                <span>Ada pertanyaan, masukan, atau ingin berkolaborasi?</span>
                <h2 class="darkcolor">Kontak Kami</h2>
-                 <p>Kami akan senang hati membaca/mendengar pertanyaan, masukan, atau keinginan berkolaborasi Anda. Tim kami siap membantu!</p>
+                 <p>Dengan mengisi formulir pada https://bit.ly/bantusobatasprosdma. Kami akan senang hati membaca/mendengar pertanyaan, masukan, atau keinginan berkolaborasi Anda. Tim kami siap membantu!</p>
             </div>
         </div>
          <div class="col-md-6 col-sm-12 margin_bottom our-address wow fadeInUp" data-wow-delay="300ms">
