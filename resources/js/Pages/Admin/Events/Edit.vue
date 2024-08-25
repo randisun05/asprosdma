@@ -39,7 +39,7 @@
                                                 </span>
                                                 <div class="form-group mt-1 mb-4">
                                                     <Editor
-                                                        api-key="g43acxcw0cg4k3asm2ttsaio4antpmaa2e3bckfo6y3kpaqg"
+                                                        api-key="1r5zhfhbvfala2snldia4kj7eub4vbev5i6i4mnf9r8smbsb"
                                                         v-model="form.body"
                                                         :init="{
                                                             menubar: false,
