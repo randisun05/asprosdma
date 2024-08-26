@@ -74,7 +74,7 @@
                                                 Deskripsi
                                                 </span>
                                                 <Editor
-                                                        api-key="1r5zhfhbvfala2snldia4kj7eub4vbev5i6i4mnf9r8smbsb"
+                                                        api-key="p3lrvkppzagmj4yruef15fnmcjh6xdchg3nsfxdiijvh42og"
                                                         v-model="form.body"
                                                         :init="{
                                                             menubar: false,
@@ -89,7 +89,7 @@
                                                 How To Buy
                                                 </span>
                                                 <Editor
-                                                        api-key="1r5zhfhbvfala2snldia4kj7eub4vbev5i6i4mnf9r8smbsb"
+                                                        api-key="p3lrvkppzagmj4yruef15fnmcjh6xdchg3nsfxdiijvh42og"
                                                         v-model="form.how"
                                                         :init="{
                                                             menubar: false,
