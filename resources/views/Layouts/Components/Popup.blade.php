@@ -4,24 +4,24 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Info Registrasi Aspro SDMA</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Informasi Aspro SDMA</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
 
                 <div class="cbp-item web logo">
-                    <img src="/assets/images/popup-form1.jpeg" alt="" style="width: 100%">
+                    <img src="/assets/images/popup-sep.jpg" alt="" style="width: 100%">
                         <div class="overlay center-block whitecolor">
-                            <a class="plus" target="_blank" href="https://forms.gle/JgABg2tWswVh1We49"></a>
-                        {{-- <a class="plus" data-fancybox="" href="/assets/images/popup-form1.jpeg"></a> --}}
+                            {{-- <a class="plus" target="_blank" href="https://forms.gle/JgABg2tWswVh1We49"></a> --}}
+                        <a class="plus" data-fancybox="" href="/assets/images/popup-sep.jpg"></a>
                         </div>
                 </div>
 
       </div>
-      <div class="modal-footer">
+      {{-- <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <a href="https://forms.gle/JgABg2tWswVh1We49" class="btn btn-primary" target="_blank">Isi Form</a>
-      </div>
+      </div> --}}
     </div>
   </div>
 </div>
