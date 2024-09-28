@@ -10,18 +10,18 @@
       <div class="modal-body">
 
                 <div class="cbp-item web logo">
-                    <img src="/assets/images/popup-sep.jpg" alt="" style="width: 100%">
+                    <img src="/assets/images/pop-up-pemenang.jpg" alt="" style="width: 100%">
                         <div class="overlay center-block whitecolor">
-                            {{-- <a class="plus" target="_blank" href="https://forms.gle/JgABg2tWswVh1We49"></a> --}}
-                        <a class="plus" data-fancybox="" href="/assets/images/popup-sep.jpg"></a>
+                            {{-- <a class="plus" target="_blank" href="https://asprosdma.id/berita/pengumuman-pemenang-sayembara-literasi-sdm-aparatur-2024"></a> --}}
+                        <a class="plus" data-fancybox="" href="/assets/images/pop-up-pemenang.jpg"></a>
                         </div>
                 </div>
 
       </div>
-      {{-- <div class="modal-footer">
+      <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <a href="https://forms.gle/JgABg2tWswVh1We49" class="btn btn-primary" target="_blank">Isi Form</a>
-      </div> --}}
+        <a href="https://asprosdma.id/berita/pengumuman-pemenang-sayembara-literasi-sdm-aparatur-2024" class="btn btn-primary" target="_blank">Detail</a>
+      </div>
     </div>
   </div>
 </div>

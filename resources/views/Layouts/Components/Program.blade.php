@@ -38,7 +38,7 @@
             <div class="price-table top60" style="height:500px;">
                <h4 class="bottom20 darkcolor">Bidang Hukum dan Advokasi</h4>
                <ul class="top20">
-                  <li><span>SEGERA</span></li>
+                  <li><span>Pengesahan Badan Hukum Perkumpulan</span></li>
                   <li><span>SEGERA</span></li>
                   <li><span>SEGERA</span></li>
                </ul>
