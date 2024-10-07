@@ -209,11 +209,11 @@ label {
   margin-right: 10px;
 }
 
-img {
+/* img {
   width: 20px;
   height: 20px;
   margin-right: 5px;
-}
+} */
 
 .active {
   filter: brightness(1.5); /* Highlight the active image */
