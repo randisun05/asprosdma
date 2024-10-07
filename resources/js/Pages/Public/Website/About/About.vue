@@ -43,6 +43,8 @@
             </p> 
             <p class="h6 bottom20 darkcolor mb-4">Melalui organisasi profesi, pejabat fungsional SDMA dapat tumbuh berkembang bersama menghadirkan pendekatan-pendekatan yang mutakhir serta mewujudkan sumber daya manusia aparatur yang kapabel dan berdaya saing. Organisasi profesi jabatan fungsional SDMA merupakan bagian yang tidak terpisahkan dari instansi pembina dalam hal ini Badan Kepegawaian Negara (BKN), oleh karena itu organisasi profesi ini bertujuan memberikan kontribusi sebesar-besarnya bagi pencapaian kinerja penyelenggaraan manajemen aparatur sipil negara dan sumber daya manusia aparatur lainnya. Diharapkan melalui wadah organisasi profesi para pejabat fungsional SDMA dapat berkiprah dengan rahmat Tuhan Yang Maha Esa serta didorong oleh keinginan luhur untuk mewujudkan cita-cita bangsa dalam membentuk Aparatur Sipil Negara yang profesional dan berintegritas, maka dalam pelaksanaannya akan ditentukan pada Anggaran Dasar yang ditetapkan dalam Musyawarah Aspro SDMA sebagai wadah tertinggi dalam menetapkan kebijakan organisasi.
             </p>
+            <p class="h6 bottom20 darkcolor mb-4">Pendirian Perkumpulan Asosiasi Profesi Jabatan Fungsional Sumber Daya Manusia Aparatur telah disahkan oleh Menteri Hukum dan HAM RI melalui Keputusan Nomor AHU-0008845.AH.01.07 Tahun 2024 tanggal 25 September 2024.
+            </p>
          </div>
 
          </div>
