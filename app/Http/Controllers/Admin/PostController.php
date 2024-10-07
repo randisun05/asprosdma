@@ -20,15 +20,16 @@ class PostController extends Controller
      */
     public function index()
     {
+        $this->cekAuth();
         $posts = Post::where('status', 'submission')
              ->when(request()->q, function($query) {
                  $query->where('title', 'like', '%' . request()->q . '%');
              })
-             ->with('member','category')
+             ->with('member','category','react')
              ->latest()
              ->paginate(10);
 
-             $publishs = PublicPost::with('post','post.category','post.member')
+             $publishs = PublicPost::with('post','post.category','post.member','post.react')
              ->latest()
              ->paginate(10);
 
@@ -37,7 +38,7 @@ class PostController extends Controller
                  $query->where('title', 'like', '%' . request()->q . '%');
              })
 
-             ->with('member','category')
+             ->with('member','category','react')
              ->latest()
              ->paginate(10);
 
@@ -62,6 +63,7 @@ class PostController extends Controller
      */
     public function create()
     {
+        $this->cekAuth();
 
         $categories = Category::get();
         return inertia('Admin/Posts/Create', [
@@ -77,6 +79,9 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
+        $this->cekAuth();
+
        // Validate request including file validation
       $request->validate([
         'title' => 'required|string',
@@ -150,7 +155,10 @@ class PostController extends Controller
     public function show($id)
     {
 
-        $post = Post::where('id',$id)->with('member','category')->first();
+        $this->cekAuth();
+
+        $post = Post::where('slug', $id)->with('member','category','react')->firstOrFail();
+
         return inertia('Admin/Posts/Show', [
            'post' => $post
         ]);
@@ -164,7 +172,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $post = Post::findOrFail($id);
+        $this->cekAuth();
+        $post = Post::where('slug',$id)->first();
         $categories = Category::get();
         return inertia('Admin/Posts/Edit', [
            'post' => $post,
@@ -181,12 +190,14 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->cekAuth();
        // Validate request including file validation
       $request->validate([
         'title' => 'required|string',
         'body' => 'required|',
 
     ]);
+    $id= Post::where('slug',$id)->value('id');
 
     $slug = strtolower(str_replace(' ', '-', $request->title));
     $body = $request->body;
@@ -220,8 +231,7 @@ class PostController extends Controller
         $image = Post::where ('id', $id)->value('image');
     };
 
-
-        Post::where('id',$id)->update([
+        Post::where('id', $id)->update([
             'title' => $request->title,
             'category_id' => $request->category,
             'body' =>  $request->body,
@@ -248,6 +258,8 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
+        $this->cekAuth();
+
         $post = Post::findOrFail($id);
 
         $post->delete();
@@ -258,6 +270,9 @@ class PostController extends Controller
 
     public function approve($id)
     {
+
+        $this->cekAuth();
+
         $post = Post::findOrFail($id);
 
         $post->update([
@@ -274,6 +289,9 @@ class PostController extends Controller
 
     public function return($id)
     {
+
+        $this->cekAuth();
+
         $post = Post::findOrFail($id);
 
         $post->update([
@@ -285,6 +303,8 @@ class PostController extends Controller
 
     public function reject($id)
     {
+        $this->cekAuth();
+
         $post = Post::findOrFail($id);
 
         $post->update([
@@ -296,12 +316,13 @@ class PostController extends Controller
 
     public function cancel($id)
     {
-
+        $this->cekAuth();
         $public = PublicPost::findOrFail($id);
         $post   = Post::where('id', $public->post_id);
-        $post->update([
-            'status' => 'return'
-        ]);
+
+            $post->update([
+                'status' => 'return'
+            ]);
 
         $public->delete();
 
@@ -310,8 +331,23 @@ class PostController extends Controller
 
     }
 
+    public function cancelLimited($id)
+    {
+        $this->cekAuth();
+        $post   = Post::where('id', $id)->first();
+
+            $post->update([
+                'status' => 'return'
+            ]);
+
+        //redirect
+        return redirect()->route('admin.posts.index');
+
+    }
+
     public function limited($id)
     {
+        $this->cekAuth();
         $post = Post::findOrFail($id);
 
         $post->update([
@@ -324,9 +360,24 @@ class PostController extends Controller
 
     }
 
+    public function submission($id)
+    {
+        $this->cekAuth();
+        $post = Post::findOrFail($id);
+
+        $post->update([
+            'status' => 'submission'
+        ]);
+
+
+        //redirect
+        return redirect()->route('admin.posts.list');
+
+    }
+
     public function categoryCreate()
     {
-
+        $this->cekAuth();
         return inertia('Admin/Posts/CreateCategory', [
          ]);
         //redirect
@@ -336,7 +387,7 @@ class PostController extends Controller
 
     public function categoryStore(Request $request)
     {
-
+        $this->cekAuth();
         $request->validate([
             'title' => 'required|unique:categories',
         ] , [
@@ -350,6 +401,38 @@ class PostController extends Controller
         return redirect()->route('admin.posts.index');
 
     }
+
+    public function list()
+    {
+        $this->cekAuth();
+
+        $posts = Post::where('member_id', '1')
+        ->when(request()->q, function($query) {
+            $query->where('title', 'like', '%' . request()->q . '%');
+        })
+        ->with('member','category','react')
+        ->latest()
+        ->paginate(10);
+
+
+
+   //append query string to pagination links
+        $posts->appends(['q' => request()->q]);
+
+        return inertia('Admin/Posts/List', [
+            'posts' => $posts,
+
+            ]);
+    }
+
+    public function cekAuth()
+    {
+        if(!auth()->check()) {
+            auth()->logout(); // Log out the user programmatically
+            return redirect()->route('login')->with('warning', 'Anda tidak memiliki akses');
+        }
+    }
+
 
 
 }

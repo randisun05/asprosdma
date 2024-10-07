@@ -24,7 +24,7 @@ class Post extends Model
         'publish_at',
     ];
 
-    
+
     public function category()
     {
         return $this ->belongsTo(Category::class);
@@ -33,6 +33,11 @@ class Post extends Model
     public function member()
     {
         return $this ->belongsTo(Member::class);
+    }
+
+    public function react()
+    {
+        return $this ->hasMany(ReactDetail::class);
     }
 
 }

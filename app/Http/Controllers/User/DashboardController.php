@@ -21,6 +21,12 @@ class DashboardController extends Controller
     public function __invoke()
     {
 
+        if (!auth()->guard('member')->check())
+        {
+            return redirect()->route('login');
+        }
+
+
         $main = ProfileDataMain::where('nip',auth()->guard('member')->user()->nip)
         ->first();
 

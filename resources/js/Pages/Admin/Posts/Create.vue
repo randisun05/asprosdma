@@ -11,7 +11,7 @@
                         <div class="col-md-12">
                             <div class="row py-4">
                                         <div class="col-md-2 col-12 mb-2">
-                                            <Link href="/admin/posts" class="btn btn-md btn-primary border-0 shadow w-100" type="button"><i
+                                            <Link href="/admin/admin/posts" class="btn btn-md btn-primary border-0 shadow w-100" type="button"><i
                                                 class="fa fa-arrow-left"></i>
                                             Kembali</Link>
                                         </div>

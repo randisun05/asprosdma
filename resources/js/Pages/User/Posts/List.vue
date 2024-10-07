@@ -42,6 +42,20 @@
                             <p class="bottom35">{{ post.excerpt }}</p>
                             <Link :href="`/user/posts/list/${post.slug}`" title="join" class="button btnprimary" type="button">
                             View</Link>
+                            <div>
+                                    <!-- <label for="love">
+                                    <img :src="getImageUrl('love.png')" :class="{ active: post.react.love > 0 }" alt="Love">
+                                    {{ post.react.love }}
+                                </label>
+                                <label for="like">
+                                    <img :src="getImageUrl('thumbs_up.png')" :class="{ active: post.react.like > 0 }" alt="Like">
+                                    {{ post.react.like }}
+                                </label> -->
+                            <label for="view">
+                                <i class="fa fa-eye" :class="{ active: post.react.view > 0 }" alt="View" :title="'Dilihat ' + post.react.view + ' kali'"></i>
+                               dilihat {{ post.react.view }} kali
+                            </label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -71,7 +85,7 @@ import {
 
 //import ref from vue
 import {
-    ref
+    ref, watch
 } from 'vue';
 
 //import inertia adapter
@@ -97,7 +111,7 @@ export default {
     },
 
     //inisialisasi composition API
-    setup() {
+    setup(props) {
 
         //define state search
         const search = ref('' || (new URL(document.location)).searchParams.get('q'));
@@ -116,11 +130,44 @@ export default {
             return `/storage/${imageName}`;
         }
 
+         // Method to count reactions
+         const countReactions = (posts) => {
+            posts.data.forEach(post => {
+                // Ensure post.react is an array before filtering
+                if (Array.isArray(post.react)) {
+                    // Filter and count reactions based on react_id
+                    const loveReactions = post.react.filter(reaction => reaction.react_id === "1").length;
+                    const likeReactions = post.react.filter(reaction => reaction.react_id === "2").length;
+                    const viewReactions = post.react.filter(reaction => reaction.react_id === "3").length;
+
+                    // Assign the counts to post.react as an object
+                    post.react = {
+                        love: loveReactions,
+                        like: likeReactions,
+                        view: viewReactions,
+                    };
+                } else {
+                    // If react is not an array, set default counts
+                    post.react = {
+                        love: 0,
+                        like: 0,
+                        view: 0,
+                    };
+                }
+            });
+        }
+
+        // Watch for changes in posts and count reactions whenever it updates
+        watch(() => props.posts, (newPosts) => {
+            countReactions(newPosts); // Count reactions whenever posts update
+        }, { immediate: true }); // Run the function immediately on first render
+
         //return
         return {
             search,
             handleSearch,
             getImageUrl,
+            countReactions
 
 
         }

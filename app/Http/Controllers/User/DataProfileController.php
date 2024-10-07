@@ -24,6 +24,8 @@ class DataProfileController extends Controller
     public function index()
     {
 
+        if (auth()->guard('member')->check()) {
+
         $main = ProfileDataMain::where('nip',auth()->guard('member')->user()->nip)
         ->first();
 
@@ -34,11 +36,18 @@ class DataProfileController extends Controller
         return inertia('User/DataProfile/Index', [
            'data' => $data,
         ]);
+
+        } else {
+            return redirect()->route('login');
+        }
     }
 
     public function indexIndiv()
     {
-
+        if (!auth()->guard('member')->check())
+        {
+            return redirect()->route('login');
+        }
         $main = ProfileDataMain::where('nip',auth()->guard('member')->user()->nip)
         ->first();
 
@@ -53,6 +62,10 @@ class DataProfileController extends Controller
 
     public function indexPosition()
     {
+        if (!auth()->guard('member')->check())
+        {
+            return redirect()->route('login');
+        }
 
         $main = ProfileDataMain::where('nip',auth()->guard('member')->user()->nip)
         ->first();
@@ -68,6 +81,10 @@ class DataProfileController extends Controller
 
     public function indexOther()
     {
+        if (!auth()->guard('member')->check())
+        {
+            return redirect()->route('login');
+        }
 
         $main = ProfileDataMain::where('nip',auth()->guard('member')->user()->nip)
         ->first();
@@ -122,6 +139,11 @@ class DataProfileController extends Controller
      */
     public function edit()
     {
+        if (!auth()->guard('member')->check())
+        {
+            return redirect()->route('login');
+        }
+
         $main = ProfileDataMain::where('nip',auth()->guard('member')->user()->nip)
         ->first();
 
@@ -138,6 +160,11 @@ class DataProfileController extends Controller
 
     public function editPosition()
     {
+        if (!auth()->guard('member')->check())
+        {
+            return redirect()->route('login');
+        }
+
         $main = ProfileDataMain::where('nip',auth()->guard('member')->user()->nip)
         ->first();
 
@@ -162,6 +189,10 @@ class DataProfileController extends Controller
      */
     public function update(Request $request)
     {
+        if (!auth()->guard('member')->check())
+        {
+            return redirect()->route('login');
+        }
 
           $request->validate([
                 'nip' => ['required','string', 'regex:/^\d{18}$/'],
@@ -244,6 +275,10 @@ class DataProfileController extends Controller
 
     public function updatePosition(Request $request)
     {
+        if (!auth()->guard('member')->check())
+        {
+            return redirect()->route('login');
+        }
 
           $request->validate([
                 'type' => 'required',
@@ -300,6 +335,10 @@ class DataProfileController extends Controller
 
         public function updateImage(Request $request)
         {
+            if (!auth()->guard('member')->check())
+        {
+            return redirect()->route('login');
+        }
 
             $image = $request->file('image');
             if ($image) {

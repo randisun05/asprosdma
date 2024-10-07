@@ -26,7 +26,7 @@
 <section id="our-team-two" class="padding_m">
    <div class="container">
       <div class="row justify-content-center">
-         <div class="col-lg-3 col-md-3">
+         <!-- <div class="col-lg-3 col-md-3">
             <div class="team-box grey-shade top60">
                <div class="image">
                   <a href="/assets/excel/AD.pdf" class="text-center mt-4" download="">
@@ -49,7 +49,7 @@
                   <h4>Anggaran Rumah Tangga Aspro SDMA</h4>
                </div>
             </div>
-         </div>
+         </div> -->
          <div class="col-lg-3 col-md-3">
             <div class="team-box grey-shade top60">
                <div class="image">
@@ -71,6 +71,18 @@
                </div>
                <div class="team-content darkcolor">
                   <h4>Pedoman Kode Etik Dan Kode Prilaku Aspro SDMA</h4>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-3 col-md-3">
+            <div class="team-box grey-shade top60">
+               <div class="image">
+                  <a href="/assets/excel/pengesahan-pendirian-aspro.pdf" class="text-center mt-4" download="">
+                  <img src="assets/images/pengesahan-pendirian.png" alt="">
+                  </a>
+               </div>
+               <div class="team-content darkcolor">
+                  <h4>Pengesahan Pendirian Perkumpulan Aspro SDMA</h4>
                </div>
             </div>
          </div>

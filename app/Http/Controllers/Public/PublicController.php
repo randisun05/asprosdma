@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\Event;
 use App\Models\Member;
 use App\Models\Category;
+use App\Models\ReactDetail;
 use App\Models\Registration;
 use Illuminate\Http\Request;
 use App\Models\RegistrationGroup;
@@ -200,6 +201,23 @@ class PublicController extends Controller
     {
 
          // Get the related category of the post
+         $user = auth()->guard('member')->user();
+
+         if ($user) {
+
+            $exist = ReactDetail::where('post_id', $post->id)->where('member_id', $user->id)->where('react_id', '3')->first();
+
+            if (!$exist) {
+                $react = ReactDetail::create([
+                    'post_id' => $post->id,
+                    'member_id' => $user->id,
+                    'react_id' => '3',
+                    'status' => '1',
+                    'type' => 'post'
+                ]);
+            }
+
+         }
 
         $category = $post->category;
         $member = $post->member;

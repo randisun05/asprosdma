@@ -20,67 +20,70 @@ class EventController extends Controller
      */
     public function index()
     {
+        if (auth()->guard('member')->check()) {
+            $events = Event::whereNot('title', 'Media')
+                ->when(request()->q, function ($query) {
+                    $query->where('title', 'like', '%' . request()->q . '%');
+                })
+                ->latest()
+                ->paginate(3);
 
-        $events = Event::whereNot('title','Media')
-        ->when(request()->q, function($query) {
-            $query->where('title', 'like', '%' . request()->q . '%');
-        })
-        ->latest()
-        ->paginate(3);
+            //append query string to pagination links
+            $events->appends(['q' => request()->q]);
 
-         //append query string to pagination links
-         $events->appends(['q' => request()->q]);
-
-         return inertia('User/Events/Index', [
-             'events' => $events,
-          ]);
-
+            return inertia('User/Events/Index', [
+                'events' => $events
+            ]);
+        } else {
+            return redirect()->route('login');
+        }
     }
 
     public function join($id, Request $request)
     {
-        $event = Event::findOrFail($id);
 
-        if ($event->file = "Y"){
-          //  $request->validate([
-            //    'document' => 'required',
-          //  ]);
-        }
-        // Store the file using Laravel's file storage system
-     //   $document = $request->file('document')->storePublicly('/documents');
+        if (auth()->guard('member')->check()) {
+            $event = Event::findOrFail($id);
 
-        $detailEvent = DetailEvent::firstOrCreate(
-            [
-                'event_id' => $id,
-                'member_id' => auth()->guard('member')->user()->id,
-            ],
-            [
-                'title' => "peserta",
-                'status' => "approved",
-             //   'desc' => $document
-            ]
-        );
+            if ($event->file == "Y") {
+                $request->validate([
+                    'document' => 'required',
+                ]);
+                 // Store the file using Laravel's file storage system
+                $document = $request->file('document')->storePublicly('/documents');
+            }
 
-        if ($detailEvent->wasRecentlyCreated) {
-            // Baru saja dibuat, berarti belum terdaftar sebelumnya
-            // Tampilkan pesan bahwa mereka berhasil terdaftar
-            $event = Event::where('id',$detailEvent->event_id)->first();
-            $email = Member::where('id', $detailEvent->member_id)->first();
 
-            Mail::to($email['email'])->send(new SendEmailEvent($event));
+            $detailEvent = DetailEvent::firstOrCreate(
+                [
+                    'event_id' => $id,
+                    'member_id' => auth()->guard('member')->user()->id,
+                ],
+                [
+                    'title' => "peserta",
+                    'status' => "approved",
+                    'desc' => $document ?? null,
+                ]
+            );
 
-            return redirect()->route('user.events.index');
+            if ($detailEvent->wasRecentlyCreated) {
+                // Baru saja dibuat, berarti belum terdaftar sebelumnya
+                // Tampilkan pesan bahwa mereka berhasil terdaftar
+                $event = Event::where('id', $detailEvent->event_id)->first();
+                $email = Member::where('id', $detailEvent->member_id)->first();
+
+                Mail::to($email['email'])->send(new SendEmailEvent($event));
+
+                return redirect()->route('user.events.index');
+            } else {
+                // Sudah ada, berarti sudah terdaftar sebelumnya
+                // Tampilkan pesan bahwa mereka sudah terdaftar sebelumnya
+                return redirect()->route('user.events.index');
+            }
         } else {
-            // Sudah ada, berarti sudah terdaftar sebelumnya
-            // Tampilkan pesan bahwa mereka sudah terdaftar sebelumnya
+            //redirect
             return redirect()->route('user.events.index');
         }
-
-
-
-      //redirect
-     return redirect()->route('user.events.index');
-
     }
 
     /**
@@ -112,25 +115,23 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
+        if (auth()->guard('member')->check()) {
+            $memberId = auth()->guard('member')->user()->id;
+            $status = $memberId ? 1 : 0;
 
-        $memberId = auth()->guard('member')->user()->id;
-        $status = $memberId ? 1 : 0;
+            if ($memberId) {
+                $detailEvent = DetailEvent::where('event_id', $event->id)->where('member_id', $memberId)->first();
+                $status = $detailEvent ? 1 : 0;
+            }
 
-        if($memberId){
-            $detailEvent = DetailEvent::where('event_id',$event->id)->where('member_id', $memberId)->first();
-            $status = $detailEvent ? 1 : 0;
+            return inertia('User/Events/Show', [
+                'event' => $event,
+                'status' => $status,
+            ]);
+        } else {
+            return redirect()->route('login');
         }
 
-
-        return inertia('User/Events/Show', [
-            'event' => $event,
-            'status' => $status,
-
-        ]);
-        return inertia('User/Events/Show', [
-            'event' => $event,
-            'status' => $status,
-        ]);
     }
 
     /**

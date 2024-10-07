@@ -466,15 +466,18 @@ class RegistrationController extends Controller
 
     public function confirm($id, Request $request)
     {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
 
         $register = Registration::findOrFail($id);
 
-        Mail::to($register['email'])->send(new SendEmailConfirm($register));
+        Mail::to($request['email'])->send(new SendEmailConfirm($register));
 
         Registration::where('id', $id)->update([
             'status' => "confirm",
             'info' => $request->info,
-            'emailstatus'      => 1,
+            // 'emailstatus'      => 1,
         ]);
         Registration::where('id', $id)->increment('emailstatus');
 

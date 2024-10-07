@@ -13,9 +13,11 @@ class DetailEvent extends Model
         'member_id',
         'title',
         'status',
+        'doc',
+        'sert',
         'desc',
-        
-    ];  
+
+    ];
 
     public function event()
     {

@@ -107,7 +107,7 @@
                 </div>
                                 <div class="text-center">
                             <button v-if="register.status !== 'rejected' && register.status !== 'approved'" @click="handleApprove(register.id)" class="btn btn-sm btn-success border-0 shadow me-2"><i class="fa fa-check-circle fa-lg me-1" aria-hidden="true"></i>Selesai</button>
-                            <button v-if="register.status !== 'approved'" @click="handleConfirm(register.id)" class="btn btn-sm btn-warning border-0 shadow me-2"><i class="fa fa-question-circle fa-lg me-1" aria-hidden="true"></i>Perbaikan</button>
+                            <button v-if="register.status !== 'approved'" @click.prevent="showModalEmail = true" class="btn btn-sm btn-warning border-0 shadow me-2"><i class="fa fa-question-circle fa-lg me-1" aria-hidden="true"></i>Perbaikan</button>
                             <button v-if="register.status !== 'approved' && register.status !== 'rejected'" @click="handleReject(register.id)" class="btn btn-sm btn-danger border-0 shadow me-2"><i class="fa fa-times-circle fa-lg me-1" aria-hidden="true"></i>Tolak</button>
                             <button v-if="register.status !== 'approved' && register.status !== 'rejected'" @click="sendEmail(register.id)" class="btn btn-sm btn-primary border-0 shadow me-2"><i class="fa fa-envelope fa-lg me-1" aria-hidden="true"></i>Permintaan Pembayaran</button>
                             <button v-if="register.status === 'approved' " @click="handleemailApprove(register.id)" class="btn btn-sm btn-success border-0 shadow me-2"><i class="fa fa-check-circle fa-lg me-1" aria-hidden="true"></i>Kirim Ulang Email Selesai</button>
@@ -118,6 +118,27 @@
             </div>
         </div>
     </div>
+
+                    <div v-if="showModalEmail" class="modal fade" :class="{ 'show': showModalEmail }" tabindex="-1"
+                        aria-hidden="true" style="display:block;" role="dialog">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <h5 class="modal-title">Mengirim Link Perbaikan Ke Email:</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="email" class="form-control" v-model="form.sendemail">
+                                </div>
+                                <div class="modal-footer">
+                                    <button @click.prevent=handleConfirm(register.id) type="button" class="btn btn-primary">Kirim</button>
+                                    <button @click.prevent="showModalEmail = false" type="button"
+                                        class="btn btn-secondary">Tutup</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
 
 </template>
 
@@ -133,7 +154,7 @@
     } from '@inertiajs/inertia-vue3';
 
     //import reactive from vue
-    import { reactive } from 'vue';
+    import { reactive, ref } from 'vue';
 
     //import inertia adapter
     import { Inertia } from '@inertiajs/inertia';
@@ -180,6 +201,7 @@
             paid: props.register.paid,
             document_jab: props.register.document_jab,
             info: props.register.info,
+            sendemail: props.register.email,
         });
 
         const handleApprove = (id) => {
@@ -225,7 +247,8 @@
                     if (result.isConfirmed) {
 
                         Inertia.get(`/admin/registration/${id}/confirm`,{
-                            'info' : form.info
+                            'info' : form.info,
+                            'email' : form.sendemail
                         });
 
                         Swal.fire({
@@ -237,6 +260,7 @@
                         });
                     }
                 })
+                ref.showModalEmail = false;
             }
 
             const handleReject = (id) => {
@@ -326,6 +350,8 @@
             return `/storage/${imageName}`;
         }
 
+        const showModalEmail = ref(false);
+
             //return
 return {
     form,
@@ -335,7 +361,8 @@ return {
     handleConfirm,
     getImageUrl,
     sendEmail,
-    handleemailApprove
+    handleemailApprove,
+    showModalEmail
 }
 
 }

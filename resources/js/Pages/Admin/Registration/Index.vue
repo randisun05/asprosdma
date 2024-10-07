@@ -125,12 +125,12 @@
                                                 class="btn btn-sm btn-primary border-0 shadow me-2" type="button"><i
                                                 class="fa fa-eye fa-lg" aria-hidden="true" title="lihat detail"></i>
                                             </Link>
-                                            <button
+                                            <!-- <button
                                                 v-if="register.status !== 'approved' && register.status !== 'rejected'"
                                                 @click="handleApprove(register.id)"
                                                 class="btn btn-sm btn-success border-0 shadow me-2">
                                                 <i class="fa fa-check-circle fa-lg" aria-hidden="true"
-                                                    title="approve"></i></button>
+                                                    title="approve"></i></button> -->
                                             <button v-if="register.status !== 'approved'" @click="handleConfirm(register.id)" class="btn btn-sm btn-warning border-0 shadow me-2"><i class="fa fa-question-circle fa-lg" aria-hidden="true" title="confirm"></i></button>
                                             <button
                                                 v-if="register.status !== 'approved' && register.status !== 'rejected'"

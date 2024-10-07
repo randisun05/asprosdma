@@ -35,6 +35,11 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+
+            // Custom route model binding for posts using slug
+            // Route::bind('post', function ($value) {
+            //     return \App\Models\Post::where('slug', $value)->firstOrFail();
+            // });
         });
     }
 

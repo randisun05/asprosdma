@@ -12,7 +12,7 @@
                                 <div class="col-md-12">
                                     <div class="row py-4">
                                         <div class="col-md-2 col-12 mb-2">
-                                            <Link href="/user/posts/list" class="btn btn-md btn-primary border-0 shadow w-100"
+                                            <Link href="/user/merchans" class="btn btn-md btn-primary border-0 shadow w-100"
                                                 type="button"><i class="fa fa-arrow-left"></i>
                                             Kembali</Link>
                                         </div>
@@ -30,13 +30,6 @@
                                     <h2 class="product-brand">{{ merchan.title }}</h2>
                                     <h4 class="product-name">{{ merchan.subtitle }}</h4>
                                     <p class="product-color">Warna : {{ merchan.color }}</p>
-                                    <div class="product-rating">
-                                        <span class="rating-star">★</span>
-                                        <span class="rating-star">★</span>
-                                        <span class="rating-star">★</span>
-                                        <span class="rating-star">★</span>
-                                        <span class="rating-star">★</span>
-                                    </div>
                                     <p class="product-price">Rp.{{ merchan.price }}</p>
                                     <span>Deskripsi Merchandise:</span>
                                     <div v-html="merchan.body" class="mb-3"></div>

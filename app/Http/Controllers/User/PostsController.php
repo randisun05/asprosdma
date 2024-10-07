@@ -25,7 +25,7 @@ class PostsController extends Controller
         ->when(request()->q, function($query) {
             $query->where('title', 'like', '%' . request()->q . '%');
         })
-        ->with('member','category')
+        ->with('member','category','react')
         ->latest()
         ->paginate(6);
 
@@ -125,14 +125,19 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
 
-        $post = Post::where('id',$id)->with('member','category')->first();
-
-        return inertia('User/Posts/Show', [
+        if ($post->member_id == auth()->guard('member')->user()->id) {
+            $post->load('member', 'category', 'react'); // Load the 'member' and 'category' relationships
+            return inertia('User/Posts/Show', [
             'post' => $post
-         ]);
+            ]);
+        } else {
+            return redirect()->route('user.posts.index')->with('error', 'You are not authorized to view this post');
+        }
+
+
     }
 
     /**
@@ -141,14 +146,20 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        $post = Post::findOrFail($id);
+
         $categories = Category::get();
-        return inertia('User/Posts/Edit', [
-            'post' => $post,
-            'categories' => $categories
-        ]);
+
+        if ($post->member_id == auth()->guard('member')->user()->id) {
+            return inertia('User/Posts/Edit', [
+                'post' => $post,
+                'categories' => $categories
+            ]);
+        } else {
+            return redirect()->route('user.posts.index')->with('error', 'You are not authorized to edit this post');
+        }
+
     }
 
     /**
@@ -161,7 +172,7 @@ class PostsController extends Controller
     public function update(Request $request, $id)
     {
 
-        // Validate request including file validation
+    // Validate request including file validation
       $request->validate([
         'title' => 'required|string',
         'body' => 'required|',
@@ -227,6 +238,18 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
+
+        return $id;
+        $post = Post::findOrFail($id);
+        if ($post->member_id == auth()->guard('member')->user()->id) {
+
+            $post->delete();
+
+            //redirect
+            return redirect()->route('user.posts.index');
+        } else {
+            return redirect()->route('user.posts.index')->with('error', 'You are not authorized to delete this post');
+        }
         $post = Post::findOrFail($id);
 
         $post->delete();
@@ -239,9 +262,15 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail($id);
 
-        $post->update([
-            'status' => 'submission'
-        ]);
+        if ($post->member_id == auth()->guard('member')->user()->id) {
+            $post->update([
+                'status' => 'submission'
+            ]);
+
+        } else {
+            return redirect()->route('user.posts.index')->with('error', 'You are not authorized to submit this post');
+        }
+
 
         //redirect
         return redirect()->route('user.posts.index');
@@ -249,31 +278,38 @@ class PostsController extends Controller
 
     public function list()
     {
+        if (auth()->guard('member')->check()) {
+            $posts = Post::with('member', 'category', 'react')
+            ->when(request()->q, function($query) {
+                $query->where('title', 'like', '%' . request()->q . '%');
+            })
+            ->where(function($query) {
+                $query->where('status', 'approved')
+                    ->orWhere('status', 'limited');
+            })
+            ->latest()
+            ->paginate(6);
 
-        $posts = Post::with('member')
-        ->when(request()->q, function($query) {
-            $query->where('title', 'like', '%' . request()->q . '%');
-        })
-        ->where(function($query) {
-            $query->where('status', 'approved')
-                ->orWhere('status', 'limited');
-        })
-        ->latest()
-        ->paginate(6);
-
-        $posts->appends(['q' => request()->q]);
-
-        return inertia('User/Posts/List', [
-            'posts' => $posts
-        ]);
+            $posts->appends(['q' => request()->q]);
+            return inertia('User/Posts/List', [
+                'posts' => $posts
+            ]);
+        } else {
+            return redirect()->route('login');
+        }
     }
+
     public function showlist(Post $post)
     {
-        $post->load('member', 'category'); // Mengambil relasi 'member' dan 'category'
+        if (auth()->guard('member')->check() && ($post->status == 'approved' || $post->status == 'limited')) {
+            $post->load('member', 'category','react'); // Mengambil relasi 'member' dan 'category'
+            return inertia('User/Posts/ListShow', [
+                'post' => $post
+            ]);
+        } else {
+            return redirect()->route('user.posts.list')->with('error', 'You are not authorized to view this post');
+        }
 
-        return inertia('User/Posts/ListShow', [
-            'post' => $post
-        ]);
     }
 
 }

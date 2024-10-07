@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use App\Models\ReactDetail;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
@@ -15,13 +16,13 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('member')
+        $posts = Post::with(['member','category', 'react' => function($query) {
+            $query->where('type', 'post');
+        }])
         ->when(request()->q, function($query) {
             $query->where('title', 'like', '%' . request()->q . '%');
         })
-        ->where(function($query) {
-            $query->where('status', 'approved');
-        })
+        ->where('status', 'approved')
         ->latest()
         ->paginate(6);
 
@@ -62,6 +63,7 @@ class PostsController extends Controller
      */
     public function show($id)
     {
+
         $post = Post::with('member','category')->where('id',$id)->first();
 
         return inertia('Public/Website/Posts/Show', [

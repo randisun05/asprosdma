@@ -7,15 +7,18 @@
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-1 col-12 mb-2">
-                        <Link href="/admin/posts/create" class="btn btn-md btn-primary border-0 shadow w-100" type="button"><i
-                            class="fa fa-plus-circle"></i>
-                         Tambah</Link>
+                        <Link href="/admin/admin/posts" class="btn btn-md btn-primary border-0 shadow w-100" type="button">
+                            <i class="fa fa-plus-circle"></i>  Post
+                        </Link>
                     </div>
+
                     <div class="col-md-1 col-12 mb-2">
                         <Link href="/admin/category/create" class="btn btn-md btn-warning border-0 shadow w-100" type="button">
                             <i class="fa fa-plus-circle"></i>  Kategori
                         </Link>
                     </div>
+
+
 
                     <div class="col-md-6 col-12 mb-2">
                         <form @submit.prevent="handleSearch">
@@ -78,9 +81,9 @@
                                             <span v-else-if="post.status === 'return'" class="badge bg-danger" title="ditolak untuk publish">{{ post.status }}</span>
                                             <span v-else-if="post.status === 'limited'" class="badge bg-secondary">{{ post.status }}</span></td>
                                         <td class="text-center">
-                                            <Link :href="`/admin/posts/${post.id}`" title="view" class="btn btn-sm btn-primary border-0 shadow me-2" type="button"><i class="fa fa-eye fa-lg" aria-hidden="true"></i></Link>
+                                            <Link :href="`/admin/posts/${encodeURIComponent(post.slug)}`" title="view" class="btn btn-sm btn-primary border-0 shadow me-2" type="button"><i class="fa fa-eye fa-lg" aria-hidden="true"></i></Link>
                                             <button @click="handleApprove(post.id)" title="setuju untuk publish" class="btn btn-sm btn-success border-0 shadow me-2" type="button"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i></button>
-                                            <Link :href="`/admin/posts/${post.id}/edit`" title="edit" class="btn btn-sm btn-warning border-0 shadow me-2">
+                                            <Link :href="`/admin/posts/${encodeURIComponent(post.slug)}/edit`" title="edit" class="btn btn-sm btn-warning border-0 shadow me-2">
                                             <i class="fa fa-pencil fa-lg" aria-hidden="true"></i></Link>
                                             <button @click="handleLimited(post.id)" title="setuju untuk limited publish" class="btn btn-sm btn-success border-0 shadow me-2" type="button"><i class="fa fa-user-circle fa-lg" aria-hidden="true"></i></button>
                                             <button @click="handleReject(post.id)" title="tolak" class="btn btn-sm btn-danger border-0 shadow me-2"><i class="fa fa-times-circle fa-lg" aria-hidden="true"></i></button>
@@ -98,6 +101,7 @@
                                         <th class="border-0">Title</th>
                                         <th class="border-0">Kategori</th>
                                         <th class="border-0">Author</th>
+                                        <th class="border-0">Views</th>
                                         <th class="border-0 rounded-end" style="width:12%">Aksi</th>
                                     </tr>
                                 </thead>
@@ -108,10 +112,14 @@
                                         <td>{{ publish.post.title }}</td>
                                         <td>{{ publish.post.category.title }}</td>
                                         <td>{{ publish.post.member.name !== 1 ? publish.post.member.name : 'Administrator' }} </td>
+                                        <td>
+                                            {{ publish.post.react.view }}
+                                        </td>
                                         <td class="text-center">
                                             <Link :href="`/admin/posts/${publish.post.id}`" title="view" class="btn btn-sm btn-primary border-0 shadow me-2" type="button"><i class="fa fa-eye fa-lg" aria-hidden="true"></i></Link>
                                             <button @click="handleCancel(publish.id)" title="tolak" class="btn btn-sm btn-danger border-0 shadow me-2"><i class="fa fa-times-circle fa-lg" aria-hidden="true"></i></button>
                                         </td>
+
                                     </tr>
                                 </tbody>
                             </table>
@@ -137,7 +145,7 @@
                                         <td>{{ limited.member.name !== 1 ? limited.member.name : 'Administrator' }} </td>
                                         <td class="text-center">
                                             <Link :href="`/admin/posts/${limited.id}`" title="view" class="btn btn-sm btn-primary border-0 shadow me-2" type="button"><i class="fa fa-eye fa-lg" aria-hidden="true"></i></Link>
-                                            <button @click="handleCancel(limited.id)" title="tolak" class="btn btn-sm btn-danger border-0 shadow me-2"><i class="fa fa-times-circle fa-lg" aria-hidden="true"></i></button>
+                                            <button @click="handleCancelLimited(limited.id)" title="tolak" class="btn btn-sm btn-danger border-0 shadow me-2"><i class="fa fa-times-circle fa-lg" aria-hidden="true"></i></button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -197,7 +205,7 @@
 
     //import ref from vue
     import {
-        ref
+        ref, watch,
     } from 'vue';
 
     //import inertia adapter
@@ -240,7 +248,7 @@
           },
 
         //inisialisasi composition API
-        setup() {
+        setup(props) {
 
             //define state search
             const search = ref('' || (new URL(document.location)).searchParams.get('q'));
@@ -382,6 +390,62 @@
                 })
             }
 
+            const handleCancelLimited = (id) => {
+            Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: "Anda akan membatalkan publikasi!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Reject it!'
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+
+                        Inertia.get(`/admin/posts/${id}/cancelLimited`);
+
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Status Cancelled!.',
+                            icon: 'success',
+                            timer: 2000,
+                            showConfirmButton: false,
+                        });
+                    }
+                })
+            }
+             // Method to count reactions
+             const countReactions = (publishs) => {
+                publishs.data.forEach(publish => {
+                    // Ensure publish.post exists and post.react is an array before filtering
+                    if (publish.post && Array.isArray(publish.post.react)) {
+                        // Filter and count reactions based on react_id
+                        const loveReactions = publish.post.react.filter(reaction => reaction.react_id === "1").length;
+                        const likeReactions = publish.post.react.filter(reaction => reaction.react_id === "2").length;
+                        const viewReactions = publish.post.react.filter(reaction => reaction.react_id === "3").length;
+
+                        // Assign the counts to post.react as an object
+                        publish.post.react = {
+                            love: loveReactions,
+                            like: likeReactions,
+                            view: viewReactions,
+                        };
+                    } else if (publish.post) {
+                        // If react is not an array, set default counts
+                        publish.post.react = {
+                            love: 0,
+                            like: 0,
+                            view: 0,
+                        };
+                    }
+                });
+            };
+        // Watch for changes in posts and count reactions whenever it updates
+        watch(() => props.publishs, (newPosts) => {
+            countReactions(newPosts); // Count reactions whenever posts update
+        }, { immediate: true }); // Run the function immediately on first render
+
 
 
 
@@ -393,7 +457,9 @@
                 handleApprove,
                 handleReturn,
                 handleCancel,
-                handleLimited
+                handleLimited,
+                countReactions,
+                handleCancelLimited
 
 
         }

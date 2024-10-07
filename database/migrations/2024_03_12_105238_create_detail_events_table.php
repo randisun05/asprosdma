@@ -20,6 +20,8 @@ return new class extends Migration
             $table->enum('status',['approved','reject']);
             $table->enum('title',['panitia','peserta']);
             $table->string('desc')->nullable();
+            $table->string('doc')->nullable();
+            $table->string('sert')->nullable();
             $table->timestamps();
         });
     }
