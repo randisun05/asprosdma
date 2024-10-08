@@ -346,4 +346,15 @@ class PublicController extends Controller
         return redirect()->route('user.login')->with('success', 'Password berhasil direset.');
     }
 
+    public function profileView($qr_link)
+    {
+        $data = Member::where('qr_link', $qr_link)->first();
+
+        return inertia('Public/Profile/Index', [
+            'title' => 'Profile Anggota',
+            'data' => $data
+
+        ]);
+    }
+
 }
