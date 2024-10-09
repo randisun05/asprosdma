@@ -145,7 +145,7 @@
     methods: {
         async showQrModal(nomember) {
         try {
-            const response = await axios.post("http://asprosdma.id/admin/generate-qr", {
+            const response = await axios.post("https://asprosdma.id/admin/generate-qr", {
             text: nomember,
             }, { responseType: 'blob' });
 
