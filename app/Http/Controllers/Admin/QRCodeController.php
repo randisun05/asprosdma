@@ -20,7 +20,7 @@ class QRCodeController extends Controller
             $qrLink = $member->qr_link;
         } else {
             // Handle the case where the member or qr_link is not found
-            return response('QR link not found', 404);
+            $qrLink = $member->qr_link;
         }
 
         // Generate the QR code using the retrieved qr_link
