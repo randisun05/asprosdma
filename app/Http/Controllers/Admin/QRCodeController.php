@@ -17,10 +17,10 @@ class QRCodeController extends Controller
 
         // Check if the member exists and has a qr_link
         if ($member && $member->qr_link) {
-            $qrLink = "Randi";
+            $qrLink = "https://asprosdma.id/identity-verification/" . $member->qr_link;
         } else {
             // Handle the case where the member or qr_link is not found
-            return response('Randi Error', 404);
+            return response('QR link not found', 404);
         }
 
         // Generate the QR code using the retrieved qr_link
