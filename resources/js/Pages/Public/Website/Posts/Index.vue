@@ -68,10 +68,10 @@
                                     <img :src="getImageUrl('thumbs_up.png')" :class="{ active: post.react.like > 0 }" alt="Like">
                                     {{ post.react.like }}
                                 </label> -->
-                            <label for="view">
+                            <!-- <label for="view">
                                 <i class="fa fa-eye" :class="{ active: post.react.view > 0 }" alt="View" :title="'Dilihat ' + post.react.view + ' kali'"></i>
                                dilihat {{ post.react.view }} kali
-                            </label>
+                            </label> -->
                             </div>
 
                         </div>

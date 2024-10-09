@@ -84,7 +84,7 @@ Route::prefix('admin')->group(function() {
         Route::get('/members/report/export', [\App\Http\Controllers\Admin\DataMembersController::class, 'exportReport'])->name('admin.member.export');
         Route::get('/members/report', [\App\Http\Controllers\Admin\DataMembersController::class, 'indexReport'])->name('admin.member.report');
         Route::resource('/members', \App\Http\Controllers\Admin\DataMembersController::class, ['as' => 'admin']);
-
+        Route::post('/generate-qr', [\App\Http\Controllers\Admin\QRCodeController::class, 'generateQRCode']);
     });
 });
 
@@ -174,7 +174,8 @@ Route::get('/forget-password', [\App\Http\Controllers\Public\PublicController::c
 Route::get('/forget-password/email', [\App\Http\Controllers\Public\PublicController::class, 'emailforgetPassword'])->name('forget.password.email');
 Route::get('/user/forget-password/{id}', [\App\Http\Controllers\Public\PublicController::class, 'IndexforgetPassword'])->name('forget.password.index');
 Route::put('/user/forget-password/{id}/reset', [\App\Http\Controllers\Public\PublicController::class, 'ResetPassword'])->name('forget.password.reset');
-Route::get('/profile/{member:qr_link}', [\App\Http\Controllers\Public\PublicController::class, 'profileView'])->name('profile.view');
+Route::get('/identity-verification/{member:qr_link}', [\App\Http\Controllers\Public\PublicController::class, 'profileView'])->name('profile.view');
+
 
 
 

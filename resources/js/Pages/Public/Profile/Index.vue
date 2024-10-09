@@ -38,6 +38,9 @@
                 </li>
               </ul>
 
+              <div id="app">
+                    <GenerateQRCode />
+                </div>
 
       </div>
    </div>
@@ -50,6 +53,7 @@
 <script>
     //import layout
     import LayoutWebsite from '../../../Layouts/Website.vue';
+
 
     //import reactive
     import {
@@ -76,6 +80,7 @@
         components: {
             Head,
 
+
         },
 
         //props
@@ -84,8 +89,6 @@
             data:Object
 
         },
-
-
 
     }
 

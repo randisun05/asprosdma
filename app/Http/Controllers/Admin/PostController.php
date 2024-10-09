@@ -156,8 +156,7 @@ class PostController extends Controller
     {
 
         $this->cekAuth();
-
-        $post = Post::where('slug', $id)->with('member','category','react')->firstOrFail();
+        $post = Post::with('member','category','react')->findOrFail($id);
 
         return inertia('Admin/Posts/Show', [
            'post' => $post
@@ -173,7 +172,7 @@ class PostController extends Controller
     public function edit($id)
     {
         $this->cekAuth();
-        $post = Post::where('slug',$id)->first();
+        $post = Post::with('member','category','react')->findOrFail($id);
         $categories = Category::get();
         return inertia('Admin/Posts/Edit', [
            'post' => $post,
@@ -197,7 +196,6 @@ class PostController extends Controller
         'body' => 'required|',
 
     ]);
-    $id= Post::where('slug',$id)->value('id');
 
     $slug = strtolower(str_replace(' ', '-', $request->title));
     $body = $request->body;

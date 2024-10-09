@@ -81,9 +81,9 @@
                                             <span v-else-if="post.status === 'return'" class="badge bg-danger" title="ditolak untuk publish">{{ post.status }}</span>
                                             <span v-else-if="post.status === 'limited'" class="badge bg-secondary">{{ post.status }}</span></td>
                                         <td class="text-center">
-                                            <Link :href="`/admin/posts/${encodeURIComponent(post.slug)}`" title="view" class="btn btn-sm btn-primary border-0 shadow me-2" type="button"><i class="fa fa-eye fa-lg" aria-hidden="true"></i></Link>
+                                            <Link :href="`/admin/posts/${post.id}`" title="view" class="btn btn-sm btn-primary border-0 shadow me-2" type="button"><i class="fa fa-eye fa-lg" aria-hidden="true"></i></Link>
                                             <button @click="handleApprove(post.id)" title="setuju untuk publish" class="btn btn-sm btn-success border-0 shadow me-2" type="button"><i class="fa fa-check-circle fa-lg" aria-hidden="true"></i></button>
-                                            <Link :href="`/admin/posts/${encodeURIComponent(post.slug)}/edit`" title="edit" class="btn btn-sm btn-warning border-0 shadow me-2">
+                                            <Link :href="`/admin/posts/${post.id}/edit`" title="edit" class="btn btn-sm btn-warning border-0 shadow me-2">
                                             <i class="fa fa-pencil fa-lg" aria-hidden="true"></i></Link>
                                             <button @click="handleLimited(post.id)" title="setuju untuk limited publish" class="btn btn-sm btn-success border-0 shadow me-2" type="button"><i class="fa fa-user-circle fa-lg" aria-hidden="true"></i></button>
                                             <button @click="handleReject(post.id)" title="tolak" class="btn btn-sm btn-danger border-0 shadow me-2"><i class="fa fa-times-circle fa-lg" aria-hidden="true"></i></button>
@@ -167,7 +167,6 @@
                                         <td class="fw-bold text-center">{{ ++index + (categories.current_page - 1) * categories.per_page }}</td>
                                         <td>{{ category.title }}</td>
                                         <td class="text-center">
-
                                             <button @click.prevent="destroy(category.id)" class="btn btn-sm btn-danger border-0 me-2"><i class="fa fa-trash" title="hapus"></i></button>
                                         </td>
                                     </tr>

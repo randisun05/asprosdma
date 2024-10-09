@@ -48,6 +48,7 @@
                                         <td class="text-center">
                                             <Link :href="`/admin/members/${data.id}`" title="view" class="btn btn-sm btn-primary border-0 shadow me-2" type="button"><i class="fa fa-eye fa-lg" aria-hidden="true"></i></Link>
                                             <a v-if="$page.props.auth.user.role == 'administrator' || $page.props.auth.user.role == 'keanggotaan'" :href="`/admin/members/${data.id}/edit`" title="edit" class="btn btn-sm btn-warning border-0 shadow me-2"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i> </a>
+                                            <button @click="showQrModal(data.main.nomember)" class="btn btn-sm btn-info border-0 shadow me-2"><i class="fa fa-qrcode fa-lg" aria-hidden="true"></i></button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -62,12 +63,35 @@
 
 
 
+   <!-- QR Code Modal -->
+   <div v-if="showModal" class="modal fade show" style="display: block;" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">QR Code</h5>
+            <button type="button" class="close" @click="closeModal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body text-center">
+            <img :src="qrCode" alt="QR Code" v-if="qrCode" />
+          </div>
+          {{ qrCode }}
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" @click="closeModal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
 </template>
 
 <script>
     //import layout
     import LayoutAdmin from '../../../Layouts/Admin.vue';
+
+    import GenerateQRCode from '../../../Components/GenerateQRCode.vue';
 
     //import component pagination
     import Pagination from '../../../Components/Pagination.vue';
@@ -89,6 +113,8 @@
     //import sweet alert2
     import Swal from 'sweetalert2';
 
+    import axios from "axios";
+
 
     export default {
         //layout
@@ -98,7 +124,8 @@
         components: {
             Head,
             Link,
-            Pagination
+            Pagination,
+            GenerateQRCode
         },
 
         //props
@@ -107,6 +134,33 @@
             datas: Object,
 
         },
+
+        data() {
+    return {
+      showModal: false,
+      qrCode: null,
+      text: "",
+    };
+  },
+    methods: {
+        async showQrModal(nomember) {
+        try {
+            const response = await axios.post("http://asprosdma.id/admin/generate-qr", {
+            text: nomember,
+            }, { responseType: 'blob' });
+
+            const url = URL.createObjectURL(response.data);
+            this.qrCode = url;
+            this.showModal = true;
+        } catch (error) {
+            console.error("Error generating QR code:", error);
+        }
+        },
+        closeModal() {
+        this.showModal = false;
+        this.qrCode = null;
+        }
+    },
 
 
         //inisialisasi composition API
@@ -124,13 +178,14 @@
                 });
             }
 
-
+            const showModalEmail = ref(false);
 
 
             //return
             return {
                 search,
                 handleSearch,
+                showModalEmail
 
         }
     }
@@ -138,6 +193,24 @@
 
 </script>
 
-<style>
+<style scoped>
+.qr-generator {
+  text-align: center;
+  margin-top: 50px;
+}
+input {
+  margin-bottom: 20px;
+  padding: 10px;
+  width: 300px;
+}
 
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
 </style>
+
