@@ -16,11 +16,11 @@ class QRCodeController extends Controller
         $member = Member::where('nomember', $request->input('text'))->first();
 
         // Check if the member exists and has a qr_link
-        if ($member && $member->qr_link) {
+        if ($member) {
             $qrLink = $member->qr_link;
         } else {
             // Handle the case where the member or qr_link is not found
-            $qrLink = $member->qr_link;
+            return response('QR link not found', 404);
         }
 
         // Generate the QR code using the retrieved qr_link
