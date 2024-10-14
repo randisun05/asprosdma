@@ -52,7 +52,7 @@
                                                 <span class="text-black">
                                                 Text
                                                 </span>
-                                                <!-- 1r5zhfhbvfala2snldia4kj7eub4vbev5i6i4mnf9r8smbsb -->
+
                                             <div class="col-md-11">
                                                 <div class="mb-4">
                                                     <Editor

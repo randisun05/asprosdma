@@ -44,7 +44,7 @@
                                         <td>{{ data.main.nomember}}</td>
                                         <td>{{ data.main.name }}</td>
                                         <td>{{ data.position }} {{ data.level }}</td>
-                                        <td>{{ data.agency }} {{ $page.props.auth.user.role }}</td>
+                                        <td>{{ data.agency }}</td>
                                         <td class="text-center">
                                             <Link :href="`/admin/members/${data.id}`" title="view" class="btn btn-sm btn-primary border-0 shadow me-2" type="button"><i class="fa fa-eye fa-lg" aria-hidden="true"></i></Link>
                                             <a v-if="$page.props.auth.user.role == 'administrator' || $page.props.auth.user.role == 'keanggotaan'" :href="`/admin/members/${data.id}/edit`" title="edit" class="btn btn-sm btn-warning border-0 shadow me-2"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i> </a>
@@ -76,7 +76,7 @@
           <div class="modal-body text-center">
             <img :src="qrCode" alt="QR Code" v-if="qrCode" />
           </div>
-          {{ qrCode }}
+
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" @click="closeModal">Close</button>
           </div>

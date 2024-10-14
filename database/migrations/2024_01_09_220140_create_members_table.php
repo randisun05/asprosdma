@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('agency');
             $table->string('password');
             $table->string('code-password')->nullable();
+            $table->string('qr_link')->nullable();
             $table->timestamps();
         });
     }

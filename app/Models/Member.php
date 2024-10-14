@@ -17,7 +17,8 @@ class Member extends Authenticatable
         'password',
         'nomember',
         'agency',
-        'code-password'
+        'code-password',
+        'qr_link'
     ];
 
     protected $hidden = [
