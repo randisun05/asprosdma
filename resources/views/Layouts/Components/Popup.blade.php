@@ -10,17 +10,17 @@
       <div class="modal-body">
 
                 <div class="cbp-item web logo">
-                    <img src="/assets/images/pop-up-kombel-3.jpg" alt="" style="width: 100%">
+                    <img src="/assets/images/kombel3-popup.jpg" alt="" style="width: 100%">
                         <div class="overlay center-block whitecolor">
-                            {{-- <a class="plus" target="_blank" href="https://asprosdma.id/events/%22komunitas-belajar%22-aspro-sdma-series-3-tentang-sayembara-literasi-sdm-aparatur-berkarya-untuk-negeri"></a> --}}
-                        <a class="plus" data-fancybox="" href="/assets/images/pop-up-kombel-3.jpg"></a>
+                            {{-- <a class="plus" target="_blank" href="https://asprosdma.id/berita/aspro-sdma-gelar-komunitas-belajar-series-3:-sayembara-literasi-sdm-aparatur---berkarya-untuk-negeri"></a> --}}
+                        <a class="plus" data-fancybox="" href="/assets/images/kombel3-popup.jpg"></a>
                         </div>
                 </div>
 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <a href="https://asprosdma.id/events/%22komunitas-belajar%22-aspro-sdma-series-3-tentang-sayembara-literasi-sdm-aparatur-berkarya-untuk-negeri" class="btn btn-primary" target="_blank">Detail</a>
+        <a href="https://asprosdma.id/berita/aspro-sdma-gelar-komunitas-belajar-series-3:-sayembara-literasi-sdm-aparatur---berkarya-untuk-negeri" class="btn btn-primary" target="_blank">Detail</a>
       </div>
     </div>
   </div>
