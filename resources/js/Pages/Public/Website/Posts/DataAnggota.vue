@@ -90,6 +90,32 @@
             </div>
          </div>
 
+         <div class="col-lg-3 col-md-3">
+            <div class="team-box grey-shade top60">
+               <div class="image">
+                  <a href="/assets/excel/data-anggota-sep-24.pdf" class="text-center mt-4" download="">
+                     <img src="/assets/images/data-anggota-sep-24.png" alt="">
+                  </a>
+               </div>
+               <div class="team-content darkcolor">
+                  <h4>Data Keanggotaan Aspro SDMA Periode September 2024</h4>
+               </div>
+            </div>
+         </div>
+
+         <div class="col-lg-3 col-md-3">
+            <div class="team-box grey-shade top60">
+               <div class="image">
+                  <a href="/assets/excel/data-anggota-okt-24.pdf" class="text-center mt-4" download="">
+                     <img src="/assets/images/data-anggota-okt-24.png" alt="">
+                  </a>
+               </div>
+               <div class="team-content darkcolor">
+                  <h4>Data Keanggotaan Aspro SDMA Periode Oktober 2024</h4>
+               </div>
+            </div>
+         </div>
+
 
       </div>
 
