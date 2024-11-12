@@ -53,7 +53,7 @@
             <img src="/assets/images/galery4.jpg" alt="" style="width: 118%">
             <div class="overlay center-block whitecolor">
                <a class="plus" data-fancybox="gallery" href="/assets/images/galery4.jpg"></a>
-               <p>Dokumentasi peserta Munas 1</p>
+               <p>Dokumentasi Munas 1</p>
             </div>
          </div>
 
@@ -61,7 +61,7 @@
             <img src="/assets/images/galery5.jpg" alt="">
             <div class="overlay center-block whitecolor">
                <a class="plus" data-fancybox="gallery" href="/assets/images/galery5.jpg"></a>
-               <p>Dokumentasi peserta Munas 2</p>
+               <p>Dokumentasi Munas 2</p>
             </div>
          </div>
 

@@ -133,6 +133,7 @@ Route::prefix('user')->group(function() {
         Route::put('/setting/update', [App\Http\Controllers\User\LoginController::class, 'resetPassword'])->name('user.setting.update');
         Route::get('/merchans/', [\App\Http\Controllers\User\MerchansController::class, 'index'])->name('user.merchan.index');
         Route::get('/merchans/{id}', [\App\Http\Controllers\User\MerchansController::class, 'show'])->name('user.merchan.show');
+        Route::get('/member-card/', [\App\Http\Controllers\User\MemberCardController::class, 'index'])->name('user.card.index');
     });
 });
 
