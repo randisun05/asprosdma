@@ -1,1 +1,0 @@
-import{L as o}from"./Website.9c1d24c9.js";import{H as t,o as s,c as e}from"./app.d06fc9ba.js";import{_ as r}from"./_plugin-vue_export-helper.cdc0426e.js";import"./Footer.fda9c199.js";const a={layout:o,components:{Head:t},props:{}},c={id:"dashboard",class:""};function n(p,i,_,d,m,f){return s(),e("section",c)}const h=r(a,[["render",n]]);export{h as default};

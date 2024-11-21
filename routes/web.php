@@ -134,6 +134,10 @@ Route::prefix('user')->group(function() {
         Route::get('/merchans/', [\App\Http\Controllers\User\MerchansController::class, 'index'])->name('user.merchan.index');
         Route::get('/merchans/{id}', [\App\Http\Controllers\User\MerchansController::class, 'show'])->name('user.merchan.show');
         Route::get('/member-card/', [\App\Http\Controllers\User\MemberCardController::class, 'index'])->name('user.card.index');
+        Route::get('/member-card/edit', [\App\Http\Controllers\User\MemberCardController::class, 'edit'])->name('user.card.edit');
+        Route::get('/member-card/download', [\App\Http\Controllers\User\MemberCardController::class, 'download'])->name('user.card.index');
+        Route::post('/member-card/save-member-card', [\App\Http\Controllers\User\MemberCardController::class, 'download'])->name('user.card.index');
+
     });
 });
 
@@ -200,4 +204,5 @@ Route::get('/send-email',function(){
     Mail::to('randisun1995@gmail.com')->send(new SendEmailReject($data));
 
     dd("Email Berhasil dikirim.");
+
 });
