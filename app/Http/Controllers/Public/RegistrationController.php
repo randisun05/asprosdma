@@ -13,6 +13,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use PHPUnit\TextUI\XmlConfiguration\Group;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
+use Illuminate\Support\Facades\Storage;
+
 
 class RegistrationController extends Controller
 {
@@ -96,7 +98,7 @@ class RegistrationController extends Controller
     ]);
 
 
-    // Store the file using Laravel's file storage system
+ // Store the file using Laravel's file storage system
     $document_jab = $request->file('document_jab')->storePublicly('/documents');
 
     // Create registration
