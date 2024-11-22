@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 use App\Models\Member;
 use App\Models\instansi;
@@ -82,7 +83,7 @@ class RegistrationController extends Controller
     public function store(Request $request)
     {
 
-      // Validate request including file validation
+  // Validate request including file validation
       $validatedData = $request->validate([
         'nip' => ['required', 'string', 'regex:/^\d{18}$/', 'unique:registrations,nip'],
         'name' => 'required|string',
@@ -126,7 +127,6 @@ class RegistrationController extends Controller
 
      //redirect
      return redirect()->route('admin.registration.index');
-
     }
 
     /**
