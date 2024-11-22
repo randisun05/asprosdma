@@ -174,6 +174,8 @@ Route::get('/faq', [\App\Http\Controllers\Public\PublicController::class, 'faq']
 Route::get('/events/{event:slug}', [\App\Http\Controllers\Public\EventsController::class, 'show'])->name('event.show');
 Route::resource('/events', \App\Http\Controllers\Public\EventsController::class);
 Route::resource('/berita', \App\Http\Controllers\Public\PostsController::class);
+Route::get('/artikel', [\App\Http\Controllers\Public\PostsController::class, 'articles'])->name('artikel');
+Route::get('/artikel/{post:slug}', [\App\Http\Controllers\Public\PostsController::class, 'show'])->name('show.artikel');
 Route::resource('/merchans', \App\Http\Controllers\Public\MerchansController::class);
 Route::get('/forget-password', [\App\Http\Controllers\Public\PublicController::class, 'forgetPassword'])->name('forget.password');
 Route::get('/forget-password/email', [\App\Http\Controllers\Public\PublicController::class, 'emailforgetPassword'])->name('forget.password.email');

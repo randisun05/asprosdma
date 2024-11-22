@@ -37,9 +37,9 @@
                                 <div class="col-md-12">
                                     <div class="row py-4">
                                         <div class="col-md-2 col-12 mb-2">
-                                            <Link href="/berita" class="btn btn-md btn-primary border-0 shadow w-100"
-                                                type="button"><i class="fa fa-arrow-left"></i>
-                                            Kembali</Link>
+                                        <Link :href="post.category_id === 3 ? '/artikel' : '/berita'" class="btn btn-md btn-secondary border-0 shadow w-100" type="button">
+                                            <i class="fa fa-arrow-left"></i> Kembali
+                                        </Link>
                                         </div>
                                     </div>
                                 </div>

@@ -57,8 +57,10 @@
                                 <li><a href="#."> <i class="fa fa-user-o"></i>{{ post.member.name }}</a></li>
                             </ul>
                             <p class="bottom35">{{ post.excerpt }}</p>
-                            <Link :href="`/berita/${post.slug}`" title="join" class="button btnprimary" type="button">
-                            View</Link>
+
+                            <Link :href="post.category_id === 3 ? `/artikel/${post.slug}` : `/berita/${post.slug}`" title="join" class="button btnprimary">
+                                    View</Link>
+
                             <div>
                                     <!-- <label for="love">
                                     <img :src="getImageUrl('love.png')" :class="{ active: post.react.love > 0 }" alt="Love">
@@ -137,10 +139,12 @@ export default {
 
         //define method search
         const handleSearch = () => {
-            Inertia.get('/berita', {
+            const currentPath = window.location.pathname;
+            const searchUrl = currentPath.includes('/artikel') ? '/artikel' : '/berita';
 
-                //send params "q" with value from state "search"
-                q: search.value,
+            Inertia.get(searchUrl, {
+            //send params "q" with value from state "search"
+            q: search.value,
             });
         }
 
