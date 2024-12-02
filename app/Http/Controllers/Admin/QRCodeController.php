@@ -8,6 +8,7 @@ use App\Models\Member;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Intervention\Image\Facades\Image;
 
 class QRCodeController extends Controller
 {
@@ -33,8 +34,8 @@ class QRCodeController extends Controller
         }
 
         // Generate the QR code using the retrieved qr_link
-        $qrCode = QrCode::size(300)->generate($qrLink);
+        $qrCode = QrCode::format('png')->size(300)->generate($qrLink);
 
-        return response($qrCode, 200)->header('Content-Type', 'image/svg+xml');
+    return response($qrCode, 200)->header('Content-Type', 'image/png');
     }
 }

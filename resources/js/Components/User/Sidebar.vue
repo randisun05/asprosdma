@@ -17,22 +17,22 @@
                   </Link>
               </li>
 
-              <!-- <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/member-card') }">
+              <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/member-card') }">
                   <Link href="/user/member-card" class="nav-link d-flex justify-content-between">
                   <span>
                       <span class="sidebar-icon">
-                        <i class="fa fa-address-card"></i>
+                        <i class="fa fa-id-card" aria-hidden="true"></i>
                       </span>
                       <span class="sidebar-text ms-3">Kartu Anggota</span>
                   </span>
                   </Link>
-              </li> -->
+              </li>
 
               <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/registration') }">
                   <Link href="/user/profile" class="nav-link d-flex justify-content-between">
                   <span>
                       <span class="sidebar-icon">
-                        <i class="fa fa-address-card"></i>
+                        <i class="fa fa-user" aria-hidden="true"></i>
                       </span>
                       <span class="sidebar-text ms-3">Profile</span>
                   </span>

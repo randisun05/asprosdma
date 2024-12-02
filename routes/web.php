@@ -69,6 +69,9 @@ Route::prefix('admin')->group(function() {
         Route::get('/posts/{id}/cancel', [\App\Http\Controllers\Admin\PostController::class, 'cancel'])->name('admin.posts.cancel');
         Route::get('/posts/{id}/cancelLimited', [\App\Http\Controllers\Admin\PostController::class, 'cancelLimited'])->name('admin.posts.cancellimited');
         Route::get('/posts/{id}/submission', [\App\Http\Controllers\Admin\PostController::class, 'cancel'])->name('admin.posts.submission');
+        Route::get('/events/{id}/certificates', [\App\Http\Controllers\Admin\EventController::class, 'certificatesIndex'])->name('admin.events.certificates');
+        Route::get('/events/{id}/certificates/store', [\App\Http\Controllers\Admin\EventController::class, 'certificatesStore'])->name('admin.events.certificates.store');
+        Route::get('/events/{id}/certificates/import', [\App\Http\Controllers\Admin\EventController::class, 'certificatesImport'])->name('admin.events.certificates.import');
         Route::post('/events/{id}', [\App\Http\Controllers\Admin\EventController::class, 'update'])->name('admin.events.update');
         Route::get('/events/{id}/export', [\App\Http\Controllers\Admin\EventController::class, 'exportParticipant'])->name('admin.events.export');
         Route::get('/events/{id}/change', [\App\Http\Controllers\Admin\EventController::class, 'change'])->name('admin.events.status.change');
@@ -84,6 +87,7 @@ Route::prefix('admin')->group(function() {
         Route::get('/members/report/export', [\App\Http\Controllers\Admin\DataMembersController::class, 'exportReport'])->name('admin.member.export');
         Route::get('/members/report', [\App\Http\Controllers\Admin\DataMembersController::class, 'indexReport'])->name('admin.member.report');
         Route::resource('/members', \App\Http\Controllers\Admin\DataMembersController::class, ['as' => 'admin']);
+        Route::resource('/achievements', \App\Http\Controllers\Admin\AchievementController::class, ['as' => 'admin']);
         Route::post('/generate-qr', [\App\Http\Controllers\Admin\QRCodeController::class, 'generateQRCode']);
     });
 });
@@ -135,8 +139,13 @@ Route::prefix('user')->group(function() {
         Route::get('/merchans/{id}', [\App\Http\Controllers\User\MerchansController::class, 'show'])->name('user.merchan.show');
         Route::get('/member-card/', [\App\Http\Controllers\User\MemberCardController::class, 'index'])->name('user.card.index');
         Route::get('/member-card/edit', [\App\Http\Controllers\User\MemberCardController::class, 'edit'])->name('user.card.edit');
-        Route::get('/member-card/download', [\App\Http\Controllers\User\MemberCardController::class, 'download'])->name('user.card.index');
-        Route::post('/member-card/save-member-card', [\App\Http\Controllers\User\MemberCardController::class, 'download'])->name('user.card.index');
+        Route::get('/member-card/download', [\App\Http\Controllers\User\MemberCardController::class, 'download'])->name('user.card.download');
+        Route::get('/member-card/backcard', [\App\Http\Controllers\User\MemberCardController::class, 'downloadBackcard'])->name('user.card.back');
+
+        // Route::get('/member-card/save-member-card', [\App\Http\Controllers\User\MemberCardController::class, 'saveMemberCard'])->name('user.card.index');
+        Route::get('/member-card/edit', [\App\Http\Controllers\User\MemberCardController::class, 'edit'])->name('user.card.edit');
+        Route::post('/member-card/update', [\App\Http\Controllers\User\MemberCardController::class, 'updateImage'])->name('user.card.update');
+
 
     });
 });

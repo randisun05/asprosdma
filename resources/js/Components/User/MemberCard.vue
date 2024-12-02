@@ -42,6 +42,8 @@ export default {
   },
 };
 
+
+
 </script>
 
   <style scoped>
@@ -61,8 +63,6 @@ export default {
         justify-content: space-between; /* Ensure space between top and bottom elements */
         padding: 20px; /* Add padding for inner spacing */
         border-radius: 40px;
-
-
   }
 
   .card-body {
@@ -107,7 +107,7 @@ export default {
     position: absolute;
     right: 12.3%;
     bottom: 16.4%;
-    border: 5px solid #ccc;
+    border: 3px solid #ccc;
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15); /* Slight shadow to give raised look */
     background: rgba(255, 255, 255, 0.8); /* Slight transparency for an emerging look */
     border-radius: 5px;
@@ -132,3 +132,8 @@ export default {
         border-radius: 5px;
 }
 </style>
+
+<script>
+
+
+</script>

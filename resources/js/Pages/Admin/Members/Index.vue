@@ -65,25 +65,27 @@
 
    <!-- QR Code Modal -->
    <div v-if="showModal" class="modal fade show" style="display: block;" tabindex="-1" role="dialog">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">QR Code</h5>
-            <button type="button" class="close" @click="closeModal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body text-center">
-            <img :src="qrCode" alt="QR Code" v-if="qrCode" />
-          </div>
-
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" @click="closeModal">Close</button>
-          </div>
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">QR Code</h5>
+                    <button type="button" class="close" @click="closeModal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <img :src="qrCode" alt="QR Code" v-if="qrCode" />
+                </div>
+                <div class="modal-footer">
+                    <!-- Tautan Unduhan -->
+                    <a v-if="qrCode" :href="qrCode" download="qr-code.png" class="btn btn-success">
+                        Download QR Code
+                    </a>
+                    <button type="button" class="btn btn-secondary" @click="closeModal">Close</button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-
 
 </template>
 
@@ -145,7 +147,7 @@
     methods: {
         async showQrModal(nomember) {
         try {
-            const response = await axios.post(`https://asprosdma.id/admin/generate-qr`, {
+            const response = await axios.post(`${window.location.origin}/admin/generate-qr`, {
             text: nomember,
             }, { responseType: 'blob' });
 

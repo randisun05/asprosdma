@@ -243,6 +243,34 @@ class EventController extends Controller
 
     }
 
+    public function certificatesIndex($id)
+    {
+
+        $event = Event::findOrFail($id);
+        return inertia('Admin/Events/Certificates', [
+            'event' => $event,
+         ]);
+    }
+
+    public function certificatesImport($id)
+    {
+
+        $event = Event::findOrFail($id);
+        return inertia('Admin/Events/CertificatesImport', [
+            'event' => $event,
+         ]);
+    }
+
+    public function certificatesStore($id)
+    {
+
+        $event = Event::findOrFail($id);
+        return inertia('Admin/Events/Certificates', [
+            'event' => $event,
+         ]);
+    }
+
+
 
 
 }
