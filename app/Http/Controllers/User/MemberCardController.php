@@ -171,7 +171,7 @@ class MemberCardController extends Controller
 public function downloadBackcard()
 {
     // Path ke file back-card.png
-    $filePath = public_path('assets/images/kartu-aggota-belakang.png');
+    $filePath = public_path('assets/images/back-card.png');
 
     // Periksa apakah file ada
     if (file_exists($filePath)) {
