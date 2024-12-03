@@ -38,10 +38,38 @@ class MemberCardController extends Controller
             return inertia('User/MemberCard/Index', [
              'profile' => $profile,
              'qrCode' => (string) $qrCode, // Konversi menjadi string biasa
-                'foto' => $foto
+                'foto' => $foto,
+                'qrLink' => $qrLink
 
             ]);
         }
+    }
+
+    public function generateQRCode()
+    {
+
+        // Retrieve the member where no_member matches the request text
+        $member = Member::where('id', auth()->guard('member')->id())->first();
+
+        // Check if the member exists and has a qr_link
+        if ($member && $member->qr_link) {
+            $qrLink = "https://asprosdma.id/identity-verification/" . $member->qr_link;
+        } elseif ($member && !$member->qr_link) {
+            // Generate a new qr_link if the member does not have one
+            $link = (string) Str::uuid();
+            $member->qr_link = $link;
+            $member->save();
+            $qrLink = "https://asprosdma.id/identity-verification/" . $link;
+
+        } else {
+            // Handle the case where the member or qr_link is not found
+            return response('QR link not found', 404);
+        }
+
+        // Generate the QR code using the retrieved qr_link
+        $qrCode = QrCode::format('png')->size(300)->generate($qrLink);
+
+    return response($qrCode, 200)->header('Content-Type', 'image/png');
     }
 
 

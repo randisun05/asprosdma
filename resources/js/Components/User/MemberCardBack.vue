@@ -10,7 +10,7 @@
       width: 441px;
       height: 754px;
       box-shadow: 10px 10px 10px 10px rgb(0, 0, 0, 0.5);
-      background: url('/assets/images/back-card.png') no-repeat center;
+      background: url('/assets/images/kartu-anggota-belakang.png') no-repeat center;
       background-size: cover;
       font-family: Arial, sans-serif;
       display: flex;

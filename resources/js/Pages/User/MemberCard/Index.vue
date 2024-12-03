@@ -36,6 +36,10 @@
                                 <h4 style="font-size: 18px; color: #777; line-height: 1.6;">
                                     Adalah tanda pengenal resmi bagi anggota Asosiasi Profesi Sumber Daya Manusia Aparatur (ASPRO SDM Aparatur).
                                 </h4>
+                                <br>
+                                <h4 style="font-size: 18px; color: #777; line-height: 1.6;">
+                                    Tautan alamat profile keanggotaan Anda adalah <a :href="qrLink" target="_blank">{{ qrLink }}</a>
+                                </h4>
                                 <div class="d-flex flex-column align-items-center mt-5">
                                     <button
                                         @click="downloadCard"
@@ -106,7 +110,8 @@ export default {
         errors: Object,
         profile: Object,
         foto: Object,
-        qrCode: String
+        qrCode: String,
+        qrLink: String
     },
 
     //inisialisasi composition API

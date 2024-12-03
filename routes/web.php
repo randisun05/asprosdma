@@ -145,8 +145,7 @@ Route::prefix('user')->group(function() {
         // Route::get('/member-card/save-member-card', [\App\Http\Controllers\User\MemberCardController::class, 'saveMemberCard'])->name('user.card.index');
         Route::get('/member-card/edit', [\App\Http\Controllers\User\MemberCardController::class, 'edit'])->name('user.card.edit');
         Route::post('/member-card/update', [\App\Http\Controllers\User\MemberCardController::class, 'updateImage'])->name('user.card.update');
-
-
+        Route::post('/member-card/qrcode', [\App\Http\Controllers\User\MemberCardController::class, 'generateQRCode'])->name('user.card.qr');
     });
 });
 
