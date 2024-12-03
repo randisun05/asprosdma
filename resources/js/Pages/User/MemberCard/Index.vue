@@ -162,7 +162,7 @@ export default {
         // Create an anchor element to trigger the download
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'backcard.png'; // Set the file name for the download
+        a.download = 'kartu-anggota-belakang.png'; // Set the file name for the download
         a.click(); // Programmatically click the anchor to start the download
         URL.revokeObjectURL(url); // Clean up the object URL after download
     } catch (error) {

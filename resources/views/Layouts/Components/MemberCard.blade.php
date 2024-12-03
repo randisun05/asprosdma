@@ -7,7 +7,8 @@
         <script src="https://cdn.jsdelivr.net/npm/dom-to-image@2.6.0/dist/dom-to-image.min.js"></script>
     </head>
     <body>
-    <div id="memberCard" class="member-card">
+<div id="memberCard" class="member-card-wrapper">
+    <div class="member-card">
         <div class="card-body">
             <div class="member-photo">
                 <img src="{{ asset('storage/' . $foto->image) }}" alt="{{ $foto }}">
@@ -30,16 +31,21 @@
 
         </div>
     </div>
+</div>
 
 
     <button id="downloadBtn" style="margin-top: 20px; padding: 10px 20px; font-size: 16px; cursor: pointer;">Download as PNG</button>
 
     <style>
+
+.member-card-wrapper {
+    display: inline-block; /* Mengatur wrapper agar pas dengan konten */
+    padding: 1px; /* Padding di luar elemen */
+    background-color: #000; /* Warna latar pembungkus */
+    border-radius: 40px; /* Menambahkan efek lengkungan */
+}
         .member-card {
             position: relative;
-            margin-left: 10px;
-            margin-right: 10px;
-            margin-top: 10px;
             width: 591px;
             height: 1004px;
             box-shadow: 0px 5px 5px 5px rgba(0, 0, 0, 0.5);
@@ -139,7 +145,7 @@
                 .then(dataUrl => {
                     // Create a link element to download the image
                     const link = document.createElement('a');
-                    link.download = 'member-card.png';
+                    link.download = 'kartu-anggota-depan.png';
                     link.href = dataUrl;
                     link.click();
 
