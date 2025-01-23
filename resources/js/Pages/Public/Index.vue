@@ -1,6 +1,7 @@
 <template>
     <Head>
         <title>Website - Aspro</title>
+        <base href="/" />
     </Head>
 
 <!-- header -->
@@ -112,32 +113,32 @@
       <!-- MAIN IMAGE -->
       <img src="/assets/images/10a.jpg"  alt=""  data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="10" class="rev-slidebg" data-no-retina>
 
-      <!-- LAYER NR. 1 -->	
-      <div class="tp-caption tp-resizeme" 
-       data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
-       data-y="['middle','middle','middle','middle']" data-voffset="['-60','-60','-50','-50']" 
-       data-width="none" data-height="none" data-type="text" 
-       data-textAlign="['center','center','center','center']" 
+      <!-- LAYER NR. 1 -->
+      <div class="tp-caption tp-resizeme"
+       data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
+       data-y="['middle','middle','middle','middle']" data-voffset="['-60','-60','-50','-50']"
+       data-width="none" data-height="none" data-type="text"
+       data-textAlign="['center','center','center','center']"
        data-responsive_offset="on" data-start="1000"
        data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];s:inherit;e:inherit;","speed":2000,"to":"o:1;","delay":1500,"ease":"Power4.easeInOut"},{"delay":"wait","speed":1000,"to":"y:[100%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'>
       <h1 class="text-capitalize font-xlight whitecolor text-center">Asosiasi Profesi</h1> </div>
 
       <!-- LAYER NR. 2 -->
-      <div class="tp-caption tp-resizeme" 
-       data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
-       data-y="['middle','middle','middle','middle']" data-voffset="['0','0','0','0']" 
-       data-width="none" data-height="none" data-type="text" 
-       data-textAlign="['center','center','center','center']" 
+      <div class="tp-caption tp-resizeme"
+       data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
+       data-y="['middle','middle','middle','middle']" data-voffset="['0','0','0','0']"
+       data-width="none" data-height="none" data-type="text"
+       data-textAlign="['center','center','center','center']"
        data-responsive_offset="on" data-start="1500"
        data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];s:inherit;e:inherit;","speed":2000,"to":"o:1;","delay":1500,"ease":"Power4.easeInOut"},{"delay":"wait","speed":1000,"to":"y:[100%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'>
       <h1 class="text-capitalize fontbold whitecolor text-center">Jabatan Fungsional</h1> </div>
 
       <!-- LAYER NR. 3 -->
-      <div class="tp-caption tp-resizeme" 
-       data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
-       data-y="['middle','middle','middle','middle']" data-voffset="['70','70','70','70']" 
+      <div class="tp-caption tp-resizeme"
+       data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
+       data-y="['middle','middle','middle','middle']" data-voffset="['70','70','70','70']"
        data-width="none" data-height="none" data-whitespace="nowrap" data-type="text"
-       data-textAlign="['center','center','center','center']"  
+       data-textAlign="['center','center','center','center']"
        data-responsive_offset="on" data-start="2000"
        data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":2000,"ease":"Power4.easeInOut"},{"delay":"wait","speed":1000,"to":"y:[100%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'>
        <h1 class="whitecolor font-light text-center">Sumber Daya Manusia Aparatur</h1> </div>
@@ -148,32 +149,32 @@
       <!-- MAIN IMAGE -->
       <img src="/assets/images/7a.jpg" alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="10" class="rev-slidebg" data-no-retina>
 
-      <!-- LAYER NR. 1 -->	
-      <div class="tp-caption tp-resizeme" 
-      data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
-      data-y="['middle','middle','middle','middle']" data-voffset="['-60','-60','-50','-50']" 
-      data-width="none" data-height="none" data-type="text" 
-      data-textAlign="['center','center','center','center']" 
+      <!-- LAYER NR. 1 -->
+      <div class="tp-caption tp-resizeme"
+      data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
+      data-y="['middle','middle','middle','middle']" data-voffset="['-60','-60','-50','-50']"
+      data-width="none" data-height="none" data-type="text"
+      data-textAlign="['center','center','center','center']"
       data-responsive_offset="on" data-start="1000"
       data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];s:inherit;e:inherit;","speed":2000,"to":"o:1;","delay":1500,"ease":"Power4.easeInOut"},{"delay":"wait","speed":1000,"to":"y:[100%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'>
       <h1 class="text-capitalize font-xlight whitecolor text-center">Asosiasi Profesi</h1> </div>
 
       <!-- LAYER NR. 2 -->
-      <div class="tp-caption tp-resizeme" 
-      data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
-      data-y="['middle','middle','middle','middle']" data-voffset="['0','0','0','0']" 
-      data-width="none" data-height="none" data-type="text" 
-      data-textAlign="['center','center','center','center']" 
+      <div class="tp-caption tp-resizeme"
+      data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
+      data-y="['middle','middle','middle','middle']" data-voffset="['0','0','0','0']"
+      data-width="none" data-height="none" data-type="text"
+      data-textAlign="['center','center','center','center']"
       data-responsive_offset="on" data-start="1500"
       data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];s:inherit;e:inherit;","speed":2000,"to":"o:1;","delay":1500,"ease":"Power4.easeInOut"},{"delay":"wait","speed":1000,"to":"y:[100%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'>
       <h1 class="text-capitalize fontbold whitecolor text-center">Jabatan Fungsional</h1> </div>
 
       <!-- LAYER NR. 3 -->
-      <div class="tp-caption tp-resizeme" 
-      data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
-      data-y="['middle','middle','middle','middle']" data-voffset="['70','70','70','70']" 
+      <div class="tp-caption tp-resizeme"
+      data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
+      data-y="['middle','middle','middle','middle']" data-voffset="['70','70','70','70']"
       data-width="none" data-height="none" data-whitespace="nowrap" data-type="text"
-      data-textAlign="['center','center','center','center']"  
+      data-textAlign="['center','center','center','center']"
       data-responsive_offset="on" data-start="2000"
       data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":2000,"ease":"Power4.easeInOut"},{"delay":"wait","speed":1000,"to":"y:[100%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'>
       <h1 class="whitecolor font-light text-center">Sumber Daya Manusia Aparatur</h1> </div>
@@ -184,32 +185,32 @@
       <!-- MAIN IMAGE -->
       <img src="/assets/images/9a.jpg" alt="" data-bgposition="center center" data-ease="Linear.easeNone" data-rotatestart="0"  data-bgparallax="10" class="rev-slidebg" data-no-retina>
 
-      <!-- LAYER NR. 1 -->	
-      <div class="tp-caption tp-resizeme" 
-      data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
-      data-y="['middle','middle','middle','middle']" data-voffset="['-60','-60','-50','-50']" 
-      data-width="none" data-height="none" data-type="text" 
-      data-textAlign="['center','center','center','center']" 
+      <!-- LAYER NR. 1 -->
+      <div class="tp-caption tp-resizeme"
+      data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
+      data-y="['middle','middle','middle','middle']" data-voffset="['-60','-60','-50','-50']"
+      data-width="none" data-height="none" data-type="text"
+      data-textAlign="['center','center','center','center']"
       data-responsive_offset="on" data-start="1000"
       data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];s:inherit;e:inherit;","speed":2000,"to":"o:1;","delay":1500,"ease":"Power4.easeInOut"},{"delay":"wait","speed":1000,"to":"y:[100%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'>
       <h1 class="text-capitalize font-xlight whitecolor text-center">Bergabung Bersama</h1> </div>
 
       <!-- LAYER NR. 2 -->
-      <div class="tp-caption tp-resizeme" 
-      data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
-      data-y="['middle','middle','middle','middle']" data-voffset="['0','0','0','0']" 
-      data-width="none" data-height="none" data-type="text" 
-      data-textAlign="['center','center','center','center']" 
+      <div class="tp-caption tp-resizeme"
+      data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
+      data-y="['middle','middle','middle','middle']" data-voffset="['0','0','0','0']"
+      data-width="none" data-height="none" data-type="text"
+      data-textAlign="['center','center','center','center']"
       data-responsive_offset="on" data-start="1500"
       data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];s:inherit;e:inherit;","speed":2000,"to":"o:1;","delay":1500,"ease":"Power4.easeInOut"},{"delay":"wait","speed":1000,"to":"y:[100%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'>
       <h1 class="text-capitalize fontbold whitecolor text-center">Asosiasi Profesi Jabatan Fungsional</h1> </div>
 
       <!-- LAYER NR. 3 -->
-      <div class="tp-caption tp-resizeme" 
-      data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
-      data-y="['middle','middle','middle','middle']" data-voffset="['70','70','70','70']" 
+      <div class="tp-caption tp-resizeme"
+      data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
+      data-y="['middle','middle','middle','middle']" data-voffset="['70','70','70','70']"
       data-width="none" data-height="none" data-whitespace="nowrap" data-type="text"
-      data-textAlign="['center','center','center','center']"  
+      data-textAlign="['center','center','center','center']"
       data-responsive_offset="on" data-start="2000"
       data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":2000,"ease":"Power4.easeInOut"},{"delay":"wait","speed":1000,"to":"y:[100%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'>
       <h1 class="whitecolor font-light text-center">Sumber Data Manusia Aparatur</h1> </div>
@@ -219,7 +220,7 @@
 </div>
 <!--Main Slider ends -->
 
-<!--Some Services-->  
+<!--Some Services-->
 <div class="container">
    <div class="row">
       <div class="col-md-12">
@@ -229,35 +230,35 @@
                   <span class="bottom25"><i class="fa fa-clipboard"></i></span>
                   <h4 class="bottom10"><a href="javascript:void(0)">Analis SDM Aparatur</a></h4>
                   <p>3.000 Analis SDM Aparatur</p>
-               </div>        
+               </div>
             </div>
             <div class="item">
                <div class="service-box">
                   <span class="bottom25"><i class="fa fa-laptop"></i></span>
                   <h4 class="bottom10"><a href="javascript:void(0)">Pranata SDM Aparatur</a></h4>
                      <p>500 Pranata SDM Aparatur</p>
-               </div>        
+               </div>
             </div>
             <div class="item">
                <div class="service-box">
                   <span class="bottom25"><i class="fa fa-support"></i></span>
                   <h4 class="bottom10"><a href="javascript:void(0)">Instansi</a></h4>
                      <p>200 Instansi Pengguna</p>
-               </div>        
+               </div>
             </div>
          </div>
       </div>
    </div>
 </div>
 <!--Some Services ends-->
-       
-<!--Some Feature -->  
+
+<!--Some Feature -->
 <section id="our-feature" class="padding_bottom padding_top_half single-feature">
    <div class="container">
       <div class="row">
          <div class="col-md-6 col-sm-7 text-md-start text-center wow fadeInLeft" data-wow-delay="300ms">
             <div class="heading-title heading_space">
-               <span>Bergabung Bersama Kami</span>  
+               <span>Bergabung Bersama Kami</span>
                <h3 class="darkcolor bottom30">Asosiasi Profesi Jabatan Fungsional SDM Aparatur</h3>
             </div>
             <p class="bottom35">Curabitur mollis bibendum luctus. Duis suscipit vitae dui sed suscipit. Vestibulum auctor nunc vitae diam eleifend, in maximus metus sollicitudin. Quisque vitae sodales lectus. Nam porttitor justo sed mi finibus, vel tristique risus faucibus. </p>
@@ -269,10 +270,10 @@
       </div>
    </div>
 </section>
-<!--Some Feature ends-->              
-        
-   
-<!-- WOrk Process-->  
+<!--Some Feature ends-->
+
+
+<!-- WOrk Process-->
 <section id="our-process" class="padding gradient_bg_default">
    <div class="container">
       <div class="row">
@@ -313,9 +314,9 @@
       </div>
    </div>
 </section>
-<!--WOrk Process ends--> 
+<!--WOrk Process ends-->
 
-<!-- Our Team-->    
+<!-- Our Team-->
 <section id="our-team" class="padding bglight">
    <div class="container">
       <div class="row">
@@ -453,13 +454,13 @@
             </div>
            </div>
         </div>
-        </div>   
+        </div>
       </div>
    </div>
 </section>
-<!-- Our Team ends--> 
+<!-- Our Team ends-->
 
-<!-- Video Click -->  
+<!-- Video Click -->
 <!-- <section id="video-bg" class="video-parallax padding_top">
    <div class="container">
       <div class="row">
@@ -508,7 +509,7 @@
                   <span>Logo</span>
                </div>
             </div>-->
-            </div> 
+            </div>
          </div>
       </div>
       <div id="flat-gallery" class="cbp">
@@ -563,9 +564,9 @@
       </div>
    </div>
 </section>
-<!--Gallery ends -->         
-    
-<!-- Mobile Apps -->  
+<!--Gallery ends -->
+
+<!-- Mobile Apps -->
 <section id="our-apps" class="padding">
    <div class="container">
       <div class="row">
@@ -634,9 +635,9 @@
          </div>
       </div>
    </div>
-</section>                                                                                                                             <!--Mobile Apps ends-->  
-        
-<!-- Counters -->  
+</section>                                                                                                                             <!--Mobile Apps ends-->
+
+<!-- Counters -->
 <!-- <section id="funfacts" class="padding_top fact-iconic gradient_bg">
    <div class="container">
       <div class="row">
@@ -678,9 +679,9 @@
       </div>
    </div>
 </section> -->
-<!--Counters ends--> 
-  
-<!-- Pricing Tables -->  
+<!--Counters ends-->
+
+<!-- Pricing Tables -->
 <!-- <section id="our-pricings" class="padding bglight">
    <div class="container">
       <div class="row">
@@ -750,10 +751,10 @@
       </div>
    </div>
 </section> -->
-<!--Pricing Tables ends-->  
-  
-  
-<!-- Testimonials -->  
+<!--Pricing Tables ends-->
+
+
+<!-- Testimonials -->
 <!-- <section id="our-testimonial" class="padding testimonial-bg">
    <div class="container">
       <div class="row">
@@ -792,7 +793,7 @@
 </section> -->
 <!--Testimonials Ends-->
 
-<!-- Partners -->  
+<!-- Partners -->
 <!-- <section id="logos" class="padding">
    <div class="container">
      <h3 class="invisible">hidden</h3>
@@ -837,7 +838,7 @@
 <!--Partners Ends-->
 
 
-<!-- Our Blogs -->  
+<!-- Our Blogs -->
 <section id="our-blog" class="half-section">
    <div class="container">
       <div class="row">
@@ -858,9 +859,9 @@
    </div>
 </section>
 <!--Our Blogs Ends-->
-     
-     
-<!-- Contact US -->  
+
+
+<!-- Contact US -->
 <section id="contactus" class="padding_top">
    <div class="container">
       <div class="row">
@@ -937,7 +938,7 @@
       </div>
    </div>
 </section>
-<!--Contact US Ends-->  
+<!--Contact US Ends-->
 
 <footer id="site-footer" class="padding_half">
    <div class="container">
@@ -956,7 +957,7 @@
       </div>
    </div>
 </footer>
-    
+
 </template>
 
 <script>

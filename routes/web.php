@@ -69,9 +69,13 @@ Route::prefix('admin')->group(function() {
         Route::get('/posts/{id}/cancel', [\App\Http\Controllers\Admin\PostController::class, 'cancel'])->name('admin.posts.cancel');
         Route::get('/posts/{id}/cancelLimited', [\App\Http\Controllers\Admin\PostController::class, 'cancelLimited'])->name('admin.posts.cancellimited');
         Route::get('/posts/{id}/submission', [\App\Http\Controllers\Admin\PostController::class, 'cancel'])->name('admin.posts.submission');
-        Route::get('/events/{id}/certificates', [\App\Http\Controllers\Admin\EventController::class, 'certificatesIndex'])->name('admin.events.certificates');
-        Route::get('/events/{id}/certificates/store', [\App\Http\Controllers\Admin\EventController::class, 'certificatesStore'])->name('admin.events.certificates.store');
-        Route::get('/events/{id}/certificates/import', [\App\Http\Controllers\Admin\EventController::class, 'certificatesImport'])->name('admin.events.certificates.import');
+        Route::get('/events/{id}/certificates', [\App\Http\Controllers\Admin\EventController::class, 'certificatesIndex'])->name('admin.events.certificates.index');
+        Route::get('/events/{id}/certificates/create', [\App\Http\Controllers\Admin\EventController::class, 'certificatesCreate'])->name('admin.events.certificates.create');
+        Route::post('/events/{id}/certificates/store', [\App\Http\Controllers\Admin\EventController::class, 'certificatesStore'])->name('admin.events.certificates.store');
+        Route::post('/events/{id}/certificates/import', [\App\Http\Controllers\Admin\EventController::class, 'certificatesImport'])->name('admin.events.certificates.import');
+        Route::get('/events/certificates/templates', [\App\Http\Controllers\Admin\EventController::class, 'certificatesTemplate'])->name('admin.events.certificates.template');
+        Route::post('/events/certificates/templates/store', [\App\Http\Controllers\Admin\EventController::class, 'certificatesTemplateStore'])->name('admin.events.certificates.template.store');
+        Route::delete('/events/certificates/templates/{id}', [\App\Http\Controllers\Admin\EventController::class, 'certificatesTemplateDelete'])->name('admin.events.certificates.template.delete');
         Route::post('/events/{id}', [\App\Http\Controllers\Admin\EventController::class, 'update'])->name('admin.events.update');
         Route::get('/events/{id}/export', [\App\Http\Controllers\Admin\EventController::class, 'exportParticipant'])->name('admin.events.export');
         Route::get('/events/{id}/change', [\App\Http\Controllers\Admin\EventController::class, 'change'])->name('admin.events.status.change');
@@ -141,11 +145,14 @@ Route::prefix('user')->group(function() {
         Route::get('/member-card/edit', [\App\Http\Controllers\User\MemberCardController::class, 'edit'])->name('user.card.edit');
         Route::get('/member-card/download', [\App\Http\Controllers\User\MemberCardController::class, 'download'])->name('user.card.download');
         Route::get('/member-card/backcard', [\App\Http\Controllers\User\MemberCardController::class, 'downloadBackcard'])->name('user.card.back');
-
         // Route::get('/member-card/save-member-card', [\App\Http\Controllers\User\MemberCardController::class, 'saveMemberCard'])->name('user.card.index');
         Route::get('/member-card/edit', [\App\Http\Controllers\User\MemberCardController::class, 'edit'])->name('user.card.edit');
         Route::post('/member-card/update', [\App\Http\Controllers\User\MemberCardController::class, 'updateImage'])->name('user.card.update');
-        Route::post('/member-card/qrcode', [\App\Http\Controllers\User\MemberCardController::class, 'generateQRCode'])->name('user.card.qr');
+        Route::get('/member-card/qrcode', [\App\Http\Controllers\User\MemberCardController::class, 'generateQRCode'])->name('user.card.qr');
+        Route::get('/certificates', [\App\Http\Controllers\User\EventController::class, 'certificatesIndex'])->name('user.certificates.index');
+        Route::get('/certificates/{id}/download', [\App\Http\Controllers\User\EventController::class, 'certificatesDownload'])->name('user.certificates.download');
+    
+    
     });
 });
 

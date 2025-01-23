@@ -4,10 +4,13 @@ namespace App\Http\Controllers\User;
 
 use App\Models\Event;
 use App\Models\Member;
+use Barryvdh\DomPDF\PDF;
+use App\Models\Certificate;
 use App\Models\DetailEvent;
 use App\Mail\SendEmailEvent;
 use Illuminate\Http\Request;
 use GuzzleHttp\Promise\Create;
+use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 
@@ -166,5 +169,49 @@ class EventController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function certificatesIndex()
+    {
+        if (auth()->guard('member')->check()) {
+            $datas = Certificate::where('nip', auth()->guard('member')->user()->nip)
+                ->when(request()->q, function ($query) {
+                    $query->where('title', 'like', '%' . request()->q . '%');
+                })
+                ->latest()
+                ->paginate(10);
+
+            //append query string to pagination links
+            $datas->appends(['q' => request()->q]);
+
+            return inertia('User/Certificates/Index', [
+                'datas' => $datas
+            ]);
+        } else {
+            return redirect()->route('login');
+        }
+    }
+
+    public function certificatesDownload($id)
+    {
+        if (auth()->guard('member')->check()) {
+            
+            $data = Certificate::findOrFail($id);
+
+             // Path gambar
+             
+             $image = 'logo.png'; // Pastikan path benar
+            
+    
+            $pdf = app('dompdf.wrapper');
+            $pdf->loadView('Reports.Certificates.Certificate', compact('data','image'));
+            $pdf->setPaper('a4', 'landscape');
+
+            return view('Reports.Certificates.Certificate', compact('data','image'));
+            return $pdf->download($data->name.'-'.Carbon::now().'.pdf');
+    
+        } else {
+            return redirect()->route('login');
+        }
     }
 }

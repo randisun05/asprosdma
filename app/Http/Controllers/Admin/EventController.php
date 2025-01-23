@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Event;
+use App\Models\Member;
+use App\Models\Certificate;
 use App\Models\DetailEvent;
 use Illuminate\Http\Request;
+use GuzzleHttp\Promise\Create;
 use App\Models\ProfileDataMain;
 use App\Models\ProfileDataPosition;
+use App\Models\TemplateCertificate;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\EventParticipantsExport;
@@ -245,13 +249,83 @@ class EventController extends Controller
 
     public function certificatesIndex($id)
     {
-
         $event = Event::findOrFail($id);
-        return inertia('Admin/Events/Certificates', [
+        $members = Member::all();
+        $datas = Certificate::where('event_id',$id)
+             ->when(request()->q, function($query) {
+                 $query->where('title', 'like', '%' . request()->q . '%');
+             })
+             ->latest()
+             ->paginate(10);
+
+        $datas->appends(['q' => request()->q]);
+        return inertia('Admin/Events/CertificatesIndex', [
             'event' => $event,
+            'members' => $members,
+            'datas' => $datas,
          ]);
     }
 
+    public function certificatesCreate($id)
+    {
+        $event = Event::findOrFail($id);
+        $members = Member::all();
+        $templates = TemplateCertificate::all();
+        return inertia('Admin/Events/Certificates', [
+            'event' => $event,
+            'members' => $members,
+            'templates' => $templates,
+         ]);
+    }
+
+
+
+    public function certificatesTemplateStore(Request $request)
+    {
+
+        $request->validate([
+            'title' => 'required',
+            'image' => 'required',
+        ]);
+
+        $image = $request->file('image')->storePublicly('/images');
+
+        TemplateCertificate::create([
+            'title' => $request->title,
+            'image' => $image,
+            'status' => '1',
+        ]);
+
+        return json_encode(['success' => 'Data has been saved']);
+
+        return inertia('Admin/Events/Templates', [
+            'templates' => $templates,
+         ]);
+    }
+
+    public function certificatesTemplate()
+    {
+        $templates = TemplateCertificate::latest()
+        ->paginate(10);
+
+        return inertia('Admin/Events/Templates', [
+            'templates' => $templates,
+         ]);
+    }
+    
+    public function certificatesTemplateDelete($id)
+    {
+        $template = TemplateCertificate::findOrFail($id);
+
+        $template->delete();
+
+        return json_encode(['success' => 'Data has been deleted']);
+
+        return inertia('Admin/Events/Templates', [
+            'templates' => $templates,
+         ]);
+    }
+    
     public function certificatesImport($id)
     {
 
@@ -261,10 +335,37 @@ class EventController extends Controller
          ]);
     }
 
-    public function certificatesStore($id)
+    public function certificatesStore($id, Request $request)
     {
 
         $event = Event::findOrFail($id);
+       
+
+            $request->validate([
+                'no_certificate' => 'required',
+                'nip' => 'required',
+                'name' => 'required',
+                'body' => 'required',
+                'date' => 'required',
+                'template' => 'required',
+        ]);
+
+        Certificate::create([
+            'event_id' => $event->id,
+            'no_sertificate' => $request->no_certificate,
+            'nip' => $request->nip,
+            'name' => $request->name,
+            'body' => $request->body,
+            'date' => $request->date,
+            'tamplate' => $request->template,
+            'status' => '1',
+            'qr_code' => '1',
+            'link' => '1',
+            'doc' => '1',
+        ]);
+
+        return json_encode(['success' => 'Data has been saved']);
+
         return inertia('Admin/Events/Certificates', [
             'event' => $event,
          ]);

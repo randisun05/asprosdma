@@ -26,7 +26,10 @@ class MemberCardController extends Controller
             } elseif ($profile && !$profile->qr_link) {
                 // Generate a new qr_link if the member does not have one
                 // Buat QR Link
-              $qrLink = "https://asprosdma.id/identity-verification/" . ($profile->qr_link ?? Str::uuid());
+            $link = (string) Str::uuid();
+            $profile->qr_link = $link;
+            $profile->save();
+            $qrLink = "https://asprosdma.id/identity-verification/" . $link;
             } else {
                 // Handle the case where the member or qr_link is not found
                 return response('QR link not found', 404);
@@ -49,7 +52,7 @@ class MemberCardController extends Controller
     {
 
         // Retrieve the member where no_member matches the request text
-        $member = Member::where('id', auth()->guard('member')->id())->first();
+        $member =  Member::where('id', auth()->guard('member')->id())->first();
 
         // Check if the member exists and has a qr_link
         if ($member && $member->qr_link) {
@@ -66,10 +69,15 @@ class MemberCardController extends Controller
             return response('QR link not found', 404);
         }
 
+        // // Generate the QR code using the retrieved qr_link
+        // $qrCode = QrCode::size(300)->generate($qrLink);
+
+        // return response($qrCode, 200)->header('Content-Type', 'image/svg+xml');
+
         // Generate the QR code using the retrieved qr_link
         $qrCode = QrCode::format('png')->size(300)->generate($qrLink);
 
-    return response($qrCode, 200)->header('Content-Type', 'image/png');
+            return response($qrCode, 200)->header('Content-Type', 'image/png');
     }
 
 
@@ -85,7 +93,10 @@ class MemberCardController extends Controller
             } elseif ($profile && !$profile->qr_link) {
                 // Generate a new qr_link if the member does not have one
                 // Buat QR Link
-              $qrLink = "https://asprosdma.id/identity-verification/" . ($profile->qr_link ?? Str::uuid());
+             $link = (string) Str::uuid();
+            $profile->qr_link = $link;
+            $profile->save();
+            $qrLink = "https://asprosdma.id/identity-verification/" . $link;
             } else {
                 // Handle the case where the member or qr_link is not found
                 return response('QR link not found', 404);

@@ -41,17 +41,23 @@
                                     Tautan alamat profile keanggotaan Anda adalah <a :href="qrLink" target="_blank">{{ qrLink }}</a>
                                 </h4>
                                 <div class="d-flex flex-column align-items-center mt-5">
-                                    <button
-                                        @click="downloadCard"
-                                        class="btn btn-lg btn-outline-secondary shadow-sm mb-3"
-                                        style="border-radius: 8px; background-color: #007bff; color: white; font-weight: bold; font-size: 18px; padding: 15px 30px; width: 250px; transition: all 0.3s ease;">
-                                        <i class="fa fa-arrow-down fa-2x me-2" aria-hidden="true"></i>
-                                        <span>Download</span>
-                                    </button>
+                                    <div class="d-flex justify-content-between mb-3" style="width: 100%;">
+                                        <button
+                                            @click="downloadCard"
+                                            class="btn btn-lg btn-outline-secondary shadow-sm"
+                                            style="border-radius: 8px; background-color: #007bff; color: white; font-weight: bold; font-size: 18px; padding: 15px 30px; width: 48%; transition: all 0.3s ease;">
+                                            <i class="fa fa-arrow-down fa-2x me-2" aria-hidden="true"></i>
+                                            <span>Download</span>
+                                        </button>
+                                        <button @click="generateQRCode" class="btn btn-lg btn-outline-secondary shadow-sm" style="border-radius: 8px; background-color: #007bff; color: white; font-weight: bold; font-size: 18px; padding: 15px 30px; width: 48%; transition: all 0.3s ease;">
+                                            <i class="fa fa-qrcode fa-2x me-2" aria-hidden="true"></i>
+                                            <span>Download QR Code</span>
+                                        </button>
+                                    </div>
                                     <Link
                                         :href="`/user/member-card/edit`"
                                         class="btn btn-lg btn-outline-secondary shadow-sm"
-                                        style="border-radius: 8px; background-color: #007bff; color: white; font-weight: bold; font-size: 18px; padding: 15px 30px; width: 250px; transition: all 0.3s ease;">
+                                        style="border-radius: 8px; background-color: #007bff; color: white; font-weight: bold; font-size: 18px; padding: 15px 30px; width: 48%; transition: all 0.3s ease;">
                                         <i class="fa fa-camera-retro fa-2x me-2" aria-hidden="true"></i>
                                         <span>Ubah Foto</span>
                                     </Link>
@@ -175,14 +181,46 @@ export default {
     }
 };
 
+const generateQRCode = async () => {
+    try {
+        const response = await fetch('/user/member-card/qrcode', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'image/svg+xml',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to fetch QR Code. Status: ${response.status}`);
+        }
+
+        // Respons langsung berupa SVG, maka kita unduh
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+
+        // Buat elemen anchor untuk memicu unduhan
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'qrcode.svg';
+        a.click();
+
+        // Bersihkan URL setelah selesai
+        URL.revokeObjectURL(url);
+    } catch (error) {
+        console.error('Error during QR Code download:', error);
+        Swal.fire('Error', 'Gagal mengunduh QR Code. Coba lagi nanti.', 'error');
+    }
+};
+
+
 
 
         //return
         return {
             getImageUrl,
             changePhoto,
-            downloadCard
-
+            downloadCard,
+            generateQRCode
         }
     }
 }
