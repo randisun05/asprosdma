@@ -88,7 +88,7 @@ Route::prefix('admin')->group(function() {
         Route::get('/members/report', [\App\Http\Controllers\Admin\DataMembersController::class, 'indexReport'])->name('admin.member.report');
         Route::resource('/members', \App\Http\Controllers\Admin\DataMembersController::class, ['as' => 'admin']);
         Route::resource('/achievements', \App\Http\Controllers\Admin\AchievementController::class, ['as' => 'admin']);
-        Route::post('/generate-qr', [\App\Http\Controllers\Admin\QRCodeController::class, 'generateQRCode']);
+        Route::get('/generate-qr', [\App\Http\Controllers\Admin\QRCodeController::class, 'generateQRCode']);
     });
 });
 
