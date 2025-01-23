@@ -17,6 +17,7 @@
                   <li><span>Pendaftaran Anggota</span></li>
                   <li><span>Pemeliharaan dan Penyajian Data Keanggotaan</span></li>
                   <li><span>SDM Aparatur Dalam Sepekan</span></li>
+                  <li><span>Kartu Anggota Digital</span></li>
                </ul>
                <div class="clearfix"></div>
                <a href="javascript:void(0)" class="button btnsecondary top50">Selengkapnya</a>

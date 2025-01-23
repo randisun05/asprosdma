@@ -9,20 +9,19 @@
         </div>
         <div class="modal-body">
                   <div class="cbp-item web logo">
-                  {{-- //slider --}}
                       <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
                           <div class="carousel-inner">
                             <div class="carousel-item active">
-                              <img src="/assets/images/pop-up-rini-1.jpg" class="d-block w-100" alt="...">
+                              <img src="/assets/images/popup-aba.jpg" class="d-block w-100" alt="...">
                               <div class="overlay center-block whitecolor">
-                                  <a class="plus" data-fancybox="" href="/assets/images/pop-up-rini-1.jpg"></a>
+                                  <a class="plus" data-fancybox="" href="/assets/images/popup-aba.jpg"></a>
                               </div>
                             </div>
 
                             <div class="carousel-item">
-                              <img src="/assets/images/pop-up-purwadi-2.jpg" class="d-block w-100" alt="...">
+                              <img src="/assets/images/pop-up-kartu.jpg" class="d-block w-100" alt="...">
                               <div class="overlay center-block whitecolor">
-                                  <a class="plus" data-fancybox="" href="/assets/images/pop-up-purwadi-2.jpg"></a>
+                                  <a class="plus" data-fancybox="" href="/assets/images/pop-up-kartu.jpg"></a>
                                   </div>
                             </div>
 
@@ -37,18 +36,16 @@
                           </button>
                         </div>
 
-                        {{-- // single image --}}
-                      {{-- <img src="/assets/images/pop-up-kombel-3.jpg" alt="" style="width: 100%">
+                    {{-- <img src="/assets/images/pop-up-kartu.jpg" alt="" style="width: 100%">
                           <div class="overlay center-block whitecolor">
-                          <a class="plus" data-fancybox="" href="/assets/images/pop-up-kombel-3.jpg"></a>
+                          <a class="plus" data-fancybox="" href="/assets/images/pop-up-kartu.jpg"></a>
                           </div> --}}
                   </div>
 
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          {{-- //optional button --}}
-          {{-- <a href="https://asprosdma.id/events/%22komunitas-belajar%22-aspro-sdma-series-3-tentang-sayembara-literasi-sdm-aparatur-berkarya-untuk-negeri" class="btn btn-primary" target="_blank">Detail</a> --}}
+          <a href="https://asprosdma.id/berita/aspro-sdma-luncurkan-kartu-anggota-digital:-mudah,-praktis,-dan-fleksibel" class="btn btn-primary" target="_blank">Detail</a>
         </div>
       </div>
     </div>
