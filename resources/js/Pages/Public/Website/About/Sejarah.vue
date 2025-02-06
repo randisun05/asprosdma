@@ -40,6 +40,7 @@
                     <p class="h6 bottom20 darkcolor mb-4">Aspro SDMA yang merupakan tranformasi dari IPAKRI merupakan langkah baru dalam upaya membangun organisasi yang dinamis dan sejalan dengan tuntutan jaman.  Aspro SDMA merupakan langkah awal para Analis SDM Aparatur dan Pranata SDM Aparatur yang senantiasa terbuka pada goresan kiprah dan karya para anggotanya sebagai wujud sejarah organisasi ini di masa yang akan datang.
                     </p>
                 </div>
+                <!-- <div v-html="data.body"></div> -->
 
             </div>
          </div>
@@ -83,8 +84,8 @@
 
         //props
         props: {
-            title:Object
-
+            title:Object,
+            data: Object
         },
 
 

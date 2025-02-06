@@ -59,7 +59,8 @@
                <p class="h5 bottom20 darkcolor">
                 Dr. Rita Kardinasari, M.Si., S.Psi. adalah PNS yang turut menyaksikan lahirnya Jabatan Fungsional Analis Kepegawaian. Beralih jabatan dari Widayiswara selama 12 tahun di Kementerian Pariwisata dan Ekonomi Kreatif, menjadi Analis Kepegawaian di Pemerintah Provinsi Jawa Barat tahun 2006. Mengusung semangat kompetensi  dan konsistensi pada profesi, bersama seluruh Insan Kepegawaian melangkah bersama untuk terwujudnya  profesionalisme manajemen Sumber Daya Manusia Aparatur.
                </p>
-        </div>
+             </div>
+             <!-- <div v-html="data.body"></div> -->
                </div>
             </div>
            </div>
@@ -103,7 +104,8 @@
 
         //props
         props: {
-            title:Object
+            title:Object,
+            data: Object,
 
         },
 

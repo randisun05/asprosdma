@@ -41,6 +41,11 @@ Route::prefix('admin')->group(function() {
     Route::group(['middleware' => ['auth']], function () {
         //route dashboard
         Route::get('/dashboard', App\Http\Controllers\Admin\DashboardController::class)->name('admin.dashboard');
+        Route::resource('/management', App\Http\Controllers\Admin\ManagementController::class, ['as' => 'admin']);
+        Route::resource('/docudigi', App\Http\Controllers\Admin\DocuDigiController::class, ['as' => 'admin']);
+        Route::post('/management/store', [\App\Http\Controllers\Admin\ManagementController::class, 'store'])->name('admin.menegemnet.store');
+        Route::post('/management/update', [\App\Http\Controllers\Admin\ManagementController::class, 'update'])->name('admin.menegemnet.update');
+        Route::post('/management/update/status', [\App\Http\Controllers\Admin\ManagementController::class, 'status'])->name('admin.menegemnet.status');
         Route::get('/registration/', [\App\Http\Controllers\Admin\RegistrationController::class, 'index'])->name('admin.registration.index');
         Route::post('/registration/store', [\App\Http\Controllers\Admin\RegistrationController::class, 'store'])->name('admin.registration.store');
         Route::get('/registration/group', [\App\Http\Controllers\Admin\RegistrationController::class, 'group'])->name('admin.registration.group');
@@ -93,6 +98,7 @@ Route::prefix('admin')->group(function() {
         Route::resource('/members', \App\Http\Controllers\Admin\DataMembersController::class, ['as' => 'admin']);
         Route::resource('/achievements', \App\Http\Controllers\Admin\AchievementController::class, ['as' => 'admin']);
         Route::get('/generate-qr', [\App\Http\Controllers\Admin\QRCodeController::class, 'generateQRCode']);
+        Route::get('/members/qrcode/{id}', [\App\Http\Controllers\Admin\QRCodeController::class, 'generateQRCode1']);
     });
 });
 
@@ -151,8 +157,8 @@ Route::prefix('user')->group(function() {
         Route::get('/member-card/qrcode', [\App\Http\Controllers\User\MemberCardController::class, 'generateQRCode'])->name('user.card.qr');
         Route::get('/certificates', [\App\Http\Controllers\User\EventController::class, 'certificatesIndex'])->name('user.certificates.index');
         Route::get('/certificates/{id}/download', [\App\Http\Controllers\User\EventController::class, 'certificatesDownload'])->name('user.certificates.download');
-    
-    
+
+
     });
 });
 
@@ -197,6 +203,7 @@ Route::get('/forget-password/email', [\App\Http\Controllers\Public\PublicControl
 Route::get('/user/forget-password/{id}', [\App\Http\Controllers\Public\PublicController::class, 'IndexforgetPassword'])->name('forget.password.index');
 Route::put('/user/forget-password/{id}/reset', [\App\Http\Controllers\Public\PublicController::class, 'ResetPassword'])->name('forget.password.reset');
 Route::get('/identity-verification/{member:qr_link}', [\App\Http\Controllers\Public\PublicController::class, 'profileView'])->name('profile.view');
+Route::get('/verification/{id}', [\App\Http\Controllers\Public\PublicController::class, 'documentVerif'])->name('documentVerif');
 
 
 

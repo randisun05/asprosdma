@@ -15,6 +15,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendEmailForgetPassword;
+use App\Models\Management;
 
 class PublicController extends Controller
 {
@@ -40,6 +41,9 @@ class PublicController extends Controller
         ->whereNotIn('status', ['approved', 'rejected'])
         ->count();
 
+        $showPopup = Management::where('item', 'popup')->sum('status');
+        $datas = Management::where('item', 'popup')->where('status','1')->get();
+
         $agencydone = Registration::distinct()->count('agency');
 
         return view('Index', [
@@ -51,6 +55,8 @@ class PublicController extends Controller
             'agencydone' => $agencydone,
             'pranatapaid' => $pranatapaid,
             'analispaid' => $analispaid,
+            'showPopup' => $showPopup,
+            'datas' => $datas
         ]);
     }
 
@@ -122,78 +128,110 @@ class PublicController extends Controller
 
     public function about()
     {
+        $data = Management::where('item', 'siapakita')->first();
         return inertia('Public/Website/About/About', [
             'title' => "Siapa Kita?",
+            'data' => $data
         ]);
     }
 
     public function ketuaUmum()
     {
+
+        $data = Management::where('item', 'ketuaumum')->first();
         return inertia('Public/Website/About/KetuaUmum', [
             'title' => "Ketua Umum",
+            'data' => $data
         ]);
     }
 
     public function visiMisi()
     {
+        $data = Management::where('item', 'visimisi')->first();
         return inertia('Public/Website/About/VisiMisi', [
             'title' => "Visi Misi",
+            'data' => $data
         ]);
     }
 
     public function strukturOrganisasi()
     {
+        $data = Management::where('item', 'strukturorganisasi')->get();
         return inertia('Public/Website/About/StrukturOrganisasi', [
             'title' => "Struktur Organisasi",
+            'data' => $data
         ]);
     }
 
     public function sejarah()
     {
+        $data = Management::where('item', 'sejarah')->first();
         return inertia('Public/Website/About/Sejarah', [
             'title' => "Sejarah Terbentuknya Aspro SDMA",
+            'data' => $data
         ]);
     }
 
     public function peraturanOrganisasi()
     {
+        $datas = Management::when(request()->q, function($query) {
+            $query->where('body', 'like', '%' . request()->q . '%');
+        })
+        ->where('item', 'peraturan')
+        ->latest()
+        ->paginate(6);
+
+        $datas->appends(['q' => request()->q]);
+
         return inertia('Public/Website/About/PeraturanOrganisasi', [
             'title' => "Peraturan Organisasi",
+            'datas' => $datas
         ]);
     }
 
     public function hubunganMasyarakat()
     {
+        $data = Management::where('item', 'proker')->where('sub','humas')->first();
         return inertia('Public/Website/Program/HubunganMasyarakat', [
             'title' => "Bidang Hubungan Masyarakat dan Kerja Sama",
+            'data' => $data
         ]);
     }
 
     public function hukumAdvokasi()
     {
+        $data = Management::where('item', 'proker')->where('sub','hukum')->first();
         return inertia('Public/Website/Program/HukumAdvokasi', [
             'title' => "Bidang Hukum dan Advokasi",
+            'data' => $data
         ]);
     }
 
     public function keanggotaan()
     {
+        $data = Management::where('item', 'proker')->where('sub','anggota')->first();
         return inertia('Public/Website/Program/Keanggotaan', [
             'title' => "Bidang Keanggotaan dan Organisasi",
+            'data' => $data
+
         ]);
     }
 
     public function pengembangan()
     {
+        $data = Management::where('item', 'proker')->where('sub','pengembangan')->first();
         return inertia('Public/Website/Program/Pengembangan', [
             'title' => "Bidang Pengembangan Kapasitas Insani",
+            'data' => $data
         ]);
     }
 
     public function sumberPendanaan()
     {
+        $data = Management::where('item', 'proker')->where('sub','pendanaan')->first();
         return inertia('Public/Website/Program/SumberPendanaan', [
             'title' => "Bidang Sumber Pendanaan Organisasi",
+            'data' => $data
         ]);
     }
 
@@ -253,15 +291,35 @@ class PublicController extends Controller
 
     public function dataAnggota()
     {
+
+        $datas = Management::when(request()->q, function($query) {
+            $query->where('body', 'like', '%' . request()->q . '%');
+        })
+        ->where('item', 'dataanggota')
+        ->latest()
+        ->paginate(6);
+
+        $datas->appends(['q' => request()->q]);
+
         return inertia('Public/Website/Posts/DataAnggota', [
             'title' => "Data Keanggotaan",
+            'datas' => $datas
         ]);
     }
 
     public function faq()
     {
+        $datas = Management::when(request()->q, function($query) {
+            $query->where('body', 'like', '%' . request()->q . '%');
+        })
+        ->where('item', 'faq')
+        ->latest()
+        ->paginate(6);
+
+        $datas->appends(['q' => request()->q]);
         return inertia('Public/Website/FAQ/faq', [
             'title' => "FAQ",
+            'datas' => $datas
         ]);
     }
 
@@ -353,6 +411,23 @@ class PublicController extends Controller
         return inertia('Public/Profile/Index', [
             'title' => 'Profile Anggota',
             'data' => $data
+
+        ]);
+    }
+
+    public function documentVerif($id)
+    {
+        $documentPath = public_path('/storage/documents/' . $id . ".pdf");
+        $document = "documents/" . $id . ".pdf";
+
+        if (!file_exists($documentPath)) {
+            return redirect()->back()->with('error', 'Dokumen tidak ditemukan.');
+        }
+
+
+        return inertia('Public/Website/DocuDigi/Index', [
+            'title' => 'Verifikasi Produk Aspro SDMA',
+            'document' => $document
 
         ]);
     }

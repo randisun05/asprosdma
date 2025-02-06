@@ -16,7 +16,6 @@
                             </div>
                         </form>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -48,7 +47,7 @@
                                         <td class="text-center">
                                             <Link :href="`/admin/members/${data.id}`" title="view" class="btn btn-sm btn-primary border-0 shadow me-2" type="button"><i class="fa fa-eye fa-lg" aria-hidden="true"></i></Link>
                                             <a v-if="$page.props.auth.user.role == 'administrator' || $page.props.auth.user.role == 'keanggotaan'" :href="`/admin/members/${data.id}/edit`" title="edit" class="btn btn-sm btn-warning border-0 shadow me-2"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i> </a>
-                                            <button @click="showQrModal(data.main.nomember)" class="btn btn-sm btn-info border-0 shadow me-2"><i class="fa fa-qrcode fa-lg" aria-hidden="true"></i></button>
+                                            <a :href="`/admin/members/qrcode/${data.id}`" class="btn btn-sm btn-info border-0 shadow me-2" type="button"><i class="fa fa-qrcode fa-lg" aria-hidden="true"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>

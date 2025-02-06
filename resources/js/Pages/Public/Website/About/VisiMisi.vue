@@ -3,7 +3,7 @@
     <Head>
         <title>{{ title }}</title>
     </Head>
-  
+
  <!--page Header-->
 <section class="page-header parallaxie padding_top center-block">
    <div class="container">
@@ -20,7 +20,7 @@
       </div>
    </div>
 </section>
-<!--page Header ends--> 
+<!--page Header ends-->
 
 
 <section id="our-testimonial" class="padding_m">
@@ -31,8 +31,9 @@
             <div class="heading-title text-md-start text-center padding_bottom">
                <span>Visi</span>
                <h5 class="fontregular bottom20 darkcolor">menjadi organisasi kapabel, profesional, dan produktif dalam mendukung penyelenggaraan manajemen SDM Aparatur.</h5>
-               <span>Misi</span> 
+               <span>Misi</span>
             <div style="text-align: justify;">
+                <!-- <div v-html="data.body"></div> -->
                <h5 class="fontregular bottom20 darkcolor">
                   <table>
                         <tr>
@@ -77,7 +78,7 @@
 <script>
     //import layout
     import LayoutWebsite from '../../../../Layouts/Website.vue';
- 
+
 
     //import reactive
     import {
@@ -103,16 +104,16 @@
         //register component
         components: {
             Head,
-            
+
         },
 
         //props
         props: {
-            title:Object
-
+            title:Object,
+            data: Object
         },
-        
-       
+
+
 
     }
 

@@ -26,6 +26,29 @@
 <section id="our-team-two" class="padding_m">
    <div class="container">
       <div class="row justify-content-center">
+
+
+         <!-- <div v-for="(data, index) in datas.data" :key="index" class="col-lg-3 col-md-3">
+                    <div class="team-box grey-shade top60">
+                        <div class="image">
+                                <a v-show="data.document !== '' && data.document !== '-'"
+                                        :href="getDocumentUrl(data.document)" target="_blank"
+                                        class="text-center mt-4">
+                                <img class="image" style="width: 100%;" v-if="data.image" :src="getImageUrl(data.image)"
+                                    alt="Gambar" />
+                                </a>
+                        </div>
+                        <div class="team-content darkcolor">
+                            <h4>{{ data.body }}</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <Pagination :links="datas.links" align="center" />
+                </div> -->
+
+
          <div class="col-lg-3 col-md-3">
             <div class="team-box grey-shade top60">
                <div class="image">
@@ -159,9 +182,33 @@
 
         //props
         props: {
-            title:Object
-
+            title:Object,
+            datas: Object
         },
+
+        setup(props) {
+
+
+            // Method to get the URL of the document
+            const getImageUrl = (imageName) => {
+                return `/storage/${imageName}`;
+            }
+
+            const getDocumentUrl = (documentName) => {
+                return `/storage/${documentName}`;
+            }
+
+
+
+
+            //return
+            return {
+                getDocumentUrl,
+                getImageUrl,
+
+            }
+            }
+
 
 
 

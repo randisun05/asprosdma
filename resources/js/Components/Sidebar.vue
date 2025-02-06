@@ -2,6 +2,17 @@
      <nav class="navbar navbar-expand-md sidebar-nav mt-5">
       <div class="collapse navbar-collapse" id="xenav">
          <ul class="navbar-nav ms-auto">
+            <!-- <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/management') }">
+                    <Link href="/admin/management" class="nav-link d-flex justify-content-between">
+                    <span>
+                        <span class="sidebar-icon">
+                            <i class="fa fa-tachometer fa-lg" aria-hidden="true"></i>
+                        </span>
+                        <span class="sidebar-text ms-3">Management</span>
+                    </span>
+                    </Link>
+                </li> -->
+
             <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/dashboard') }">
                     <Link href="/admin/dashboard" class="nav-link d-flex justify-content-between">
                     <span>
@@ -24,7 +35,7 @@
                     </Link>
                 </li>
 
-                <li v-if="$page.props.auth.user.role === 'keanggotaan' || $page.props.auth.user.role === 'administrator' || $page.props.auth.user.role === 'humas'" class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/members') }">
+                <li v-if="$page.props.auth.user.role === 'keanggotaan' || $page.props.auth.user.role === 'administrator' || $page.props.auth.user.role === 'pendanaan' || $page.props.auth.user.role === 'humas'" class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/members') }">
                     <Link href="/admin/members" class="nav-link d-flex justify-content-between">
                     <span>
                         <span class="sidebar-icon">
@@ -78,6 +89,17 @@
                     </span>
                     </Link>
                 </li>
+
+                <!-- <li v-if="$page.props.auth.user.role === 'pendanaan' || $page.props.auth.user.role === 'administrator'" class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/merchans') }">
+                    <Link href="/admin/docudigi" class="nav-link d-flex justify-content-between">
+                    <span>
+                        <span class="sidebar-icon">
+                           <i class="fa fa-tags fa-lg" aria-hidden="true"></i>
+                        </span>
+                        <span class="sidebar-text ms-3">Dokumen Digital</span>
+                    </span>
+                    </Link>
+                </li> -->
 
          </ul>
       </div>

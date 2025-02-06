@@ -59,7 +59,7 @@
                                 <thead class="thead-dark">
                                     <tr class="border-0 text-center">
                                         <th class="border-0 rounded-start" style="width:5%">No.</th>
-                                        <th class="border-0">Titleee</th>
+                                        <th class="border-0">Title</th>
                                         <th class="border-0">Author</th>
                                         <th class="border-0">Kategori</th>
                                         <th class="border-0">Status</th>

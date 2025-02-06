@@ -10,6 +10,7 @@ use App\Models\Member;
 use App\Models\Category;
 use App\Models\instansi;
 use App\Models\ItemProfile;
+use App\Models\Management;
 use App\Models\Registration;
 use App\Models\ProfileDataMain;
 use App\Models\ProfileDataPosition;
@@ -133,6 +134,10 @@ class DatabaseSeeder extends Seeder
         // \App\Models\Post::factory(20)->create();
         // \App\Models\Event::factory(20)->create();
         // \App\Models\Merchan::factory(20)->create();
+
+
+
+
 
 
     }

@@ -48,6 +48,7 @@
                </div>
          </div>
       </div>
+      <!-- <div v-html="data.body"></div> -->
    </div>
 </section>
 <!--Contact US Ends-->
@@ -89,7 +90,8 @@
 
         //props
         props: {
-            title:Object
+            title:Object,
+            data: Object
 
         },
 
