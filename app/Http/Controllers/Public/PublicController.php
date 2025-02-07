@@ -191,7 +191,7 @@ class PublicController extends Controller
 
     public function hubunganMasyarakat()
     {
-        $data = Management::where('item', 'proker')->where('sub','humas')->first();
+//        $data = Management::where('item', 'proker')->where('sub','humas')->first();
         return inertia('Public/Website/Program/HubunganMasyarakat', [
             'title' => "Bidang Hubungan Masyarakat dan Kerja Sama",
           //  'data' => $data
@@ -316,7 +316,7 @@ class PublicController extends Controller
       //  ->latest()
   //      ->paginate(6);
 
-        $datas->appends(['q' => request()->q]);
+  //      $datas->appends(['q' => request()->q]);
         return inertia('Public/Website/FAQ/faq', [
             'title' => "FAQ",
     //        'datas' => $datas
