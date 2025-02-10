@@ -52,7 +52,7 @@
                                                         <td>{{ data.main.nomember }}</td>
                                                         <td>{{ data.main.name }}</td>
                                                         <td>{{ data.position }} {{ data.level }}</td>
-                                                        <td>{{ data.agency }} {{ data.main.image }}</td>
+                                                        <td>{{ data.agency }}</td>
                                                         <td class="text-center">
                                                             <Link :href="`/admin/members/${data.id}`" title="view"
                                                                 class="btn btn-sm btn-primary border-0 shadow me-1" type="button"><i

@@ -93,7 +93,7 @@ class DocuDigiController extends Controller
          QrCode::format('png')->size(200)->generate($qrLink, $qrCodePath);
          // Add logo to QR Code
          //    QrCode::format('png')->size(200)->merge(public_path('assets/images/logo2.png'), 0.3)->generate($qrLink, $qrCodePath);
-         $command = "python " . escapeshellarg(base_path('resources/py/find_text_position.py')) .
+         $command = "python3 " . escapeshellarg(base_path('resources/py/find_text_position.py')) .
             " " . escapeshellarg($fullPath) .
             " " . escapeshellarg($qrCodePath) .
             " " . escapeshellarg($anchor);
