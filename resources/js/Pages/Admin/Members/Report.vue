@@ -96,7 +96,7 @@ export default {
   });
 
   const chartDataByMonth = reactive({
-    labels: Object.keys(props.countsPerMonth).map(key => `Bulan Ke ${key}`),
+    labels: Object.keys(props.countsPerMonth).map(key => `${key}`),
     datasets: [
       {
         label: 'Counts By Month',
@@ -107,7 +107,7 @@ export default {
   });
 
   const chartDataByPosition = reactive({
-    labels: Object.keys(props.dataCountsByPosition).map(key => `Jabatan ${key}`),
+    labels: Object.keys(props.dataCountsByPosition).map(key => `${key}`),
     datasets: [
       {
         label: 'Counts By Jabatan',
@@ -118,7 +118,7 @@ export default {
   });
 
   const chartDataByLevel = reactive({
-    labels: Object.keys(props.dataCountsByLevel).map(key => `Jenjang ${key}`),
+    labels: Object.keys(props.dataCountsByLevel).map(key => `${key}`),
     datasets: [
       {
         label: 'Counts By Jenjang',
@@ -129,7 +129,7 @@ export default {
   });
 
   const chartDataAccumulated = reactive({
-    labels: Object.keys(props.accumulatedCounts).map(key => `Bulan ke ${key}`),
+    labels: Object.keys(props.accumulatedCounts).map(key => `${key}`),
     datasets: [
       {
         label: 'Accumulation by Month',

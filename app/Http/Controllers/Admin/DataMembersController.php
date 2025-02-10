@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Member;
 use App\Models\instansi;
 use Illuminate\Http\Request;
 use App\Exports\MemberExport;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\ProfileDataPosition;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 
 
@@ -34,6 +36,8 @@ class DataMembersController extends Controller
             ->latest()
             ->paginate(10);
             $datas->appends(['q' => request()->q]);
+
+
             return inertia('Admin/Members/Index', [
                 'datas' => $datas,
              ]);
@@ -41,6 +45,35 @@ class DataMembersController extends Controller
 
             return redirect()->route('admin.dashboard')->with('error','anda tidak memiliki akses ke halaman tersebut');
         }
+
+    }
+
+
+    public function downloadMemberCard($id)
+    {
+            $id_user = ProfileDataMain::where('id', $id)->first();
+            $profile = Member::where('nip', $id_user->nip)->first();
+            $foto = $id_user;
+
+            // Check if the member exists and has a qr_link
+            if ($profile && $profile->qr_link) {
+                $qrLink = "https://asprosdma.id/identity-verification/" . $profile->qr_link;
+            } elseif ($profile && !$profile->qr_link) {
+                // Generate a new qr_link if the member does not have one
+                $link = (string) \Illuminate\Support\Str::uuid();
+                $profile->qr_link = $link;
+                $profile->save();
+                $qrLink = "https://asprosdma.id/identity-verification/" . $link;
+            } else {
+                // Handle the case where the member or qr_link is not found
+                return response('QR link not found', 404);
+            }
+
+            // Generate the QR code using the retrieved qr_link
+            $qrCode = QrCode::size(125)->generate($qrLink);
+
+            // Render the view with the profile and qrCode
+            return view('Layouts/Components/MemberCard', compact('profile', 'qrCode', 'foto'));
 
     }
 
@@ -193,18 +226,29 @@ class DataMembersController extends Controller
 
             $countsPerMonth = [];
             $accumulatedCounts = [];
-            $currentYear = date('Y');
             $totalCount = 0;
 
-            for ($month = 1; $month <= 12; $month++) {
-                $monthlyCount = ProfileDataPosition::with('main')
-                    ->whereYear('created_at', $currentYear)
-                    ->whereMonth('created_at', $month)
-                    ->count();
+            $startYear = 2024;
+            $currentYear = date('Y');  // Tahun saat ini (misalnya: 2025)
+            $currentMonth = date('n'); // Bulan saat ini (misalnya: 2 untuk Februari)
 
-                $countsPerMonth[$month] = $monthlyCount;
-                $totalCount += $monthlyCount;
-                $accumulatedCounts[$month] = $totalCount;
+            for ($year = $startYear; $year <= $currentYear; $year++) {
+                // Tentukan batas bulan (Desember untuk tahun sebelumnya, bulan saat ini untuk tahun berjalan)
+                $endMonth = ($year == $currentYear) ? $currentMonth : 12;
+
+                for ($month = 1; $month <= $endMonth; $month++) {
+                    $monthlyCount = ProfileDataPosition::with('main')
+                        ->whereYear('created_at', $year)
+                        ->whereMonth('created_at', $month)
+                        ->count();
+
+                    $totalCount += $monthlyCount;
+                    if ($totalCount > 0) { // Hanya simpan jika ada data
+                        $key = "{$year}-" . str_pad($month, 2, '0', STR_PAD_LEFT);
+                        $countsPerMonth[$key] = $monthlyCount;
+                        $accumulatedCounts[$key] = $totalCount;
+                    }
+                }
             }
 
             return inertia('Admin/Members/Report', [

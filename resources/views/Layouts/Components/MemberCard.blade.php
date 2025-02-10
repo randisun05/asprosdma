@@ -15,7 +15,7 @@
             </div>
             <div class="valid-until">
                 <span>Disahkan tanggal:</span><br>
-                <strong>{{ $profile->created_at->translatedFormat('d F Y') }}</strong>    </div>
+                <strong>{{ $profile->created_at->translatedFormat('d F Y') }}</strong>     </div>
         </div>
 
         <div class="col-md-8 member-info">
@@ -144,7 +144,7 @@
                 .then(dataUrl => {
                     // Create a link element to download the image
                     const link = document.createElement('a');
-                    link.download = 'kartu-anggota-depan.png';
+                    link.download = 'Kartu Anggota - {{ $profile->name }}.png';
                     link.href = dataUrl;
                     link.click();
 

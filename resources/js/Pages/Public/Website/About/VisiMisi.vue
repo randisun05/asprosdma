@@ -33,8 +33,8 @@
                <h5 class="fontregular bottom20 darkcolor">menjadi organisasi kapabel, profesional, dan produktif dalam mendukung penyelenggaraan manajemen SDM Aparatur.</h5>
                <span>Misi</span>
             <div style="text-align: justify;">
-                <!-- <div v-html="data.body"></div> -->
                <h5 class="fontregular bottom20 darkcolor">
+                 <!-- <div v-html="data.body"></div> -->
                   <table>
                         <tr>
                               <td width="5%">1.</td>
@@ -63,8 +63,11 @@
          </div>
          <div class="col-md-5 col-sm-5 wow fadeInRight" data-wow-delay="350ms">
             <div class="image hover-effect">
-                <div class="image center"><img alt="SEO" src="/assets/images/visi.jpg"></div>
-            </div>
+                <div class="image center">
+                    <!-- <img v-if="data.image" :src="getImageUrl(data.image)" alt="Gambar" /> -->
+                </div>
+                 <img alt="SEO" src="/assets/images/visi.jpg">
+                </div>
          </div>
       </div>
    </div>
@@ -113,7 +116,21 @@
             data: Object
         },
 
+        //inisialisasi composition API
+        setup() {
 
+
+            // Method to get the URL of the document
+            const getImageUrl = (imageName) => {
+                return `/storage/${imageName}`;
+            }
+
+
+            //return
+            return {
+                getImageUrl,
+            }
+            }
 
     }
 

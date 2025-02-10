@@ -48,14 +48,16 @@
                                 <tbody>
                                     <tr v-for="(data, index) in datas.data" :key="index">
                                         <td class="fw-bold text-center">{{ ++index + (datas.current_page - 1) * datas.per_page }}</td>
+                                        <td>{{ data.member.nip }}</td>
+                                        <td>{{ data.member.name }}</td>
+                                        <td>{{ data.member.agency }}</td>
                                         <td>{{ data.title }}</td>
-                                        <td>{{ data.date}} / {{ data.enddate}}</td>
-                                        <td>{{ data.participant }}</td>
+                                        <td>{{ data.date}}</td>
                                         <td class="text-center">
-                                            <Link :href="`/admin/achievements/${data.id}`" title="view" class="btn btn-sm btn-primary border-0 shadow me-2" type="button"><i class="fa fa-eye fa-lg" aria-hidden="true"></i></Link>
+                                            <a class="btn btn-sm btn-primary border-0 shadow me-2" type="button" data-fancybox="" :href="showImage(data.image)"><i class="fa fa-eye" title="view"></i></a>
+                                            <a class="btn btn-sm btn-success border-0 shadow me-2" data-fancybox="" :href="showDoc(data.document)"><i class="fa fa-file-pdf-o"></i></a>
                                             <Link :href="`/admin/achievements/${data.id}/edit`" title="edit" class="btn btn-sm btn-warning border-0 shadow me-2"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i> </Link>
                                             <button @click="destroy(data.id)" title="tolak" class="btn btn-sm btn-danger border-0 shadow me-2"><i class="fa fa-times-circle fa-lg" aria-hidden="true"></i></button>
-                                            <a :href="`/admin/achievements/${data.id}/export`" title="download" class="btn btn-sm btn-success border-0 shadow me-2"><i class="fa fa-download fa-lg" aria-hidden="true"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -186,13 +188,23 @@
                     })
             }
 
+            const showImage = (imageName) => {
+                            return `/storage/${imageName}`;
+                        };
+
+                        const showDoc = (documentName) => {
+                            return `/storage/${documentName}`;
+                        };
+
 
             //return
             return {
                 search,
                 handleSearch,
                 destroy,
-                changeStatus
+                changeStatus,
+                showImage,
+                showDoc
 
 
         }

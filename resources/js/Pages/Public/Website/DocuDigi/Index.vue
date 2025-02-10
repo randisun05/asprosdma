@@ -32,8 +32,56 @@
     <section id="our-blog">
         <div class="container padding_m">
             <div class="row mb-4">
-            <div v-if="document">
-                <embed :src="getDocumentUrl(document)" width="100%" height="600px" type="application/pdf">
+            <div v-if="docu" class="document-verified">
+                <h1 class="text-center">Dokumen Terverifikasi</h1>
+                <table class="mt-3">
+                    <tr>
+                        <th>Hal: </th>
+                        <th>: {{ docu.perihal }}</th>
+                    </tr>
+
+                    <tr>
+                        <th>Nomor Dokumen </th>
+                        <th>: {{ docu.no_surat }}</th>
+                    </tr>
+
+                    <tr>
+                        <th>Jenis  </th>
+                        <th>: {{ docu.jenis }}</th>
+                    </tr>
+
+                    <!-- <tr>
+                        <th>Tanggal : </th>
+                        <th>: {{ new Date(docu.created_at).toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' }) }}</th>
+                    </tr> -->
+
+                    <tr>
+                        <th>Diparaf Oleh</th>
+                        <th>: {{ docu.nipparaf }}</th>
+
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th>&nbsp;&nbsp;{{ paraf.name }}</th>
+                    </tr>
+
+                    <tr>
+                        <th>Ditandatangi Oleh </th>
+                        <th>: {{ docu.nipttd }}</th>
+
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th>&nbsp;&nbsp;{{ ttd.name }}</th>
+
+                    </tr>
+                    <tr>
+                        <th>Lihat Dokumen </th>
+                        <th>: <a class="btn btn-sm btn-primary border-0 ms-2" data-fancybox="" :href="getDocumentUrl(docu.document)">dokumen </a></th>
+                    </tr>
+
+                </table>
+
             </div>
             <div v-else><span>Dokumen tidak ditemukan, waspada dokumen palsu</span></div>
             </div>
@@ -57,6 +105,7 @@ import { ref } from "vue";
 
 //import inertia adapter
 import { Inertia } from "@inertiajs/inertia";
+import { partial } from "lodash";
 
 export default {
     //layout
@@ -73,15 +122,17 @@ export default {
     props: {
         title: String,
         errors: Object,
-        document: Object,
+        docu: Object,
+        ttd: String,
+        paraf: String,
     },
 
     //inisialisasi composition API
     setup() {
 
         // Method to get the URL of the document
-        const getDocumentUrl = (imageName) => {
-            return `/storage/${imageName}`;
+        const getDocumentUrl = (DocName) => {
+            return `/storage/${DocName}`;
         };
 
 

@@ -32,18 +32,18 @@
               <div class="team-box top60">
                <div class="image">
                   <img src="/assets/images/ritakardinasari.png" alt="">
+                  <!-- <img v-if="data.image" :src="getImageUrl(data.image)" alt="Gambar" /> -->
                </div>
                <div class="team-content gradient_bg whitecolor">
-                  <h3>Dr. Rita Kardinasari, S.Psi, M.Si, Dipl. TAA</h3>
+                  <h3>Dr. Rita Kardinasari, S.Psi, M.Si, Dipl. TAA
+                  </h3>
                   <p class="bottom40"></p>
                   <div class="progress-bars">
                      <div class="progress">
-                        <p>Marketing online</p>
-                        <div class="progress-bar" data-value="90"><span>90%</span></div>
+                        <div ><span></span></div>
                      </div>
                      <div class="progress">
-                        <p>Web Designing</p>
-                        <div class="progress-bar" data-value="75"><span>75%</span></div>
+                        <div ><span></span></div>
                      </div>
                   </div>
                </div>
@@ -55,12 +55,16 @@
                <h5 class="h3 bottom20 darkcolor">Dr. Rita Kardinasari, S.Psi, M.Si, Dipl. TAA</h5>
                <span class="h1">Ketua Umum Asosiasi Profesi Jabatan Fungsional SDM Aparatur </span>
                <hr>
+
                <div style="text-align: justify;">
+                <!-- <div v-html="data.body"></div> -->
                <p class="h5 bottom20 darkcolor">
+
                 Dr. Rita Kardinasari, M.Si., S.Psi. adalah PNS yang turut menyaksikan lahirnya Jabatan Fungsional Analis Kepegawaian. Beralih jabatan dari Widayiswara selama 12 tahun di Kementerian Pariwisata dan Ekonomi Kreatif, menjadi Analis Kepegawaian di Pemerintah Provinsi Jawa Barat tahun 2006. Mengusung semangat kompetensi  dan konsistensi pada profesi, bersama seluruh Insan Kepegawaian melangkah bersama untuk terwujudnya  profesionalisme manajemen Sumber Daya Manusia Aparatur.
                </p>
+
              </div>
-             <!-- <div v-html="data.body"></div> -->
+
                </div>
             </div>
            </div>
@@ -108,6 +112,22 @@
             data: Object,
 
         },
+
+          //inisialisasi composition API
+            setup() {
+
+
+            // Method to get the URL of the document
+            const getImageUrl = (imageName) => {
+                return `/storage/${imageName}`;
+            }
+
+
+            //return
+            return {
+                getImageUrl,
+            }
+        }
 
 
 

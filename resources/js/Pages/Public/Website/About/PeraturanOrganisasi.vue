@@ -37,7 +37,7 @@
                                 </a>
                         </div>
                         <div class="team-content darkcolor">
-                            <h4>{{ data.body }}</h4>
+                            <h4 v-html="data.body"></h4>
                         </div>
                     </div>
                 </div>

@@ -11,15 +11,18 @@ class DocumentDigital extends Model
     use HasFactory;
     protected $fillable = [
         'perihal',
+        'no_surat',
+        'jenis',
         'speciment',
         'nipttd',
         'anchor',
         'qrcode',
         'nipparaf',
         'tujuan',
-        'jenis',
+        'kategori',
         'document',
         'description',
+        'status',
     ];
 
     protected $keyType = 'string'; // Menetapkan tipe kunci ke string

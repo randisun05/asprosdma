@@ -64,6 +64,9 @@
     //import layout
     import LayoutAdmin from '../../../Layouts/Admin.vue';
 
+     //import component pagination
+     import Pagination from '../../../Components/Pagination.vue';
+
     //import Heade and Link from Inertia
     import {
         Head,
@@ -90,6 +93,7 @@
         components: {
             Head,
             Link,
+            Pagination
 
         },
 

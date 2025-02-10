@@ -69,8 +69,8 @@
 
 .qr-code img {
     position: absolute;
-    width: 130; /* Increase the QR code size slightly */
-    height: 130px;
+    width: 150px; /* Increase the QR code size slightly */
+    height: 150px;
     border: 1px solid #ccc;
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15); /* Slight shadow to give raised look */
     background: rgba(255, 255, 255, 0.8); /* Slight transparency for an emerging look */

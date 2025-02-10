@@ -27,7 +27,7 @@
 <section id="kontak kami">
    <div class="container padding_m">
       <div class="row">
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-12 col-sm-12">
            <div class="heading-title heading_space wow fadeInUp" data-wow-delay="300ms">
                <span>Ada pertanyaan, masukan, atau ingin berkolaborasi?</span>
                <h2 class="darkcolor">Kontak Kami</h2>
@@ -46,9 +46,10 @@
                   <h5>Email Kami</h5>
                   <p class="bottom15"><span>halo.asprosdma@gmail.com</span> </p>
                </div>
+                <!-- <div v-html="data.body"></div> -->
          </div>
       </div>
-      <!-- <div v-html="data.body"></div> -->
+
    </div>
 </section>
 <!--Contact US Ends-->
@@ -95,7 +96,20 @@
 
         },
 
+         //inisialisasi composition API
+         setup() {
 
+            // Method to get the URL of the document
+            const getImageUrl = (imageName) => {
+                return `/storage/${imageName}`;
+            }
+
+
+            //return
+            return {
+                getImageUrl,
+            }
+        }
 
     }
 

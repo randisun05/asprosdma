@@ -26,9 +26,7 @@
 <section id="our-team-two" class="padding_m">
    <div class="container">
       <div class="row justify-content-center">
-
-
-         <!-- <div v-for="(data, index) in datas.data" :key="index" class="col-lg-3 col-md-3">
+         <div v-for="(data, index) in datas.data" :key="index" class="col-lg-3 col-md-3">
                     <div class="team-box grey-shade top60">
                         <div class="image">
                                 <a v-show="data.document !== '' && data.document !== '-'"
@@ -39,17 +37,16 @@
                                 </a>
                         </div>
                         <div class="team-content darkcolor">
-                            <h4>{{ data.body }}</h4>
+                            <h4 v-html="data.body"></h4>
                         </div>
                     </div>
                 </div>
 
                 <div class="text-center">
                     <Pagination :links="datas.links" align="center" />
-                </div> -->
+                </div>
 
-
-         <div class="col-lg-3 col-md-3">
+         <!-- <div class="col-lg-3 col-md-3">
             <div class="team-box grey-shade top60">
                <div class="image">
                   <a href="/assets/excel/data-anggota-april.pdf" class="text-center mt-4" download="">
@@ -137,8 +134,7 @@
                   <h4>Data Keanggotaan Aspro SDMA Periode Oktober 2024</h4>
                </div>
             </div>
-         </div>
-
+         </div> -->
 
       </div>
 

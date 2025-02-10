@@ -21,6 +21,7 @@ class AchievementController extends Controller
              when(request()->q, function($query) {
                  $query->where('title', 'like', '%' . request()->q . '%');
              })
+             ->with('member')
              ->latest()
              ->paginate(10);
 
@@ -66,13 +67,18 @@ class AchievementController extends Controller
         ]);
 
         $memberId = Member::where('nip', $request->nip)->first()->id;
-        // $image = $request->file('image');
-        // $imageName = 'achievement-' . time() . '.' . $image->getClientOriginalExtension();
-        // $image->storeAs('public/achievements', $imageName);
 
-        // $document = $request->file('document');
-        // $documentName = 'achievement-doc-' . time() . '.' . $document->getClientOriginalExtension();
-        // $document->storeAs('public/achievements', $documentName);
+        $image = $request->file('image');
+        if ($image) {
+            $image = $request->file('image')->storePublicly('/images');
+            // Proceed with storing or processing the uploaded file
+        };
+
+        $document = $request->file('document');
+        if ($document) {
+            $document = $request->file('document')->storePublicly('/document');
+            // Proceed with storing or processing the uploaded file
+        };
 
         Achievement::create([
             'member_id' => $memberId,
@@ -80,8 +86,8 @@ class AchievementController extends Controller
             'description' => $request->description,
             'date' => $request->date,
             'category' => $request->category,
-            // 'image' => $imageName,
-            // 'document' => $documentName,
+            'image' => $image,
+            'document' => $document,
             'icon' => $request->icon,
             'status' => '1',
         ]);
@@ -97,7 +103,7 @@ class AchievementController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -108,7 +114,10 @@ class AchievementController extends Controller
      */
     public function edit($id)
     {
-        //
+        $achievement = Achievement::with('member')->findOrFail($id);
+        return inertia('Admin/Achievements/Edit', [
+            'data' => $achievement,
+        ]);
     }
 
     /**
@@ -120,7 +129,44 @@ class AchievementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+         $request->validate([
+            'nip' => 'required|string|max:255',
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'category' => 'required|string|max:255',
+            'date' => 'required|date',
+            'image' => '',
+            'document' => '',
+            'icon' => 'required|string|max:255',
+        ]);
+
+        $memberId = Member::where('nip', $request->nip)->first()->id;
+        $data = Achievement::where('id', $id)->first();
+        $image = $request->file('image');
+        if ($image) {
+            $image = $request->file('image')->storePublicly('/images');
+            // Proceed with storing or processing the uploaded file
+        };
+
+        $document = $request->file('document');
+        if ($document) {
+            $document = $request->file('document')->storePublicly('/document');
+            // Proceed with storing or processing the uploaded file
+        };
+        Achievement::where('id',$id)->update([
+            'member_id' => $memberId,
+            'title' => $request->title,
+            'description' => $request->description,
+            'date' => $request->date,
+            'category' => $request->category,
+            'image' => $image ?? $data->image,
+            'document' => $document ?? $data->document,
+            'icon' => $request->icon,
+            'status' => '1',
+        ]);
+
+        return redirect()->route('admin.achievements.index')->with('success', 'Achievement updated successfully.');
     }
 
     /**
@@ -131,6 +177,7 @@ class AchievementController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Achievement::destroy($id);
+        return redirect()->route('admin.achievements.index')->with('success', 'Achievement deleted successfully.');
     }
 }

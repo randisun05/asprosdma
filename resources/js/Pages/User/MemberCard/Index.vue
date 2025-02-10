@@ -76,9 +76,6 @@
 </template>
 
 
-
-
-
 <script>
 //import layout
 import LayoutUser from '../../../Layouts/User.vue';
@@ -211,9 +208,6 @@ const generateQRCode = async () => {
         Swal.fire('Error', 'Gagal mengunduh QR Code. Coba lagi nanti.', 'error');
     }
 };
-
-
-
 
         //return
         return {

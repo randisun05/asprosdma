@@ -8,8 +8,8 @@
                 <div class="card border-0 shadow">
                     <div class="card-body">
                         <div class="row">
-                        <div class="col-md-12">
-                            <div class="row py-4">
+                            <div class="col-md-12">
+                                <div class="row py-4">
                                         <div class="col-md-2 col-12 mb-2">
                                             <Link href="/admin/events" class="btn btn-md btn-primary border-0 shadow w-100" type="button"><i
                                                 class="fa fa-arrow-left"></i>

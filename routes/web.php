@@ -43,6 +43,9 @@ Route::prefix('admin')->group(function() {
         Route::get('/dashboard', App\Http\Controllers\Admin\DashboardController::class)->name('admin.dashboard');
         Route::resource('/management', App\Http\Controllers\Admin\ManagementController::class, ['as' => 'admin']);
         Route::resource('/docudigi', App\Http\Controllers\Admin\DocuDigiController::class, ['as' => 'admin']);
+        Route::get('/docudigi/{id}/paraf', [\App\Http\Controllers\Admin\DocuDigiController::class, 'paraf'])->name('admin.docudigi.paraf');
+        Route::get('/docudigi/{id}/approve', [\App\Http\Controllers\Admin\DocuDigiController::class, 'approve'])->name('admin.docudigi.approve');
+        Route::get('/docudigi/{id}/cencel', [\App\Http\Controllers\Admin\DocuDigiController::class, 'cancel'])->name('admin.docudigi.cancel');
         Route::post('/management/store', [\App\Http\Controllers\Admin\ManagementController::class, 'store'])->name('admin.menegemnet.store');
         Route::post('/management/update', [\App\Http\Controllers\Admin\ManagementController::class, 'update'])->name('admin.menegemnet.update');
         Route::post('/management/update/status', [\App\Http\Controllers\Admin\ManagementController::class, 'status'])->name('admin.menegemnet.status');
@@ -97,8 +100,10 @@ Route::prefix('admin')->group(function() {
         Route::get('/members/report', [\App\Http\Controllers\Admin\DataMembersController::class, 'indexReport'])->name('admin.member.report');
         Route::resource('/members', \App\Http\Controllers\Admin\DataMembersController::class, ['as' => 'admin']);
         Route::resource('/achievements', \App\Http\Controllers\Admin\AchievementController::class, ['as' => 'admin']);
+        Route::post('/achievements/{id}', [\App\Http\Controllers\Admin\AchievementController::class, 'update'])->name('admin.acievements.update');
         Route::get('/generate-qr', [\App\Http\Controllers\Admin\QRCodeController::class, 'generateQRCode']);
         Route::get('/members/qrcode/{id}', [\App\Http\Controllers\Admin\QRCodeController::class, 'generateQRCode1']);
+        Route::get('/member-card/download/{id}', [\App\Http\Controllers\Admin\DataMembersController::class, 'downloadMemberCard'])->name('admin.card.download');
     });
 });
 

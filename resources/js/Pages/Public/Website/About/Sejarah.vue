@@ -29,7 +29,10 @@
          <div class="col-md-12 col-sm-12 text-center">
             <div class="heading-title bottom30">
                <div class="image hover-effect bottom30">
-                <div class="mt-3"><img alt="SEO" src="/assets/images/sejarah.jpg"></div>
+                <div class="mt-3">
+                    <!-- <img v-if="data.image" :src="getImageUrl(data.image)" alt="Gambar" /> -->
+                    <img alt="SEO" src="/assets/images/sejarah.jpg">
+                </div>
                </div>
          </div>
                 <div style="text-align: justify;">
@@ -39,8 +42,9 @@
                     </p>
                     <p class="h6 bottom20 darkcolor mb-4">Aspro SDMA yang merupakan tranformasi dari IPAKRI merupakan langkah baru dalam upaya membangun organisasi yang dinamis dan sejalan dengan tuntutan jaman.  Aspro SDMA merupakan langkah awal para Analis SDM Aparatur dan Pranata SDM Aparatur yang senantiasa terbuka pada goresan kiprah dan karya para anggotanya sebagai wujud sejarah organisasi ini di masa yang akan datang.
                     </p>
+                    <!-- <div v-html="data.body"></div> -->
                 </div>
-                <!-- <div v-html="data.body"></div> -->
+
 
             </div>
          </div>
@@ -87,6 +91,22 @@
             title:Object,
             data: Object
         },
+
+          //inisialisasi composition API
+          setup() {
+
+            // Method to get the URL of the document
+            const getImageUrl = (imageName) => {
+                return `/storage/${imageName}`;
+            }
+
+
+            //return
+            return {
+                getImageUrl,
+            }
+         }
+
 
 
 

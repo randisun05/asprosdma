@@ -136,7 +136,7 @@ class MemberCardController extends Controller
             }
 
             // Generate the QR code using the retrieved qr_link
-            $qrCode = QrCode::size(250)->generate($qrLink);
+            $qrCode = QrCode::size(200)->generate($qrLink);
 
             // Render the view with the profile and qrCode
             return view('Layouts/Components/MemberCard', compact('profile', 'qrCode', 'foto'));

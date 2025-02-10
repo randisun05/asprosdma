@@ -32,6 +32,7 @@
          </div>
          <div class="image hover-effect bottom30">
                 <div><img alt="SEO" src="/assets/images/tentang.jpg"></div>
+                <!-- <img v-if="data.image" :src="getImageUrl(data.image)" alt="Gambar" /> -->
                </div>
          </div>
          <div style="text-align: justify;">
@@ -92,6 +93,22 @@
             title:Object,
             data: Object
         },
+
+         //inisialisasi composition API
+    setup() {
+
+
+                // Method to get the URL of the document
+                const getImageUrl = (imageName) => {
+                    return `/storage/${imageName}`;
+                }
+
+
+                //return
+                return {
+                    getImageUrl,
+                }
+            }
 
 
 

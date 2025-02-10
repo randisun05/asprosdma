@@ -7,15 +7,16 @@ use App\Models\Post;
 use App\Models\Event;
 use App\Models\Member;
 use App\Models\Category;
+use App\Models\Management;
 use App\Models\ReactDetail;
 use App\Models\Registration;
 use Illuminate\Http\Request;
+use App\Models\DocumentDigital;
 use App\Models\RegistrationGroup;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendEmailForgetPassword;
-use App\Models\Management;
 
 class PublicController extends Controller
 {
@@ -40,10 +41,8 @@ class PublicController extends Controller
         $pranatapaid = Registration::where('position','Pranata SDM Aparatur')->where('emailstatus', '>', 0)
         ->whereNotIn('status', ['approved', 'rejected'])
         ->count();
-
-  //      $showPopup = Management::where('item', 'popup')->sum('status');
-    //    $datas = Management::where('item', 'popup')->where('status','1')->get();
-
+       $showPopup = Management::where('item', 'popup')->sum('status');
+       $datas = Management::where('item', 'popup')->where('status','1')->get();
         $agencydone = Registration::distinct()->count('agency');
 
         return view('Index', [
@@ -55,8 +54,8 @@ class PublicController extends Controller
             'agencydone' => $agencydone,
             'pranatapaid' => $pranatapaid,
             'analispaid' => $analispaid,
-//            'showPopup' => $showPopup,
-  //          'datas' => $datas
+           'showPopup' => $showPopup,
+           'datas' => $datas
         ]);
     }
 
@@ -128,110 +127,110 @@ class PublicController extends Controller
 
     public function about()
     {
-     //   $data = Management::where('item', 'siapakita')->first();
+    //    $data = Management::where('item', 'siapakita')->first();
         return inertia('Public/Website/About/About', [
             'title' => "Siapa Kita?",
-          //  'data' => $data
+        //    'data' => $data
         ]);
     }
 
     public function ketuaUmum()
     {
 
-      //  $data = Management::where('item', 'ketuaumum')->first();
+    //    $data = Management::where('item', 'ketuaumum')->first();
         return inertia('Public/Website/About/KetuaUmum', [
             'title' => "Ketua Umum",
-           // 'data' => $data
+        //    'data' => $data
         ]);
     }
 
     public function visiMisi()
     {
-      //  $data = Management::where('item', 'visimisi')->first();
+    //    $data = Management::where('item', 'visimisi')->first();
         return inertia('Public/Website/About/VisiMisi', [
             'title' => "Visi Misi",
-           // 'data' => $data
+        //    'data' => $data
         ]);
     }
 
     public function strukturOrganisasi()
     {
-      //  $data = Management::where('item', 'strukturorganisasi')->get();
+    //    $data = Management::where('item', 'strukturorganisasi')->get();
         return inertia('Public/Website/About/StrukturOrganisasi', [
             'title' => "Struktur Organisasi",
-           // 'data' => $data
+        //    'data' => $data
         ]);
     }
 
     public function sejarah()
     {
-      //  $data = Management::where('item', 'sejarah')->first();
+    //    $data = Management::where('item', 'sejarah')->first();
         return inertia('Public/Website/About/Sejarah', [
             'title' => "Sejarah Terbentuknya Aspro SDMA",
-         //   'data' => $data
+        //    'data' => $data
         ]);
     }
 
     public function peraturanOrganisasi()
     {
-      //  $datas = Management::when(request()->q, function($query) {
-      //      $query->where('body', 'like', '%' . request()->q . '%');
-      //  })
-      //  ->where('item', 'peraturan')
-      //  ->latest()
-       // ->paginate(6);
+    //    $datas = Management::when(request()->q, function($query) {
+    //        $query->where('body', 'like', '%' . request()->q . '%');
+    //    })
+    //    ->where('item', 'peraturan')
+    //    ->latest()
+    //    ->paginate(6);
 
-//        $datas->appends(['q' => request()->q]);
+    //    $datas->appends(['q' => request()->q]);
 
         return inertia('Public/Website/About/PeraturanOrganisasi', [
             'title' => "Peraturan Organisasi",
-//            'datas' => $datas
+        //    'datas' => $datas
         ]);
     }
 
     public function hubunganMasyarakat()
     {
-//        $data = Management::where('item', 'proker')->where('sub','humas')->first();
+        // $data = Management::where('item', 'proker')->where('sub','humas')->first();
         return inertia('Public/Website/Program/HubunganMasyarakat', [
             'title' => "Bidang Hubungan Masyarakat dan Kerja Sama",
-          //  'data' => $data
+        //    'data' => $data
         ]);
     }
 
     public function hukumAdvokasi()
     {
-       // $data = Management::where('item', 'proker')->where('sub','hukum')->first();
+    //    $data = Management::where('item', 'proker')->where('sub','hukum')->first();
         return inertia('Public/Website/Program/HukumAdvokasi', [
             'title' => "Bidang Hukum dan Advokasi",
-         //   'data' => $data
+        //    'data' => $data
         ]);
     }
 
     public function keanggotaan()
     {
-       // $data = Management::where('item', 'proker')->where('sub','anggota')->first();
+    //    $data = Management::where('item', 'proker')->where('sub','anggota')->first();
         return inertia('Public/Website/Program/Keanggotaan', [
             'title' => "Bidang Keanggotaan dan Organisasi",
-         //   'data' => $data
+        //    'data' => $data
 
         ]);
     }
 
     public function pengembangan()
     {
-       // $data = Management::where('item', 'proker')->where('sub','pengembangan')->first();
+    //    $data = Management::where('item', 'proker')->where('sub','pengembangan')->first();
         return inertia('Public/Website/Program/Pengembangan', [
             'title' => "Bidang Pengembangan Kapasitas Insani",
-         //   'data' => $data
+        //    'data' => $data
         ]);
     }
 
     public function sumberPendanaan()
     {
-       // $data = Management::where('item', 'proker')->where('sub','pendanaan')->first();
+    //    $data = Management::where('item', 'proker')->where('sub','pendanaan')->first();
         return inertia('Public/Website/Program/SumberPendanaan', [
             'title' => "Bidang Sumber Pendanaan Organisasi",
-         //   'data' => $data
+        //    'data' => $data
         ]);
     }
 
@@ -284,42 +283,43 @@ class PublicController extends Controller
 
     public function kontak()
     {
+        $data = Management::where('item', 'kontak')->first();
         return inertia('Public/Website/About/Kontak-kami', [
             'title' => "Kontak Kami",
+              'data' => $data
         ]);
     }
 
     public function dataAnggota()
     {
 
-      //  $datas = Management::when(request()->q, function($query) {
-      //      $query->where('body', 'like', '%' . request()->q . '%');
-     //   })
-     //   ->where('item', 'dataanggota')
-      //  ->latest()
-      //  ->paginate(6);
+       $datas = Management::when(request()->q, function($query) {
+           $query->where('body', 'like', '%' . request()->q . '%');
+       })
+       ->where('item', 'dataanggota')
+       ->latest()
+       ->paginate(6);
 
-        // $datas->appends(['q' => request()->q]);
+        $datas->appends(['q' => request()->q]);
 
         return inertia('Public/Website/Posts/DataAnggota', [
             'title' => "Data Keanggotaan",
-           // 'datas' => $datas
+           'datas' => $datas
         ]);
     }
 
     public function faq()
     {
-       // $datas = Management::when(request()->q, function($query) {
-       //     $query->where('body', 'like', '%' . request()->q . '%');
-      //  })
-      //  ->where('item', 'faq')
-      //  ->latest()
-  //      ->paginate(6);
-
-  //      $datas->appends(['q' => request()->q]);
+    //    $datas = Management::when(request()->q, function($query) {
+    //        $query->where('body', 'like', '%' . request()->q . '%');
+    //    })
+    //    ->where('item', 'faq')
+    //    ->latest()
+    //    ->paginate(6);
+    //     $datas->appends(['q' => request()->q]);
         return inertia('Public/Website/FAQ/faq', [
             'title' => "FAQ",
-    //        'datas' => $datas
+        //    'datas' => $datas
         ]);
     }
 
@@ -342,10 +342,7 @@ class PublicController extends Controller
             'email.email' => 'Format email tidak valid', // Pesan untuk validasi email
         ]);
 
-
         $data = Member::where('nip', $request->nip)->first();
-
-
 
         // Periksa apakah data ditemukan dan email sesuai dengan yang dimasukkan pengguna
         if ($data && $data->email === $request->email) {
@@ -370,7 +367,6 @@ class PublicController extends Controller
         // Jika status registrasi bukan 'confirm', arahkan pengguna kembali atau tampilkan pesan kesalahan
         return redirect()->route('user.login')->with('error', 'Link telah ditutup.');
 
-
         return inertia('User/Auth/Index', [
             'member' => $member
         ]);
@@ -378,7 +374,6 @@ class PublicController extends Controller
 
     public function ResetPassword(Request $request, $id)
     {
-
         $request->validate([
             'password' => [
                 'required',
@@ -417,19 +412,20 @@ class PublicController extends Controller
 
     public function documentVerif($id)
     {
-      //  $documentPath = public_path('/storage/documents/' . $id . ".pdf");
-//        $document = "documents/" . $id . ".pdf";
 
-//        if (!file_exists($documentPath)) {
-  //          return redirect()->back()->with('error', 'Dokumen tidak ditemukan.');
-    //    }
+       $docu = DocumentDigital::where('document','documents/'.$id.'_ttd.pdf')->first();
+       if (!$docu) {
+        return redirect()->back()->with('error', 'Dokumen tidak ditemukan.');
+        };
+        $ttd = Member::where('nip', $docu->nipttd)->first('name');
+        $paraf = Member::where('nip', $docu->nipparaf)->first('name');
 
-
-      //  return inertia('Public/Website/DocuDigi/Index', [
-        //    'title' => 'Verifikasi Produk Aspro SDMA',
-          //  'document' => $document
-
-       // ]);
+       return inertia('Public/Website/DocuDigi/Index', [
+           'title' => 'Verifikasi Produk Aspro SDMA',
+           'docu' => $docu,
+              'ttd' => $ttd,
+                'paraf' => $paraf
+       ]);
     }
 
 }

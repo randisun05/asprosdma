@@ -36,8 +36,9 @@
                                     <tr class="border-0 text-center">
                                         <th class="border-0 rounded-start" style="width:5%">No.</th>
                                         <th class="border-0">Perihal</th>
-                                        <th class="border-0">Path</th>
-                                        <th class="border-0">Penandatangan</th>
+                                        <th class="border-0">Tajuan</th>
+                                        <th class="border-0">Ttd / Paraf</th>
+                                        <th class="border-0">Status</th>
                                         <th class="border-0 rounded-end" style="width:12%">Aksi</th>
                                     </tr>
                                 </thead>
@@ -46,11 +47,18 @@
                                     <tr v-for="(docu, index) in docus.data" :key="index">
                                         <td class="fw-bold text-center">{{ ++index + (docus.current_page - 1) * docus.per_page }}</td>
                                         <td>{{ docu.perihal }}</td>
-                                        <td>{{ docu.perihal }}</td>
-                                        <td>/storage/{{ docu.perihal }}</td>
+                                        <td>{{ docu.tujuan }}</td>
+                                        <td>{{ docu.nipttd }} / {{ docu.nipparaf }}</td>
+                                        <td><span class="badge bg-secondary" v-if="docu.status === 'submitted' && docu.ttdparaf != '' "> Belum Paraf</span>
+                                            <span class="badge bg-warning" v-if="docu.status === 'paraf' "> Belum TTD</span>
+                                            <span class="badge bg-success" v-if="docu.status === 'approved'"> Approved</span>
+                                        </td>
                                         <td class="text-center" >
-                                            <Link :href="`/admin/medias/${docu.id}/edit`" class="btn btn-sm btn-warning border-0 shadow me-2" type="button" title="edit"><i class="fa fa-pencil"></i></Link>
-                                            <button @click.prevent="destroy(docu.id)" class="btn btn-sm btn-danger border-0 me-2"><i class="fa fa-trash" title="hapus"></i></button>
+                                            <!-- <Link :href="`/admin/docidigi/${docu.id}/edit`" class="btn btn-sm btn-warning border-0 shadow me-2" type="button" title="edit"><i class="fa fa-pencil"></i></Link> -->
+                                            <a class="btn btn-sm btn-primary border-0 me-1" data-fancybox="" :href="getDocumentUrl(docu.document)"><i class="fa fa-eye"></i></a>
+                                            <button v-if="docu.status === 'submitted' && docu.ttdparaf != '' " @click.prevent="paraf(docu.id)" class="btn btn-sm btn-warning border-0 me-1">Paraf</button>
+                                            <button v-if="docu.status === 'paraf'" @click.prevent="approve(docu.id)" class="btn btn-sm btn-success border-0 me-1">Approve</button>
+                                            <button v-if="$page.props.auth.user.role === 'administrator'" @click.prevent="destroy(docu.id)" class="btn btn-sm btn-danger border-0 me-1"><i class="fa fa-trash" title="hapus"></i></button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -109,7 +117,9 @@
 
 
         //inisialisasi composition API
-        setup() {
+        setup(props) {
+            const auth = props.auth;
+            const administrator = 'administrator';
 
 
             //define state search
@@ -151,6 +161,89 @@
                     })
             }
 
+             //define method destroy
+             const paraf = (id) => {
+                Swal.fire({
+                        title: 'Apakah Anda yakin?',
+                        text: "Anda yakin akan melakukan paraf dokumen ini?",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes!'
+                    })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+
+                            Inertia.get(`/admin/docudigi/${id}/paraf`);
+
+                            Swal.fire({
+                                title: 'Berhasil!',
+                                text: 'Dokumen Berhasil Diparaf!.',
+                                icon: 'success',
+                                timer: 2000,
+                                showConfirmButton: false,
+                            });
+                        }
+                    })
+            }
+
+
+             //define method destroy
+             const approve = (id) => {
+                Swal.fire({
+                        title: 'Apakah Anda yakin?',
+                        text: "Anda yakin akan melakukan menandatangan dokumen ini?",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, approve it!'
+                    })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+
+                            Inertia.get(`/admin/docudigi/${id}/approve`);
+
+                            Swal.fire({
+                                title: 'Berhasil!',
+                                text: 'Dokumen Berhasil Ditanda tangan!.',
+                                icon: 'success',
+                                timer: 2000,
+                                showConfirmButton: false,
+                            });
+                        }
+                    })
+            }
+
+
+             //define method destroy
+             const cancel = (id) => {
+                Swal.fire({
+                        title: 'Apakah Anda yakin?',
+                        text: "Anda tidak akan dapat mengembalikan ini!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, cancel it!'
+                    })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+
+                            Inertia.get(`/admin/docudigi/${id}/cancel`);
+
+                            Swal.fire({
+                                title: 'Deleted!',
+                                text: 'Media Berhasil Dihapus!.',
+                                icon: 'success',
+                                timer: 2000,
+                                showConfirmButton: false,
+                            });
+                        }
+                    })
+            }
+
             // Method to get the URL of the document
          const getDocumentUrl = (documentName) => {
             return `/storage/${documentName}`;
@@ -162,6 +255,9 @@
                 handleSearch,
                 destroy,
                 getDocumentUrl,
+                paraf,
+                approve,
+                cancel
 
         }
     }
