@@ -15,7 +15,7 @@
             </div>
             <div class="valid-until">
                 <span>Disahkan tanggal:</span><br>
-                <strong>{{ $profile->created_at->format('d F Y') }}</strong>    </div>
+                <strong>{{ $profile->created_at->translatedFormat('d F Y') }}</strong>    </div>
         </div>
 
         <div class="col-md-8 member-info">
