@@ -123,8 +123,8 @@
         }
 
         .qr-code div {
-            width: 130px;
-            height: 130px;
+            width: 150px;
+            height: 150px;
             border: 2px solid #ccc;
             box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
             background: rgba(255, 255, 255, 0.8);
