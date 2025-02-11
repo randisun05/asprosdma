@@ -38,11 +38,6 @@ class DashboardController extends Controller
             'merchan' => Merchan::count(),
         ];
 
-
-
-
-        if (auth()->user()->role === 'keanggotaan' || auth()->user()->role === 'administrator') {
-
             $dataCountsByPosition = ProfileDataPosition::groupBy('position',)
             ->select('position', DB::raw('count(*) as total'))
             ->get()
@@ -79,7 +74,7 @@ class DashboardController extends Controller
                     }
                 }
             }
-        }
+
 
         return inertia('Admin/Dashboard/Index', [
             'registrationData' => $registrationData,
