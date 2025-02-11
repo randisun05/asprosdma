@@ -70,7 +70,7 @@ class DataMembersController extends Controller
             }
 
             // Generate the QR code using the retrieved qr_link
-            $qrCode = QrCode::size(125)->generate($qrLink);
+            $qrCode = QrCode::size(250)->generate($qrLink);
 
             // Render the view with the profile and qrCode
             return view('Layouts/Components/MemberCard', compact('profile', 'qrCode', 'foto'));
