@@ -27,7 +27,7 @@
 <section id="kontak kami">
    <div class="container padding_m">
       <div class="row">
-        <div class="col-md-12 col-sm-12">
+        <div class="col-md-6 col-sm-12">
            <div class="heading-title heading_space wow fadeInUp" data-wow-delay="300ms">
                <span>Ada pertanyaan, masukan, atau ingin berkolaborasi?</span>
                <h2 class="darkcolor">Kontak Kami</h2>

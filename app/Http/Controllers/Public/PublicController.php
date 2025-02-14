@@ -8,6 +8,8 @@ use App\Models\Event;
 use App\Models\Member;
 use App\Models\Category;
 use App\Models\Management;
+use App\Models\Achievement;
+use App\Models\DetailEvent;
 use App\Models\ReactDetail;
 use App\Models\Registration;
 use Illuminate\Http\Request;
@@ -402,11 +404,17 @@ class PublicController extends Controller
     public function profileView($qr_link)
     {
         $data = Member::where('qr_link', $qr_link)->first();
+        $events = DetailEvent::with('event')->where('member_id', $data->member_id)->get();
+        $achievments = Achievement::where('member_id', $data->member_id)->get();
+
+        // $events = DetailEvent::with('event')->where('member_id', '10')->get();
+        // $achievments = Achievement::where('member_id', '10')->get();
 
         return inertia('Public/Profile/Index', [
             'title' => 'Profile Anggota',
-            'data' => $data
-
+            'data' => $data,
+            'achievments' => $achievments,
+            'events' => $events
         ]);
     }
 

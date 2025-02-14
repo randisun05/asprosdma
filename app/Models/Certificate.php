@@ -12,7 +12,7 @@ class Certificate extends Model
 
     protected $fillable = [
         'event_id',
-        'no_sertificate',
+        'no_certificate',
         'nip',
         'name',
         'body',
@@ -22,6 +22,7 @@ class Certificate extends Model
         'qr_code',
         'link',
         'doc',
+        'category'
     ];
 
     protected $keyType = 'string'; // Menetapkan tipe kunci ke string

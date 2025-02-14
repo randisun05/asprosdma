@@ -6,7 +6,12 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-1 col-12 mb-2">
+                    <div class="col-md-2 col-12 mb-2">
+                                            <Link :href="`/admin/events/`" class="btn btn-md btn-primary border-0 shadow w-100" type="button"><i
+                                                class="fa fa-arrow-left"></i>
+                                            Kembali</Link>
+                                        </div>
+                    <div class="col-md-2 col-12 mb-2">
                         <Link :href="`/admin/events/${event.id}/certificates/create`" class="btn btn-md btn-primary border-0 shadow w-100" type="button"><i
                             class="fa fa-plus-circle"></i>
                          Tambah</Link>
@@ -36,6 +41,7 @@
                                 <thead class="thead-dark">
                                     <tr class="border-0 text-center">
                                         <th class="border-0 rounded-start" style="width:5%">No.</th>
+                                        <th class="border-0">Nomor</th>
                                         <th class="border-0">NIP</th>
                                         <th class="border-0">Nama</th>
                                         <th class="border-0">Instansi</th>
@@ -47,11 +53,12 @@
                                 <tbody>
                                     <tr v-for="(data, index) in datas.data" :key="index">
                                         <td class="fw-bold text-center">{{ ++index + (datas.current_page - 1) * datas.per_page }}</td>
+                                        <td>{{ data.no_certificate }}</td>
                                         <td>{{ data.nip }}</td>
                                         <td>{{ data.name}}</td>
                                         <td>{{ data.status }}</td>
                                         <td class="text-center">
-                                          
+
                                         </td>
                                     </tr>
                                 </tbody>
@@ -155,7 +162,7 @@
                     })
             }
 
-            
+
             //return
             return {
                 search,

@@ -312,7 +312,7 @@ class EventController extends Controller
             'templates' => $templates,
          ]);
     }
-    
+
     public function certificatesTemplateDelete($id)
     {
         $template = TemplateCertificate::findOrFail($id);
@@ -325,7 +325,7 @@ class EventController extends Controller
             'templates' => $templates,
          ]);
     }
-    
+
     public function certificatesImport($id)
     {
 
@@ -339,10 +339,23 @@ class EventController extends Controller
     {
 
         $event = Event::findOrFail($id);
-       
+
+
+        $lastCertificate = Certificate::whereYear('date', date('Y', strtotime($request->date)))
+        ->whereMonth('date', date('m', strtotime($request->date)))
+        ->orderBy('created_at', 'desc')
+        ->first();
+
+        $lastNumber = $lastCertificate ? intval(explode('/', $lastCertificate->no_certificate)[0]) : 0;
+        $newNumber = str_pad($lastNumber + 1, 4, '0', STR_PAD_LEFT);
+        $kodeKegiatan = $request->category; // Replace with actual activity code
+        $bulan = date('m', strtotime($request->date));
+        $tahun = date('Y', strtotime($request->date));
+
+        $nomor = "{$newNumber}/{$kodeKegiatan}/PP Aspro SDMA/{$bulan}/{$tahun}";
 
             $request->validate([
-                'no_certificate' => 'required',
+                'category' => 'required',
                 'nip' => 'required',
                 'name' => 'required',
                 'body' => 'required',
@@ -352,7 +365,8 @@ class EventController extends Controller
 
         Certificate::create([
             'event_id' => $event->id,
-            'no_sertificate' => $request->no_certificate,
+            'no_certificate' => $nomor,
+            'category' => $request->category,
             'nip' => $request->nip,
             'name' => $request->name,
             'body' => $request->body,

@@ -16,12 +16,13 @@ return new class extends Migration
         Schema::create('certificates', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignId('event_id')->references('id')->on('events');
-            $table->string('no_sertificate');
+            $table->string('no_certificate');
             $table->string('nip');
             $table->string('name');
             $table->string('body');
             $table->string('date');
             $table->string('tamplate')->nullable();
+            $table->string('category')->nullable();
             $table->string('status')->nullable();
             $table->string('qr_code')->nullable();
             $table->string('link')->nullable();

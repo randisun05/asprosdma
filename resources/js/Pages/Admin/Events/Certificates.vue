@@ -8,7 +8,7 @@
                 <div class="row">
 
                     <h3 class="text-center">Tambah Sertifikat</h3>
-                    <div class="col-md-1 col-12 mb-2">
+                    <div class="col-md-2 col-12 mb-2">
                                             <Link :href="`/admin/events/${event.id}/certificates`" class="btn btn-md btn-primary border-0 shadow w-100" type="button"><i
                                                 class="fa fa-arrow-left"></i>
                                             Kembali</Link>
@@ -24,19 +24,13 @@
                     <form @submit.prevent="submit" enctype="multipart/form-data">
                         <div class="row py-4">
                             <div class="col-md-4">
-                                <span class="text-black">No_Sertif</span>
-                                <div class="form-group mt-1 mb-4">
-                                    <input type="text" class="form-control" v-model="form.no_certificate">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
                                 <span class="text-black">Kategori</span>
                                 <div class="form-group mt-1 mb-4">
                                     <select class="form-control" v-model="form.category">
-                                        <option value="" disabled selected>Pilih Kategori</option>
-                                        <option value="sertifikaat kegiatan">Sertifikaat Kegiatan</option>
-                                        <option value="pengumuman">Pengumuman</option>
-                                        <option value="surat undangan">Surat Undangan</option>
+                                        <option disabled selected>Pilih Kategori</option>
+                                        <option value="kombel">Komunitas Belajar</option>
+                                        <option value="sayembara">Sayembara</option>
+                                        <option value="lain">Lainnya</option>
                                     </select>
                                 </div>
                             </div>
@@ -65,7 +59,7 @@
                             <div class="col-md-4">
                                 <span class="text-black">Tanggal</span>
                                 <div class="form-group mt-1 mb-4">
-                                    <input type="text" class="form-control" v-model="form.date">
+                                    <input type="date" class="form-control" v-model="form.date">
                                 </div>
                             </div>
                             <div class="col-md-11">
@@ -130,7 +124,7 @@ export default {
             name: '',
             agency: '',
             title: '',
-            no_certificate: '',
+            category: '',
             date: '',
             template: ''
         });
@@ -158,7 +152,7 @@ export default {
             formData.append('name', form.value.name);
             formData.append('agency', form.value.agency);
             formData.append('body', form.value.body);
-            formData.append('no_certificate', form.value.no_certificate);
+            formData.append('category', form.value.category);
             formData.append('date', form.value.date);
             formData.append('template', form.value.template);
             Inertia.post(`/admin/events/${props.event.id}/certificates/store`, formData);
