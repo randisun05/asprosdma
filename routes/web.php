@@ -46,6 +46,7 @@ Route::prefix('admin')->group(function() {
         Route::get('/docudigi/{id}/paraf', [\App\Http\Controllers\Admin\DocuDigiController::class, 'paraf'])->name('admin.docudigi.paraf');
         Route::get('/docudigi/{id}/approve', [\App\Http\Controllers\Admin\DocuDigiController::class, 'approve'])->name('admin.docudigi.approve');
         Route::get('/docudigi/{id}/cencel', [\App\Http\Controllers\Admin\DocuDigiController::class, 'cancel'])->name('admin.docudigi.cancel');
+        Route::get('/managementfilter', [\App\Http\Controllers\Admin\ManagementController::class, 'filter'])->name('admin.menegemnet.filter');
         Route::post('/management/store', [\App\Http\Controllers\Admin\ManagementController::class, 'store'])->name('admin.menegemnet.store');
         Route::post('/management/update', [\App\Http\Controllers\Admin\ManagementController::class, 'update'])->name('admin.menegemnet.update');
         Route::post('/management/update/status', [\App\Http\Controllers\Admin\ManagementController::class, 'status'])->name('admin.menegemnet.status');
@@ -77,16 +78,20 @@ Route::prefix('admin')->group(function() {
         Route::get('/posts/{id}/cancel', [\App\Http\Controllers\Admin\PostController::class, 'cancel'])->name('admin.posts.cancel');
         Route::get('/posts/{id}/cancelLimited', [\App\Http\Controllers\Admin\PostController::class, 'cancelLimited'])->name('admin.posts.cancellimited');
         Route::get('/posts/{id}/submission', [\App\Http\Controllers\Admin\PostController::class, 'cancel'])->name('admin.posts.submission');
+        Route::get('/events/{id}/certificates/import', [\App\Http\Controllers\Admin\EventController::class, 'certificatesImportCreate'])->name('admin.events.certificates.import.create');
+        Route::post('/events/{id}/certificates/import', [\App\Http\Controllers\Admin\EventController::class, 'certificatesImportStore'])->name('admin.events.certificates.import.store');
         Route::get('/events/{id}/certificates', [\App\Http\Controllers\Admin\EventController::class, 'certificatesIndex'])->name('admin.events.certificates.index');
         Route::get('/events/{id}/certificates/create', [\App\Http\Controllers\Admin\EventController::class, 'certificatesCreate'])->name('admin.events.certificates.create');
         Route::post('/events/{id}/certificates/store', [\App\Http\Controllers\Admin\EventController::class, 'certificatesStore'])->name('admin.events.certificates.store');
-        Route::post('/events/{id}/certificates/import', [\App\Http\Controllers\Admin\EventController::class, 'certificatesImport'])->name('admin.events.certificates.import');
+        Route::get('/events/{event}/certificates/{id}', [\App\Http\Controllers\Admin\EventController::class, 'certificatesView'])->name('admin.events.certificates.view');
+        Route::delete('/events/{event}/certificates/{id}/destroy', [\App\Http\Controllers\Admin\EventController::class, 'certificatesDestroy'])->name('admin.events.certificates.destroy');
         Route::get('/events/certificates/templates', [\App\Http\Controllers\Admin\EventController::class, 'certificatesTemplate'])->name('admin.events.certificates.template');
         Route::post('/events/certificates/templates/store', [\App\Http\Controllers\Admin\EventController::class, 'certificatesTemplateStore'])->name('admin.events.certificates.template.store');
         Route::delete('/events/certificates/templates/{id}', [\App\Http\Controllers\Admin\EventController::class, 'certificatesTemplateDelete'])->name('admin.events.certificates.template.delete');
         Route::post('/events/{id}', [\App\Http\Controllers\Admin\EventController::class, 'update'])->name('admin.events.update');
         Route::get('/events/{id}/export', [\App\Http\Controllers\Admin\EventController::class, 'exportParticipant'])->name('admin.events.export');
         Route::get('/events/{id}/change', [\App\Http\Controllers\Admin\EventController::class, 'change'])->name('admin.events.status.change');
+        Route::get('/events/{id}/absen', [\App\Http\Controllers\Admin\EventController::class, 'absen'])->name('admin.events.status.absen');
         Route::resource('/events', \App\Http\Controllers\Admin\EventController::class, ['as' => 'admin']);
         Route::post('/medias/{id}', [\App\Http\Controllers\Admin\MediaController::class, 'update'])->name('admin.medias.update');
         Route::resource('/medias', \App\Http\Controllers\Admin\MediaController::class, ['as' => 'admin']);
@@ -104,6 +109,21 @@ Route::prefix('admin')->group(function() {
         Route::get('/generate-qr', [\App\Http\Controllers\Admin\QRCodeController::class, 'generateQRCode']);
         Route::get('/members/qrcode/{id}', [\App\Http\Controllers\Admin\QRCodeController::class, 'generateQRCode1']);
         Route::get('/member-card/download/{id}', [\App\Http\Controllers\Admin\DataMembersController::class, 'downloadMemberCard'])->name('admin.card.download');
+
+        //arsip
+        Route::resource('/archives', \App\Http\Controllers\Admin\ArchiveController::class, ['as' => 'admin']);
+        Route::get('/archives/inbox', [\App\Http\Controllers\Admin\ArchiveController::class, 'inbox'])->name('admin.archives.inbox');
+        Route::get('/archives/inbox/{id}/show', [\App\Http\Controllers\Admin\ArchiveController::class, 'showInbox'])->name('admin.archives.inbox.show');
+        Route::get('/archives/inbox/{id}/update', [\App\Http\Controllers\Admin\ArchiveController::class, 'updateInbox'])->name('admin.archives.inbox.update');
+        Route::post('/archives/disposition/inbox/{id}', [\App\Http\Controllers\Admin\ArchiveController::class, 'dispoInbox'])->name('admin.archives.inbox.disposition');
+        Route::post('/archives/disposition/{id}', [\App\Http\Controllers\Admin\ArchiveController::class, 'dispo'])->name('admin.archives.disposition');
+        Route::get('/archives/{id}/editarsip', [\App\Http\Controllers\Admin\ArchiveController::class, 'editArchive'])->name('admin.archives.editArchive');
+
+        //jurnal
+        Route::get('/jurnals/export', [\App\Http\Controllers\Admin\JurnalController::class, 'exportReport'])->name('admin.jurnals.export');
+        Route::resource('/jurnals', \App\Http\Controllers\Admin\JurnalController::class, ['as' => 'admin']);
+
+
     });
 });
 
@@ -148,6 +168,7 @@ Route::prefix('user')->group(function() {
         Route::resource('/events', \App\Http\Controllers\User\EventController::class, ['as' => 'user']);
         Route::get('/events/{event:slug}', [\App\Http\Controllers\User\EventController::class, 'show'])->name('user.events.join');
         Route::post('/events/{id}/join', [\App\Http\Controllers\User\EventController::class, 'join'])->name('user.events.join');
+        Route::post('/events/{id}/absen', [\App\Http\Controllers\User\EventController::class, 'absen'])->name('user.events.absen');
         Route::get('/setting', [App\Http\Controllers\User\LoginController::class, 'setting'])->name('user.setting');
         Route::put('/setting/update', [App\Http\Controllers\User\LoginController::class, 'resetPassword'])->name('user.setting.update');
         Route::get('/merchans/', [\App\Http\Controllers\User\MerchansController::class, 'index'])->name('user.merchan.index');
@@ -161,8 +182,7 @@ Route::prefix('user')->group(function() {
         Route::post('/member-card/update', [\App\Http\Controllers\User\MemberCardController::class, 'updateImage'])->name('user.card.update');
         Route::get('/member-card/qrcode', [\App\Http\Controllers\User\MemberCardController::class, 'generateQRCode'])->name('user.card.qr');
         Route::get('/certificates', [\App\Http\Controllers\User\EventController::class, 'certificatesIndex'])->name('user.certificates.index');
-        Route::get('/certificates/{id}/download', [\App\Http\Controllers\User\EventController::class, 'certificatesDownload'])->name('user.certificates.download');
-
+        Route::get('/certificates/{id}', [\App\Http\Controllers\User\EventController::class, 'certificateView'])->name('admin.events.certificates.view');
 
     });
 });
@@ -208,10 +228,14 @@ Route::get('/forget-password/email', [\App\Http\Controllers\Public\PublicControl
 Route::get('/user/forget-password/{id}', [\App\Http\Controllers\Public\PublicController::class, 'IndexforgetPassword'])->name('forget.password.index');
 Route::put('/user/forget-password/{id}/reset', [\App\Http\Controllers\Public\PublicController::class, 'ResetPassword'])->name('forget.password.reset');
 Route::get('/identity-verification/{member:qr_link}', [\App\Http\Controllers\Public\PublicController::class, 'profileView'])->name('profile.view');
+Route::get('/identity-verification/{member:qr_link}/{event}/download', [\App\Http\Controllers\Public\PublicController::class, 'downloadSertifikat'])->name('profile.sertifikat.download');
 Route::get('/verification/{id}', [\App\Http\Controllers\Public\PublicController::class, 'documentVerif'])->name('documentVerif');
-
-
-
+Route::resource('/hubungi-aspro', \App\Http\Controllers\Public\ArchiveController::class);
+Route::post('/hubungi-aspro/store', [\App\Http\Controllers\Public\ArchiveController::class, 'store'])->name('hubungi-aspro.store');
+Route::post('/hubungi-aspro/tiket', [\App\Http\Controllers\Public\ArchiveController::class, 'show'])->name('hubungi-aspro.show');
+Route::get('/certificates/{id}/view', [\App\Http\Controllers\Public\PublicController::class, 'certificateShow'])->name('certificate.show');
+Route::get('/certificates/{id}', [\App\Http\Controllers\Public\PublicController::class, 'certificateView'])->name('certificate.view');
+Route::get('/maintenance', [\App\Http\Controllers\Public\PublicController::class, 'maintenance'])->name('maintenance');
 
 Route::get('/documents/{filename}', function ($filename) {
     $path = storage_path('app/public/document/' . $filename);

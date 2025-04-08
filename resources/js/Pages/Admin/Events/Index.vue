@@ -52,6 +52,9 @@
                                         <td>{{ event.participant }}</td>
                                         <td> <button v-if="event.status === 'active'" @click="changeStatus(event.id)" class="badge bg-success">{{ event.status }}</button>
                                             <button v-else-if="event.status === 'closed'" @click="changeStatus(event.id)" class="badge bg-warning">{{ event.status }}</button>
+                                            <br>
+                                            <button v-if="event.absen === 'N'" @click="changeAbsen(event.id)" class="badge bg-danger">absen:on-aktif</button>
+                                            <button v-else-if="event.absen === 'Y'" @click="changeAbsen(event.id)" class="badge bg-primary">absen:aktif</button>
                                         </td>
                                         <td class="text-center">
                                             <Link :href="`/admin/events/${event.id}`" title="view" class="btn btn-sm btn-primary border-0 shadow me-2" type="button"><i class="fa fa-eye fa-lg" aria-hidden="true"></i></Link>
@@ -191,12 +194,41 @@
             }
 
 
+              //define method destroy
+              const changeAbsen = (id) => {
+                Swal.fire({
+                        title: 'Apakah Anda yakin?',
+                        text: "Anda akan mengganti status absen!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, change it!'
+                    })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+
+                            Inertia.get(`/admin/events/${id}/absen`);
+
+                            Swal.fire({
+                                title: 'Changed!',
+                                text: 'Status Absen Berhasil Dirubah!.',
+                                icon: 'success',
+                                timer: 2000,
+                                showConfirmButton: false,
+                            });
+                        }
+                    })
+            }
+
+
             //return
             return {
                 search,
                 handleSearch,
                 destroy,
-                changeStatus
+                changeStatus,
+                changeAbsen
 
 
         }

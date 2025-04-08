@@ -7,7 +7,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="col-md-1 col-12 mb-2">
-                                            <Link href="/admin/events/" class="btn btn-md btn-primary border-0 shadow w-100" type="button"><i
+                                            <Link :href="`/admin/events/${event_id}/certificates`" class="btn btn-md btn-primary border-0 shadow w-100" type="button"><i
                                                 class="fa fa-arrow-left"></i>
                                             Kembali</Link>
                                         </div>
@@ -27,7 +27,7 @@
                                             <div class="col-md-3">
                                                 <span class="text-black">Image</span>
                                                 <div class="form-group mt-1 mb-4">
-                                                    <input type="file" class="form-control" @change="updateImage" accept=".jpg, .jpeg, .png, .svg" >
+                                                    <input type="file" class="form-control" @change="updateImage" accept=".pdf" >
                                                 </div>
                                                 <div v-if="errors.image" class="alert alert-danger mt-2">
                                                     {{ errors.image }}
@@ -65,10 +65,11 @@
                                                     <tr v-for="(template, index) in templates.data" :key="index">
                                                         <td class="fw-bold text-center">{{ ++index + (templates.current_page - 1) *
                                                             templates.per_page }}</td>
-                                                       
+
                                                         <td>{{ template.title }}</td>
-                                                        <td style="width: 80px;"><img class="image" v-if="template.image"
-                                                            :src="getImageUrl(template.image)" alt="Gambar" /></td>
+                                                        <td style="width: 80px;">
+                                                            <a class="btn btn-sm btn-primary border-0 me-1" data-fancybox="" :href="getImageUrl(template.image)"><i class="fa fa-eye"></i></a>
+                                                            </td>
 
                                                         <td class="text-center">
                                                             <button @click.prevent="destroy(template.id)"
@@ -124,6 +125,7 @@
                     //props
                     props: {
                         errors: Object,
+                        event_id: Number,
                         templates: Object,
 
                     },
@@ -135,7 +137,7 @@
                             title: '',
                             image: '',
                             status: '',
-                          
+
                         });
 
 

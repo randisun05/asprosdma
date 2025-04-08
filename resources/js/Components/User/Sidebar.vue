@@ -60,7 +60,7 @@
                   </span>
                   </Link>
               </li>
-
+<!--
               <li class="nav-item" :class="{ 'active': $page.url.startsWith('/user/certificates') }">
                   <Link href="/user/certificates" class="nav-link d-flex justify-content-between">
                   <span>
@@ -70,7 +70,7 @@
                       <span class="sidebar-text ms-3">Sertifikat</span>
                   </span>
                   </Link>
-              </li>
+              </li> -->
 
        </ul>
     </div>

@@ -64,6 +64,14 @@
                                         <button v-if="event.status === 'active' && status === 1"
                                         class="button btnthrid border-0 me-2 mt-4"> Anda Sudah Terdaftar </button>
                                 </div>
+
+                                <div class="text-center" v-if="event.absen === 'Y'">
+                                    <button v-if="status === 1 && detailEvent.status === 'approved'" @click.prevent="absen(event.id)"
+                                        class="button btnprimary border-0 me-2 mt-4">Tandai Hadir</button>
+                                        <button v-if="detailEvent.status === 'hadir'"
+                                        class="button btnthrid border-0 me-2 mt-4">Telah Melakukan Absensi</button>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -116,6 +124,7 @@ export default {
         errors: Object,
         event: Object,
         status: Object,
+        detailEvent: Object,
     },
 
     //inisialisasi composition API
@@ -156,6 +165,36 @@ export default {
 }
 
 
+const absen = (id) => {
+    Swal.fire({
+        title: 'Anda akan melakukan absensi pada event ini?',
+        text: "",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Tandai Hadir!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Inertia.post(`/user/events/${id}/absen`, {
+                // Assuming form.document is available in the current scope
+                document: form.document,
+            }, {
+                onSuccess: () => {
+                    Swal.fire({
+                        title: 'Berhasil!',
+                        text: 'Anda sudah berhasil melakukan absensi',
+                        icon: 'success',
+                        timer: 2000,
+                        showConfirmButton: false,
+                    });
+                }
+            });
+        }
+    });
+}
+
+
 
         // Method to get the URL of the document
         const getImageUrl = (imageName) => {
@@ -172,7 +211,8 @@ export default {
             getImageUrl,
             join,
             updateDocument,
-            form
+            form,
+            absen,
         }
     }
 

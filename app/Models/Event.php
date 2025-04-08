@@ -21,7 +21,8 @@ class Event extends Model
         'participant',
         'image',
         'status',
-        'file'
+        'file',
+        'absen'
     ];
 
     public function getRouteKeyName()

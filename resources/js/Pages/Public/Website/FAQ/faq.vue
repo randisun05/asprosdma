@@ -21,8 +21,20 @@
 
    <section id="our-testimonial" class="padding_m">
       <div class="container">
-         <div class="row">
-                <p class="d-inline-flex gap-1">
+         <div class="row col-md-12">
+            <div v-for="(data, index) in datas.data" :key="index">
+                <div class="d-flex gap-1">
+                    <a class="card card-body w-100" style="background-color: azure;" data-bs-toggle="collapse" :href="'#faq' + data.id" role="button" aria-expanded="false" aria-controls="collapseExample">
+                     {{ data.sub }}
+                    </a>
+                </div>
+                <div class="collapse mb-3" :id="'faq' + data.id">
+                    <div class="card card-body">
+                        {{ data.subitem }}
+                    </div>
+                </div>
+            </div>
+                <!-- <p class="d-inline-flex gap-1">
                     <a class="card card-body" style="background-color: azure;" data-bs-toggle="collapse" href="#faq1" role="button" aria-expanded="false" aria-controls="collapseExample">
                         Bagaimana apabila tidak melakukan pembayaran keanggotaan Aspro SDMA?
                     </a>
@@ -97,7 +109,7 @@
                     <div class="card card-body">
                         Aspro SDMA Cabang berkedudukan di wilayah Kantor Regional BKN dan/atau Instansi Pemerintah yang dibentuk mempertimbangan penguatan organisasi dengan prinsip efektivitas dan efisiensi.
                     </div>
-                </div>
+                </div> -->
          </div>
       </div>
    </section>
@@ -139,8 +151,8 @@
 
            //props
            props: {
-               title:Object
-
+               title:Object,
+                datas: Object
            },
 
 

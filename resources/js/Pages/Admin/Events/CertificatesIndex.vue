@@ -6,15 +6,21 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-2 col-12 mb-2">
+                    <div class="col-md-1 col-12 mb-2">
                                             <Link :href="`/admin/events/`" class="btn btn-md btn-primary border-0 shadow w-100" type="button"><i
                                                 class="fa fa-arrow-left"></i>
                                             Kembali</Link>
                                         </div>
-                    <div class="col-md-2 col-12 mb-2">
+                    <div class="col-md-1 col-12 mb-2">
                         <Link :href="`/admin/events/${event.id}/certificates/create`" class="btn btn-md btn-primary border-0 shadow w-100" type="button"><i
                             class="fa fa-plus-circle"></i>
                          Tambah</Link>
+                    </div>
+
+                    <div class="col-md-1 col-12 mb-2">
+                        <Link :href="`/admin/events/certificates/templates?event_id=${event.id}`" class="btn btn-md btn-primary border-0 shadow w-100" type="button"><i
+                            class="fa fa-plus-circle"></i>
+                         Template</Link>
                     </div>
 
                     <div class="col-md-6 col-12 mb-2">
@@ -56,9 +62,15 @@
                                         <td>{{ data.no_certificate }}</td>
                                         <td>{{ data.nip }}</td>
                                         <td>{{ data.name}}</td>
+                                        <td>{{ data.agency}}</td>
                                         <td>{{ data.status }}</td>
                                         <td class="text-center">
+                                            <button @click="downloadCard(data)"
+                                                                class="btn btn-sm btn-success border-0 shadow me-1" type="button">
+                                                                <i class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i></button>
 
+                                            <button @click="destroy(data.id)" title="hapus" class="btn btn-sm btn-danger border-0 shadow"><i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -70,7 +82,7 @@
             </div>
         </div>
     </div>
-
+    <iframe id="downloadFrame" style="visibility: hidden;"></iframe>
 
 
 
@@ -121,7 +133,7 @@
 
 
         //inisialisasi composition API
-        setup() {
+        setup(props) {
 
             //define state search
             const search = ref('' || (new URL(document.location)).searchParams.get('q'));
@@ -149,11 +161,11 @@
                     .then((result) => {
                         if (result.isConfirmed) {
 
-                            Inertia.delete(`/admin/events/${event.id}/certificates/${id}`);
+                            Inertia.delete(`/admin/events/${props.event.id}/certificates/${id}/destroy`);
 
                             Swal.fire({
                                 title: 'Deleted!',
-                                text: 'Event Berhasil Dihapus!.',
+                                text: 'Sertifikat Berhasil Dihapus!.',
                                 icon: 'success',
                                 timer: 2000,
                                 showConfirmButton: false,
@@ -162,12 +174,35 @@
                     })
             }
 
+            const downloadCard = async (data) => {
+                try {
+                    // Select the iframe
+                    const iframe = document.getElementById('downloadFrame');
+
+                    // URL to download the certificate
+                    const downloadUrl = `/admin/events/${props.event.id}/certificates/${data.id}`;
+
+                    // Set the iframe source to the download URL
+                    iframe.src = downloadUrl;
+
+                    // Add an event listener to detect when the iframe is loaded
+                    iframe.onload = () => {
+                        console.log('Certificate download initiated.');
+                    }
+                } catch (error) {
+                    console.error("Error downloading certificate:", error);
+                    Swal.fire('Error', 'Failed to download certificate.', 'error');
+                }
+            };
+
 
             //return
             return {
                 search,
+                event: props.event,
                 handleSearch,
                 destroy,
+                downloadCard
 
         }
     }

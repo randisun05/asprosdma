@@ -9,6 +9,7 @@ use App\Models\Member;
 use App\Models\Category;
 use App\Models\Management;
 use App\Models\Achievement;
+use App\Models\Certificate;
 use App\Models\DetailEvent;
 use App\Models\ReactDetail;
 use App\Models\Registration;
@@ -19,6 +20,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendEmailForgetPassword;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class PublicController extends Controller
 {
@@ -127,112 +129,121 @@ class PublicController extends Controller
         //
     }
 
+    public function maintenance()
+    {
+        return inertia('Public/Website/Maintenance/Index', [
+            'title' => "Maintenance",
+
+        ]);
+    }
+
+
     public function about()
     {
-    //    $data = Management::where('item', 'siapakita')->first();
+       $data = Management::where('item', 'siapakita')->first();
         return inertia('Public/Website/About/About', [
             'title' => "Siapa Kita?",
-        //    'data' => $data
+           'data' => $data
         ]);
     }
 
     public function ketuaUmum()
     {
 
-    //    $data = Management::where('item', 'ketuaumum')->first();
+       $data = Management::where('item', 'ketuaumum')->first();
         return inertia('Public/Website/About/KetuaUmum', [
             'title' => "Ketua Umum",
-        //    'data' => $data
+            'data' => $data
         ]);
     }
 
     public function visiMisi()
     {
-    //    $data = Management::where('item', 'visimisi')->first();
+        $data = Management::where('item', 'visimisi')->first();
         return inertia('Public/Website/About/VisiMisi', [
             'title' => "Visi Misi",
-        //    'data' => $data
+            'data' => $data
         ]);
     }
 
     public function strukturOrganisasi()
     {
-    //    $data = Management::where('item', 'strukturorganisasi')->get();
+        $data = Management::where('item', 'strukturorganisasi')->get();
         return inertia('Public/Website/About/StrukturOrganisasi', [
             'title' => "Struktur Organisasi",
-        //    'data' => $data
+            'data' => $data
         ]);
     }
 
     public function sejarah()
     {
-    //    $data = Management::where('item', 'sejarah')->first();
+        $data = Management::where('item', 'sejarah')->first();
         return inertia('Public/Website/About/Sejarah', [
             'title' => "Sejarah Terbentuknya Aspro SDMA",
-        //    'data' => $data
+            'data' => $data
         ]);
     }
 
     public function peraturanOrganisasi()
     {
-    //    $datas = Management::when(request()->q, function($query) {
-    //        $query->where('body', 'like', '%' . request()->q . '%');
-    //    })
-    //    ->where('item', 'peraturan')
-    //    ->latest()
-    //    ->paginate(6);
+       $datas = Management::when(request()->q, function($query) {
+           $query->where('body', 'like', '%' . request()->q . '%');
+       })
+       ->where('item', 'peraturan')
+       ->latest()
+       ->paginate(6);
 
-    //    $datas->appends(['q' => request()->q]);
+       $datas->appends(['q' => request()->q]);
 
         return inertia('Public/Website/About/PeraturanOrganisasi', [
             'title' => "Peraturan Organisasi",
-        //    'datas' => $datas
+            'datas' => $datas
         ]);
     }
 
     public function hubunganMasyarakat()
     {
-        // $data = Management::where('item', 'proker')->where('sub','humas')->first();
+         $data = Management::where('item', 'proker')->where('sub','humas')->first();
         return inertia('Public/Website/Program/HubunganMasyarakat', [
             'title' => "Bidang Hubungan Masyarakat dan Kerja Sama",
-        //    'data' => $data
+            'data' => $data
         ]);
     }
 
     public function hukumAdvokasi()
     {
-    //    $data = Management::where('item', 'proker')->where('sub','hukum')->first();
+        $data = Management::where('item', 'proker')->where('sub','hukum')->first();
         return inertia('Public/Website/Program/HukumAdvokasi', [
             'title' => "Bidang Hukum dan Advokasi",
-        //    'data' => $data
+            'data' => $data
         ]);
     }
 
     public function keanggotaan()
     {
-    //    $data = Management::where('item', 'proker')->where('sub','anggota')->first();
+        $data = Management::where('item', 'proker')->where('sub','anggota')->first();
         return inertia('Public/Website/Program/Keanggotaan', [
             'title' => "Bidang Keanggotaan dan Organisasi",
-        //    'data' => $data
+            'data' => $data
 
         ]);
     }
 
     public function pengembangan()
     {
-    //    $data = Management::where('item', 'proker')->where('sub','pengembangan')->first();
+        $data = Management::where('item', 'proker')->where('sub','pengembangan')->first();
         return inertia('Public/Website/Program/Pengembangan', [
             'title' => "Bidang Pengembangan Kapasitas Insani",
-        //    'data' => $data
+            'data' => $data
         ]);
     }
 
     public function sumberPendanaan()
     {
-    //    $data = Management::where('item', 'proker')->where('sub','pendanaan')->first();
+        $data = Management::where('item', 'proker')->where('sub','pendanaan')->first();
         return inertia('Public/Website/Program/SumberPendanaan', [
             'title' => "Bidang Sumber Pendanaan Organisasi",
-        //    'data' => $data
+            'data' => $data
         ]);
     }
 
@@ -312,16 +323,16 @@ class PublicController extends Controller
 
     public function faq()
     {
-    //    $datas = Management::when(request()->q, function($query) {
-    //        $query->where('body', 'like', '%' . request()->q . '%');
-    //    })
-    //    ->where('item', 'faq')
-    //    ->latest()
-    //    ->paginate(6);
-    //     $datas->appends(['q' => request()->q]);
+       $datas = Management::when(request()->q, function($query) {
+           $query->where('body', 'like', '%' . request()->q . '%');
+       })
+       ->where('item', 'faq')
+       ->latest()
+       ->paginate(6);
+        $datas->appends(['q' => request()->q]);
         return inertia('Public/Website/FAQ/faq', [
             'title' => "FAQ",
-        //    'datas' => $datas
+           'datas' => $datas
         ]);
     }
 
@@ -404,8 +415,19 @@ class PublicController extends Controller
     public function profileView($qr_link)
     {
         $data = Member::where('qr_link', $qr_link)->first();
-        $events = DetailEvent::with('event')->where('member_id', $data->member_id)->get();
-        $achievments = Achievement::where('member_id', $data->member_id)->get();
+        $events = DetailEvent::with('event')->where('member_id', $data->id)->get();
+        $certificates = Certificate::whereIn('event_id', $events->pluck('event.id'))
+        ->where('nip', $data->nip)
+        ->get()
+        ->keyBy('event_id'); // Mengubah collection menjadi associative array dengan 'event_id' sebagai key
+
+
+        $achievments = Achievement::where('member_id', $data->id)->get();
+        // Tambahkan certificates ke setiap event secara manual
+        $events = $events->map(function ($event) use ($certificates) {
+            $event->certificate = $certificates->get($event->event->id); // Ambil satu sertifikat berdasarkan event_id
+            return $event;
+        });
 
         // $events = DetailEvent::with('event')->where('member_id', '10')->get();
         // $achievments = Achievement::where('member_id', '10')->get();
@@ -414,8 +436,25 @@ class PublicController extends Controller
             'title' => 'Profile Anggota',
             'data' => $data,
             'achievments' => $achievments,
-            'events' => $events
+            'events' => $events,
+            'certificates' => $certificates
         ]);
+    }
+
+    public function downloadSertifikat($qr_link)
+    {
+        return $qr_link;
+            $data = Member::where('qr_link', $qr_link)->first();
+
+              $data = Certificate::with('event')->where('link', $id)->first();
+
+            $data = Certificate::with('event')->findOrFail($id);
+            // Generate QR Code
+            $qrLink = $data->qr_code;
+            QrCode::format('png')->size(300)->generate($qrLink);
+            $qr = QrCode::generate($qrLink);
+            return view('reports.certificates.certificate', compact('data','qr'));
+
     }
 
     public function documentVerif($id)
@@ -434,6 +473,31 @@ class PublicController extends Controller
               'ttd' => $ttd,
                 'paraf' => $paraf
        ]);
+    }
+
+
+    public function certificateView($id)
+    {
+
+       $data = Certificate::with('event')->where('link', $id)->first();
+
+       return inertia('Public/Website/Events/Certificate', [
+           'title' => 'Verifikasi Sertifikat Kegiatan Aspro SDMA',
+           'data' => $data,
+
+       ]);
+    }
+
+    public function certificateShow($id)
+    {
+
+        $data = Certificate::with('event')->where('link', $id)->first();
+         // Generate QR Code
+
+        $qrLink = $data->qr_code;
+        QrCode::format('png')->size(300)->generate($qrLink);
+        $qr = QrCode::generate($qrLink);
+        return view('reports.certificates.certificate', compact('data','qr'));
     }
 
 }

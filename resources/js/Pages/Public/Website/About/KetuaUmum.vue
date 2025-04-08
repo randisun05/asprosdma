@@ -31,8 +31,8 @@
            <div class="col-md-4">
               <div class="team-box top60">
                <div class="image">
-                  <img src="/assets/images/ritakardinasari.png" alt="">
-                  <!-- <img v-if="data.image" :src="getImageUrl(data.image)" alt="Gambar" /> -->
+                  <!-- <img src="/assets/images/ritakardinasari.png" alt=""> -->
+                  <img v-if="data.image" :src="getImageUrl(data.image)" alt="Gambar" />
                </div>
                <div class="team-content gradient_bg whitecolor">
                   <h3>Dr. Rita Kardinasari, S.Psi, M.Si, Dipl. TAA
@@ -49,20 +49,11 @@
                </div>
             </div>
            </div>
-           <div class="col-md-6 col-xs-12">
+           <div class="col-md-6 w-80">
               <div class="top60">
                <div class="heading-title text-md-start text-center padding_bottom">
-               <h5 class="h3 bottom20 darkcolor">Dr. Rita Kardinasari, S.Psi, M.Si, Dipl. TAA</h5>
-               <span class="h1">Ketua Umum Asosiasi Profesi Jabatan Fungsional SDM Aparatur </span>
-               <hr>
-
-               <div style="text-align: justify;">
-                <!-- <div v-html="data.body"></div> -->
-               <p class="h5 bottom20 darkcolor">
-
-                Dr. Rita Kardinasari, M.Si., S.Psi. adalah PNS yang turut menyaksikan lahirnya Jabatan Fungsional Analis Kepegawaian. Beralih jabatan dari Widayiswara selama 12 tahun di Kementerian Pariwisata dan Ekonomi Kreatif, menjadi Analis Kepegawaian di Pemerintah Provinsi Jawa Barat tahun 2006. Mengusung semangat kompetensi  dan konsistensi pada profesi, bersama seluruh Insan Kepegawaian melangkah bersama untuk terwujudnya  profesionalisme manajemen Sumber Daya Manusia Aparatur.
-               </p>
-
+               <div style="text-align: justify" >
+                <div class="h5 darkcolor" v-html="data.body"></div>
              </div>
 
                </div>

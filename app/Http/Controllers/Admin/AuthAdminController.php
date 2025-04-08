@@ -60,6 +60,7 @@ class AuthAdminController extends Controller
         'email' => 'required',
         'role' => 'required',
         'password' => 'required',
+        'position' => 'required',
     ]);
 
         $password = Hash::make($request->nip);
@@ -69,6 +70,8 @@ class AuthAdminController extends Controller
             'email' => $request->email,
             'role' =>  $request->role,
             'password' => $password,
+            'position' => $request->position,
+            'ref' => in_array($request->position, ['kabid', 'bendahara', 'sekretaris']) ? 1 : ($request->position === 'anggota' ? 2 : 3),
         ]);
 
 
@@ -118,6 +121,7 @@ class AuthAdminController extends Controller
         'email' => 'required',
         'role' => 'required',
         'password' => 'required',
+        'position' => 'required',
     ]);
 
     $password = Hash::make($request->password);
@@ -128,6 +132,9 @@ class AuthAdminController extends Controller
             'email' => $request->email,
             'role' =>  $request->role,
             'password' => $password,
+            'position' => $request->position,
+            'ref' => in_array($request->position, ['kabid', 'bendahara', 'sekretaris']) ? 1 : ($request->position === 'anggota' ? 2 : 3),
+
         ]);
 
 

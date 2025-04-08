@@ -21,12 +21,12 @@ return new class extends Migration
             $table->string('name');
             $table->string('body');
             $table->string('date');
-            $table->string('tamplate')->nullable();
-            $table->string('category')->nullable();
+            $table->string('template');
+            $table->string('category');
             $table->string('status')->nullable();
-            $table->string('qr_code')->nullable();
-            $table->string('link')->nullable();
-            $table->string('doc')->nullable();
+            $table->string('qr_code');
+            $table->string('link');
+            $table->string('doc');
             $table->timestamps();
         });
     }

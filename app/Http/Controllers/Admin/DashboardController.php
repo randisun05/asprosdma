@@ -44,9 +44,16 @@ class DashboardController extends Controller
             ->pluck('total', 'position');
 
             $dataCountsByLevel = ProfileDataPosition::groupBy('level')
-            ->select('level', DB::raw('count(*) as total'))
-            ->get()
-            ->pluck('total', 'level');
+                ->select('level', DB::raw('count(*) as total'))
+                ->get()
+                ->pluck('total', 'level')
+                ->sortBy(function ($value, $key) {
+                    $order = [
+                        'Ahli Utama', 'Ahli Madya', 'Ahli Muda', 'Ahli Pertama',
+                        'Penyelia', 'Mahir', 'Terampil'
+                    ];
+                    return array_search($key, $order);
+                });
 
             $countsPerMonth = [];
             $accumulatedCounts = [];

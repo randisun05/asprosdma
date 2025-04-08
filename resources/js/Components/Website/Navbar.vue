@@ -65,8 +65,13 @@
                                 <li><a class="dropdown-item" href="/faq">FAQ</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link pagescroll" href="/kontak-kami">Kontak Kami</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link pagescroll dropdown-toggle" data-bs-toggle="dropdown" href="#publikasi"
+                                role="button" aria-expanded="false">Kontak Kami</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/kontak-kami">Kontak Kami</a></li>
+                                <li><a class="dropdown-item" href="/hubungi-aspro">Hubungi Kami</a></li>
+                            </ul>
                         </li>
                     </ul>
                 </div>

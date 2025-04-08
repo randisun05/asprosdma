@@ -113,6 +113,40 @@
                     </Link>
                 </li>
 
+                <li class="nav-item" v-if="$page.props.auth.user.role === 'administrator'" :class="{ 'active': $page.url.startsWith('/admin/archives') }">
+                    <Link href="/admin/archives" class="nav-link d-flex justify-content-between">
+                    <span>
+                        <span class="sidebar-icon">
+                           <i class="fa fa-archive fa-lg" aria-hidden="true"></i>
+                        </span>
+                        <span class="sidebar-text ms-3">Surat Masuk</span>
+                    </span>
+                    </Link>
+                </li>
+
+                <li class="nav-item" v-if="$page.props.auth.user.role != 'administrator'" :class="{ 'active': $page.url.startsWith('/admin/archives') }">
+                    <Link href="/admin/archives/inbox" class="nav-link d-flex justify-content-between">
+                    <span>
+                        <span class="sidebar-icon">
+                           <i class="fa fa-inbox fa-lg" aria-hidden="true"></i>
+                        </span>
+                        <span class="sidebar-text ms-3">Disposisi</span>
+                    </span>
+                    </Link>
+                </li>
+
+                <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/jurnals') }">
+                    <Link href="/admin/jurnals" class="nav-link d-flex justify-content-between">
+                    <span>
+                        <span class="sidebar-icon">
+                           <i class="fa fa-money fa-lg" aria-hidden="true"></i>
+                        </span>
+                        <span class="sidebar-text ms-3">Pencatatan Keuangan</span>
+                    </span>
+                    </Link>
+                </li>
+
+
          </ul>
       </div>
    </nav>

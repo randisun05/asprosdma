@@ -34,8 +34,8 @@
                <span>Misi</span>
             <div style="text-align: justify;">
                <h5 class="fontregular bottom20 darkcolor">
-                 <!-- <div v-html="data.body"></div> -->
-                  <table>
+                 <div v-html="data.body"></div>
+                  <!-- <table>
                         <tr>
                               <td width="5%">1.</td>
                               <td>Meningkatkan kontribusi professional Jabatan Fungsional SDMA dalam penyelenggaraan manajemen Aparatur Sipil Negara.</td>
@@ -56,7 +56,7 @@
                               <td>5.</td>
                               <td>Membangun dan mengembangkan kemitraan dengan instansi pemerintah dan swasta secara professional.</td>
                         </tr>
-               </table>
+               </table> -->
                </h5>
             </div>
          </div>
@@ -64,9 +64,9 @@
          <div class="col-md-5 col-sm-5 wow fadeInRight" data-wow-delay="350ms">
             <div class="image hover-effect">
                 <div class="image center">
-                    <!-- <img v-if="data.image" :src="getImageUrl(data.image)" alt="Gambar" /> -->
+                    <img v-if="data.image" :src="getImageUrl(data.image)" alt="Gambar" />
                 </div>
-                 <img alt="SEO" src="/assets/images/visi.jpg">
+                 <!-- <img alt="SEO" src="/assets/images/visi.jpg"> -->
                 </div>
          </div>
       </div>

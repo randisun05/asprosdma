@@ -13,6 +13,7 @@ use GuzzleHttp\Promise\Create;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class EventController extends Controller
 {
@@ -130,6 +131,7 @@ class EventController extends Controller
             return inertia('User/Events/Show', [
                 'event' => $event,
                 'status' => $status,
+                'detailEvent' => $detailEvent,
             ]);
         } else {
             return redirect()->route('login');
@@ -159,6 +161,22 @@ class EventController extends Controller
     {
         //
     }
+
+    public function absen($id)
+    {
+        if (auth()->guard('member')->check()) {
+
+            $detailEvent = DetailEvent::where('event_id', $id)->where('member_id', auth()->guard('member')->user()->id)->first();
+            $detailEvent->update([
+                'status' => 'hadir',
+            ]);
+
+            return redirect()->route('user.events.index');
+        } else {
+            return redirect()->route('login');
+        }
+    }
+
 
     /**
      * Remove the specified resource from storage.
@@ -192,24 +210,17 @@ class EventController extends Controller
         }
     }
 
-    public function certificatesDownload($id)
+    public function certificateView($id)
     {
         if (auth()->guard('member')->check()) {
-            
-            $data = Certificate::findOrFail($id);
 
-             // Path gambar
-             
-             $image = 'logo.png'; // Pastikan path benar
-            
-    
-            $pdf = app('dompdf.wrapper');
-            $pdf->loadView('Reports.Certificates.Certificate', compact('data','image'));
-            $pdf->setPaper('a4', 'landscape');
+            $data = Certificate::with('event')->findOrFail($id);
+            // Generate QR Code
+            $qrLink = $data->qr_code;
+            QrCode::format('png')->size(300)->generate($qrLink);
+            $qr = QrCode::generate($qrLink);
+            return view('reports.certificates.certificate', compact('data','qr'));
 
-            return view('Reports.Certificates.Certificate', compact('data','image'));
-            return $pdf->download($data->name.'-'.Carbon::now().'.pdf');
-    
         } else {
             return redirect()->route('login');
         }

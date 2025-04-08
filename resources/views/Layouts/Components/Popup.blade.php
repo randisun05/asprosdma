@@ -11,33 +11,36 @@
                     <div class="cbp-item web logo">
                         <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
 
+                                {{-- <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                    <img src="/assets/images/popup-aba.jpg" class="d-block w-100" alt="...">
+                                    <div class="overlay center-block whitecolor">
+                                        <a class="plus" data-fancybox="" href="/assets/images/popup-aba.jpg"></a>
+                                    </div>
+                                    </div>
+
+                                    <div class="carousel-item">
+                                    <img src="/assets/images/pop-up-kartu.jpg" class="d-block w-100" alt="...">
+                                    <div class="overlay center-block whitecolor">
+                                        <a class="plus" data-fancybox="" href="/assets/images/pop-up-kartu.jpg"></a>
+                                        </div>
+                                    </div>
+
+                                </div> --}}
+
                             <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                  <img src="/assets/images/popup-aba.jpg" class="d-block w-100" alt="...">
-                                  <div class="overlay center-block whitecolor">
-                                      <a class="plus" data-fancybox="" href="/assets/images/popup-aba.jpg"></a>
-                                  </div>
-                                </div>
-
-                                <div class="carousel-item">
-                                  <img src="/assets/images/pop-up-kartu.jpg" class="d-block w-100" alt="...">
-                                  <div class="overlay center-block whitecolor">
-                                      <a class="plus" data-fancybox="" href="/assets/images/pop-up-kartu.jpg"></a>
-                                      </div>
-                                </div>
-
-                              </div>
-
-                            {{-- <div class="carousel-inner">
                                 @foreach ($datas as $index => $data)
                                     <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
                                         <img src="/storage/{{ $data->image }}" class="d-block w-100" alt="...">
                                         <div class="overlay center-block whitecolor">
-                                            <a class="plus" data-fancybox="" href="/storage/{{ $data->image }}"></a>
+                                            <a class="plus mb-5" data-fancybox="" href="/storage/{{ $data->image }}"></a>
+                                            @if ($data->button == 1)
+                                            <a href="{{ $data->link }}" class="btn btn-primary" target="_blank">Klik Untuk Detail</a>
+                                            @endif
                                         </div>
                                     </div>
                                 @endforeach
-                            </div> --}}
+                            </div>
 
                             <!-- Tombol navigasi harus di luar loop -->
                             <button class="carousel-control-prev" type="button"
@@ -56,8 +59,6 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <a href="https://asprosdma.id/berita/aspro-sdma-luncurkan-kartu-anggota-digital:-mudah,-praktis,-dan-fleksibel" class="btn btn-primary" target="_blank">Detail</a>
-
                     <!-- Ambil link dari item yang sedang aktif -->
                     {{-- @foreach ($datas as $index => $data)
                         <a href="{{ $data->link }}" class="btn btn-primary {{ $index == 0 ? '' : 'd-none' }}" target="_blank" id="link-{{ $index }}">Detail</a>

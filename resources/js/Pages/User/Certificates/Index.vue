@@ -38,7 +38,7 @@
                                     <tr v-for="(data, index) in datas.data" :key="index">
                                         <td class="fw-bold text-center">{{ ++index + (datas.current_page - 1) * datas.per_page }}</td>
                                         <td>{{ data.name }}</td>
-                                        <td><Link :href="`/user/certificates/${data.id}/download`" class="button btnprimary" type="button"> Download</Link> </td>
+                                        <td><button  @click="downloadCard(data)" class="button btnprimary" type="button"> Download</button> </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -49,6 +49,7 @@
             </div>
         </div>
     </div>
+    <iframe id="downloadFrame" style="visibility: hidden;"></iframe>
 </template>
 
 <script>
@@ -93,7 +94,7 @@
         },
 
         //inisialisasi composition API
-        setup() {
+        setup(props) {
 
             //define state search
             const search = ref('' || (new URL(document.location)).searchParams.get('q'));
@@ -107,12 +108,35 @@
                 });
             }
 
+            const downloadCard = async (data) => {
+                try {
+                    // Select the iframe
+                    const iframe = document.getElementById('downloadFrame');
+
+                    // URL to download the certificate
+                    const downloadUrl = `/user/certificates/${data.id}`;
+
+                    // Set the iframe source to the download URL
+                    iframe.src = downloadUrl;
+
+                    // Add an event listener to detect when the iframe is loaded
+                    iframe.onload = () => {
+                        console.log('Certificate download initiated.');
+                    }
+                } catch (error) {
+                    console.error("Error downloading certificate:", error);
+                    Swal.fire('Error', 'Failed to download certificate.', 'error');
+                }
+            };
+
+
+
 
             //return
             return {
                 search,
                 handleSearch,
-
+                downloadCard
         }
     }
 }

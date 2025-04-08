@@ -17,13 +17,18 @@ class Certificate extends Model
         'name',
         'body',
         'date',
-        'tamplate',
+        'template',
         'status',
         'qr_code',
         'link',
         'doc',
         'category'
     ];
+
+    public function event()
+    {
+        return $this ->belongsTo(Event::class);
+    }
 
     protected $keyType = 'string'; // Menetapkan tipe kunci ke string
     protected $primaryKey = 'id'; // Menetapkan nama primary key

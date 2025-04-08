@@ -63,6 +63,22 @@
                                         </div>
                                     </div>
 
+                                    <div class="mt-2">
+                                        <span> Posisi </span>
+                                        <div class="input-group">
+                                                <select type="form-select" class="form-control" v-model="form.position">
+                                                    <option value="" disabled>Pilih Posisi</option>
+                                                    <option value="kabid">Ketua Bidang</option>
+                                                    <option value="sekretaris">Sekretaris</option>
+                                                    <option value="bendahara">Bendahara</option>
+                                                    <option value="anggota">Anggota</option>
+                                                </select>
+                                                <div v-if="errors.position" class="alert alert-danger mt-2">
+                                                    {{ errors.position }}
+                                                </div>
+                                        </div>
+                                    </div>
+
 
                                     <div class="mt-4">
                                         <span> Password Baru </span>
@@ -137,6 +153,7 @@ import { Inertia } from '@inertiajs/inertia';
 //import sweet alert2
 import Swal from 'sweetalert2';
 
+
 export default {
 
     //layout
@@ -163,6 +180,7 @@ export default {
             role: '',
             password: '',
             password_confirmation: '',
+            position: '',
         });
 
         // Object to hold the current type of password input fields
@@ -191,7 +209,7 @@ export default {
                     role: form.role,
                     password: form.password,
                     password_confirmation: form.password_confirmation,
-
+                    position: form.position,
                 },
                 {
                     onSuccess: () => {
