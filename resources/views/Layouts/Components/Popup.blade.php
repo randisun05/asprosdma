@@ -13,9 +13,9 @@
 
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                  <img src="/assets/images/popup-aba.jpg" class="d-block w-100" alt="...">
+                                  <img src="/assets/images/pop-up survey.jpg" class="d-block w-100" alt="...">
                                   <div class="overlay center-block whitecolor">
-                                      <a class="plus" data-fancybox="" href="/assets/images/popup-aba.jpg"></a>
+                                      <a class="plus" data-fancybox="" href="/assets/images/pop-up survey.jpg"></a>
                                   </div>
                                 </div>
 
@@ -56,7 +56,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <a href="https://asprosdma.id/berita/aspro-sdma-luncurkan-kartu-anggota-digital:-mudah,-praktis,-dan-fleksibel" class="btn btn-primary" target="_blank">Detail</a>
+                    <a href="https://asprosdma.id/berita/survey-komunitas-belajar-aspro-sdma" class="btn btn-primary" target="_blank">Detail</a>
 
                     <!-- Ambil link dari item yang sedang aktif -->
                     {{-- @foreach ($datas as $index => $data)
