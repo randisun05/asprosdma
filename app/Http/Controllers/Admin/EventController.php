@@ -304,7 +304,7 @@ class EventController extends Controller
         $qrLink = $data->qr_code;
         QrCode::format('png')->size(300)->generate($qrLink);
         $qr = QrCode::generate($qrLink);
-        return view('reports.certificates.certificate', compact('data','qr'));
+        return view('Reports.Certificates.Certificate', compact('data','qr'));
     }
 
 
@@ -464,7 +464,7 @@ class EventController extends Controller
 
         $link = (string) \Illuminate\Support\Str::uuid();
 
-        $qrcode = "172.20.10.6:8002/certificates/$link";
+        $qrcode = "https://asprosdma.id/certificates/$link";
 
             $request->validate([
                 'category' => 'required',
