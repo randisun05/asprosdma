@@ -135,3 +135,15 @@
     }
 
 </script>
+
+<style>
+.image.center {
+    display: flex;
+    justify-content: center; /* horizontal */
+    align-items: center;     /* vertical */
+    height: 100%;            /* pastikan ada tinggi */
+    min-height: 200px;       /* biar nggak collapse kalau gak ada konten */
+    text-align: center;
+}
+</style>
+
