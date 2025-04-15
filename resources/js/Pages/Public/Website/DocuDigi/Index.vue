@@ -55,10 +55,9 @@
                         <th>: {{ new Date(docu.created_at).toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' }) }}</th>
                     </tr> -->
 
-                    <tr>
+                    <tr v-if="docu.nipparaf">
                         <th>Diparaf Oleh</th>
                         <th>: {{ docu.nipparaf }}</th>
-
                     </tr>
                     <tr>
                         <th></th>

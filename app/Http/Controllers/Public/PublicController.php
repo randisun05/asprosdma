@@ -497,7 +497,7 @@ class PublicController extends Controller
         $qrLink = $data->qr_code;
         QrCode::format('png')->size(300)->generate($qrLink);
         $qr = QrCode::generate($qrLink);
-        return view('reports.certificates.certificate', compact('data','qr'));
+        return view('Reports.Certificates.Certificate', compact('data','qr'));
     }
 
 }

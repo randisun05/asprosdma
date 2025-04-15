@@ -59,7 +59,7 @@
             <p>Terimakasih telah melakukan registrasi keanggotaan Asosiasi Profesi SDM Aparatur. Token usul anda adalah:
                 <strong>{{ $data['id'] }}</strong>.</p>
             <p>Pembayaran uang pangkal iuran dapat dilakukan dengan cara transfer via ATM Non-Tunai, Internet Banking,
-                dan setoran tunai hanya ke <strong> Nomor Rekening Bank BNI 1810449572 a.n. Kurnia Dianandari (Bendahara II Aspro SDMA) </strong> sebesar
+                dan setoran tunai hanya ke <strong> Nomor Rekening Bank BNI 1925300643 a.n. ASOSIASI PROFESI SDM APARATUR </strong> sebesar
                 <strong> Rp. 120.000 untuk pejabat Fungsional Analis SDM Aparatur </strong>
                 dan <strong> Rp. 100.000 bagi Pejabat Fungsional Pranata SDM Aparatur</strong> dengan mencantumkan
                 berita transfer sebagai berikut: <strong>{{ $data['name'] }}</strong>.</p>

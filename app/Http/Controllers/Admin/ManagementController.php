@@ -25,17 +25,16 @@ class ManagementController extends Controller
     public function filter()
     {
         $this->cekAuth();
-        $datas = Management::when(request()->q, function ($query) {
-            $query->where('item', 'like', '%' . request()->q . '%');
-        })->latest()
-            ->paginate(10);
+            $datas = Management::when(request()->q, function ($query) {
+                $query->where('item', 'like', '%' . request()->q . '%');
+            })->latest()
+                ->paginate(10);
+            $datas->appends(['q' => request()->q]);
 
-        $datas->appends(['q' => request()->q]);
+            return inertia('Admin/Management/Index', [
+                'datas' => $datas,
 
-        return inertia('Admin/Management/Index', [
-            'datas' => $datas,
-
-        ]);
+            ]);
     }
 
     public function cekAuth()
