@@ -59,7 +59,7 @@
                         <th>Diparaf Oleh</th>
                         <th>: {{ docu.nipparaf }}</th>
                     </tr>
-                    <tr>
+                    <tr v-if="docu.nipparaf">
                         <th></th>
                         <th>&nbsp;&nbsp;{{ paraf.name }}</th>
                     </tr>
