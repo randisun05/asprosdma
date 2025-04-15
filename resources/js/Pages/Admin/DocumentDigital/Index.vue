@@ -35,6 +35,7 @@
                                 <thead class="thead-dark">
                                     <tr class="border-0 text-center">
                                         <th class="border-0 rounded-start" style="width:5%">No.</th>
+                                        <th class="border-0">Nomor Surat</th>
                                         <th class="border-0">Perihal</th>
                                         <th class="border-0">Tajuan</th>
                                         <th class="border-0">Ttd / Paraf</th>
@@ -46,6 +47,7 @@
                                 <tbody>
                                     <tr v-for="(docu, index) in docus.data" :key="index">
                                         <td class="fw-bold text-center">{{ ++index + (docus.current_page - 1) * docus.per_page }}</td>
+                                        <td>{{ docu.no_surat }}</td>
                                         <td>{{ docu.perihal }}</td>
                                         <td>{{ docu.tujuan }}</td>
                                         <td>{{ docu.nipttd }} / {{ docu.nipparaf }}</td>
