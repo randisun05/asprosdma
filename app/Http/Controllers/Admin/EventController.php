@@ -300,11 +300,35 @@ class EventController extends Controller
     {
 
         $data = Certificate::with('event')->findOrFail($id);
+
          // Generate QR Code
         $qrLink = $data->qr_code;
         QrCode::format('png')->size(300)->generate($qrLink);
-        $qr = QrCode::generate($qrLink);
-        return view('Reports.Certificates.Certificate', compact('data','qr'));
+        // Generate QR Code (variable $qr removed as it was unused)
+        QrCode::generate($qrLink);
+
+         // Build the command
+         $command = "python " . escapeshellarg(base_path('resources/py/certificate.py')) .
+        // " " . escapeshellarg('template=' . 'storage/documents/' . $data->template) .
+         " " . escapeshellarg('template=' . 'public/assets/template/template1.pdf') .
+         " " . escapeshellarg('nomor=' . $data->no_certificate) .
+         " " . escapeshellarg('nama=' . $data->name) .
+         " " . escapeshellarg('qr=' . $qrLink) .
+         " " . escapeshellarg('file=' . $data->name);
+
+
+
+         $output = shell_exec($command);
+
+         if ($output === null) {
+             return response()->json(['error' => 'Command execution failed.'], 500);
+         }
+
+         return response()->json(['success' => 'Certificate generated successfully.']);
+
+         // Return success response
+        //  return redirect()->route('admin.certificates.index')->with('success', 'Sertifikat berhasil dihasilkan');
+
     }
 
 

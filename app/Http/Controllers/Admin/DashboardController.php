@@ -49,8 +49,7 @@ class DashboardController extends Controller
                 ->pluck('total', 'level')
                 ->sortBy(function ($value, $key) {
                     $order = [
-                        'Ahli Utama', 'Ahli Madya', 'Ahli Muda', 'Ahli Pertama',
-                        'Penyelia', 'Mahir', 'Terampil'
+                        'Terampil','Mahir','Penyelia','Ahli Pertama','Ahli Muda','Ahli Madya','Ahli Utama'
                     ];
                     return array_search($key, $order);
                 });

@@ -73,10 +73,10 @@ class EventController extends Controller
             if ($detailEvent->wasRecentlyCreated) {
                 // Baru saja dibuat, berarti belum terdaftar sebelumnya
                 // Tampilkan pesan bahwa mereka berhasil terdaftar
-                $event = Event::where('id', $detailEvent->event_id)->first();
-                $email = Member::where('id', $detailEvent->member_id)->first();
+                // $event = Event::where('id', $detailEvent->event_id)->first();
+                // $email = Member::where('id', $detailEvent->member_id)->first();
 
-                Mail::to($email['email'])->send(new SendEmailEvent($event));
+                // Mail::to($email['email'])->send(new SendEmailEvent($event));
 
                 return redirect()->route('user.events.index');
             } else {
@@ -221,6 +221,19 @@ class EventController extends Controller
             $qr = QrCode::generate($qrLink);
             return view('reports.certificates.certificate', compact('data','qr'));
 
+        } else {
+            return redirect()->route('login');
+        }
+    }
+
+    public function info(Event $event)
+    {
+        if (auth()->guard('member')->check()) {
+
+            return inertia('User/Events/Info', [
+                'event' => $event,
+
+            ]);
         } else {
             return redirect()->route('login');
         }

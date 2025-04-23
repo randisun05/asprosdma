@@ -11,7 +11,6 @@ def main():
     qr_code_path = sys.argv[2] # Path penyimpanan QR Code
     anchor_text = sys.argv[3]  # Teks anchor yang dicari
 
-
     # Buka dokumen PDF
     doc = fitz.open(pdf_path)
 

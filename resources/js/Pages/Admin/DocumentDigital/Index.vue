@@ -36,8 +36,9 @@
                                     <tr class="border-0 text-center">
                                         <th class="border-0 rounded-start" style="width:5%">No.</th>
                                         <th class="border-0">Nomor Surat</th>
+                                        <th class="border-0">Tanggal</th>
                                         <th class="border-0">Perihal</th>
-                                        <th class="border-0">Tajuan</th>
+                                        <th class="border-0">Tujuan</th>
                                         <th class="border-0">Ttd / Paraf</th>
                                         <th class="border-0">Status</th>
                                         <th class="border-0 rounded-end" style="width:12%">Aksi</th>
@@ -48,6 +49,7 @@
                                     <tr v-for="(docu, index) in docus.data" :key="index">
                                         <td class="fw-bold text-center">{{ ++index + (docus.current_page - 1) * docus.per_page }}</td>
                                         <td>{{ docu.no_surat }}</td>
+                                        <td>{{ formatDate(docu.created_at) }}</td>
                                         <td>{{ docu.perihal }}</td>
                                         <td>{{ docu.tujuan }}</td>
                                         <td>{{ docu.nipttd }} / {{ docu.nipparaf }}</td>
@@ -251,6 +253,11 @@
             return `/storage/${documentName}`;
         }
 
+            // Method to format date
+            const formatDate = (dateString) => {
+                return new Date(dateString).toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: '2-digit' });
+            };
+
             //return
             return {
                 search,
@@ -259,7 +266,8 @@
                 getDocumentUrl,
                 paraf,
                 approve,
-                cancel
+                cancel,
+                formatDate
 
         }
     }

@@ -70,7 +70,7 @@
                                 role="button" aria-expanded="false">Kontak Kami</a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="/kontak-kami">Kontak Kami</a></li>
-                                <li><a class="dropdown-item" href="/hubungi-aspro">Hubungi Kami</a></li>
+                                <!-- <li><a class="dropdown-item" href="/hubungi-aspro">Hubungi Kami</a></li> -->
                             </ul>
                         </li>
                     </ul>

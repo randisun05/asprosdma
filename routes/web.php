@@ -169,6 +169,7 @@ Route::prefix('user')->group(function() {
         Route::get('/events/{event:slug}', [\App\Http\Controllers\User\EventController::class, 'show'])->name('user.events.join');
         Route::post('/events/{id}/join', [\App\Http\Controllers\User\EventController::class, 'join'])->name('user.events.join');
         Route::post('/events/{id}/absen', [\App\Http\Controllers\User\EventController::class, 'absen'])->name('user.events.absen');
+        Route::get('/events/{event:slug}/info', [\App\Http\Controllers\User\EventController::class, 'info'])->name('user.events.info');
         Route::get('/setting', [App\Http\Controllers\User\LoginController::class, 'setting'])->name('user.setting');
         Route::put('/setting/update', [App\Http\Controllers\User\LoginController::class, 'resetPassword'])->name('user.setting.update');
         Route::get('/merchans/', [\App\Http\Controllers\User\MerchansController::class, 'index'])->name('user.merchan.index');
@@ -231,8 +232,8 @@ Route::get('/identity-verification/{member:qr_link}', [\App\Http\Controllers\Pub
 Route::get('/identity-verification/{member:qr_link}/{event}/download', [\App\Http\Controllers\Public\PublicController::class, 'downloadSertifikat'])->name('profile.sertifikat.download');
 Route::get('/verification/{id}', [\App\Http\Controllers\Public\PublicController::class, 'documentVerif'])->name('documentVerif');
 Route::resource('/hubungi-aspro', \App\Http\Controllers\Public\ArchiveController::class);
-Route::post('/hubungi-aspro/store', [\App\Http\Controllers\Public\ArchiveController::class, 'store'])->name('hubungi-aspro.store');
-Route::post('/hubungi-aspro/tiket', [\App\Http\Controllers\Public\ArchiveController::class, 'show'])->name('hubungi-aspro.show');
+// Route::post('/hubungi-aspro/store', [\App\Http\Controllers\Public\ArchiveController::class, 'store'])->name('hubungi-aspro.store');
+// Route::post('/hubungi-aspro/tiket', [\App\Http\Controllers\Public\ArchiveController::class, 'show'])->name('hubungi-aspro.show');
 Route::get('/certificates/{id}/view', [\App\Http\Controllers\Public\PublicController::class, 'certificateShow'])->name('certificate.show');
 Route::get('/certificates/{id}', [\App\Http\Controllers\Public\PublicController::class, 'certificateView'])->name('certificate.view');
 Route::get('/maintenance', [\App\Http\Controllers\Public\PublicController::class, 'maintenance'])->name('maintenance');

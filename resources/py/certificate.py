@@ -1,104 +1,104 @@
 import sys
 import fitz  # PyMuPDF
+import os
+import io
 import qrcode
-from io import BytesIO
-from PIL import Image
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import letter
 
-def find_anchor_positions(pdf_path, anchor_text):
-    """Mencari posisi teks anchor dalam PDF."""
-    doc = fitz.open(pdf_path)
+def generate_qr_pixmap(data, size=80):
+    qr = qrcode.make(data)
+    img_bytes = io.BytesIO()
+    qr.save(img_bytes, format="PNG")
+    img_bytes.seek(0)
 
-    for page_num in range(len(doc)):
-        page = doc[page_num]
-        found_instances = page.search_for(anchor_text)
-        if found_instances:
-            return page, found_instances[0]  # Ambil hanya instance pertama
+    img_doc = fitz.open("png", img_bytes)
+    page = img_doc[0]
 
-    return None, None
+    rect = page.rect
+    scale_x = size / rect.width
+    scale_y = size / rect.height
 
-def generate_certificate(template_path, data, output_path):
-    """Menyesuaikan template sertifikat dengan teks & QR Code."""
-    
-    # Buka PDF template
-    doc = fitz.open(template_path)
-    page = doc[0]
+    matrix = fitz.Matrix(scale_x, scale_y)
+    pix = page.get_pixmap(matrix=matrix)
+    return pix
 
-    # Tambahkan teks berdasarkan posisi anchor dalam template
-    for anchor, text in data.items():
-        if anchor == "$qr":
-            continue  # QR Code diproses terpisah
+def main():
+    if len(sys.argv) < 2:
+        print("Usage: python generate_certificate.py <pdf_template_path> key=value ...")
+        sys.exit(1)
 
-        page, rect = find_anchor_positions(template_path, anchor)
-        if page and rect:
-            page.insert_text((rect.x0, rect.y0), text, fontsize=14)
-
-    # Generate QR Code jika ditemukan anchor `$qr`
-    if "$qr" in data:
-        qr = qrcode.make(data["$qr"])
-        qr_io = BytesIO()
-        qr.save(qr_io, format="PNG")
-        qr_img = Image.open(qr_io)
-
-        page, rect = find_anchor_positions(template_path, "$qr")
-        if page and rect:
-            qr_rect = fitz.Rect(rect.x0, rect.y0, rect.x0 + 70, rect.y0 + 70)
-            page.insert_image(qr_rect, stream=qr_io)
-
-    # Simpan ke file output
-    doc.save(output_path)
-
-if __name__ == "__main__":
-    template_path = sys.argv[1]
-    output_path = sys.argv[6]  # Argumen terakhir adalah output file
+    pdf_template_path = sys.argv[1]
+    args = {key: value for key, value in (arg.split('=') for arg in sys.argv[2:])}
 
     data = {
-        "$no": sys.argv[2],
-        "$nama": sys.argv[3],
-        "$body": sys.argv[4],
-        "$qr": sys.argv[5]
+        "#nomor": args.get("nomor", ""),
+        "#nama": args.get("nama", ""),
+        "#qr": args.get("qr", ""),
+        "$file": args.get("file", "sertifikat.pdf"),
     }
 
-    generate_certificate(template_path, data, output_path)\
-    
-    print("Arguments received:", sys.argv)  # Debugging jumlah argumen
+    doc = fitz.open(pdf_template_path)
+    page = doc[0]
 
-if len(sys.argv) < 7:
-    print("Error: Not enough arguments provided!")
-    sys.exit(1)
+    # Sisipkan QR code tepat di tengah anchor #qr
+    if data["#qr"]:
+        qr_areas = page.search_for("#qr")
+        if qr_areas:
+            for area in qr_areas:
+                page.add_redact_annot(area, fill=(1, 1, 1))
+                page.apply_redactions()
 
-pdf_path = sys.argv[1]
-output_path = sys.argv[-1]  # Argumen terakhir adalah output file
+                qr_size = 80
+                qr_pixmap = generate_qr_pixmap(data["#qr"], size=qr_size)
 
-# Debugging: Cek apakah file template ada
-if not os.path.exists(pdf_path):
-    print(f"Error: Template file {pdf_path} tidak ditemukan!")
-    sys.exit(1)
+                # Hitung tengah anchor, lalu tempatkan QR di situ
+                center_x = (area.x0 + area.x1) / 2
+                center_y = (area.y0 + area.y1) / 2
+                qr_rect = fitz.Rect(
+                    center_x - qr_size / 2,
+                    center_y - qr_size / 2,
+                    center_x + qr_size / 2,
+                    center_y + qr_size / 2
+                )
 
-# Buka dokumen PDF
-doc = fitz.open(pdf_path)
-if len(doc) == 0:
-    print("Error: PDF kosong atau tidak bisa dibuka!")
-    sys.exit(1)
+                page.insert_image(qr_rect, pixmap=qr_pixmap)
 
-# Cek apakah teks anchor ditemukan
-anchor_texts = ["$no", "$nama", "$body", "$qr"]
-found = False
+    font_settings = {
+        "#nomor": {"fontsize": 20, "fontname": "helv", "color": (0, 0, 0), "y_offset": 15},
+        "#nama": {"fontsize": 24, "fontname": "helv", "color": (0, 0, 0), "y_offset": 15},
+    }
 
-for page_num in range(len(doc)):
-    page = doc[page_num]
-    for anchor in anchor_texts:
-        found_instances = page.search_for(anchor)
-        if found_instances:
-            print(f"Anchor '{anchor}' ditemukan di halaman {page_num + 1}")
-            found = True
+    for anchor, value in data.items():
+        if anchor in ["#qr", "$file"]:
+            continue
 
-if not found:
-    print("Error: Tidak ada anchor yang ditemukan di PDF!")
-    sys.exit(1)
+        areas = page.search_for(anchor)
+        if areas:
+            for area in areas:
+                page.add_redact_annot(area, fill=(1, 1, 1))
+                page.apply_redactions()
 
-# Simpan perubahan
-doc.save(output_path)
-doc.close()
-print(f"PDF berhasil disimpan di {output_path}")
+                settings = font_settings.get(anchor, {})
+                fontsize = settings.get("fontsize", 12)
+                fontname = settings.get("fontname", "helv")
+                color = settings.get("color", (0, 0, 0))
+                y_offset = settings.get("y_offset", 10)
+
+                font = fitz.Font(fontname=fontname)
+                text_width = font.text_length(value, fontsize=fontsize)
+
+                center_x = (area.x0 + area.x1) / 2
+                x = center_x - (text_width / 2)
+                y = area.y0 + y_offset
+
+                page.insert_text((x, y), value, fontsize=fontsize, fontname=fontname, color=color)
+
+    output_dir = "storage/app/documents/"
+    os.makedirs(output_dir, exist_ok=True)
+    output_path = os.path.join(output_dir, data["$file"])
+    doc.save(output_path, garbage=4, deflate=True)
+    doc.close()
+
+    print(f"Sertifikat berhasil dibuat: {output_path}")
+
+if __name__ == "__main__":
+    main()
