@@ -64,7 +64,7 @@
                                         <button v-if="event.status === 'active' && status === 1"
                                         class="button btnthrid border-0 me-2 mt-4"> Anda Sudah Terdaftar</button>
                                         <button v-if="event.status === 'active' && status === 1"
-                                        class="button btnsecond border-0 me-2 mt-4" @click.prevent="info(event.slug)">Informasi Lebih Lanjut</button>
+                                        class="button btnprimary border-0 me-2 mt-4" @click.prevent="info(event.slug)">Informasi Lebih Lanjut</button>
                                 </div>
 
                                 <div class="text-center" v-if="event.absen === 'Y'">

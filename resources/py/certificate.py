@@ -34,6 +34,7 @@ def main():
         "#nama": args.get("nama", ""),
         "#qr": args.get("qr", ""),
         "$file": args.get("file", "sertifikat.pdf"),
+        "$path": args.get("path"),
     }
 
     doc = fitz.open(pdf_template_path)
@@ -92,7 +93,7 @@ def main():
 
                 page.insert_text((x, y), value, fontsize=fontsize, fontname=fontname, color=color)
 
-    output_dir = "storage/app/documents/"
+    output_dir = data.get("$path", ".")  # Default to the current directory if $path is not provided
     os.makedirs(output_dir, exist_ok=True)
     output_path = os.path.join(output_dir, data["$file"])
     doc.save(output_path, garbage=4, deflate=True)

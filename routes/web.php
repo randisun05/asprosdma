@@ -234,7 +234,7 @@ Route::get('/verification/{id}', [\App\Http\Controllers\Public\PublicController:
 Route::resource('/hubungi-aspro', \App\Http\Controllers\Public\ArchiveController::class);
 // Route::post('/hubungi-aspro/store', [\App\Http\Controllers\Public\ArchiveController::class, 'store'])->name('hubungi-aspro.store');
 // Route::post('/hubungi-aspro/tiket', [\App\Http\Controllers\Public\ArchiveController::class, 'show'])->name('hubungi-aspro.show');
-Route::get('/certificates/{id}/view', [\App\Http\Controllers\Public\PublicController::class, 'certificateShow'])->name('certificate.show');
+Route::get('/certificates/{id}/view', [\App\Http\Controllers\Public\PublicController::class, 'certificatesShow'])->name('certificate.show');
 Route::get('/certificates/{id}', [\App\Http\Controllers\Public\PublicController::class, 'certificateView'])->name('certificate.view');
 Route::get('/maintenance', [\App\Http\Controllers\Public\PublicController::class, 'maintenance'])->name('maintenance');
 

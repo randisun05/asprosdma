@@ -16,6 +16,7 @@ use App\Models\Registration;
 use Illuminate\Http\Request;
 use App\Models\DocumentDigital;
 use App\Models\RegistrationGroup;
+use App\Models\TemplateCertificate;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -488,16 +489,47 @@ class PublicController extends Controller
        ]);
     }
 
-    public function certificateShow($id)
+    public function certificatesShow($id)
     {
 
-        $data = Certificate::with('event')->where('link', $id)->first();
-         // Generate QR Code
+        $data = Certificate::with('event')->findOrFail($id);
+        $template = TemplateCertificate::where('id',$data->template)->first();
+        $nomor = substr($data->no_certificate, 0, 4);
+        $storagePath = storage_path('app/public/sertifikat');
 
+         // Generate QR Code
         $qrLink = $data->qr_code;
         QrCode::format('png')->size(300)->generate($qrLink);
-        $qr = QrCode::generate($qrLink);
-        return view('Reports.Certificates.Certificate', compact('data','qr'));
+        // Generate QR Code (variable $qr removed as it was unused)
+        QrCode::generate($qrLink);
+
+         // Build the command
+         $command = "python3 " . escapeshellarg(base_path('resources/py/certificate.py')) .
+        // " " . escapeshellarg('template=' . 'storage/documents/' . $data->template) .
+        " " . escapeshellarg(public_path('storage/' . $template->image)) .
+         " " . escapeshellarg('nomor=' . $data->no_certificate) .
+         " " . escapeshellarg('nama=' . $data->name) .
+         " " . escapeshellarg('qr=' . $qrLink) .
+         " " . escapeshellarg('file=' . 'sertifikat-' . $nomor . '-' . $data->name . '.pdf').
+         " " . escapeshellarg('path=' . $storagePath);
+
+         $output = shell_exec($command);
+
+         if ($output === null) {
+             return response()->json(['error' => 'Command execution failed.'], 500);
+         }
+
+        $data->update([
+            'doc' => 'sertifikat/' . 'sertifikat-' . $nomor . '-' . $data->name . '.pdf'
+        ]);
+
+        return response()->download(public_path('storage/' . $data->doc), 'sertifikat-' . $nomor . '-' . $data->name . '.pdf')->deleteFileAfterSend(true);
+
+        //  return response()->json(['success' => 'Certificate generated successfully.']);
+
+         // Return success response
+        //  return redirect()->route('admin.events.certificates.index', $event)->with('success', 'Sertifikat berhasil dihasilkan');
+
     }
 
 }

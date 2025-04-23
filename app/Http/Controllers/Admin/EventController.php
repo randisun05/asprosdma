@@ -14,6 +14,7 @@ use App\Models\TemplateCertificate;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\EventParticipantsExport;
+use SebastianBergmann\Template\Template;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class EventController extends Controller
@@ -300,6 +301,9 @@ class EventController extends Controller
     {
 
         $data = Certificate::with('event')->findOrFail($id);
+        $template = TemplateCertificate::where('id',$data->template)->first();
+        $nomor = substr($data->no_certificate, 0, 4);
+        $storagePath = storage_path('app/public/sertifikat');
 
          // Generate QR Code
         $qrLink = $data->qr_code;
@@ -308,15 +312,14 @@ class EventController extends Controller
         QrCode::generate($qrLink);
 
          // Build the command
-         $command = "python " . escapeshellarg(base_path('resources/py/certificate.py')) .
+         $command = "python3 " . escapeshellarg(base_path('resources/py/certificate.py')) .
         // " " . escapeshellarg('template=' . 'storage/documents/' . $data->template) .
-         " " . escapeshellarg('template=' . 'public/assets/template/template1.pdf') .
+        " " . escapeshellarg(public_path('storage/' . $template->image)) .
          " " . escapeshellarg('nomor=' . $data->no_certificate) .
          " " . escapeshellarg('nama=' . $data->name) .
          " " . escapeshellarg('qr=' . $qrLink) .
-         " " . escapeshellarg('file=' . $data->name);
-
-
+         " " . escapeshellarg('file=' . 'sertifikat-' . $nomor . '-' . $data->name . '.pdf').
+         " " . escapeshellarg('path=' . $storagePath);
 
          $output = shell_exec($command);
 
@@ -324,10 +327,16 @@ class EventController extends Controller
              return response()->json(['error' => 'Command execution failed.'], 500);
          }
 
-         return response()->json(['success' => 'Certificate generated successfully.']);
+        $data->update([
+            'doc' => 'sertifikat/' . 'sertifikat-' . $nomor . '-' . $data->name . '.pdf'
+        ]);
+
+        return response()->download(public_path('storage/' . $data->doc), 'sertifikat-' . $nomor . '-' . $data->name . '.pdf')->deleteFileAfterSend(true);
+
+        //  return response()->json(['success' => 'Certificate generated successfully.']);
 
          // Return success response
-        //  return redirect()->route('admin.certificates.index')->with('success', 'Sertifikat berhasil dihasilkan');
+        //  return redirect()->route('admin.events.certificates.index', $event)->with('success', 'Sertifikat berhasil dihasilkan');
 
     }
 
@@ -449,7 +458,7 @@ class EventController extends Controller
             $nomor = "{$newNumber}/{$kodeKegiatan}/PP Aspro SDMA/{$bulan}/{$tahun}";
             $lastNumber++;
             $link = (string) \Illuminate\Support\Str::uuid();
-            $qrcode = "172.20.10.6:8002/certificates/$link";
+            $qrcode = "https://asprosdma.id/certificates/$link";
 
             Certificate::create([
             'event_id' => $event->id,

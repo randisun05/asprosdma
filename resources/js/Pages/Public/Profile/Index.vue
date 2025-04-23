@@ -70,10 +70,10 @@
                                                         <td style="width: 5%;">{{ index + 1 }}.</td>
                                                         <td>{{ event.event.title }} sebagai {{ event.title }}
 
-                                                            <span v-if="event.certificate"
-                                                                @click="downloadCard(event.certificate.link)"
-                                                                class="badge bg-success" type="button">
-                                                                Download Sertifikat
+                                                            <span v-if="event.certificate">
+                                                                <a :href="`/certificates/${event.certificate.id}/view`" target="_blank" class="badge bg-success">
+                                                                    Lihat Sertifikat
+                                                                </a>
                                                             </span>
 
                                                         </td>
@@ -86,7 +86,7 @@
                             </div>
                         </section>
                         <!--Testimonials Ends-->
-                        <iframe id="downloadCard" style="width: 100%; height: 100%;"></iframe>
+                        <iframe id="downloadCard" style="display: none;"></iframe>
                     </template>
 
         <script>
@@ -133,31 +133,11 @@
             },
 
             setup() {
-                // Function to download the certificate
-                const downloadCard = async (data) => {
-                    try {
-                        // Select the iframe
-                        const iframe = document.getElementById('downloadCard');
 
-                        // URL to download the certificate
-                        const downloadUrl = `/certificates/${data}/view`;
-
-                        // Set the iframe source to the download URL
-                        iframe.src = downloadUrl;
-
-                        // Add an event listener to detect when the iframe is loaded
-                        iframe.onload = () => {
-                            console.log('Certificate download initiated.');
-                        }
-                    } catch (error) {
-                        console.error("Error downloading certificate:", error);
-                        Swal.fire('Error', 'Failed to download certificate.', 'error');
-                    }
-                };
 
                 // Return
                 return {
-                    downloadCard,
+
                 };
             }
         }
