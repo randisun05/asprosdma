@@ -67,13 +67,12 @@
                                         class="button btnprimary border-0 me-2 mt-4" @click.prevent="info(event.slug)">Informasi Lebih Lanjut</button>
                                 </div>
 
-                                <div class="text-center" v-if="event.absen === 'Y' || status == 1">
-                                    <button v-if="status == 1 " @click.prevent="absen(event.id)"
+                                <div class="text-center" v-if="event.absen === 'Y' && detailEvent">
+                                    <button v-if="status == 1 && detailEvent.status == 'approved' " @click.prevent="absen(event.id)"
                                         class="button btnprimary border-0 me-2 mt-4">Absen Kehadiran</button>
-                                        <!-- <button v-if="detailEvent.status == 'hadir'"
-                                        class="button btnthrid border-0 me-2 mt-4">Telah Melakukan Absensi</button> -->
+                                        <button v-if="detailEvent.status == 'hadir'"
+                                        class="button btnthrid border-0 me-2 mt-4">Telah Melakukan Absensi</button>
                                 </div>
-
                             </div>
                         </div>
                     </div>
