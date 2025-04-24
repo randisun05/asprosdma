@@ -503,8 +503,10 @@ class PublicController extends Controller
         // Generate QR Code (variable $qr removed as it was unused)
         QrCode::generate($qrLink);
 
+
+
          // Build the command
-         $command = "python " . escapeshellarg(base_path('resources/py/certificate.py')) .
+         $command = "python3 " . escapeshellarg(base_path('resources/py/certificate.py')) .
         // " " . escapeshellarg('template=' . 'storage/documents/' . $data->template) .
         " " . escapeshellarg(public_path('storage/' . $template->image)) .
          " " . escapeshellarg('nomor=' . $data->no_certificate) .
