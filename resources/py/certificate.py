@@ -75,6 +75,7 @@ def main():
         areas = page.search_for(anchor)
         if areas:
             for area in areas:
+
                 page.add_redact_annot(area, fill=(1, 1, 1))
                 page.apply_redactions()
 

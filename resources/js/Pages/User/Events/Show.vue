@@ -59,18 +59,18 @@
 
                                     </div>
                                 <div class="text-center">
-                                    <button v-if="event.status === 'active' && status === 0" @click.prevent="join(event.id)"
+                                    <button v-if="event.status === 'active' && status == 0" @click.prevent="join(event.id)"
                                         class="button btnprimary border-0 me-2 mt-4"> Join </button>
-                                        <button v-if="event.status === 'active' && status === 1"
+                                        <button v-if="event.status === 'active' && status == 1"
                                         class="button btnthrid border-0 me-2 mt-4"> Anda Sudah Terdaftar</button>
-                                        <button v-if="event.status === 'active' && status === 1"
+                                        <button v-if="event.status === 'active' && status == 1"
                                         class="button btnprimary border-0 me-2 mt-4" @click.prevent="info(event.slug)">Informasi Lebih Lanjut</button>
                                 </div>
 
-                                <div class="text-center" v-if="event.absen === 'Y'">
-                                    <button v-if="status === 1 && detailEvent.status === 'approved'" @click.prevent="absen(event.id)"
+                                <div class="text-center" v-if="event.absen === 'Y' || status == 1">
+                                    <button v-if="status == 1 && detailEvent.status == 'approved'" @click.prevent="absen(event.id)"
                                         class="button btnprimary border-0 me-2 mt-4">Absen Kehadiran</button>
-                                        <button v-if="detailEvent.status === 'hadir'"
+                                        <button v-if="detailEvent.status == 'hadir'"
                                         class="button btnthrid border-0 me-2 mt-4">Telah Melakukan Absensi</button>
                                 </div>
 
