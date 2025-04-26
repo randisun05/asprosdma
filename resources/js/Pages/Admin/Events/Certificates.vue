@@ -28,8 +28,11 @@
                                         <div class="form-group mt-1 mb-4">
                                             <select class="form-control" v-model="form.category">
                                                 <option disabled selected>Pilih Kategori</option>
-                                                <option value="kombel">Komunitas Belajar</option>
-                                                <option value="sayembara">Sayembara</option>
+                                                <option value="Kombel">Komunitas Belajar</option>
+                                                <option value="Kombel-Panitia">Komunitas Belajar</option>
+                                                <option value="Kombel-Narasumber">Komunitas Belajar</option>
+                                                <option value="Kombel-Moderator">Komunitas Belajar</option>
+                                                <option value="Sayembara">Sayembara</option>
                                                 <option value="lain">Lainnya</option>
                                             </select>
                                         </div>

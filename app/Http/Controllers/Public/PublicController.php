@@ -518,7 +518,8 @@ class PublicController extends Controller
          $output = shell_exec($command);
 
          if ($output === null) {
-             return response()->json(['error' => 'Command execution failed.'], 500);
+            return back()->with('error', 'Gagal menghasilkan sertifikat.');
+            //  return response()->json(['error' => 'Command execution failed.'], 500);
          }
 
         $data->update([
