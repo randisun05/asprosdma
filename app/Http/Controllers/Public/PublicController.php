@@ -16,6 +16,8 @@ use App\Models\Registration;
 use Illuminate\Http\Request;
 use App\Models\DocumentDigital;
 use App\Models\RegistrationGroup;
+use Illuminate\Support\Facades\DB;
+use App\Models\ProfileDataPosition;
 use App\Models\TemplateCertificate;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -307,6 +309,43 @@ class PublicController extends Controller
     public function dataAnggota()
     {
 
+        $dataCountsByPosition = ProfileDataPosition::groupBy('position',)
+        ->select('position', DB::raw('count(*) as total'))
+        ->get()
+        ->pluck('total', 'position');
+
+        $dataCountsByLevel = ProfileDataPosition::groupBy('level')
+        ->select('level', DB::raw('count(*) as total'))
+        ->get()
+        ->pluck('total', 'level');
+
+        $countsPerMonth = [];
+        $accumulatedCounts = [];
+        $totalCount = 0;
+
+        $startYear = 2024;
+        $currentYear = date('Y');  // Tahun saat ini (misalnya: 2025)
+        $currentMonth = date('n'); // Bulan saat ini (misalnya: 2 untuk Februari)
+
+        for ($year = $startYear; $year <= $currentYear; $year++) {
+            // Tentukan batas bulan (Desember untuk tahun sebelumnya, bulan saat ini untuk tahun berjalan)
+            $endMonth = ($year == $currentYear) ? $currentMonth : 12;
+
+            for ($month = 1; $month <= $endMonth; $month++) {
+                $monthlyCount = ProfileDataPosition::with('main')
+                    ->whereYear('created_at', $year)
+                    ->whereMonth('created_at', $month)
+                    ->count();
+
+                $totalCount += $monthlyCount;
+                if ($totalCount > 0) { // Hanya simpan jika ada data
+                    $key = "{$year}-" . str_pad($month, 2, '0', STR_PAD_LEFT);
+                    $countsPerMonth[$key] = $monthlyCount;
+                    $accumulatedCounts[$key] = $totalCount;
+                }
+            }
+        }
+
        $datas = Management::when(request()->q, function($query) {
            $query->where('body', 'like', '%' . request()->q . '%');
        })
@@ -318,7 +357,61 @@ class PublicController extends Controller
 
         return inertia('Public/Website/Posts/DataAnggota', [
             'title' => "Data Keanggotaan",
-           'datas' => $datas
+            'datas' => $datas,
+            'dataCountsByPosition' => $dataCountsByPosition,
+            'dataCountsByLevel' => $dataCountsByLevel,
+            'countsPerMonth' => $countsPerMonth,
+            'accumulatedCounts' => $accumulatedCounts,
+        ]);
+    }
+
+    public function dataAnggotaChart()
+    {
+
+        $dataCountsByPosition = ProfileDataPosition::groupBy('position',)
+        ->select('position', DB::raw('count(*) as total'))
+        ->get()
+        ->pluck('total', 'position');
+
+        $dataCountsByLevel = ProfileDataPosition::groupBy('level')
+        ->select('level', DB::raw('count(*) as total'))
+        ->get()
+        ->pluck('total', 'level');
+
+        $countsPerMonth = [];
+        $accumulatedCounts = [];
+        $totalCount = 0;
+
+        $startYear = 2024;
+        $currentYear = date('Y');  // Tahun saat ini (misalnya: 2025)
+        $currentMonth = date('n'); // Bulan saat ini (misalnya: 2 untuk Februari)
+
+        for ($year = $startYear; $year <= $currentYear; $year++) {
+            // Tentukan batas bulan (Desember untuk tahun sebelumnya, bulan saat ini untuk tahun berjalan)
+            $endMonth = ($year == $currentYear) ? $currentMonth : 12;
+
+            for ($month = 1; $month <= $endMonth; $month++) {
+                $monthlyCount = ProfileDataPosition::with('main')
+                    ->whereYear('created_at', $year)
+                    ->whereMonth('created_at', $month)
+                    ->count();
+
+                $totalCount += $monthlyCount;
+                if ($totalCount > 0) { // Hanya simpan jika ada data
+                    $key = "{$year}-" . str_pad($month, 2, '0', STR_PAD_LEFT);
+                    $countsPerMonth[$key] = $monthlyCount;
+                    $accumulatedCounts[$key] = $totalCount;
+                }
+            }
+        }
+
+
+
+        return inertia('Public/Website/Posts/ChartAnggota', [
+            'dataCountsByPosition' => $dataCountsByPosition,
+            'dataCountsByLevel' => $dataCountsByLevel,
+            'countsPerMonth' => $countsPerMonth,
+            'accumulatedCounts' => $accumulatedCounts,
         ]);
     }
 

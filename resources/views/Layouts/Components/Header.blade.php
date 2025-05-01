@@ -41,7 +41,7 @@
                   <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/events">Kegiatan</a></li>
                         <li><a class="dropdown-item" href="/berita">Berita</a></li>
-                        <li><a class="dropdown-item" href="/artikel">Artikel</a></li>
+                        <li><a class="dropdown-item" href="/asdma-menulis">SDMA Menulis</a></li>
                         <li><a class="dropdown-item" href="/merchans">Merchandises</a></li>
                         <li><a class="dropdown-item" href="/data-anggota">Data Anggota</a></li>
                      </ul>
@@ -59,7 +59,7 @@
                                 role="button" aria-expanded="false">Kontak Kami</a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="/kontak-kami">Kontak Kami</a></li>
-                                <li><a class="dropdown-item" href="/hubungi-aspro">Hubungi Kami</a></li>
+                                {{-- <li><a class="dropdown-item" href="/hubungi-aspro">Hubungi Kami</a></li> --}}
                             </ul>
                         </li>
             </ul>

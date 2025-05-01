@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('event_id')->references('id')->on('events')->restrictOnDelete()->restrictOnUpdate();
             $table->foreignId('member_id')->references('id')->on('members')->restrictOnDelete()->restrictOnUpdate();
             $table->enum('status',['approved','reject','hadir'])->default('approved');
-            $table->enum('title',['panitia','peserta']);
+            $table->string('title')->nullable();
             $table->string('desc')->nullable();
             $table->string('doc')->nullable();
             $table->string('sert')->nullable();

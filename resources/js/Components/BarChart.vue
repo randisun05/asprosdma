@@ -5,8 +5,17 @@
   </template>
 
   <script>
-  import { defineComponent, ref, onMounted } from 'vue';
-  import { Chart, BarController, BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from 'chart.js';
+  import { defineComponent, ref, onMounted, watch, onBeforeUnmount } from 'vue';
+  import {
+    Chart,
+    BarController,
+    BarElement,
+    CategoryScale,
+    LinearScale,
+    Title,
+    Tooltip,
+    Legend
+  } from 'chart.js';
   import ChartDataLabels from 'chartjs-plugin-datalabels';
 
   Chart.register(BarController, BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend, ChartDataLabels);
@@ -16,24 +25,47 @@
     props: {
       chartData: {
         type: Object,
-        required: true,
+        required: true
       },
       chartOptions: {
         type: Object,
-        required: true,
+        required: true
       }
     },
     setup(props) {
       const canvas = ref(null);
       let chartInstance = null;
 
-      onMounted(() => {
+      const renderChart = () => {
+        if (chartInstance) {
+          chartInstance.destroy();
+        }
+
         if (canvas.value) {
           chartInstance = new Chart(canvas.value, {
             type: 'bar',
             data: props.chartData,
-            options: props.chartOptions,
+            options: props.chartOptions
           });
+        }
+      };
+
+      onMounted(() => {
+        renderChart();
+      });
+
+      // Watch for changes in chartData or chartOptions
+      watch(
+        () => [props.chartData, props.chartOptions],
+        () => {
+          renderChart();
+        },
+        { deep: true }
+      );
+
+      onBeforeUnmount(() => {
+        if (chartInstance) {
+          chartInstance.destroy();
         }
       });
 

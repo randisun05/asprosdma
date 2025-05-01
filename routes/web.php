@@ -92,6 +92,8 @@ Route::prefix('admin')->group(function() {
         Route::get('/events/{id}/export', [\App\Http\Controllers\Admin\EventController::class, 'exportParticipant'])->name('admin.events.export');
         Route::get('/events/{id}/change', [\App\Http\Controllers\Admin\EventController::class, 'change'])->name('admin.events.status.change');
         Route::get('/events/{id}/absen', [\App\Http\Controllers\Admin\EventController::class, 'absen'])->name('admin.events.status.absen');
+        Route::post('/events/{id}/updaterole', [\App\Http\Controllers\Admin\EventController::class, 'updateRole'])->name('admin.events.updateRole');
+        Route::get('/events/{id}/absenall', [\App\Http\Controllers\Admin\EventController::class, 'absenAll'])->name('admin.events.absenall');
         Route::resource('/events', \App\Http\Controllers\Admin\EventController::class, ['as' => 'admin']);
         Route::post('/medias/{id}', [\App\Http\Controllers\Admin\MediaController::class, 'update'])->name('admin.medias.update');
         Route::resource('/medias', \App\Http\Controllers\Admin\MediaController::class, ['as' => 'admin']);
@@ -217,12 +219,13 @@ Route::get('/kontak-kami', [\App\Http\Controllers\Public\PublicController::class
 Route::get('/berita', [\App\Http\Controllers\Public\PublicController::class, 'berita'])->name('berita');
 Route::get('/berita/{post:slug}', [\App\Http\Controllers\Public\PublicController::class, 'beritaView'])->name('berita.view');
 Route::get('/data-anggota', [\App\Http\Controllers\Public\PublicController::class, 'dataAnggota'])->name('data-anggota');
+Route::get('/data-anggota/chart', [\App\Http\Controllers\Public\PublicController::class, 'dataAnggotaChart'])->name('data-anggota.chart');
 Route::get('/faq', [\App\Http\Controllers\Public\PublicController::class, 'faq'])->name('faq');
 Route::get('/events/{event:slug}', [\App\Http\Controllers\Public\EventsController::class, 'show'])->name('event.show');
 Route::resource('/events', \App\Http\Controllers\Public\EventsController::class);
 Route::resource('/berita', \App\Http\Controllers\Public\PostsController::class);
-Route::get('/artikel', [\App\Http\Controllers\Public\PostsController::class, 'articles'])->name('artikel');
-Route::get('/artikel/{post:slug}', [\App\Http\Controllers\Public\PostsController::class, 'show'])->name('show.artikel');
+Route::get('/asdma-menulis', [\App\Http\Controllers\Public\PostsController::class, 'articles'])->name('artikel');
+Route::get('/asdma-menulis/{post:slug}', [\App\Http\Controllers\Public\PostsController::class, 'show'])->name('show.artikel');
 Route::resource('/merchans', \App\Http\Controllers\Public\MerchansController::class);
 Route::get('/forget-password', [\App\Http\Controllers\Public\PublicController::class, 'forgetPassword'])->name('forget.password');
 Route::get('/forget-password/email', [\App\Http\Controllers\Public\PublicController::class, 'emailforgetPassword'])->name('forget.password.email');

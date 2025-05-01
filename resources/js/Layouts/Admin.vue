@@ -1,7 +1,5 @@
 <template>
 <div class="wrapper">
-
-    
     
     <!-- sidebar -->
     <Sidebar />

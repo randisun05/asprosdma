@@ -14,7 +14,6 @@ use App\Models\TemplateCertificate;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\EventParticipantsExport;
-use SebastianBergmann\Template\Template;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class EventController extends Controller
@@ -110,10 +109,12 @@ class EventController extends Controller
     {
         $event = Event::findOrFail($id);
 
-        $details = DetailEvent::where('event_id',$id)
-        ->with('member','event')
+        $details = DetailEvent::where('event_id', $id)
+        ->with('member', 'event')
         ->when(request()->q, function($query) {
-            $query->where('title', 'like', '%' . request()->q . '%');
+            $query->whereHas('member', function($subQuery) {
+            $subQuery->where('name', 'like', '%' . request()->q . '%');
+            });
         })
         ->latest()
         ->paginate(10);
@@ -127,6 +128,36 @@ class EventController extends Controller
         //redirect
         return redirect()->route('admin.events.index');
     }
+
+    public function absenAll($id)
+    {
+        $details = DetailEvent::where('event_id', $id)->get();
+
+        foreach ($details as $detail) {
+            $detail->update([
+                'status' => 'hadir',
+            ]);
+        }
+
+        return redirect()->route('admin.events.show', $id)->with('success', 'Data has been saved');
+    }
+
+    public function updateRole($id, Request $request)
+    {
+
+        $request->validate([
+            'title' => 'required',
+        ]);
+
+        $detail = DetailEvent::where('id', $id)->first();
+
+        $detail->update([
+            'title' => $request->title,
+        ]);
+
+        return redirect()->route('admin.events.show', $detail->event_id)->with('success', 'Data has been saved');
+    }
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -444,7 +475,8 @@ class EventController extends Controller
             return response()->json(['message' => 'Tidak ada anggota yang ditemukan.'], 404);
         }
 
-        $lastCertificate = Certificate::whereYear('date', date('Y', strtotime($request->date)))
+        $lastCertificate = Certificate::where('category', $request->category)
+        ->whereYear('date', date('Y', strtotime($request->date)))
         ->whereMonth('date', date('m', strtotime($request->date)))
         ->orderBy('created_at', 'desc')
         ->first();

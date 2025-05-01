@@ -56,7 +56,8 @@
                                                 <tbody>
                                                     <tr v-for="(data, index) in achievments" :key="index">
                                                         <td style="width: 5%;">{{ index + 1 }}.</td>
-                                                        <td>{{ data.title }}</td>
+                                                        <td><i :class="data.icon" style="color: gold;"></i></td>
+                                                         <td>{{ data.title }}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>

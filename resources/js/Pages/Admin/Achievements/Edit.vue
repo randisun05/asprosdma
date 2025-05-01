@@ -108,12 +108,18 @@
                             </div>
                             <div class="col-md-3">
                                 <span class="text-black">Icon</span>
-                                <select class="form-control" v-model="form.icon">
-                                    <option v-for="icon in icons" :key="icon" :value="icon">
-                                        <i :class="icon"></i> {{ icon }}
-                                    </option>
-                                </select>
-                                <div v-if="errors.icon" class="alert alert-danger mt-2">
+                                <div class="form-group">
+                                                <div class="dropdown">
+                                                    <button class="btn btn-secondary dropdown-toggle w-100" type="button" id="iconDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i :class="form.icon"></i> {{ form.icon || 'Pilih Icon' }}
+                                                    </button>
+                                                    <ul class="dropdown-menu w-100" aria-labelledby="iconDropdown">
+                                                        <li v-for="icon in icons" :key="icon" @click="form.icon = icon" class="dropdown-item">
+                                                            <i :class="icon"></i> {{ icon }}
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>                                <div v-if="errors.icon" class="alert alert-danger mt-2">
                                     {{ errors.icon }}
                                 </div>
                             </div>
