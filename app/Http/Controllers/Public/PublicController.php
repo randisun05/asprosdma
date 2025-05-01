@@ -369,41 +369,47 @@ class PublicController extends Controller
     {
 
         $dataCountsByPosition = ProfileDataPosition::groupBy('position',)
-        ->select('position', DB::raw('count(*) as total'))
-        ->get()
-        ->pluck('total', 'position');
+            ->select('position', DB::raw('count(*) as total'))
+            ->get()
+            ->pluck('total', 'position');
 
-        $dataCountsByLevel = ProfileDataPosition::groupBy('level')
-        ->select('level', DB::raw('count(*) as total'))
-        ->get()
-        ->pluck('total', 'level');
+            $dataCountsByLevel = ProfileDataPosition::groupBy('level')
+                ->select('level', DB::raw('count(*) as total'))
+                ->get()
+                ->pluck('total', 'level')
+                ->sortBy(function ($value, $key) {
+                    $order = [
+                        'Terampil','Mahir','Penyelia','Ahli Pertama','Ahli Muda','Ahli Madya','Ahli Utama'
+                    ];
+                    return array_search($key, $order);
+                });
 
-        $countsPerMonth = [];
-        $accumulatedCounts = [];
-        $totalCount = 0;
+            $countsPerMonth = [];
+            $accumulatedCounts = [];
+            $totalCount = 0;
 
-        $startYear = 2024;
-        $currentYear = date('Y');  // Tahun saat ini (misalnya: 2025)
-        $currentMonth = date('n'); // Bulan saat ini (misalnya: 2 untuk Februari)
+            $startYear = 2024;
+            $currentYear = date('Y');  // Tahun saat ini (misalnya: 2025)
+            $currentMonth = date('n'); // Bulan saat ini (misalnya: 2 untuk Februari)
 
-        for ($year = $startYear; $year <= $currentYear; $year++) {
-            // Tentukan batas bulan (Desember untuk tahun sebelumnya, bulan saat ini untuk tahun berjalan)
-            $endMonth = ($year == $currentYear) ? $currentMonth : 12;
+            for ($year = $startYear; $year <= $currentYear; $year++) {
+                // Tentukan batas bulan (Desember untuk tahun sebelumnya, bulan saat ini untuk tahun berjalan)
+                $endMonth = ($year == $currentYear) ? $currentMonth : 12;
 
-            for ($month = 1; $month <= $endMonth; $month++) {
-                $monthlyCount = ProfileDataPosition::with('main')
-                    ->whereYear('created_at', $year)
-                    ->whereMonth('created_at', $month)
-                    ->count();
+                for ($month = 1; $month <= $endMonth; $month++) {
+                    $monthlyCount = ProfileDataPosition::with('main')
+                        ->whereYear('created_at', $year)
+                        ->whereMonth('created_at', $month)
+                        ->count();
 
-                $totalCount += $monthlyCount;
-                if ($totalCount > 0) { // Hanya simpan jika ada data
-                    $key = "{$year}-" . str_pad($month, 2, '0', STR_PAD_LEFT);
-                    $countsPerMonth[$key] = $monthlyCount;
-                    $accumulatedCounts[$key] = $totalCount;
+                    $totalCount += $monthlyCount;
+                    if ($totalCount > 0) { // Hanya simpan jika ada data
+                        $key = "{$year}-" . str_pad($month, 2, '0', STR_PAD_LEFT);
+                        $countsPerMonth[$key] = $monthlyCount;
+                        $accumulatedCounts[$key] = $totalCount;
+                    }
                 }
             }
-        }
 
 
 

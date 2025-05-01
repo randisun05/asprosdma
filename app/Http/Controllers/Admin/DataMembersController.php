@@ -220,9 +220,15 @@ class DataMembersController extends Controller
             ->pluck('total', 'position');
 
             $dataCountsByLevel = ProfileDataPosition::groupBy('level')
-            ->select('level', DB::raw('count(*) as total'))
-            ->get()
-            ->pluck('total', 'level');
+                ->select('level', DB::raw('count(*) as total'))
+                ->get()
+                ->pluck('total', 'level')
+                ->sortBy(function ($value, $key) {
+                    $order = [
+                        'Terampil','Mahir','Penyelia','Ahli Pertama','Ahli Muda','Ahli Madya','Ahli Utama'
+                    ];
+                    return array_search($key, $order);
+                });
 
             $countsPerMonth = [];
             $accumulatedCounts = [];
@@ -250,6 +256,7 @@ class DataMembersController extends Controller
                     }
                 }
             }
+
 
             return inertia('Admin/Members/Report', [
                 'dataCountsByPosition' => $dataCountsByPosition,
