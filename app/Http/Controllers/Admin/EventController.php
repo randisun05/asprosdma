@@ -15,6 +15,7 @@ use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\EventParticipantsExport;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Str;
 
 class EventController extends Controller
 {
@@ -157,7 +158,7 @@ class EventController extends Controller
 
         return redirect()->route('admin.events.show', $detail->event_id)->with('success', 'Data has been saved');
     }
-    
+
 
     /**
      * Show the form for editing the specified resource.
@@ -454,17 +455,16 @@ class EventController extends Controller
 
     public function certificatesImportStore($id, Request $request)
     {
-
-            $request->validate([
-                'category' => 'required',
-                'date' => 'required',
-                'template' => 'required',
+        $request->validate([
+            'category' => 'required',
+            'date' => 'required|date',
+            'template' => 'required',
         ]);
 
         $event = Event::findOrFail($id);
         $ids = is_array($request->user_id)
-        ? array_map('trim', $request->user_id)  // Jika sudah array, bersihkan spasi
-        : array_map('trim', explode(',', $request->user_id)); // Jika string, ubah ke array
+            ? array_map('trim', $request->user_id)
+            : array_map('trim', explode(',', $request->user_id));
 
         $members = DetailEvent::with('member')
             ->where('event_id', $id)
@@ -475,42 +475,92 @@ class EventController extends Controller
             return response()->json(['message' => 'Tidak ada anggota yang ditemukan.'], 404);
         }
 
+        // Cek yang sudah punya sertifikat
+        $existingCertificates = Certificate::where('category', $request->category)
+            ->where('event_id', $event->id)
+            ->whereIn('nip', $members->pluck('member.nip'))
+            ->pluck('nip')
+            ->toArray();
+
+        $filteredMembers = $members->filter(function ($member) use ($existingCertificates) {
+            return !in_array($member->member->nip, $existingCertificates);
+        });
+
+        if ($filteredMembers->isEmpty()) {
+            return response()->json(['message' => 'Semua anggota sudah memiliki sertifikat.'], 409);
+        }
+
+        // Ambil nomor terakhir
         $lastCertificate = Certificate::where('category', $request->category)
-        ->whereYear('date', date('Y', strtotime($request->date)))
-        ->whereMonth('date', date('m', strtotime($request->date)))
-        ->orderBy('created_at', 'desc')
-        ->first();
+            ->whereYear('date', date('Y', strtotime($request->date)))
+            ->whereMonth('date', date('m', strtotime($request->date)))
+            ->orderBy('created_at', 'desc')
+            ->first();
 
         $lastNumber = $lastCertificate ? intval(explode('/', $lastCertificate->no_certificate)[0]) : 0;
 
-        foreach ($members as $member) {
-            $newNumber = str_pad($lastNumber + 1, 4, '0', STR_PAD_LEFT);
-            $kodeKegiatan = $request->category; // Replace with actual activity code
-            $bulan = date('m', strtotime($request->date));
-            $tahun = date('Y', strtotime($request->date));
-            $nomor = "{$newNumber}/{$kodeKegiatan}/PP Aspro SDMA/{$bulan}/{$tahun}";
-            $lastNumber++;
-            $link = (string) \Illuminate\Support\Str::uuid();
-            $qrcode = "https://asprosdma.id/certificates/$link";
+        $errors = [];
 
-            Certificate::create([
-            'event_id' => $event->id,
-            'no_certificate' =>  $nomor,
-            'category' => $request->category ?? 'kombel',
-            'nip' => $member->member->nip,
-            'name' =>  $member->member->name,
-            'body' => 'template',
-            'date' => $request->date,
-            'template' => $request->template,
-            'status' => '1',
-            'qr_code' => $qrcode,
-            'link' => $link,
-            'doc' => $member->member->agency,
-            ]);
+        foreach ($filteredMembers as $member) {
+            try {
+                $attempts = 0;
+                do {
+                    $newNumber = str_pad(++$lastNumber, 4, '0', STR_PAD_LEFT);
+                    $kodeKegiatan = $request->category;
+                    $bulan = date('m', strtotime($request->date));
+                    $tahun = date('Y', strtotime($request->date));
+                    $nomor = "{$newNumber}/{$kodeKegiatan}/PP Aspro SDMA/{$bulan}/{$tahun}";
+                    $attempts++;
+                } while (
+                    Certificate::where('no_certificate', $nomor)->exists()
+                    && $attempts < 5
+                );
+
+                if (Certificate::where('no_certificate', $nomor)->exists()) {
+                    $errors[] = [
+                        'nip' => $member->member->nip,
+                        'name' => $member->member->name,
+                        'error' => "Nomor sertifikat {$nomor} sudah digunakan.",
+                    ];
+                    continue;
+                }
+
+                $link = (string) Str::uuid();
+                $qrcode = "https://asprosdma.id/certificates/$link";
+
+                Certificate::create([
+                    'event_id' => $event->id,
+                    'no_certificate' => $nomor,
+                    'category' => $request->category,
+                    'nip' => $member->member->nip,
+                    'name' => $member->member->name,
+                    'body' => $event->title, // Ganti jika ingin dinamis
+                    'date' => $request->date,
+                    'template' => $request->template,
+                    'status' => '1',
+                    'qr_code' => $qrcode,
+                    'link' => $link,
+                    'doc' => $member->member->agency,
+                ]);
+            } catch (\Exception $e) {
+                $errors[] = [
+                    'nip' => $member->member->nip,
+                    'name' => $member->member->name,
+                    'error' => $e->getMessage(),
+                ];
+            }
         }
 
-        return redirect()->route('admin.events.certificates.index', $id)->with('success', 'Data has been saved');
+        if (count($errors)) {
+            return redirect()->route('admin.events.certificates.index', $id)
+                ->with('warning', 'Sebagian sertifikat gagal disimpan.')
+                ->with('errors_detail', $errors);
+        }
+
+        return redirect()->route('admin.events.certificates.index', $id)
+            ->with('success', 'Semua sertifikat berhasil disimpan.');
     }
+
 
     public function certificatesStore($id, Request $request)
     {

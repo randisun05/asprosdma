@@ -619,8 +619,6 @@ class PublicController extends Controller
         // Generate QR Code (variable $qr removed as it was unused)
         QrCode::generate($qrLink);
 
-
-
          // Build the command
          $command = "python3 " . escapeshellarg(base_path('resources/py/certificate.py')) .
         // " " . escapeshellarg('template=' . 'storage/documents/' . $data->template) .
@@ -650,5 +648,31 @@ class PublicController extends Controller
         //  return redirect()->route('admin.events.certificates.index', $event)->with('success', 'Sertifikat berhasil dihasilkan');
 
     }
+
+
+    public function certificateSearch()
+    {
+        $data = [];
+
+       return inertia('Public/Website/Posts/CertificateSearch', [
+           'title' => 'Cari Sertifikat Kegiatan Aspro SDMA',
+           'data' => $data,
+       ]);
+    }
+
+    public function certificateFilter()
+    {
+        $datas = Certificate::
+        when(request()->q, function($query) {
+            $query->where('nip', request()->q);
+        })
+        ->get();
+      
+       return inertia('Public/Website/Posts/CertificateSearch', [
+           'title' => 'Verifikasi Sertifikat Kegiatan Aspro SDMA',
+           'datas' => $datas,
+       ]);
+    }
+
 
 }
