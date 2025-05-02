@@ -71,7 +71,8 @@
             <h3> Kegiatan </h3>
             <hr>
         </div>
-        <carousel :items-to-show="1" :center-mode="false" :autoplay="5000" wrap-around="true">
+        <!-- :autoplay="5000"  -->
+        <carousel :items-to-show="1" :center-mode="false" wrap-around="true">
             <slide v-for="(event, index) in events.data" :key="index">
                 <div class="news_item shadow row">
                     <div class="col-lg-6" style="display: flex; justify-content: center; align-items: center;">
@@ -128,7 +129,7 @@
             <hr>
         </div>
 
-        <carousel :items-to-show="1" :center-mode="false" :autoplay="5000" wrap-around="true">
+        <carousel :items-to-show="1" :center-mode="false" wrap-around="true">
             <slide v-for="(merchan, index) in merchans.data" :key="index" class="px-5">
                 <div class="news_item shadow row">
                     <div class="col-lg-6" style="display: flex; justify-content: center; align-items: center;">
@@ -175,7 +176,7 @@
             <hr>
         </div>
 
-        <carousel :items-to-show="1" :center-mode="false" :autoplay="5000" wrap-around="true">
+        <carousel :items-to-show="1" :center-mode="false" wrap-around="true">
             <slide v-for="(post, index) in posts.data" :key="index">
                 <div class="news_item shadow row">
                     <div class="col-lg-6" style="display: flex; justify-content: center; align-items: center;">

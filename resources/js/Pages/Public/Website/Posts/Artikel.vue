@@ -3,7 +3,7 @@
     <Head>
         <title>{{ title }}</title>
     </Head>
-  
+
  <!--page Header-->
 <section class="page-header parallaxie padding_top center-block">
    <div class="container">
@@ -20,7 +20,7 @@
       </div>
    </div>
 </section>
-<!--page Header ends--> 
+<!--page Header ends-->
 
 
 <section id="our-testimonial" class="padding_m">
@@ -28,8 +28,8 @@
       <div class="row">
          <div class="col-md-12 col-sm-12 text-center">
             <div class="heading-title bottom30">
-               <span><h2>Artikel</h2></span>
-              
+               <span><h2>ASDMA Menulis</h2></span>
+
             </div>
          </div>
          <h4 class="darkcolor">Deskripsi</h4>
@@ -44,7 +44,7 @@
 <script>
     //import layout
     import LayoutWebsite from '../../../../Layouts/Website.vue';
- 
+
 
     //import reactive
     import {
@@ -69,7 +69,7 @@
         //register component
         components: {
             Head,
-            
+
         },
 
         //props
@@ -77,8 +77,8 @@
             title:Object
 
         },
-        
-       
+
+
 
     }
 

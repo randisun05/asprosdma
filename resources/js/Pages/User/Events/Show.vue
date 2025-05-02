@@ -68,9 +68,9 @@
                                 </div>
 
                                 <div class="text-center" v-if="event.absen === 'Y' && detailEvent">
-                                    <button v-if="status == 1 && detailEvent.status == 'approved' " @click.prevent="absen(event.id)"
+                                    <button v-if="status == 1 && hadir != 1 " @click.prevent="absen(event.id)"
                                         class="button btnprimary border-0 me-2 mt-4">Absen Kehadiran</button>
-                                        <button v-if="detailEvent.status == 'hadir'"
+                                        <button v-if="hadir == '1'"
                                         class="button btnthrid border-0 me-2 mt-4">Telah Melakukan Absensi</button>
                                 </div>
                             </div>
@@ -126,6 +126,7 @@ export default {
         event: Object,
         status: Object,
         detailEvent: Object,
+        hadir: Object,
     },
 
     //inisialisasi composition API

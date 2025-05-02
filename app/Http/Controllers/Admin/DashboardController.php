@@ -63,20 +63,34 @@ class DashboardController extends Controller
             $currentMonth = date('n'); // Bulan saat ini (misalnya: 2 untuk Februari)
 
             for ($year = $startYear; $year <= $currentYear; $year++) {
-                // Tentukan batas bulan (Desember untuk tahun sebelumnya, bulan saat ini untuk tahun berjalan)
                 $endMonth = ($year == $currentYear) ? $currentMonth : 12;
 
-                for ($month = 1; $month <= $endMonth; $month++) {
-                    $monthlyCount = ProfileDataPosition::with('main')
-                        ->whereYear('created_at', $year)
+                for ($month = 4; $month <= $endMonth; $month++) { // Start from April (4)
+                    $key = "{$year}-" . str_pad($month, 2, '0', STR_PAD_LEFT);
+
+                    // Total per bulan
+                    $monthlyCount = ProfileDataPosition::whereYear('created_at', $year)
                         ->whereMonth('created_at', $month)
                         ->count();
 
                     $totalCount += $monthlyCount;
-                    if ($totalCount > 0) { // Hanya simpan jika ada data
-                        $key = "{$year}-" . str_pad($month, 2, '0', STR_PAD_LEFT);
-                        $countsPerMonth[$key] = $monthlyCount;
-                        $accumulatedCounts[$key] = $totalCount;
+                    $countsPerMonth[$key] = $monthlyCount;
+                    $accumulatedCounts[$key] = $totalCount;
+
+                    // Per posisi
+                    $monthlyCountsByPosition = ProfileDataPosition::whereYear('created_at', $year)
+                        ->whereMonth('created_at', $month)
+                        ->groupBy('position')
+                        ->select('position', DB::raw('count(*) as total'))
+                        ->get()
+                        ->pluck('total', 'position');
+
+                    foreach ($monthlyCountsByPosition as $position => $count) {
+                        if (!isset($accumulatedCountsByPosition[$position])) {
+                            $accumulatedCountsByPosition[$position] = [];
+                        }
+
+                        $accumulatedCountsByPosition[$position][$key] = $count;
                     }
                 }
             }
@@ -89,6 +103,7 @@ class DashboardController extends Controller
             'dataCountsByLevel' => $dataCountsByLevel,
             'countsPerMonth' => $countsPerMonth,
             'accumulatedCounts' => $accumulatedCounts,
+            'accumulatedCountsByPosition' => $accumulatedCountsByPosition,
         ]);
     }
 }

@@ -52,7 +52,7 @@ class PostsController extends Controller
         $posts->appends(['q' => request()->q]);
 
         return inertia('Public/Website/Posts/Index', [
-            'title' => "Artikel",
+            'title' => "ASDMA Menulis",
             'posts' => $posts
         ]);
     }

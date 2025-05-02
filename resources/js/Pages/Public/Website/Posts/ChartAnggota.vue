@@ -9,6 +9,7 @@
                                             <BarChart :chartData="chartDataByPosition" :chartOptions="chartOptions" />
                                             <BarChart :chartData="chartDataByLevel" :chartOptions="chartOptions" />
                                             <BarChart :chartData="chartDataAccumulated" :chartOptions="chartOptions" />
+                                            <BarChart :chartData="accumulatedCountsByPosition" :chartOptions="chartOptions" />
                                         </div>
                                     </div>
                                 </div>
@@ -56,6 +57,11 @@
                     type: Object,
                     required: true,
                     default: () => ({})
+                },
+                accumulatedCountsByPosition: {
+                    type: Object,
+                    required: true,
+                    default: () => ({})
                 }
             },
 
@@ -85,7 +91,7 @@
                     datasets: [
                         {
                             label: 'Counts By Month',
-                            backgroundColor: '#FFA500',
+                            backgroundColor: getRandomColor(),
                             data: Object.values(props.countsPerMonth)
                         }
                     ]
@@ -96,7 +102,7 @@
                     datasets: [
                         {
                             label: 'Counts By Jabatan',
-                            backgroundColor: '#f87979',
+                            backgroundColor: getRandomColor(),
                             data: Object.values(props.dataCountsByPosition)
                         }
                     ]
@@ -107,7 +113,7 @@
                     datasets: [
                         {
                             label: 'Counts By Jenjang',
-                            backgroundColor: '#7acbf9',
+                            backgroundColor: getRandomColor(),
                             data: Object.values(props.dataCountsByLevel)
                         }
                     ]
@@ -118,11 +124,35 @@
                     datasets: [
                         {
                             label: 'Accumulation by Month',
-                            backgroundColor: '#79f879',
+                            backgroundColor: getRandomColor(),
                             data: Object.values(props.accumulatedCounts)
                         }
                     ]
                 });
+
+                const allMonths = Object.values(props.accumulatedCountsByPosition || {})
+                .flatMap(data => Object.keys(data))
+                .filter((value, index, self) => self.indexOf(value) === index)
+                .sort(); // sort for chronological order
+
+
+                const accumulatedCountsByPosition = reactive({
+                labels: allMonths,
+                datasets: Object.entries(props.accumulatedCountsByPosition || {}).map(([position, data]) => ({
+                    label: `Monthly ${position} Increase`,                backgroundColor: getRandomColor(), // or choose static colors per position
+                    data: allMonths.map(month => data[month] || 0)
+                }))
+            });
+
+            function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
 
                 //return
                 return {
@@ -133,6 +163,7 @@
                     chartDataAccumulated,
                     chartOptions,
                     chartDataByMonth,
+                    accumulatedCountsByPosition,
                 }
             }
         }

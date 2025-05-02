@@ -293,7 +293,7 @@ class PublicController extends Controller
     public function artikel()
     {
         return inertia('Public/Website/Maintenance/Index', [
-            'title' => "Maintenance",
+            'title' => "ASDMA Menulis",
         ]);
     }
 
@@ -346,6 +346,7 @@ class PublicController extends Controller
             }
         }
 
+
        $datas = Management::when(request()->q, function($query) {
            $query->where('body', 'like', '%' . request()->q . '%');
        })
@@ -366,60 +367,76 @@ class PublicController extends Controller
     }
 
     public function dataAnggotaChart()
-    {
+{
+    $dataCountsByPosition = ProfileDataPosition::groupBy('position')
+        ->select('position', DB::raw('count(*) as total'))
+        ->get()
+        ->pluck('total', 'position');
 
-        $dataCountsByPosition = ProfileDataPosition::groupBy('position',)
-            ->select('position', DB::raw('count(*) as total'))
-            ->get()
-            ->pluck('total', 'position');
+    $dataCountsByLevel = ProfileDataPosition::groupBy('level')
+        ->select('level', DB::raw('count(*) as total'))
+        ->get()
+        ->pluck('total', 'level')
+        ->sortBy(function ($value, $key) {
+            $order = ['Terampil','Mahir','Penyelia','Ahli Pertama','Ahli Muda','Ahli Madya','Ahli Utama'];
+            return array_search($key, $order);
+        });
 
-            $dataCountsByLevel = ProfileDataPosition::groupBy('level')
-                ->select('level', DB::raw('count(*) as total'))
+    $countsPerMonth = [];
+    $accumulatedCounts = [];
+    $accumulatedCountsByPosition = [];
+
+    $totalCount = 0;
+    $positionTotals = [];
+
+    $startYear = 2024;
+    $currentYear = date('Y');
+    $currentMonth = date('n');
+
+    for ($year = $startYear; $year <= $currentYear; $year++) {
+        $endMonth = ($year == $currentYear) ? $currentMonth : 12;
+
+        for ($month = 4; $month <= $endMonth; $month++) { // Start from April (4)
+            $key = "{$year}-" . str_pad($month, 2, '0', STR_PAD_LEFT);
+
+            // Total per bulan
+            $monthlyCount = ProfileDataPosition::whereYear('created_at', $year)
+                ->whereMonth('created_at', $month)
+                ->count();
+
+            $totalCount += $monthlyCount;
+            $countsPerMonth[$key] = $monthlyCount;
+            $accumulatedCounts[$key] = $totalCount;
+
+            // Per posisi
+            $monthlyCountsByPosition = ProfileDataPosition::whereYear('created_at', $year)
+                ->whereMonth('created_at', $month)
+                ->groupBy('position')
+                ->select('position', DB::raw('count(*) as total'))
                 ->get()
-                ->pluck('total', 'level')
-                ->sortBy(function ($value, $key) {
-                    $order = [
-                        'Terampil','Mahir','Penyelia','Ahli Pertama','Ahli Muda','Ahli Madya','Ahli Utama'
-                    ];
-                    return array_search($key, $order);
-                });
+                ->pluck('total', 'position');
 
-            $countsPerMonth = [];
-            $accumulatedCounts = [];
-            $totalCount = 0;
-
-            $startYear = 2024;
-            $currentYear = date('Y');  // Tahun saat ini (misalnya: 2025)
-            $currentMonth = date('n'); // Bulan saat ini (misalnya: 2 untuk Februari)
-
-            for ($year = $startYear; $year <= $currentYear; $year++) {
-                // Tentukan batas bulan (Desember untuk tahun sebelumnya, bulan saat ini untuk tahun berjalan)
-                $endMonth = ($year == $currentYear) ? $currentMonth : 12;
-
-                for ($month = 1; $month <= $endMonth; $month++) {
-                    $monthlyCount = ProfileDataPosition::with('main')
-                        ->whereYear('created_at', $year)
-                        ->whereMonth('created_at', $month)
-                        ->count();
-
-                    $totalCount += $monthlyCount;
-                    if ($totalCount > 0) { // Hanya simpan jika ada data
-                        $key = "{$year}-" . str_pad($month, 2, '0', STR_PAD_LEFT);
-                        $countsPerMonth[$key] = $monthlyCount;
-                        $accumulatedCounts[$key] = $totalCount;
-                    }
+            foreach ($monthlyCountsByPosition as $position => $count) {
+                if (!isset($accumulatedCountsByPosition[$position])) {
+                    $accumulatedCountsByPosition[$position] = [];
                 }
+
+                $accumulatedCountsByPosition[$position][$key] = $count;
             }
-
-
-
-        return inertia('Public/Website/Posts/ChartAnggota', [
-            'dataCountsByPosition' => $dataCountsByPosition,
-            'dataCountsByLevel' => $dataCountsByLevel,
-            'countsPerMonth' => $countsPerMonth,
-            'accumulatedCounts' => $accumulatedCounts,
-        ]);
+        }
     }
+
+
+
+    return inertia('Public/Website/Posts/ChartAnggota', [
+        'dataCountsByPosition' => $dataCountsByPosition,
+        'dataCountsByLevel' => $dataCountsByLevel,
+        'countsPerMonth' => $countsPerMonth,
+        'accumulatedCounts' => $accumulatedCounts,
+        'accumulatedCountsByPosition' => $accumulatedCountsByPosition,
+    ]);
+}
+
 
     public function faq()
     {

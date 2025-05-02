@@ -126,6 +126,7 @@ class EventController extends Controller
             if ($memberId) {
                 $detailEvent = DetailEvent::where('event_id', $event->id)->where('member_id', $memberId)->first();
                 $status = $detailEvent ? 1 : 0;
+                $hadir = $detailEvent->status == 'hadir' ? 1 : 0;
 
             }
 
@@ -133,6 +134,7 @@ class EventController extends Controller
                 'event' => $event,
                 'status' => $status,
                 'detailEvent' => $detailEvent,
+                'hadir' => $hadir ?? 0,
             ]);
         } else {
             return redirect()->route('login');

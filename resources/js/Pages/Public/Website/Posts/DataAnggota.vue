@@ -22,7 +22,7 @@
             </section>
             <!--page Header ends-->
 
-            <iframe src="/data-anggota/chart" class="w-full border rounded" style="height: 620px;"></iframe>
+            <iframe src="/data-anggota/chart" class="w-full border rounded" style="height: 760px;"></iframe>
 
             <section id="our-team-two" class="padding_m">
                 <div class="container">
@@ -47,7 +47,7 @@
                             <Pagination :links="datas.links" align="center" />
                         </div>
 
-                      
+
 
                         <!-- <div class="col-lg-3 col-md-3">
                             <div class="team-box grey-shade top60">
