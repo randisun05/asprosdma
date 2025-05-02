@@ -669,7 +669,7 @@ class PublicController extends Controller
         ->get();
       
        return inertia('Public/Website/Posts/CertificateSearch', [
-           'title' => 'Verifikasi Sertifikat Kegiatan Aspro SDMA',
+           'title' => 'Cari Sertifikat Kegiatan Aspro SDMA',
            'datas' => $datas,
        ]);
     }

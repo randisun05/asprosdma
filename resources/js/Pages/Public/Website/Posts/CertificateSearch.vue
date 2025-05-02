@@ -29,9 +29,9 @@
                                 <div class="col-md-12 col-sm-12 text-center">
                                     <div class="heading-title bottom30">
                                         <span>
-                                            <h2>Masukan NIP</h2>
+                                            <h4>Masukan NIP</h4>
                                         </span>
-                                        <div class="col-md-6 col-12 mb-2">
+                                        <div class="col-md-6 col-12 mb-2 mx-auto">
                                             <form @submit.prevent="handleSearch">
                                                 <div class="input-group">
                                                     <input type="text" class="form-control border-0 shadow" v-model="search"
@@ -41,9 +41,8 @@
                                                     </span>
                                                 </div>
                                             </form>
-                                        </div>
-
-                                    </div>
+                                        </div>              
+                                      </div>
                                 </div>
                             </div>
 
@@ -142,7 +141,7 @@
 
                     //define method search
                     const handleSearch = () => {
-                        Inertia.get('/sertifikat/filter', {
+                        Inertia.get('/certificates/filter', {
 
                             //send params "q" with value from state "search"
                             q: search.value,

@@ -226,8 +226,8 @@ Route::resource('/events', \App\Http\Controllers\Public\EventsController::class)
 Route::resource('/berita', \App\Http\Controllers\Public\PostsController::class);
 Route::get('/asdma-menulis', [\App\Http\Controllers\Public\PostsController::class, 'articles'])->name('artikel');
 Route::get('/asdma-menulis/{post:slug}', [\App\Http\Controllers\Public\PostsController::class, 'show'])->name('show.artikel');
-Route::get('/sertifikat/cari', [\App\Http\Controllers\Public\PublicController::class, 'certificateSearch'])->name('certificateSearch');
-Route::get('/sertifikat/filter', [\App\Http\Controllers\Public\PublicController::class, 'certificateFilter'])->name('certificateFilter');
+Route::get('/certificates/search', [\App\Http\Controllers\Public\PublicController::class, 'certificateSearch'])->name('certificateSearch');
+Route::get('/certificates/filter', [\App\Http\Controllers\Public\PublicController::class, 'certificateFilter'])->name('certificateFilter');
 Route::resource('/merchans', \App\Http\Controllers\Public\MerchansController::class);
 Route::get('/forget-password', [\App\Http\Controllers\Public\PublicController::class, 'forgetPassword'])->name('forget.password');
 Route::get('/forget-password/email', [\App\Http\Controllers\Public\PublicController::class, 'emailforgetPassword'])->name('forget.password.email');
