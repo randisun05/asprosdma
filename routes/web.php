@@ -224,8 +224,8 @@ Route::get('/faq', [\App\Http\Controllers\Public\PublicController::class, 'faq']
 Route::get('/events/{event:slug}', [\App\Http\Controllers\Public\EventsController::class, 'show'])->name('event.show');
 Route::resource('/events', \App\Http\Controllers\Public\EventsController::class);
 Route::resource('/berita', \App\Http\Controllers\Public\PostsController::class);
-Route::get('/asdma-menulis', [\App\Http\Controllers\Public\PostsController::class, 'articles'])->name('artikel');
-Route::get('/asdma-menulis/{post:slug}', [\App\Http\Controllers\Public\PostsController::class, 'show'])->name('show.artikel');
+Route::get('/sdma-menulis', [\App\Http\Controllers\Public\PostsController::class, 'articles'])->name('artikel');
+Route::get('/sdma-menulis/{post:slug}', [\App\Http\Controllers\Public\PostsController::class, 'show'])->name('show.artikel');
 Route::get('/certificates/search', [\App\Http\Controllers\Public\PublicController::class, 'certificateSearch'])->name('certificateSearch');
 Route::get('/certificates/filter', [\App\Http\Controllers\Public\PublicController::class, 'certificateFilter'])->name('certificateFilter');
 Route::resource('/merchans', \App\Http\Controllers\Public\MerchansController::class);
