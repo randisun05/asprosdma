@@ -7,9 +7,6 @@ use App\Models\Member;
 use App\Models\Certificate;
 use App\Models\DetailEvent;
 use Illuminate\Http\Request;
-use GuzzleHttp\Promise\Create;
-use App\Models\ProfileDataMain;
-use App\Models\ProfileDataPosition;
 use App\Models\TemplateCertificate;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
@@ -302,14 +299,17 @@ class EventController extends Controller
     {
         $event = Event::findOrFail($id);
         $members = Member::all();
-        $datas = Certificate::where('event_id',$id)
+        $datas = Certificate::where('event_id', $id)
              ->when(request()->q, function($query) {
-                 $query->where('title', 'like', '%' . request()->q . '%');
+             $query->where('nip', 'like', '%' . request()->q . '%')
+                   ->orWhere('name', 'like', '%' . request()->q . '%')
+                   ->orWhere('no_certificate', 'like', '%' . request()->q . '%');
              })
-             ->latest()
+             ->orderBy('no_certificate', 'desc')
              ->paginate(10);
 
         $datas->appends(['q' => request()->q]);
+
         return inertia('Admin/Events/CertificatesIndex', [
             'event' => $event,
             'members' => $members,

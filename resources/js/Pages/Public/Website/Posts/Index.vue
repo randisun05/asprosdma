@@ -58,7 +58,7 @@
                             </ul>
                             <p class="bottom35">{{ post.excerpt }}</p>
 
-                            <Link :href="post.category_id === 3 ? `/artikel/${post.slug}` : `/berita/${post.slug}`" title="join" class="button btnprimary">
+                            <Link :href="post.category_id === 3 ? `/sdma-menulis/${post.slug}` : `/berita/${post.slug}`" title="join" class="button btnprimary">
                                     View</Link>
 
                             <div>

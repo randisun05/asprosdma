@@ -28,7 +28,7 @@
       <div class="row">
          <div class="col-md-12 col-sm-12 text-center">
             <div class="heading-title bottom30">
-               <span><h2>ASDMA Menulis</h2></span>
+               <span><h2>SDMA Menulis</h2></span>
 
             </div>
          </div>
