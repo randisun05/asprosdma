@@ -32,13 +32,13 @@
                                                 <tr v-for="(jurnal, index) in jurnals.data" :key="index">
                                                     <td class="fw-bold text-center">{{ ++index + (jurnals.current_page - 1) * jurnals.per_page }}</td>
                                                     <td>{{ jurnal.title }}</td>
-                                                    <td>{{ jurnal.date }}</td>
+                                                    <td>{{ new Date(jurnal.date).toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: '2-digit' }) }}</td>
                                                     <td>
                                                         <a :href="`/storage/${jurnal.bukti}`" target="_blank">Lihat Bukti</a>
                                                     </td>
-                                                    <td>{{ jurnal.type === 'debit' ? jurnal.nominal : 0 }}</td>
-                                                    <td :class="{ 'text-danger': jurnal.type === 'kredit' }">{{ jurnal.type === 'kredit' ? jurnal.nominal : 0 }}</td>
-                                                    <td>{{ jurnal.saldo }}</td>
+                                                    <td>{{ jurnal.type === 'debit' ? formatCurrency(jurnal.nominal) : 0 }}</td>
+                                                    <td :class="{ 'text-danger': jurnal.type === 'kredit' }">{{ jurnal.type === 'kredit' ? formatCurrency(jurnal.nominal) : 0 }}</td>
+                                                    <td>{{ formatCurrency(jurnal.saldo) }}</td>
                                                            <td class="text-center" v-if="$page.props.auth.user.role === 'bendahara' || $page.props.auth.user.role === 'administrator'">
                                                         <button @click.prevent="openEditModal(jurnal)" class="btn btn-sm btn-primary border-0 me-2">
                                                             <i class="fa fa-pencil" title="edit"></i>
@@ -299,6 +299,13 @@
                         });
                     };
 
+                     const formatCurrency = (value) => {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+            }).format(value);
+        };
+
 
                     return {
                         form,
@@ -309,7 +316,7 @@
                         submit,
                         update,
                         destroy,
-
+                        formatCurrency,
                     };
                 }
             };

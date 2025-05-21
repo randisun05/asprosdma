@@ -51,7 +51,6 @@ class JurnalController extends Controller
      */
     public function store(Request $request)
     {
-
         // Check if the user is an administrator
         if (auth()->check() && auth()->user()->role === 'administrator' || auth()->user()->role === 'bendahara') {
                 // Validate request including file validation
@@ -68,10 +67,10 @@ class JurnalController extends Controller
         $nomor = $lastJurnal ? $lastJurnal->nomor + 1 : 1;
 
         if ($request->hasFile('bukti')) {
-            $bukti = $request->file('bukti')->storePublicly('/documents');
+            $bukti = $request->file('bukti')->storePublicly('/jurnal');
             } else {
             $bukti = null;
-            }
+        }
 
 
         Jurnal::create([
@@ -102,10 +101,40 @@ class JurnalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
+    public function show()
+{
+    // Ambil semua jurnal, urutkan berdasarkan tanggal
+    $jurnals = Jurnal::when(request()->q, function($query) {
+            $query->where('title', 'like', '%' . request()->q . '%');
+        })
+        ->orderBy('date', 'asc')
+        ->get();
+
+    $saldo_akhir = 0;
+
+    // Group berdasarkan bulan dan hitung total pemasukan, pengeluaran, saldo akhir
+    $grouped = $jurnals->groupBy(function($item) {
+        return \Carbon\Carbon::parse($item->date)->format('Y-m');
+    })->map(function($items, $month) use (&$saldo_akhir) {
+        $total_pemasukan = $items->where('type', 'debit')->sum('nominal');
+        $total_pengeluaran = $items->where('type', 'kredit')->sum('nominal');
+
+        // Hitung saldo akhir bulan ini
+        $saldo_akhir += $total_pemasukan - $total_pengeluaran;
+
+        return [
+            'month' => $month,
+            'total_pemasukan' => $total_pemasukan,
+            'total_pengeluaran' => $total_pengeluaran,
+            'saldo_akhir' => $saldo_akhir,
+            'items' => $items->values(),
+        ];
+    })->values();
+
+    return inertia('Admin/Jurnal/Show', [
+        'jurnals' => $grouped,
+    ]);
+}
 
     /**
      * Show the form for editing the specified resource.
@@ -159,6 +188,7 @@ class JurnalController extends Controller
             'keterangan' => $request->keterangan,
             'kategori' => 'pusat',
             'bukti' => $bukti,
+            'date' => $request->date,
             ]);
 
             // Recalculate saldo starting from the updated record

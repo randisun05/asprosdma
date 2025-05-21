@@ -65,7 +65,9 @@ class DashboardController extends Controller
             for ($year = $startYear; $year <= $currentYear; $year++) {
                 $endMonth = ($year == $currentYear) ? $currentMonth : 12;
 
-                for ($month = 4; $month <= $endMonth; $month++) { // Start from April (4)
+                // Mulai dari April 2024, bulan berikutnya mulai dari Januari
+                $startMonth = ($year == 2024) ? 4 : 1;
+                for ($month = $startMonth; $month <= $endMonth; $month++) {
                     $key = "{$year}-" . str_pad($month, 2, '0', STR_PAD_LEFT);
 
                     // Total per bulan

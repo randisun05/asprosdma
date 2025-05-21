@@ -1,0 +1,140 @@
+     <template>
+    <Head>
+        <title>Laporan Keuangan</title>
+    </Head>
+    <div class="px-5 shadow padding">
+        <div class="row mt-1">
+            <div class="col-md-12">
+                <div class="card border-0 shadow">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-centered table-nowrap mb-0 rounded">
+                                <thead class="thead-dark text-center">
+                                    <tr>
+                                        <th style="width:5%">No</th>
+                                        <th>Bulan</th>
+                                        <th>Jenis</th>
+                                        <th>Total</th>
+                                        <th style="width:12%">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <template v-for="(jurnal, index) in jurnals" :key="index">
+                                        <!-- Baris Pemasukan -->
+                                        <tr class="text-center">
+                                            <td>{{ index * 2 + 1 }}</td>
+                                            <td>{{ jurnal.month }}</td>
+                                            <td>Pemasukan</td>
+                                            <td class="text-success">{{ jurnal.total_pemasukan }}</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-secondary"
+                                                        @click="toggle(index, 'debit')">
+                                                    {{ isExpanded(index, 'debit') ? 'Tutup' : 'Detail' }}
+                                                </button>
+                                            </td>
+                                        </tr>
+
+                                        <tr v-if="isExpanded(index, 'debit')">
+                                            <td colspan="5">
+                                                <table class="table table-sm table-bordered mb-0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width:5%">#</th>
+                                                            <th>Keterangan</th>
+                                                            <th>Tanggal</th>
+                                                            <th>Nominal</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for="(item, i) in jurnal.items.filter(j => j.type === 'debit')" :key="i">
+                                                            <td>{{ i + 1 }}</td>
+                                                            <td>{{ item.title }}</td>
+                                                            <td>{{ item.date }}</td>
+                                                            <td>{{ item.nominal }}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Baris Pengeluaran -->
+                                        <tr class="text-center">
+                                            <td>{{ index * 2 + 2 }}</td>
+                                            <td>{{ jurnal.month }}</td>
+                                            <td>Pengeluaran</td>
+                                            <td class="text-danger">{{ jurnal.total_pengeluaran }}</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-secondary"
+                                                        @click="toggle(index, 'kredit')">
+                                                    {{ isExpanded(index, 'kredit') ? 'Tutup' : 'Detail' }}
+                                                </button>
+                                            </td>
+                                        </tr>
+
+                                        <tr v-if="isExpanded(index, 'kredit')">
+                                            <td colspan="5">
+                                                <table class="table table-sm table-bordered mb-0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width:5%">#</th>
+                                                            <th>Keterangan</th>
+                                                            <th>Tanggal</th>
+                                                            <th>Nominal</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for="(item, i) in jurnal.items.filter(j => j.type === 'kredit')" :key="i">
+                                                            <td>{{ i + 1 }}</td>
+                                                            <td>{{ item.title }}</td>
+                                                            <td>{{ item.date }}</td>
+                                                            <td>{{ item.nominal }}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+
+
+           <script>
+import LayoutAdmin from '../../../Layouts/Admin.vue';
+import { Head } from '@inertiajs/inertia-vue3';
+import { ref } from 'vue';
+
+export default {
+    layout: LayoutAdmin,
+    components: { Head },
+    props: {
+        errors: Object,
+        jurnals: Array,
+    },
+    setup() {
+        const expanded = ref({});
+
+        const toggle = (index, type) => {
+            const key = `${index}-${type}`;
+            expanded.value[key] = !expanded.value[key];
+        };
+
+        const isExpanded = (index, type) => {
+            return expanded.value[`${index}-${type}`] || false;
+        };
+
+        return {
+            expanded,
+            toggle,
+            isExpanded
+        };
+    }
+};
+</script>

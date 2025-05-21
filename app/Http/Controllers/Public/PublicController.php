@@ -396,9 +396,9 @@ class PublicController extends Controller
     for ($year = $startYear; $year <= $currentYear; $year++) {
         $endMonth = ($year == $currentYear) ? $currentMonth : 12;
 
-        for ($month = 4; $month <= $endMonth; $month++) { // Start from April (4)
-            $key = "{$year}-" . str_pad($month, 2, '0', STR_PAD_LEFT);
-
+        $startMonth = ($year == 2024) ? 4 : 1;
+                for ($month = $startMonth; $month <= $endMonth; $month++) {
+                    $key = "{$year}-" . str_pad($month, 2, '0', STR_PAD_LEFT);
             // Total per bulan
             $monthlyCount = ProfileDataPosition::whereYear('created_at', $year)
                 ->whereMonth('created_at', $month)
@@ -667,7 +667,7 @@ class PublicController extends Controller
             $query->where('nip', request()->q);
         })
         ->get();
-      
+
        return inertia('Public/Website/Posts/CertificateSearch', [
            'title' => 'Cari Sertifikat Kegiatan Aspro SDMA',
            'datas' => $datas,
