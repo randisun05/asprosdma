@@ -135,13 +135,24 @@
                     </Link>
                 </li>
 
-                <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/jurnals') }">
+                <li class="nav-item" v-if="$page.props.auth.user.role == 'administrator' || $page.props.auth.user.role == 'pendanaan' " :class="{ 'active': $page.url.startsWith('/admin/jurnals') }">
                     <Link href="/admin/jurnals" class="nav-link d-flex justify-content-between">
                     <span>
                         <span class="sidebar-icon">
                            <i class="fa fa-money fa-lg" aria-hidden="true"></i>
                         </span>
                         <span class="sidebar-text ms-3">Pencatatan Keuangan</span>
+                    </span>
+                    </Link>
+                </li>
+
+                <li class="nav-item" :class="{ 'active': $page.url.startsWith('/admin/jurnals') }">
+                    <Link href="/admin/jurnals/show" class="nav-link d-flex justify-content-between">
+                    <span>
+                        <span class="sidebar-icon">
+                           <i class="fa fa-money fa-lg" aria-hidden="true"></i>
+                        </span>
+                        <span class="sidebar-text ms-3">Catatan Keuangan</span>
                     </span>
                     </Link>
                 </li>
