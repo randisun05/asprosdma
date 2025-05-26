@@ -187,6 +187,7 @@ Route::prefix('user')->group(function() {
         Route::get('/member-card/qrcode', [\App\Http\Controllers\User\MemberCardController::class, 'generateQRCode'])->name('user.card.qr');
         Route::get('/certificates', [\App\Http\Controllers\User\EventController::class, 'certificatesIndex'])->name('user.certificates.index');
         Route::get('/certificates/{id}', [\App\Http\Controllers\User\EventController::class, 'certificateView'])->name('admin.events.certificates.view');
+         Route::get('/jurnals/show', [\App\Http\Controllers\User\JurnalController::class, 'show'])->name('user.jurnals.show');
 
     });
 });

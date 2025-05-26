@@ -3,19 +3,15 @@
     <section id="member-card" class="padding_m mt-4">
         <div class="ms-5">
             <div class="row">
-                <div class="col-12 col-sm-6 col-xl-6 me-4">
-                    <div class="card shadow top60">
+                <div class="col-12 d-flex flex-wrap">
+                    <div class="card shadow top60 flex-fill me-4 mb-4" style="min-width:340px; max-width: 48%;">
                         <div class="text-center">
                             <h4>Informasi Anggota</h4>
                             <h4>Aspro SDM Aparatur</h4>
                             <hr class="mt-0">
                         </div>
                         <div class="row mb-4">
-                            <!-- <div class="col-sm-4">
-                                <img v-if="profile.main.nomember" :src="getImageUrl(profile.main.image)" alt="" style="width: 100%; height: 200px;" class="ms-3" />
-                                <img v-else src="/assets/images/team-grey-1.jpg" alt="" />
-                            </div> -->
-                            <div class="col-sm-8">
+                            <div class="col-sm-12">
                                 <div class="row py-1 ms-2">
                                     <div class="col-sm-4">
                                         <h5>No.</h5>
@@ -58,7 +54,14 @@
                                 </div>
                             </div>
                         </div>
-
+                    </div>
+                    <div class="card shadow top60 flex-fill mb-4" style="min-width:340px; max-width: 48%;">
+                        <div class="text-center">
+                            <h4>Informasi Keuangan</h4>
+                            <h4>Aspro SDM Aparatur</h4>
+                            <hr class="mt-0">
+                        </div>
+                        <iframe src="/user/jurnals/show" style="width:100%;height:150px;border:none;"></iframe>
                     </div>
                 </div>
             </div>
