@@ -37,6 +37,7 @@ class EventParticipantsExport implements FromCollection, WithMapping, WithHeadin
             $datas->member->position,
             $datas->member->level,
             $datas->member->created_at,
+            $datas->status,
         ] ;
     }
 
@@ -49,6 +50,7 @@ class EventParticipantsExport implements FromCollection, WithMapping, WithHeadin
            'Jabatan',
            'Jenjang',
            'Tanggal',
+           'Status'
         ] ;
     }
 }
