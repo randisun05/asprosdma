@@ -172,7 +172,12 @@ class PublicController extends Controller
     public function strukturOrganisasi()
     {
         $data = Management::where('item', 'strukturorganisasi')->get();
-        return inertia('Public/Website/About/StrukturOrganisasi', [
+        // return inertia('Public/Website/About/StrukturOrganisasi', [
+        //     'title' => "Struktur Organisasi",
+        //     'data' => $data
+        // ]);
+
+         return inertia('Public/Website/Maintenance/Index', [
             'title' => "Struktur Organisasi",
             'data' => $data
         ]);

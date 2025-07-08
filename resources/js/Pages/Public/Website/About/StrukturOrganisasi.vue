@@ -729,7 +729,7 @@
                                                         <div class="team-content gradient_bg">
                                                             <h4>Dr. Achmad Slamet Hidayat, S.Pd, M.Si
                                                             </h4>
-                                                            <h5 class="mt-2">kepala Pusat Pembinaan Jabatan Fungsional Kepegawaian
+                                                            <h5 class="mt-2">Kepala Pusat Pembinaan Jabatan Fungsional Kepegawaian
                                                             </h5>
                                                             <p>Badan Kepegawaian Negara</p>
                                                         </div>
