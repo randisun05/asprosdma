@@ -289,7 +289,7 @@
                                                     <div class="team-content gradient_bg">
                                                         <h6>Prita Indrianingsih</h6>
                                                         <p>Anggota Bidang II</p>
-                                                        <p>Kementerian Hukum & HAM</p>
+                                                        <p>Kementerian Imigrasi dan Pemasyarakatan</p>
                                                     </div>
                                                 </div>
                                             </div>
