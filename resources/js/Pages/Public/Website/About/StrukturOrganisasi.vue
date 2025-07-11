@@ -729,8 +729,7 @@
                                                         <div class="team-content gradient_bg">
                                                             <h4>Sri Gantini, S.Sos., M.A.P.
                                                             </h4>
-                                                            <h5 class="mt-2">Kepala Pusat Pembinaan Jabatan Fungsional Kepegawaian
-                                                            </h5>
+                                                            <h5 class="mt-2">Direktur Jabatan Fungsional Manajemen ASN</h5>
                                                             <p>Badan Kepegawaian Negara</p>
                                                         </div>
                                                     </div>
