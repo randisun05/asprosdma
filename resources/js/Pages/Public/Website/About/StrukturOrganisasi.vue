@@ -724,10 +724,10 @@
                                                 <div class="col-lg-3 col-md-6">
                                                     <div class="team-box no-hover">
                                                         <div class="image">
-                                                            <img src="/assets/images/kapusbin.png" alt="">
+                                                            <img src="/assets/images/srigantini.png" alt="">
                                                         </div>
                                                         <div class="team-content gradient_bg">
-                                                            <h4>Dr. Achmad Slamet Hidayat, S.Pd, M.Si
+                                                            <h4>Sri Gantini, S.Sos., M.A.P.
                                                             </h4>
                                                             <h5 class="mt-2">Kepala Pusat Pembinaan Jabatan Fungsional Kepegawaian
                                                             </h5>
