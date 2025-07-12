@@ -39,7 +39,7 @@ class DocuDigiController extends Controller
         ->paginate(10);
         $docus->appends(['q' => request()->q]);
 
-        if (auth()->user()->role == ['administrator', 'sekretaris']) {
+        if (in_array(auth()->user()->role, ['administrator', 'sekretaris'])) {
             $docus = DocumentDigital::
             when(request()->q, function($query) {
                 $query->where('perihal', 'like', '%' . request()->q . '%');
