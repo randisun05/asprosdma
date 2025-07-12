@@ -198,7 +198,7 @@ class PublicController extends Controller
            $query->where('body', 'like', '%' . request()->q . '%');
        })
        ->where('item', 'peraturan')
-       ->where('sub', '1')
+       ->where('status', '1')
        ->latest()
        ->paginate(6);
 
