@@ -125,8 +125,15 @@ class EventController extends Controller
 
             if ($memberId) {
                 $detailEvent = DetailEvent::where('event_id', $event->id)->where('member_id', $memberId)->first();
-                $status = $detailEvent ? 1 : 0;
-                $hadir = $detailEvent->status == 'hadir' ? 1 : 0;
+                if ($detailEvent) {
+                    // Jika detailEvent ditemukan, periksa statusnya
+                    $status = 1; // Sudah terdaftar
+                    $hadir = $detailEvent->status == 'hadir' ? 1 : 0; // Hadir atau tidak
+                } else {
+                    // Jika detailEvent tidak ditemukan, berarti belum terdaftar
+                    $status = 0; // Belum terdaftar
+                    $hadir = 0; // Tidak hadir
+                }
 
             }
 
@@ -170,10 +177,11 @@ class EventController extends Controller
         if (auth()->guard('member')->check()) {
 
             $detailEvent = DetailEvent::where('event_id', $id)->where('member_id', auth()->guard('member')->user()->id)->first();
-            $detailEvent->update([
-                'status' => 'hadir',
-            ]);
-
+                if ($detailEvent) {
+                $detailEvent->update([
+                    'status' => 'hadir',
+                ]);
+            }
             return redirect()->route('user.events.index');
         } else {
             return redirect()->route('login');
