@@ -31,8 +31,8 @@
                                     <img v-if="post.image" :src="getImageUrl(post.image)" alt="Gambar" />
                                 </div>
                                 <div v-html="post.body" class="mt-4" style="text-align:justify;text-justify: "></div>
-                                <p class="mt-4" v-if="post.document">Dokumen dapat didownload <a
-                                        :href="getDocumentUrl(post.document)" download><u>disini.</u></a></p>
+                                 <p class="mt-4" v-if="post?.document && post?.docstatus == '1'">Dokumen dapat didownload <a
+                                    :href="getDocumentUrl(post.document)" download><u>disini.</u></a></p>
                             </div>
                         </div>
                     </div>

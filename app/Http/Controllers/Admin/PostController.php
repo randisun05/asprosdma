@@ -92,6 +92,7 @@ class PostController extends Controller
 
     // Generate initial slug from title
     $slug = strtolower(str_replace(' ', '-', $request->title));
+    $slug = preg_replace('/[^a-z0-9-]/', '', $slug);
     $originalSlug = $slug;
     $counter = 1;
 
@@ -194,10 +195,12 @@ class PostController extends Controller
       $request->validate([
         'title' => 'required|string',
         'body' => 'required|',
+        'docstatus' => 'required|'
 
     ]);
 
     $slug = strtolower(str_replace(' ', '-', $request->title));
+    $slug = preg_replace('/[^a-z0-9-]/', '', $slug);
     $body = $request->body;
 
     // Ambil 100 kata pertama dari body
@@ -240,6 +243,7 @@ class PostController extends Controller
             'publish_at' => $today,
             'member_id' => 1,
             'status' => 'submission',
+            'docstatus' => $request->docstatus,
         ]);
 
 

@@ -26,6 +26,8 @@ return new class extends Migration
             $table->string('tag')->nullable();
             $table->timestamp('publish_at')->nullable();
             $table->enum('status',['private','submission','approved','rejected','perlu ada perbaikan','limited', 'return']);
+            $table->enum('docstatus',['1','0'])->default('1');
+            $table->enum('imagestatus',['1','0'])->default('1');
             $table->timestamps();
         });
     }

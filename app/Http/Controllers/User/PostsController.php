@@ -71,6 +71,7 @@ class PostsController extends Controller
     ]);
 
     $slug = strtolower(str_replace(' ', '-', $request->title));
+     $slug = preg_replace('/[^a-z0-9-]/', '', $slug);
     $body = $request->body;
 
     // Ambil 100 kata pertama dari body
@@ -179,6 +180,7 @@ class PostsController extends Controller
     ]);
 
     $slug = strtolower(str_replace(' ', '-', $request->title));
+     $slug = preg_replace('/[^a-z0-9-]/', '', $slug);
     $body = $request->body;
 
     // Ambil 100 kata pertama dari body

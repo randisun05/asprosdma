@@ -20,7 +20,6 @@
                             </div>
                             <h3 class="text-center">Update Cerita/Artikel/Berita</h3>
                         <form @submit.prevent="submit">
-
                                 <div class="row py-4 ms-5">
                                             <div class="col-md-11">
                                                 <span class="text-black">
@@ -66,10 +65,29 @@
                                                 </div>
 
                                             </div>
+
+                                            <div class="col-md-3 mb-2">
+                                                <label class="form-check-label">
+                                                    <input
+                                                        type="checkbox"
+                                                        class="form-check-input"
+                                                        v-model="form.docstatus"
+                                                        :checked="post.docstatus === 1"
+                                                        true-value="1"
+                                                        false-value="0"
+                                                    />
+                                                    Tampilkan Dokumen
+                                                </label>
+
+
+                                                <div v-if="errors.body" class="alert alert-danger mt-2">
+                                                    {{ errors.body }}
+                                                </div>
+                                            </div>
                                             <div class="row">
                                                 <div class="col-md-5">
                                                     <span class="text-black">
-                                                    Gambar/Foto
+                                                    Ganti Gambar/Foto
                                                     </span>
                                                     <div class="form-group mt-1">
                                                         <input type="file" class="form-control" placeholder="Masukan Gambar/Foto" @change="updateImage" accept=".jpg, .jpeg, .png, .svg, .gif">
@@ -87,7 +105,7 @@
                                                 </div>
                                                 <div class="col-md-5">
                                                     <span class="text-black">
-                                                    Dokumen
+                                                    Ganti Dokumen
                                                     </span>
                                                     <div class="form-group mt-1">
                                                         <input type="file" class="form-control" placeholder="Masukan Dokumen" @change="updateDocument" accept=".pdf">
@@ -173,6 +191,7 @@
                 body: props.post.body,
                 picture: props.post.image,
                 document: props.post.document,
+                docstatus: props.post.docstatus,
             });
 
 
@@ -187,7 +206,7 @@
                     body: form.body,
                     picture: form.picture,
                     document: form.document,
-
+                    docstatus: form.docstatus,
                 } ,{
                     onSuccess: () => {
                         //show success alert

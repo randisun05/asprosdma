@@ -19,6 +19,8 @@ class Post extends Model
         'category_id',
         'image',
         'document',
+        'docstatus',
+        'imagestatus',
         'member_id',
         'status',
         'publish_at',
