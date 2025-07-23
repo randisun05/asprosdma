@@ -60,8 +60,8 @@
                                         <td class="text-center" >
                                             <!-- <Link :href="`/admin/docidigi/${docu.id}/edit`" class="btn btn-sm btn-warning border-0 shadow me-2" type="button" title="edit"><i class="fa fa-pencil"></i></Link> -->
                                             <a class="btn btn-sm btn-primary border-0 me-1" data-fancybox="" :href="getDocumentUrl(docu.document)"><i class="fa fa-eye"></i></a>
-                                            <button v-if="docu.status === 'submitted' && docu.ttdparaf != '' && $page.props.auth.user.role === 'administrator'" @click.prevent="paraf(docu.id)" class="btn btn-sm btn-warning border-0 me-1">Paraf</button>
-                                            <button v-if="docu.status === 'paraf'" @click.prevent="approve(docu.id) && $page.props.auth.user.role === 'administrator'" class="btn btn-sm btn-success border-0 me-1">Approve</button>
+                                            <button v-if="docu.status === 'submitted' && docu.ttdparaf != '' && $page.props.auth.user.role === 'administrator' && $page.props.auth.user.role === 'sekretaris'" @click.prevent="paraf(docu.id)" class="btn btn-sm btn-warning border-0 me-1">Paraf</button>
+                                            <button v-if="docu.status === 'paraf'" @click.prevent="approve(docu.id) && $page.props.auth.user.role === 'administrator'&& $page.props.auth.user.role === 'sekretaris'" class="btn btn-sm btn-success border-0 me-1">Approve</button>
                                             <button v-if="$page.props.auth.user.role === 'administrator'" @click.prevent="destroy(docu.id)" class="btn btn-sm btn-danger border-0 me-1"><i class="fa fa-trash" title="hapus"></i></button>
                                         </td>
                                     </tr>
