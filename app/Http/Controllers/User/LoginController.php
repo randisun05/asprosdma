@@ -32,7 +32,7 @@ class LoginController extends Controller
             $member = Member::where('nip', $request->nip)->first();
 
             if (!$member) {
-                return redirect()->back()->with('error', 'NIP belum terdaftar.');
+                return redirect()->back()->with('error', 'NIP belum terdaftar. Silakan lakukan pendaftaran keanggotaan.');
             } elseif (!password_verify($request->password, $member->password)) {
                 return redirect()->back()->with('error', 'NIP atau Password salah');
             }
