@@ -111,6 +111,20 @@
                                                     <input type="text" class="form-control" placeholder="Pilih Instansi"
                                                         v-model="form.agency" @click="toggleSearch" readonly>
                                                 </div>
+                                                <div v-if="showDropdown" class="dropdown-menu position-absolute w-100">
+                                                <input type="text" class="form-control mb-2" placeholder="Cari Instansi"
+                                                    v-model="searchInstansi">
+                                                <div class="dropdown-item-list" v-if="filteredInstansis.length > 0">
+                                                    <button v-for="(instansi, index) in filteredInstansis" :key="index"
+                                                        class="dropdown-item" @click="selectInstansi(instansi)">
+                                                        {{ instansi.title }}
+                                                    </button>
+                                                </div>
+                                                <template v-else>
+                                                    <div class="dropdown-item disabled">Instansi tidak ditemukan</div>
+                                                </template>
+
+                                            </div>
                                             </div>
                                         </div>
                                         <div v-if="errors.agency" class="rounded alert-danger mt-2">
@@ -302,49 +316,50 @@ import { Inertia } from "@inertiajs/inertia";
 export default {
 
     data() {
-        // return {
-        //     searchInstansi: '',
-        //     showDropdown: false,
-        // };
+        return {
+            searchInstansi: '',
+            showDropdown: false,
+        };
     },
 
     // computed property to filter instansis based on search input
-    // computed: {
-    //     filteredInstansis() {
-    //         return this.instansis.filter(instansi =>
-    //             instansi.title.toLowerCase().includes(this.searchInstansi.toLowerCase())
-    //         );
-    //     },
-    // },
+    computed: {
+        filteredInstansis() {
+            return this.instansis.filter(instansi =>
+                instansi.title.toLowerCase().includes(this.searchInstansi.toLowerCase())
+            );
+        },
+    },
 
 
     methods: {
         // // method to toggle dropdown visibility
-        // toggleSearch() {
-        //     this.showDropdown = !this.showDropdown;
-        //     if (this.showDropdown) {
-        //         // Menambahkan event listener ke elemen body
-        //         document.body.addEventListener('click', this.closeDropdownOutside);
-        //     } else {
-        //         // Menghapus event listener dari elemen body
-        //         document.body.removeEventListener('click', this.closeDropdownOutside);
-        //     }
-        // },
+        toggleSearch() {
+            this.showDropdown = !this.showDropdown;
+            if (this.showDropdown) {
+                // Menambahkan event listener ke elemen body
+                document.body.addEventListener('click', this.closeDropdownOutside);
+            } else {
+                // Menghapus event listener dari elemen body
+                document.body.removeEventListener('click', this.closeDropdownOutside);
+            }
+        },
 
         // // method to close dropdown when clicked outside
-        // closeDropdownOutside(event) {
-        //     if (!this.$refs.dropdownWrapper.contains(event.target)) {
-        //         this.showDropdown = false;
-        //         document.body.removeEventListener('click', this.closeDropdownOutside);
-        //     }
-        // },
+        closeDropdownOutside(event) {
+            if (!this.$refs.dropdownWrapper.contains(event.target)) {
+                this.showDropdown = false;
+                document.body.removeEventListener('click', this.closeDropdownOutside);
+            }
+        },
 
         // // method to select an instansi from dropdown
-        // selectInstansi(instansi) {
-        //     this.form.agency = instansi.title;
-        //     this.searchInstansi = ''; // reset search input after selection
-        //     this.showDropdown = false; // hide dropdown after selection
-        // },
+        selectInstansi(instansi) {
+            this.form.agency = instansi.title;
+            this.searchInstansi = ''; // reset search input after selection
+            this.showDropdown = false; // hide dropdown after selection
+        },
+
         openFileInput() {
             this.$refs.fileInput.click();
         },
@@ -417,6 +432,7 @@ export default {
                     contact: form.contact,
                     gender: form.gender,
                     religion: form.religion,
+                    agency: form.agency,
 
 
                 },
@@ -460,6 +476,7 @@ export default {
             submit,
             getImageUrl,
             updateImage,
+
 
         };
     },

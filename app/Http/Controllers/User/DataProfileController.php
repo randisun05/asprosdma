@@ -189,6 +189,7 @@ class DataProfileController extends Controller
      */
     public function update(Request $request)
     {
+
         if (!auth()->guard('member')->check())
         {
             return redirect()->route('login');
@@ -212,6 +213,7 @@ class DataProfileController extends Controller
                 // 'regency' => 'required',
                 // 'province' => 'required',
                 'religion' => 'required',
+                'agency' => 'required',
         ],[
             'nip.regex' => 'NIP harus terdiri dari 18 angka.',
             // 'nip.unique' => 'Data NIP sudah digunakan.',
@@ -261,14 +263,15 @@ class DataProfileController extends Controller
                 // 'regency' => $request->regency,
                 // 'province' => $request->province,
                 'religion' => $request->religion,
+
         ]);
 
-        // $position = ProfileDataPosition::where('main_id',$main->id)
-        // ->first();
+        $position = ProfileDataPosition::where('main_id',$main->id)
+        ->first();
 
-        // $position->update([
-        //         'agency' => $request->agency,
-        //      ]);
+        $position->update([
+                'agency' => $request->agency,
+             ]);
 
              return redirect()->route('user.profile')->with('success','data berhasil diupdate');
     }
