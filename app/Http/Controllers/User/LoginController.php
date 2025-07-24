@@ -31,7 +31,9 @@ class LoginController extends Controller
             // Cek nip dan password
             $member = Member::where('nip', $request->nip)->first();
 
-            if(!$member || !password_verify($request->password, $member->password)) {
+            if (!$member) {
+                return redirect()->back()->with('error', 'NIP belum terdaftar.');
+            } elseif (!password_verify($request->password, $member->password)) {
                 return redirect()->back()->with('error', 'NIP atau Password salah');
             }
 
