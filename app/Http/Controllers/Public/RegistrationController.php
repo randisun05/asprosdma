@@ -56,36 +56,77 @@ class RegistrationController extends Controller
      */
     public function store(Request $request)
     {
+        // Check if the user is already registered
+        $existingRegistration = Registration::where(function ($query) use ($request) {
+            $query->where('nip', $request->nip)
+            ->orWhere('email', $request->email)
+            ->orWhere('contact', $request->contact);
+        })->first();
 
-      // Validate request including file validation
-      $validatedData = $request->validate([
-        'nip' => ['required', 'string', 'regex:/^\d{18}$/', 'unique:registrations,nip'],
-        'name' => 'required|string',
-        'email' => 'required|email|unique:registrations,email',
-        'contact' => 'required|string|unique:registrations,contact',
-        'agency' => 'required|string',
-        'position' => 'required|string',
-        'level' => 'required|string',
-        'document_jab' => 'required|file|mimes:pdf|max:2048', // Ensure 'document_jab' is a valid file
+        if ($existingRegistration) {
+            if ($existingRegistration->status !== 'rejected') {
+            return redirect()->back()->withErrors([
+                'nip' => 'Anda sudah terdaftar dengan NIP, email, atau kontak ini.'
+            ]);
+            }
+            // Jika status 'rejected', validasi tanpa unique NIP
+            $existingRegistration->update([
+                'nip' => $existingRegistration->nip . '-1',
 
+            ]);
 
-    ],
-    [
-        'nip.regex' => 'NIP harus terdiri dari 18 angka.',
-        'nip.unique' => 'Data NIP sudah digunakan.',
-        'email.unique' => 'Data email sudah digunakan.',
-        'contact.unique' => 'Data kontak sudah digunakan.',
-        'nip.required' => 'NIP harus diisi.',
-        'name.required' => 'Nama harus diisi.',
-        'email.required' => 'Email harus diisi.',
-        'contact.required' => 'Kontak harus diisi.',
-        'agency.required' => 'Instansi harus diisi.',
-        'position.required' => 'Jabatan harus diisi.',
-        'level.required' => 'Jenjang harus diisi.',
-        'document_jab.required' => 'SK jabatan harus diisi.',
-        'document_jab.max' => 'Ukuran Dokumen tidak boleh lebih dari 2MB.',
-
-    ]);
+            $validatedData = $request->validate([
+            'nip' => ['required', 'string', 'regex:/^\d{18}$/'],
+            'name' => 'required|string',
+            'email' => 'required|email|unique:registrations,email',
+            'contact' => 'required|string|unique:registrations,contact',
+            'agency' => 'required|string',
+            'position' => 'required|string',
+            'level' => 'required|string',
+            'document_jab' => 'required|file|mimes:pdf|max:2048',
+            ],
+            [
+            'nip.regex' => 'NIP harus terdiri dari 18 angka.',
+            'email.unique' => 'Data email sudah digunakan.',
+            'contact.unique' => 'Data kontak sudah digunakan.',
+            'nip.required' => 'NIP harus diisi.',
+            'name.required' => 'Nama harus diisi.',
+            'email.required' => 'Email harus diisi.',
+            'contact.required' => 'Kontak harus diisi.',
+            'agency.required' => 'Instansi harus diisi.',
+            'position.required' => 'Jabatan harus diisi.',
+            'level.required' => 'Jenjang harus diisi.',
+            'document_jab.required' => 'SK jabatan harus diisi.',
+            'document_jab.max' => 'Ukuran Dokumen tidak boleh lebih dari 2MB.',
+            ]);
+        } else {
+            // Jika tidak ada registration, validasi dengan unique NIP
+            $validatedData = $request->validate([
+            'nip' => ['required', 'string', 'regex:/^\d{18}$/', 'unique:registrations,nip'],
+            'name' => 'required|string',
+            'email' => 'required|email|unique:registrations,email',
+            'contact' => 'required|string|unique:registrations,contact',
+            'agency' => 'required|string',
+            'position' => 'required|string',
+            'level' => 'required|string',
+            'document_jab' => 'required|file|mimes:pdf|max:2048',
+            ],
+            [
+            'nip.regex' => 'NIP harus terdiri dari 18 angka.',
+            'nip.unique' => 'Data NIP sudah digunakan.',
+            'email.unique' => 'Data email sudah digunakan.',
+            'contact.unique' => 'Data kontak sudah digunakan.',
+            'nip.required' => 'NIP harus diisi.',
+            'name.required' => 'Nama harus diisi.',
+            'email.required' => 'Email harus diisi.',
+            'contact.required' => 'Kontak harus diisi.',
+            'agency.required' => 'Instansi harus diisi.',
+            'position.required' => 'Jabatan harus diisi.',
+            'level.required' => 'Jenjang harus diisi.',
+            'document_jab.required' => 'SK jabatan harus diisi.',
+            'document_jab.max' => 'Ukuran Dokumen tidak boleh lebih dari 2MB.',
+            ]);
+        }
 
     $request->validate([
         'code' => 'required|string',
