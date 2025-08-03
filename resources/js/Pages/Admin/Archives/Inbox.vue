@@ -71,7 +71,7 @@
                                                 <td class="text-center">
                                                     <Link :href="`/admin/archives/inbox/${archive.id}/show`"
                                                         class="btn btn-sm btn-primary border-0 shadow me-2" type="button"
-                                                        title="edit"><i class="fa fa-pencil"></i></Link>
+                                                        title="action"><i class="fa fa-pencil"></i></Link>
 
                                                 </td>
                                             </tr>

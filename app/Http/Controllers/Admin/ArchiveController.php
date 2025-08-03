@@ -292,7 +292,7 @@ class ArchiveController extends Controller
 
     public function editArchive($id)
     {
-        
+
         $instansis = instansi::get();
         $archive = Archive::where('id', $id)->first();
         return inertia('Admin/Archives/EditArchive', [
@@ -300,7 +300,7 @@ class ArchiveController extends Controller
             'instansis' => $instansis,
         ]);
     }
-    
+
 
     /**
      * Update the specified resource in storage.
@@ -311,7 +311,7 @@ class ArchiveController extends Controller
      */
     public function update(Request $request, $id)
     {
-       
+
             // Validate request including file validation
       $validatedData = $request->validate([
         'nip' => ['required', 'string', 'regex:/^\d{18}$/'],

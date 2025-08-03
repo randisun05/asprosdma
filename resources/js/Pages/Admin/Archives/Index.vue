@@ -68,7 +68,7 @@
 
                                                         <Link :href="`/admin/archives/${archive.id}`"
                                                         class="btn btn-sm btn-success border-0 shadow me-2" type="button"
-                                                        title="edit"><i class="fa fa-envelope"></i></Link>
+                                                        title="disposisi"><i class="fa fa-envelope"></i></Link>
                                                 </td>
                                             </tr>
                                         </tbody>
