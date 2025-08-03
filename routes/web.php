@@ -113,6 +113,15 @@ Route::prefix('admin')->group(function() {
         Route::get('/member-card/download/{id}', [\App\Http\Controllers\Admin\DataMembersController::class, 'downloadMemberCard'])->name('admin.card.download');
 
         //arsip
+
+
+        Route::get('/archives/inbox', [\App\Http\Controllers\Admin\ArchiveController::class, 'inbox'])->name('admin.archives.inbox');
+        Route::get('/archives/inbox/{id}/show', [\App\Http\Controllers\Admin\ArchiveController::class, 'showInbox'])->name('admin.archives.inbox.show');
+        Route::get('/archives/inbox/{id}/update', [\App\Http\Controllers\Admin\ArchiveController::class, 'updateInbox'])->name('admin.archives.inbox.update');
+        Route::post('/archives/disposition/inbox/{id}', [\App\Http\Controllers\Admin\ArchiveController::class, 'dispoInbox'])->name('admin.archives.inbox.disposition');
+        Route::post('/archives/disposition/{id}', [\App\Http\Controllers\Admin\ArchiveController::class, 'dispo'])->name('admin.archives.disposition');
+        Route::get('/archives/{id}/editarsip', [\App\Http\Controllers\Admin\ArchiveController::class, 'editArchive'])->name('admin.archives.editArchive');
+
         // For the index page (list all archives)
         Route::get('/archives', [\App\Http\Controllers\Admin\ArchiveController::class, 'index'])->name('admin.archives.index');
         // For showing the form to create a new archive
@@ -129,13 +138,6 @@ Route::prefix('admin')->group(function() {
         // Route::patch('/archives/{archive}', [\App\Http\Controllers\Admin\ArchiveController::class, 'update'])->name('admin.archives.update');
         // For deleting an archive
         Route::delete('/archives/{archive}', [\App\Http\Controllers\Admin\ArchiveController::class, 'destroy'])->name('admin.archives.destroy');
-        Route::get('/archives/inbox', [\App\Http\Controllers\Admin\ArchiveController::class, 'inbox'])->name('admin.archives.inbox');
-        Route::get('/archives/inbox/{id}/show', [\App\Http\Controllers\Admin\ArchiveController::class, 'showInbox'])->name('admin.archives.inbox.show');
-        Route::get('/archives/inbox/{id}/update', [\App\Http\Controllers\Admin\ArchiveController::class, 'updateInbox'])->name('admin.archives.inbox.update');
-        Route::post('/archives/disposition/inbox/{id}', [\App\Http\Controllers\Admin\ArchiveController::class, 'dispoInbox'])->name('admin.archives.inbox.disposition');
-        Route::post('/archives/disposition/{id}', [\App\Http\Controllers\Admin\ArchiveController::class, 'dispo'])->name('admin.archives.disposition');
-        Route::get('/archives/{id}/editarsip', [\App\Http\Controllers\Admin\ArchiveController::class, 'editArchive'])->name('admin.archives.editArchive');
-
         // Route::resource('/archives', \App\Http\Controllers\Admin\ArchiveController::class, ['as' => 'admin']);
 
         //jurnal
