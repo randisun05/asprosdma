@@ -25,18 +25,24 @@ class ArchiveController extends Controller
         $query->where('title', 'like', '%' . request()->q . '%')
               ->orWhere('agency', 'like', '%' . request()->q . '%')
               ->orWhere('name', 'like', '%' . request()->q . '%');
-    })
-    ->when(auth()->user()->role !== 'administrator', function($query) {
-        $query->where('user_id', auth()->id());
-    })
-    ->select('archives.*',
-        DB::raw("(SELECT GROUP_CONCAT(name SEPARATOR ', ')
-                  FROM users
-                  WHERE FIND_IN_SET(id, archives.dispositions)) as user_names")
-    )
-    ->latest()
-    ->paginate(10);
-
+    });
+        // Simpan kondisi role dalam variabel agar lebih mudah dibaca
+        $isNotAdminOrSekretariat = auth()->user()->role !== 'administrator' && auth()->user()->role !== 'sekretariat';
+        // Terapkan filter user_id hanya jika bukan administrator atau sekretariat
+        if ($isNotAdminOrSekretariat) {
+            $archives->where('user_id', auth()->id());
+        }
+        $archives = $archives->select('archives.*',
+                DB::raw("(SELECT GROUP_CONCAT(name SEPARATOR ', ')
+                            FROM users
+                            WHERE FIND_IN_SET(id, archives.dispositions)) as user_names")
+            )
+            ->latest()
+            ->paginate(10);
+        // Tambahkan pengecekan ini jika Anda ingin $archives menjadi null saat kosong
+        if ($isNotAdminOrSekretariat && $archives->isEmpty()) {
+            $archives = null;
+        }
    $archives->appends(['q' => request()->q]);
 
         return inertia('Admin/Archives/Index', [

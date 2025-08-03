@@ -15,6 +15,11 @@ class LogoutResponse implements LogoutResponseContract
      */
     public function toResponse($request)
     {
-        return redirect('/user/login/');
+        if ($request->role == 'admin') { // Assuming you want to check for 'admin' role or adjust as needed
+            return redirect('/login');
+        } else {
+            return redirect('/user/login');
+        }
+
     }
 }
