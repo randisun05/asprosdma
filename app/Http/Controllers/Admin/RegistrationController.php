@@ -212,7 +212,6 @@ class RegistrationController extends Controller
     ], [
         'nip.regex' => 'NIP harus terdiri dari 18 angka.',
     ]);
-
             // Store the file using Laravel's file storage system
             $document_jab = $request->file('document_jab');
             $paid = $request->file('paid');
@@ -286,14 +285,9 @@ class RegistrationController extends Controller
 
     public function approve($id, Request $request)
     {
-
         $register = Registration::findOrFail($id);
 
-
          $password = Hash::make($register->nip);
-
-
-
 
         if ($register->position === "Analis SDM Aparatur") {
             $number = Registration::where('status', 'approved')
@@ -306,7 +300,6 @@ class RegistrationController extends Controller
                 ->count() + 1; // Tambahkan 1 karena ini adalah pendaftaran baru
             $code = str_pad($number, 5, '0', STR_PAD_LEFT) . "/02/ASPROSDMA";
         }
-
 
         Member::create([
             'nip'            => $register->nip,
@@ -372,7 +365,7 @@ class RegistrationController extends Controller
         ->whereNotIn('status', ['approved', 'rejected'])
         ->get();
 
-             foreach ($registrations as $register) {
+            foreach ($registrations as $register) {
             $password = Hash::make($register->nip);
             $register->update(['status' => 'approved']);
             // Anda bisa menambahkan logika lain seperti mengirim email konfirmasi di sini
@@ -382,11 +375,17 @@ class RegistrationController extends Controller
                     ->where('position', 'Analis SDM Aparatur')
                     ->count() + 1; // Tambahkan 1 karena ini adalah pendaftaran baru
                 $code = str_pad($number, 5, '0', STR_PAD_LEFT) . "/01/ASPROSDMA";
-            } else {
+            } elseif ($register->position === "Pranata SDM Aparatur")   {
                 $number = Registration::where('status', 'approved')
                     ->where('position', 'Pranata SDM Aparatur')
                     ->count() + 1; // Tambahkan 1 karena ini adalah pendaftaran baru
                 $code = str_pad($number, 5, '0', STR_PAD_LEFT) . "/02/ASPROSDMA";
+            } else {
+                $number = Registration::where('status', 'approved')
+                    // Menggunakan whereNotIn untuk mengecualikan posisi yang sudah ditangani
+                    ->whereNotIn('position', ['Analis SDM Aparatur', 'Pranata SDM Aparatur'])
+                    ->count() + 1; // Tambahkan 1 karena ini adalah pendaftaran baru
+                $code = str_pad($number, 5, '0', STR_PAD_LEFT) . "/LB/ASPROSDMA";
             }
 
             Member::create([
@@ -399,7 +398,8 @@ class RegistrationController extends Controller
             ]);
 
             $today = Carbon::now()->format('Y-m-d H:i:s');
-              //create data profile
+
+            //create data profile
             ProfileDataMain::create([
                 'nip'             => $register->nip,
                 'name'            => $register->name,
@@ -610,5 +610,126 @@ class RegistrationController extends Controller
     }
 
 
+   public function AnggotaLB(Request $request)
+    {
+        // Data anggota yang akan diinput secara statis
+        // Ini adalah array dari objek data yang Anda berikan sebelumnya
+        $membersData = [
+            [
+                'nip'          => '196908241999031001',
+                'name'         => 'Prof. Dr. Zudan Arif Fakrulloh, SH., M.H',
+                'email'        => 'nisaaa912@gmail.com',
+                'agency'       => 'Badan Kepegawaian Negara',
+                'position'     => 'Kepala Badan Kepegawaian Negara',
+                'level'        => '-',
+                'contact'      => '-',
+                'document_jab' => null, // Set null karena tidak ada file yang diupload secara nyata
+                'paid'         => null, // Set null karena tidak ada file yang diupload secara nyata
+            ],
+            [
+                'nip'          => '196509141992031001',
+                'name'         => 'Drs. Haryomo Dwi Putranto, M. Hum.',
+                'email'        => 'nisaaa912@gmail.com',
+                'agency'       => 'Badan Kepegawaian Negara',
+                'position'     => 'Wakil Kepala Badan Kepegawaian Negara',
+                'level'        => '-',
+                'contact'      => '-',
+                'document_jab' => null,
+                'paid'         => null,
+            ],
+            [
+                'nip'          => '196605091986032001',
+                'name'         => 'Hj. Imas Sukmariah, S.Sos, MAP',
+                'email'        => 'nisaaa912@gmail.com',
+                'agency'       => 'Badan Kepegawaian Negara',
+                'position'     => 'Sekretaris Utama Badan Kepegawaian Negara',
+                'level'        => '-',
+                'contact'      => '-',
+                'document_jab' => null,
+                'paid'         => null,
+            ],
+            [
+                'nip'          => '196903161999121001',
+                'name'         => 'Dr. Herman., M.Si',
+                'email'        => 'nisaaa912@gmail.com',
+                'agency'       => 'Badan Kepegawaian Negara',
+                'position'     => 'Deputi Bidang Pembinaan Penyelenggaraan Manajemen Aparatur Sipil Negara',
+                'level'        => '-',
+                'contact'      => '-',
+                'document_jab' => null,
+                'paid'         => null,
+            ],
+            [
+                'nip'          => '196509111991031001',
+                'name'         => 'Drs. Aris Windiyanto, M.Si',
+                'email'        => 'nisaaa912@gmail.com',
+                'agency'       => 'Badan Kepegawaian Negara',
+                'position'     => 'Deputi Bidang Penyelenggaraan Layanan Manajemen Aparatur Sipil Negara',
+                'level'        => '-',
+                'contact'      => '-',
+                'document_jab' => null,
+                'paid'         => null,
+            ],
+            [
+                'nip'          => '196702271990031002',
+                'name'         => 'Suharmen, S.KOM, Msi',
+                'email'        => 'nisaaa912@gmail.com',
+                'agency'       => 'Badan Kepegawaian Negara',
+                'position'     => 'Deputi Bidang Sistem Informasi dan Digitalisasi Manajemen Aparatur Sipil Negara',
+                'level'        => '-',
+                'contact'      => '-',
+                'document_jab' => null,
+                'paid'         => null,
+            ],
+        ];
+
+        $successCount = 0;
+        $errorMessages = [];
+
+        // Loop melalui setiap set data anggota dan simpan ke database
+        foreach ($membersData as $memberData) {
+            try {
+                // Siapkan data untuk disimpan ke model Registration
+                // Karena ini bypass, kita asumsikan 'document_jab' dan 'paid' tidak diupload
+                // secara real-time, jadi kita gunakan nilai null atau path statis jika ada.
+                $dataToCreate = [
+                    'nip'          => $memberData['nip'],
+                    'name'         => $memberData['name'],
+                    'email'        => $memberData['email'],
+                    'agency'       => $memberData['agency'],
+                    'position'     => $memberData['position'],
+                    'level'        => $memberData['level'],
+                    'contact'      => $memberData['contact'],
+                    'document_jab' => $memberData['document_jab'], // Akan null sesuai definisi di atas
+                    'paid'         => $memberData['paid'],         // Akan null sesuai definisi di atas
+                ];
+
+                // Atur status menjadi 'paid' jika Anda ingin semua data ini dianggap sudah dibayar
+                // Atau Anda bisa menambahkan kondisi di data anggota jika ada yang 'paid' atau tidak
+                // Contoh: $dataToCreate['status'] = 'paid'; // Jika semua dianggap paid
+                // Atau: $dataToCreate['status'] = ($memberData['paid'] !== null) ? 'paid' : 'pending'; // Jika ingin berdasarkan kolom paid
+                $dataToCreate['status'] = 'paid'; // Contoh: semua data ini dianggap berstatus 'paid'
+
+                // Buat record baru di tabel 'registrations'
+                Registration::create($dataToCreate);
+                $successCount++;
+
+            } catch (\Exception $e) {
+                // Tangani error jika terjadi masalah saat menyimpan salah satu record
+                // Ini adalah bagian penting untuk debugging!
+                Log::error('Gagal menyimpan pendaftaran Anggota LB untuk ' . $memberData['name'] . ': ' . $e->getMessage());
+                $errorMessages[] = 'Gagal menyimpan data untuk ' . $memberData['name'] . ': ' . $e->getMessage();
+            }
+        }
+
+        // Redirect setelah semua data diproses
+        if ($successCount > 0 && empty($errorMessages)) {
+            return redirect()->route('admin.registration.index')->with('success', $successCount . ' Anggota Luar Biasa berhasil ditambahkan!');
+        } elseif ($successCount > 0 && !empty($errorMessages)) {
+            return redirect()->route('admin.registration.index')->with('warning', $successCount . ' Anggota berhasil ditambahkan, namun ada beberapa yang gagal: ' . implode(', ', $errorMessages));
+        } else {
+            return redirect()->back()->withInput()->withErrors(['error' => 'Tidak ada Anggota Luar Biasa yang berhasil ditambahkan. ' . implode(', ', $errorMessages)]);
+        }
+    }
 
 }

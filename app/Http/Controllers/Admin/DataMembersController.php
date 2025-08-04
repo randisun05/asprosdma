@@ -160,39 +160,39 @@ class DataMembersController extends Controller
         //update data main
         $main->update([
                 'nip' => $request->nip,
-                // 'name' => $request->name,
-                // 'fname' => $request->fname,
-                // 'lname' => $request->lname,
-                // 'leveledu' => $request->leveledu,
-                // 'lastedu' => $request->lastedu,
-                // 'place' => $request->place,
-                // 'dob' => $request->dob,
-                // 'docid' => $request->docid,
-                // 'nodocid' => $request->nodocid,
-                // 'email' => $request->email,
-                // 'contact' => $request->contact,
-                // 'gender' => $request->gender,
-                // 'religion' => $request->religion,
+                'name' => $request->name,
+                'fname' => $request->fname,
+                'lname' => $request->lname,
+                'leveledu' => $request->leveledu,
+                'lastedu' => $request->lastedu,
+                'place' => $request->place,
+                'dob' => $request->dob,
+                'docid' => $request->docid,
+                'nodocid' => $request->nodocid,
+                'email' => $request->email,
+                'contact' => $request->contact,
+                'gender' => $request->gender,
+                'religion' => $request->religion,
         ]);
 
-        // $position = ProfileDataPosition::where('main_id',$main->id)
-        // ->first();
+        $position = ProfileDataPosition::where('main_id',$main->id)
+        ->first();
 
-        // $position->update([
-        //     'agency' => $request->agency,
-        //     'type' => $request->type,
-        //     'status' => $request->status,
-        //     'unit' => $request->unit,
-        //     'subunit' => $request->subunit,
-        //     'position' => $request->position,
-        //     'level' => $request->level,
-        //     'location' => $request->location,
-        //     'tmtpos' => $request->tmtpos,
-        //     'golru' => $request->golru,
-        //     'tmtgolru' => $request->tmtgolru,
-        //     'wyear' => $request->wyear,
-        //     'wmonth' => $request->wmonth,
-        //  ]);
+        $position->update([
+            'agency' => $request->agency,
+            'type' => $request->type,
+            'status' => $request->status,
+            'unit' => $request->unit,
+            'subunit' => $request->subunit,
+            'position' => $request->position,
+            'level' => $request->level,
+            'location' => $request->location,
+            'tmtpos' => $request->tmtpos,
+            'golru' => $request->golru,
+            'tmtgolru' => $request->tmtgolru,
+            'wyear' => $request->wyear,
+            'wmonth' => $request->wmonth,
+         ]);
          return redirect()->route('admin.members.index')->with('success','data berhasil diupdate');
         } else {
             return redirect()->route('admin.dashboard')->with('error','anda tidak memiliki akses ke halaman tersebut');

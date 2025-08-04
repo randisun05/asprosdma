@@ -40,6 +40,7 @@ Route::prefix('admin')->group(function() {
     //middleware "auth"
     Route::group(['middleware' => ['auth']], function () {
         //route dashboard
+
         Route::get('/dashboard', App\Http\Controllers\Admin\DashboardController::class)->name('admin.dashboard');
         Route::resource('/management', App\Http\Controllers\Admin\ManagementController::class, ['as' => 'admin']);
         Route::resource('/docudigi', App\Http\Controllers\Admin\DocuDigiController::class, ['as' => 'admin']);
