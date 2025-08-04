@@ -289,17 +289,23 @@ class RegistrationController extends Controller
 
          $password = Hash::make($register->nip);
 
-        if ($register->position === "Analis SDM Aparatur") {
-            $number = Registration::where('status', 'approved')
-                ->where('position', 'Analis SDM Aparatur')
-                ->count() + 1; // Tambahkan 1 karena ini adalah pendaftaran baru
-            $code = str_pad($number, 5, '0', STR_PAD_LEFT) . "/01/ASPROSDMA";
-        } else {
-            $number = Registration::where('status', 'approved')
-                ->where('position', 'Pranata SDM Aparatur')
-                ->count() + 1; // Tambahkan 1 karena ini adalah pendaftaran baru
-            $code = str_pad($number, 5, '0', STR_PAD_LEFT) . "/02/ASPROSDMA";
-        }
+           if ($register->position === "Analis SDM Aparatur") {
+                $number = Registration::where('status', 'approved')
+                    ->where('position', 'Analis SDM Aparatur')
+                    ->count() + 1; // Tambahkan 1 karena ini adalah pendaftaran baru
+                $code = str_pad($number, 5, '0', STR_PAD_LEFT) . "/01/ASPROSDMA";
+            } elseif ($register->position === "Pranata SDM Aparatur")   {
+                $number = Registration::where('status', 'approved')
+                    ->where('position', 'Pranata SDM Aparatur')
+                    ->count() + 1; // Tambahkan 1 karena ini adalah pendaftaran baru
+                $code = str_pad($number, 5, '0', STR_PAD_LEFT) . "/02/ASPROSDMA";
+            } else {
+                $number = Registration::where('status', 'approved')
+                    // Menggunakan whereNotIn untuk mengecualikan posisi yang sudah ditangani
+                    ->whereNotIn('position', ['Analis SDM Aparatur', 'Pranata SDM Aparatur'])
+                    ->count() + 1; // Tambahkan 1 karena ini adalah pendaftaran baru
+                $code = str_pad($number, 5, '0', STR_PAD_LEFT) . "/LB/ASPROSDMA";
+            }
 
         Member::create([
             'nip'            => $register->nip,
