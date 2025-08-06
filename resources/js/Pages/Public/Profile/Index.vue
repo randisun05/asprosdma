@@ -57,7 +57,7 @@
                                                                 <tr v-for="(data, index) in achievments" :key="index">
                                                                     <td style="width: 5%;">{{ index + 1 }}.</td>
                                                                     <td><i :class="data.icon" style="color: gold;"></i></td>
-                                                                    <td>{{ data.title }} {{ data.document }}
+                                                                    <td>{{ data.title }}
                                                                         <span v-if="data.document">
                                                                             <a :href="`/storage/${data.document}`"
                                                                                 target="_blank" class="badge bg-success">
