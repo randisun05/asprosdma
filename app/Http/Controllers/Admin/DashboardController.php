@@ -39,16 +39,22 @@ class DashboardController extends Controller
         ];
 
             $dataCountsByPosition = ProfileDataPosition::groupBy('position',)
+            ->whereIn('position', [
+                'Analis SDM Aparatur','Pranata SDM Aparatur',
+            ])
             ->select('position', DB::raw('count(*) as total'))
             ->get()
             ->pluck('total', 'position');
 
             $dataCountsByLevel = ProfileDataPosition::groupBy('level')
-                ->select('level', DB::raw('count(*) as total'))
-                ->get()
-                ->pluck('total', 'level')
-                ->sortBy(function ($value, $key) {
-                    $order = [
+            ->whereIn('level', [
+                'Terampil','Mahir','Penyelia','Ahli Pertama','Ahli Muda','Ahli Madya','Ahli Utama'
+            ])
+            ->select('level', DB::raw('count(*) as total'))
+            ->get()
+            ->pluck('total', 'level')
+            ->sortBy(function ($value, $key) {
+                $order = [
                         'Terampil','Mahir','Penyelia','Ahli Pertama','Ahli Muda','Ahli Madya','Ahli Utama'
                     ];
                     return array_search($key, $order);

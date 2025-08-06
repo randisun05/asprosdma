@@ -385,7 +385,7 @@ class RegistrationController extends Controller
                 $number = Registration::where('status', 'approved')
                     ->where('position', 'Pranata SDM Aparatur')
                     ->count() + 1; // Tambahkan 1 karena ini adalah pendaftaran baru
-                $code = str_pad($number, 5, '0', STR_PAD_LEFT) . "/02/ASPROSDMA";
+                $code = str_pad($number, 4, '0', STR_PAD_LEFT) . "/02/ASPROSDMA";
             } else {
                 $number = Registration::where('status', 'approved')
                     // Menggunakan whereNotIn untuk mengecualikan posisi yang sudah ditangani
