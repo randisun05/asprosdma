@@ -315,18 +315,23 @@ class PublicController extends Controller
     public function dataAnggota()
     {
 
-        $dataCountsByPosition = ProfileDataPosition::groupBy('position')
+         $dataCountsByPosition = ProfileDataPosition::whereIn('position', ['Analis SDM Aparatur', 'Pranata SDM Aparatur'])
+        ->groupBy('position')
         ->select('position', DB::raw('count(*) as total'))
         ->get()
         ->pluck('total', 'position');
 
-        $dataCountsByLevel = ProfileDataPosition::groupBy('level')
-        ->whereIn('level', [
-                'Terampil','Mahir','Penyelia','Ahli Pertama','Ahli Muda','Ahli Madya','Ahli Utama'
-            ])
+    $dataCountsByLevel = ProfileDataPosition::whereIn('level', [
+            'Terampil', 'Mahir', 'Penyelia', 'Ahli Pertama', 'Ahli Muda', 'Ahli Madya', 'Ahli Utama'
+        ])
+        ->groupBy('level')
         ->select('level', DB::raw('count(*) as total'))
         ->get()
-        ->pluck('total', 'level');
+        ->pluck('total', 'level')
+        ->sortBy(function ($value, $key) {
+            $order = ['Terampil','Mahir','Penyelia','Ahli Pertama','Ahli Muda','Ahli Madya','Ahli Utama'];
+            return array_search($key, $order);
+        });
 
         $countsPerMonth = [];
         $accumulatedCounts = [];
@@ -377,15 +382,16 @@ class PublicController extends Controller
 
     public function dataAnggotaChart()
 {
-    $dataCountsByPosition = ProfileDataPosition::groupBy('position')
+    $dataCountsByPosition = ProfileDataPosition::whereIn('position', ['Analis SDM Aparatur', 'Pranata SDM Aparatur'])
+        ->groupBy('position')
         ->select('position', DB::raw('count(*) as total'))
         ->get()
         ->pluck('total', 'position');
 
-    $dataCountsByLevel = ProfileDataPosition::groupBy('level')
-        ->whereIn('level', [
-                    'Terampil','Mahir','Penyelia','Ahli Pertama','Ahli Muda','Ahli Madya','Ahli Utama'
-                ])
+    $dataCountsByLevel = ProfileDataPosition::whereIn('level', [
+            'Terampil', 'Mahir', 'Penyelia', 'Ahli Pertama', 'Ahli Muda', 'Ahli Madya', 'Ahli Utama'
+        ])
+        ->groupBy('level')
         ->select('level', DB::raw('count(*) as total'))
         ->get()
         ->pluck('total', 'level')
