@@ -380,6 +380,9 @@ class PublicController extends Controller
         ->pluck('total', 'position');
 
     $dataCountsByLevel = ProfileDataPosition::groupBy('level')
+        ->whereIn('level', [
+                    'Terampil','Mahir','Penyelia','Ahli Pertama','Ahli Muda','Ahli Madya','Ahli Utama'
+                ])
         ->select('level', DB::raw('count(*) as total'))
         ->get()
         ->pluck('total', 'level')
