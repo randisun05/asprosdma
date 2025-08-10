@@ -429,6 +429,7 @@ class PublicController extends Controller
             // Per posisi
             $monthlyCountsByPosition = ProfileDataPosition::whereYear('created_at', $year)
                 ->whereMonth('created_at', $month)
+                ->whereIn('position', ['Analis SDM Aparatur', 'Pranata SDM Aparatur'])
                 ->groupBy('position')
                 ->select('position', DB::raw('count(*) as total'))
                 ->get()
