@@ -315,12 +315,15 @@ class PublicController extends Controller
     public function dataAnggota()
     {
 
-        $dataCountsByPosition = ProfileDataPosition::groupBy('position',)
+        $dataCountsByPosition = ProfileDataPosition::groupBy('position')
         ->select('position', DB::raw('count(*) as total'))
         ->get()
         ->pluck('total', 'position');
 
         $dataCountsByLevel = ProfileDataPosition::groupBy('level')
+        ->whereIn('level', [
+                'Terampil','Mahir','Penyelia','Ahli Pertama','Ahli Muda','Ahli Madya','Ahli Utama'
+            ])
         ->select('level', DB::raw('count(*) as total'))
         ->get()
         ->pluck('total', 'level');
