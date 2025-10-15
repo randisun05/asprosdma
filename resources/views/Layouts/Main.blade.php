@@ -49,6 +49,7 @@
 @include('Layouts.Components.Program')
 @include('Layouts.Components.Media')
 @include('Layouts.Components.Tekko')
+@include('Layouts.Components.Kbs')
 @include('Layouts.Components.Kontak')
 @include('Layouts.Components.Footer')
 @include('Layouts.Components.Popup')
