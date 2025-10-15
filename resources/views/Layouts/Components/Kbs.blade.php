@@ -16,7 +16,7 @@
                <h3 class="darkcolor">Butuh panduan resmi seputar layanan ASN ?</h3>
             </div>
             <p class="mb-4">Sekarang tak perlu bingung lagi. Badan Kepegawaian Negara (BKN) telah menyediakan Knowledge Base Sistem, portal pengetahuan digital yang berisi kumpulan panduan, SOP, video tutorial, template SK, hingga peraturan terbaru semuanya dalam satu tempat mudah diakses.</p>
-             <p class="mb-4">Melalui halaman resmi <a href="https://support-siasn.bkn.go.id/kbs">support-siasn.bkn.go.id/kbs</a>, ASN dan instansi pemerintah dapat menemukan berbagai informasi praktis untuk menunjang pengelolaan data kepegawaian secara lebih cepat, transparan, dan efisien.</p>
+             <p class="mb-4">Melalui halaman resmi <a href="https://support-siasn.bkn.go.id/kbs"  rel="noopener noreferrer" class="link-primary text-decoration-none fw-medium"> support-siasn.bkn.go.id/kbs</a>, ASN dan instansi pemerintah dapat menemukan berbagai informasi praktis untuk menunjang pengelolaan data kepegawaian secara lebih cepat, transparan, dan efisien.</p>
          </div>
          <div class="col-md-6 col-sm-5 wow fadeInRight" data-wow-delay="300ms">
             <div class="image top100"  style="width:100%"><img alt="SEO" src="/assets/images/kbs.png" style="width:100%;"></div>
