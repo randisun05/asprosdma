@@ -64,7 +64,7 @@
                                         Pelajari lebih lanjut dengan klik tautan <a href="ww.asprosdma.id">www.asprosdma.id</a></p>
 
                                     <p>Jika memerlukan bantuan dapat menghubungi:
-                                        📳: Iceu <a href="https://api.whatsapp.com/send/?phone=6282319192189&text&type=phone_number&app_absent=0">wa.me/6282319192189</a></p>
+                                        📳: Admin Aspro SDMA <a href="https://api.whatsapp.com/send/?phone=6282319192189&text&type=phone_number&app_absent=0">wa.me/6282319192189</a></p>
 
                                     <p class="mb-0">Media Partner:</p>
                                     <ul>

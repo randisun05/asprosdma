@@ -5,6 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="csrf-token" content="{{ csrf_token() }}">
+<meta name="recaptcha-site" content="{{ config('services.recaptcha.site') }}">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 {{-- <title>Web-Aspro</title> --}}
 <link href="{{ asset('assets/images/logo.png') }}" rel="icon">
@@ -48,6 +49,7 @@
 
 
 
+ <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>

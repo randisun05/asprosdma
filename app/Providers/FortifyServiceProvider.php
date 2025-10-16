@@ -2,9 +2,14 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use Inertia\Inertia;
+use App\Helpers\ReCaptcha;
 use Illuminate\Http\Request;
 use Laravel\Fortify\Fortify;
+use App\Services\RecaptchaService;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use App\Actions\Fortify\CreateNewUser;
 use App\Http\Responses\LogoutResponse;
 use Illuminate\Support\ServiceProvider;
@@ -12,6 +17,7 @@ use Illuminate\Cache\RateLimiting\Limit;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Validation\ValidationException;
 use App\Actions\Fortify\UpdateUserProfileInformation;
 
 
@@ -55,7 +61,8 @@ class FortifyServiceProvider extends ServiceProvider
             return Inertia::render('Auth/Login');
         });
 
-         /**
+
+        /**
          * logout
          */
         $this->app->singleton(\Laravel\Fortify\Contracts\LogoutResponse::class,LogoutResponse::class);
