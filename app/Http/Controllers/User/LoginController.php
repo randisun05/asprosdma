@@ -6,8 +6,10 @@ use Inertia\Inertia;
 use App\Models\Member;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\Else_;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Intervention\Image\Colors\Rgb\Channels\Red;
 
@@ -21,12 +23,40 @@ class LoginController extends Controller
      */
     public function __invoke(Request $request)
     {
-
        // Validate the form data
             $this->validate($request, [
                 'nip'      => 'required',
                 'password'  => 'required',
+                 'recaptcha_token' => 'required|string',
+            ],[
+                'nip.required' => 'NIP harus diisi',
+                'password.required' => 'Password harus diisi',
+                'recaptcha_token.required' => 'reCAPTCHA token is missing. Please try again.',
             ]);
+
+             // ✅ 2. Verifikasi token ke Google
+            $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+                'secret'   => env('RECAPTCHA_SECRET_KEY'),
+                'response' => $request->recaptcha_token,
+                'remoteip' => $request->ip(),
+            ]);
+
+             Log::info('Recaptcha Response:', $response->json());
+              $result = $response->json();
+
+              // ✅ 3. Pastikan berhasil diverifikasi
+        if (!($result['success'] ?? false)) {
+            return back()->withErrors([
+                'recaptcha' => 'Verifikasi reCAPTCHA gagal. Silakan coba lagi.',
+            ])->withInput();
+        }
+
+        // ✅ 4. (Opsional) Cek skor minimum (nilai 0–1)
+        if (($result['score'] ?? 0) < 0.5) {
+            return back()->withErrors([
+                'recaptcha' => 'Aktivitas mencurigakan terdeteksi. Silakan coba lagi.',
+            ])->withInput();
+        }
 
             // Cek nip dan password
             $member = Member::where('nip', $request->nip)->first();

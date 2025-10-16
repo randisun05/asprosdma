@@ -71,7 +71,9 @@
                      </div>
 
                      <div class="col-sm-12">
-                        <button type="submit" class="button btnprimary">Login</button>
+                  <button type="submit" class="button btnprimary w-100" :disabled="submitting">
+                    {{ submitting ? 'Memproses…' : 'Login' }}
+                  </button>
                         <p class="top20 log-meta"> Belum Memiliki Akun? <u><a href="/registration">Daftar Sekarang</a></u> </p>
                         <p class="top20 log-meta"> <u><a href="/forget-password">Lupa Password</a></u> </p>
                      </div>
@@ -96,7 +98,7 @@
 
     //import reactive
     import {
-        reactive
+        reactive, ref
     } from 'vue';
 
     //import inertia adapter
@@ -127,24 +129,36 @@
             const form = reactive({
                 nip: '',
                 password: '',
+                recaptcha_token: '',
             });
 
-            //submit method
+            const submitting = ref(false)
+            const sitekey = import.meta.env.VITE_RECAPTCHA_SITE_KEY
+            // ✅ Jalankan reCAPTCHA v3
             const submit = () => {
+                submitting.value = true
+                grecaptcha.ready(async () => {
+                    try {
+                        const token = await grecaptcha.execute(sitekey, {
+                            action: 'submit'
+                        })
+                        form.recaptcha_token = token
 
-                //send data to server
-                Inertia.post('/user/login', {
-
-                    //data
-                    nip: form.nip,
-                    password: form.password,
-                });
+                        Inertia.post('/user/login', form, {
+                            onFinish: () => (submitting.value = false),
+                        })
+                    } catch (error) {
+                          alert('Gagal memproses reCAPTCHA. Silakan refresh halaman.')
+                        submitting.value = false
+                    }
+                })
             }
 
             //return form state and submit method
             return {
                 form,
-                submit,
+                submitting,
+                submit
             };
 
         }

@@ -6,7 +6,7 @@
   <section id="our-blog" class="padding text-center">
     <div class="container">
       <div class="row d-flex justify-content-center">
-        <div class="col-lg-6 col-md-6 col-sm-10">
+        <div class="col-lg-8 col-md-8 col-sm-12">
           <div class="bglight logincontainer">
             <h3 class="darkcolor bottom35">Login Administrator</h3>
 
@@ -55,12 +55,12 @@
                 </div>
 
                 <!-- ✅ reCAPTCHA widget -->
-                <div class="form-group mb-4 text-center">
+                <!-- <div class="form-group mb-4 text-center">
                   <div id="recaptcha-container" class="g-recaptcha" :data-sitekey="sitekey"></div>
                   <div v-if="errors?.recaptcha_token" class="alert alert-danger mt-2">
                     {{ errors.recaptcha_token }}
                   </div>
-                </div>
+                </div> -->
 
                 <!-- SUBMIT -->
                 <div class="col-sm-12">
@@ -87,7 +87,7 @@
   </section>
 </template>
 
-<script setup>
+<!-- <script setup>
 import { Head } from '@inertiajs/inertia-vue3'
 import { Inertia } from '@inertiajs/inertia'
 import { reactive, ref, onMounted, nextTick } from 'vue'
@@ -187,7 +187,45 @@ const submit = async () => {
     },
   })
 }
+</script> -->
+<script setup>
+import { Head } from '@inertiajs/inertia-vue3'
+import { Inertia } from '@inertiajs/inertia'
+import { reactive, ref } from 'vue'
+
+const form = reactive({
+  email: '',
+  password: '',
+  recaptcha_token: '',
+})
+
+const submitting = ref(false)
+const sitekey = import.meta.env.VITE_RECAPTCHA_SITE_KEY
+
+const submit = async () => {
+  if (!form.email) return alert('Email belum diisi!')
+  if (!form.password) return alert('Password belum diisi!')
+
+  submitting.value = true
+
+  // ✅ Jalankan reCAPTCHA v3
+  grecaptcha.ready(async () => {
+    try {
+      const token = await grecaptcha.execute(sitekey, { action: 'submit' })
+      form.recaptcha_token = token
+
+      Inertia.post('/login', form, {
+        onFinish: () => (submitting.value = false),
+      })
+    } catch (err) {
+      alert('Gagal memproses reCAPTCHA. Silakan refresh halaman.')
+      submitting.value = false
+    }
+  })
+}
 </script>
+
+
 
 <script>
 import LayoutAuth from '../../Layouts/Auth.vue'
