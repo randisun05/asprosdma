@@ -71,10 +71,6 @@
                   >
                     {{ submitting ? 'Memproses…' : 'Login' }}
                   </button>
-                  <p class="top20 log-meta">
-                    Belum Memiliki Akun?
-                    <u><a href="signup.html">Daftar Sekarang</a></u>
-                  </p>
                 </div>
 
               </div>

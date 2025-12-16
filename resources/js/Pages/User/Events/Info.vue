@@ -68,7 +68,6 @@
 
                                     <p class="mb-0">Media Partner:</p>
                                     <ul>
-                                        <li>@sharing.asn - https://www.instagram.com/sharing.asn/</li>
                                         <li>@bkngoidofficial - https://www.instagram.com/bkngoidofficial/</li>
                                     </ul>
 

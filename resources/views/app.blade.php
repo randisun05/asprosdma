@@ -46,9 +46,6 @@
 @inertia
 
 
-
-
-
 {{-- <script src="https://www.google.com/recaptcha/api.js" async defer></script>  -v--}}
 <script src="https://www.google.com/recaptcha/api.js?render={{ env('RECAPTCHA_SITE_KEY') }}"></script>
 
