@@ -4,21 +4,58 @@ import os
 import io
 import qrcode
 
-def generate_qr_pixmap(data, size=80):
-    qr = qrcode.make(data)
+# def generate_qr_pixmap(data, size=80):
+#     qr = qrcode.make(data)
+#     img_bytes = io.BytesIO()
+#     qr.save(img_bytes, format="PNG")
+#     img_bytes.seek(0)
+
+#     img_doc = fitz.open("png", img_bytes)
+#     page = img_doc[0]
+
+#     rect = page.rect
+#     scale_x = size / rect.width
+#     scale_y = size / rect.height
+
+#     matrix = fitz.Matrix(scale_x, scale_y)
+#     pix = page.get_pixmap(matrix=matrix)
+#     return pix
+
+import qrcode
+import io
+import fitz # PyMuPDF
+
+def generate_qr_pixmap(data, size=300): # Gunakan base size lebih besar (misal 300)
+    # 1. Buat QR Code dengan resolusi tinggi
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_H, # High error correction (lebih rapat)
+        box_size=10, # Tingkatkan ukuran box (default 10 sudah cukup baik)
+        border=1,
+    )
+    qr.add_data(data)
+    qr.make(fit=True)
+
+    # 2. Simpan ke BytesIO
+    img = qr.make_image(fill_color="black", back_color="white")
     img_bytes = io.BytesIO()
-    qr.save(img_bytes, format="PNG")
+    img.save(img_bytes, format="PNG")
     img_bytes.seek(0)
 
+    # 3. Masukkan ke fitz (PyMuPDF)
     img_doc = fitz.open("png", img_bytes)
     page = img_doc[0]
 
+    # 4. Gunakan Matrix untuk mendapatkan ketajaman (DPI Tinggi)
+    # Kita ingin output pixmap memiliki dimensi yang kita inginkan (misal 300x300)
     rect = page.rect
-    scale_x = size / rect.width
-    scale_y = size / rect.height
+    zoom_x = size / rect.width
+    zoom_y = size / rect.height
 
-    matrix = fitz.Matrix(scale_x, scale_y)
-    pix = page.get_pixmap(matrix=matrix)
+    # Gunakan matrix untuk rendering yang lebih halus
+    matrix = fitz.Matrix(zoom_x, zoom_y)
+    pix = page.get_pixmap(matrix=matrix, colorspace=fitz.csRGB)
+
     return pix
 
 def main():
