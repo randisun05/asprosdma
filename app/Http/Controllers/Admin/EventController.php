@@ -6,13 +6,14 @@ use App\Models\Event;
 use App\Models\Member;
 use App\Models\Certificate;
 use App\Models\DetailEvent;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Imports\CertificateImport;
 use App\Models\TemplateCertificate;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\EventParticipantsExport;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
-use Illuminate\Support\Str;
 
 class EventController extends Controller
 {
@@ -554,7 +555,7 @@ class EventController extends Controller
         if (count($errors)) {
             return redirect()->route('admin.events.certificates.index', $id)
                 ->with('warning', 'Sebagian sertifikat gagal disimpan.')
-                ->with('errors_detail', $errors);
+                ->with('errors', $errors);
         }
 
         return redirect()->route('admin.events.certificates.index', $id)
@@ -615,5 +616,107 @@ class EventController extends Controller
         return redirect()->back()->with('success', 'Data has been deleted');
     }
 
+     public function certificatesExcelIndex($id)
+    {
+        $event = Event::findOrFail($id);
+        $templates = TemplateCertificate::all();
+        return inertia('Admin/Events/CertificateExcel', [
+            'event' => $event,
+            'templates' => $templates
+         ]);
+    }
+
+
+    public function certificatesExcelStore(Request $request, $id)
+{
+    $request->validate([
+        'file' => 'required|mimes:xlsx,xls,csv'
+    ]);
+
+    $event = Event::findOrFail($id);
+    $rows = Excel::toCollection(new CertificateImport, $request->file('file'))->first();
+
+    if ($rows->isEmpty()) {
+        return back()->withErrors(['file' => 'File Excel kosong atau tidak terbaca.']);
+    }
+
+    $excelNips = $rows->pluck('nip')->toArray();
+    $existingCertificates = Certificate::where('category', 'kombel')
+        ->where('event_id', $event->id)
+        ->whereIn('nip', $excelNips)
+        ->pluck('nip')
+        ->toArray();
+
+    // PERBAIKAN 1: Gunakan penanggalan yang konsisten
+    $targetDate = '2025-12-18';
+    $month = date('m', strtotime($targetDate));
+    $year = date('Y', strtotime($targetDate));
+
+    // PERBAIKAN 2: Ambil nomor urut tertinggi saja (integer) agar lebih akurat
+    $lastCertificate = Certificate::where('category', 'kombel')
+        ->whereYear('date', $year)
+        ->whereMonth('date', $month)
+        ->where('no_certificate', 'like', "%/kombel/PP Aspro SDMA/{$month}/{$year}")
+        ->get()
+        ->map(function($cert) {
+            return (int) explode('/', $cert->no_certificate)[0];
+        })
+        ->max(); // Ambil angka tertinggi
+
+    $currentNumber = $lastCertificate ?? 0;
+    $failedImports = [];
+
+    foreach ($rows as $row) {
+        if (in_array($row['nip'], $existingCertificates)) {
+            $failedImports[] = "NIP {$row['nip']} sudah memiliki sertifikat.";
+            continue;
+        }
+
+        try {
+            // PERBAIKAN 3: Increment dilakukan di luar do-while agar angka selalu naik
+            $currentNumber++;
+
+            $attempts = 0;
+            do {
+                $newNumber = str_pad($currentNumber, 4, '0', STR_PAD_LEFT);
+                $nomor = "{$newNumber}/kombel/PP Aspro SDMA/{$month}/{$year}";
+
+                // Jika ternyata nomor ini sudah ada (karena input manual atau data lama), naikkan terus
+                if (Certificate::where('no_certificate', $nomor)->exists()) {
+                    $currentNumber++;
+                    $attempts++;
+                } else {
+                    break;
+                }
+            } while ($attempts < 100);
+
+            $link = (string) Str::uuid();
+
+            Certificate::create([
+                'event_id' => $event->id,
+                'no_certificate' => $nomor,
+                'category' => 'kombel',
+                'nip' => $row['nip'],
+                'name' => $row['name'],
+                'body' => $event->title,
+                'date' => $targetDate,
+                'template' => 'a0ab92e9-82d4-45c8-86fc-ddf5c9ce13d7', //9ea04e9f-0d35-49a0-b026-a507233139a4
+                'status' => '1',
+                'qr_code' => "https://asprosdma.id/certificates/$link",
+                'link' => $link,
+                'doc' => $row['instansi'],
+            ]);
+
+        } catch (\Exception $e) {
+            $failedImports[] = "NIP {$row['nip']}: " . $e->getMessage();
+        }
+    }
+
+    if (count($failedImports) > 0) {
+        return redirect()->back()->withErrors(['import_failed' => $failedImports]);
+    }
+
+    return redirect()->route('admin.events.certificates.index', $id);
+}
 
 }

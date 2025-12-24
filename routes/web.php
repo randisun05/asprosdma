@@ -89,6 +89,10 @@ Route::prefix('admin')->group(function() {
         Route::get('/events/certificates/templates', [\App\Http\Controllers\Admin\EventController::class, 'certificatesTemplate'])->name('admin.events.certificates.template');
         Route::post('/events/certificates/templates/store', [\App\Http\Controllers\Admin\EventController::class, 'certificatesTemplateStore'])->name('admin.events.certificates.template.store');
         Route::delete('/events/certificates/templates/{id}', [\App\Http\Controllers\Admin\EventController::class, 'certificatesTemplateDelete'])->name('admin.events.certificates.template.delete');
+        // 1. Route untuk menampilkan halaman form import (GET)
+        Route::get('/events/{event}/certificates-excel', [App\Http\Controllers\Admin\EventController::class, 'certificatesExcelIndex'])->name('admin.events.certificates.import');
+        // 2. Route untuk memproses file excel (POST)
+        Route::post('/events/{event}/certificates-import', [App\Http\Controllers\Admin\EventController::class, 'certificatesExcelStore'])->name('admin.events.certificates.import.store');
         Route::post('/events/{id}', [\App\Http\Controllers\Admin\EventController::class, 'update'])->name('admin.events.update');
         Route::get('/events/{id}/export', [\App\Http\Controllers\Admin\EventController::class, 'exportParticipant'])->name('admin.events.export');
         Route::get('/events/{id}/change', [\App\Http\Controllers\Admin\EventController::class, 'change'])->name('admin.events.status.change');
@@ -145,6 +149,7 @@ Route::prefix('admin')->group(function() {
         Route::get('/jurnals/export', [\App\Http\Controllers\Admin\JurnalController::class, 'exportReport'])->name('admin.jurnals.export');
         Route::get('/jurnals/show', [\App\Http\Controllers\Admin\JurnalController::class, 'show'])->name('admin.jurnals.show');
         Route::resource('/jurnals', \App\Http\Controllers\Admin\JurnalController::class, ['as' => 'admin']);
+
 
 
     });
