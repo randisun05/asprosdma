@@ -655,9 +655,9 @@ class PublicController extends Controller
             //  return response()->json(['error' => 'Command execution failed.'], 500);
          }
 
-        // $data->update([
-        //     'doc' => 'sertifikat/' . 'sertifikat-' . $nomor . '-' . $data->name . '.pdf'
-        // ]);
+        $data->update([
+            'doc' => 'sertifikat/' . 'sertifikat-' . $nomor . '-' . $data->name . '.pdf'
+        ]);
 
         return response()->download(public_path('storage/' . $data->doc), 'sertifikat-' . $nomor . '-' . $data->name . '.pdf')->deleteFileAfterSend(true);
 
