@@ -4,59 +4,24 @@ import os
 import io
 import qrcode
 
-# def generate_qr_pixmap(data, size=80):
-#     qr = qrcode.make(data)
-#     img_bytes = io.BytesIO()
-#     qr.save(img_bytes, format="PNG")
-#     img_bytes.seek(0)
-
-#     img_doc = fitz.open("png", img_bytes)
-#     page = img_doc[0]
-
-#     rect = page.rect
-#     scale_x = size / rect.width
-#     scale_y = size / rect.height
-
-#     matrix = fitz.Matrix(scale_x, scale_y)
-#     pix = page.get_pixmap(matrix=matrix)
-#     return pix
-
-import qrcode
-import io
-import fitz # PyMuPDF
-
-def generate_qr_pixmap(data, size=300): # Gunakan base size lebih besar (misal 300)
-    # 1. Buat QR Code dengan resolusi tinggi
+def generate_qr_bytes(data):
+    """
+    Menghasilkan bytes PNG QR Code dengan resolusi tinggi.
+    Menggunakan box_size besar agar gambar sumber tajam.
+    """
     qr = qrcode.QRCode(
         version=1,
-        error_correction=qrcode.constants.ERROR_CORRECT_H, # High error correction (lebih rapat)
-        box_size=10, # Tingkatkan ukuran box (default 10 sudah cukup baik)
+        error_correction=qrcode.constants.ERROR_CORRECT_H,
+        box_size=20,  # Resolusi tinggi (sekitar 600px - 1000px)
         border=1,
     )
     qr.add_data(data)
     qr.make(fit=True)
 
-    # 2. Simpan ke BytesIO
     img = qr.make_image(fill_color="black", back_color="white")
     img_bytes = io.BytesIO()
     img.save(img_bytes, format="PNG")
-    img_bytes.seek(0)
-
-    # 3. Masukkan ke fitz (PyMuPDF)
-    img_doc = fitz.open("png", img_bytes)
-    page = img_doc[0]
-
-    # 4. Gunakan Matrix untuk mendapatkan ketajaman (DPI Tinggi)
-    # Kita ingin output pixmap memiliki dimensi yang kita inginkan (misal 300x300)
-    rect = page.rect
-    zoom_x = size / rect.width
-    zoom_y = size / rect.height
-
-    # Gunakan matrix untuk rendering yang lebih halus
-    matrix = fitz.Matrix(zoom_x, zoom_y)
-    pix = page.get_pixmap(matrix=matrix, colorspace=fitz.csRGB)
-
-    return pix
+    return img_bytes.getvalue()
 
 def main():
     if len(sys.argv) < 2:
@@ -71,26 +36,31 @@ def main():
         "#nama": args.get("nama", ""),
         "#qr": args.get("qr", ""),
         "$file": args.get("file", "sertifikat.pdf"),
-        "$path": args.get("path"),
+        "$path": args.get("path", "."),
     }
 
     doc = fitz.open(pdf_template_path)
     page = doc[0]
 
-    # Sisipkan QR code tepat di tengah anchor #qr
+    # --- Bagian Penyisipan QR Code ---
     if data["#qr"]:
         qr_areas = page.search_for("#qr")
         if qr_areas:
             for area in qr_areas:
+                # Hapus teks anchor #qr (Redaction)
                 page.add_redact_annot(area, fill=(1, 1, 1))
                 page.apply_redactions()
 
-                qr_size = 80
-                qr_pixmap = generate_qr_pixmap(data["#qr"], size=qr_size)
+                # Generate QR HD dalam bentuk Bytes
+                qr_data_bytes = generate_qr_bytes(data["#qr"])
 
-                # Hitung tengah anchor, lalu tempatkan QR di situ
+                # Ukuran display di PDF (dalam point)
+                qr_size = 80
+
+                # Hitung posisi tengah berdasarkan anchor
                 center_x = (area.x0 + area.x1) / 2
                 center_y = (area.y0 + area.y1) / 2
+
                 qr_rect = fitz.Rect(
                     center_x - qr_size / 2,
                     center_y - qr_size / 2,
@@ -98,21 +68,22 @@ def main():
                     center_y + qr_size / 2
                 )
 
-                page.insert_image(qr_rect, pixmap=qr_pixmap)
+                # Gunakan 'stream' alih-alih 'pixmap' untuk menjaga kualitas
+                page.insert_image(qr_rect, stream=qr_data_bytes)
 
+    # --- Bagian Penyisipan Teks ---
     font_settings = {
         "#nomor": {"fontsize": 20, "fontname": "helv", "color": (0, 0, 0), "y_offset": 15},
         "#nama": {"fontsize": 24, "fontname": "helv", "color": (0, 0, 0), "y_offset": 15},
     }
 
     for anchor, value in data.items():
-        if anchor in ["#qr", "$file"]:
+        if anchor in ["#qr", "$file", "$path"]:
             continue
 
         areas = page.search_for(anchor)
         if areas:
             for area in areas:
-
                 page.add_redact_annot(area, fill=(1, 1, 1))
                 page.apply_redactions()
 
@@ -131,10 +102,13 @@ def main():
 
                 page.insert_text((x, y), value, fontsize=fontsize, fontname=fontname, color=color)
 
-    output_dir = data.get("$path", ".")  # Default to the current directory if $path is not provided
+    # --- Simpan PDF ---
+    output_dir = data.get("$path", ".")
     os.makedirs(output_dir, exist_ok=True)
     output_path = os.path.join(output_dir, data["$file"])
-    doc.save(output_path, garbage=4, deflate=True)
+
+    # Gunakan deflate=True dan garbage=4 untuk optimasi file
+    doc.save(output_path, garbage=4, deflate=True, clean=True)
     doc.close()
 
     print(f"Sertifikat berhasil dibuat: {output_path}")
