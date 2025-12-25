@@ -22,7 +22,9 @@ class Event extends Model
         'image',
         'status',
         'file',
-        'absen'
+        'absen',
+        'category',
+        'template_id',
     ];
 
     public function getRouteKeyName()

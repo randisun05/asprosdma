@@ -49,7 +49,17 @@
 
                             <div v-html="event.body" style="text-align:justify;text-justify: "></div>
                             <div class="text-center">
-                                <a v-if="event.status === 'active'" href="/user/events/" class="button btnprimary">Join</a>
+                                <div class="button-group gap-3">
+                                    <a v-if="event.status === 'active'" href="/user/events/" class="button btnprimary">
+                                       Join
+                                    </a>
+                                    <a v-if="event.status === 'active'" :href="`/events/${event.slug}/absen`" class="button btnsecondary">
+                                        <i class="fas fa-clipboard-check"></i> Absen
+                                    </a>
+                                    <a :href="`/events/${event.slug}/certificate`" class="button btnprimary">
+                                       Cari Sertifikat
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>

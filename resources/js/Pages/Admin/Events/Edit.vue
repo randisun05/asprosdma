@@ -116,7 +116,23 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-11">
+                                            <div class="col-md-6">
+                                                <span class="text-black">
+                                                Template Sertifikat
+                                                </span>
+                                               <div class="form-group mt-1 mb-4">
+                                            <select class="form-select" v-model="form.template">
+                                                <option value="" disabled selected>Pilih salah satu opsi</option>
+                                                <option v-for="(template, index) in templates" :key="index"
+                                                    :value="template.id">{{ template.title }}</option>
+                                            </select>
+                                        </div>
+                                        <div v-if="errors.template" class="alert alert-danger mt-2">
+                                            {{ errors.template }}
+                                        </div>
+                                            </div>
+
+                                            <div class="col-md-6">
                                                 <span class="text-black">
                                                 Link
                                                 </span>
@@ -125,6 +141,25 @@
                                                 </div>
                                                 <div v-if="errors.link" class="alert alert-danger mt-2">
                                                     {{ errors.link }}
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-6">
+                                                <span class="text-black">Kategori</span>
+                                                    <div class="form-group mt-1 mb-4">
+                                                        <select class="form-control" v-model="form.category">
+                                                            <option disabled selected>Pilih Kategori</option>
+                                                            <option value="Kombel">Komunitas Belajar - Peserta</option>
+                                                            <option value="Kombel-Panitia">Komunitas Belajar - Panitia</option>
+                                                            <option value="Kombel-Narasumber">Komunitas Belajar - Narasumber</option>
+                                                            <option value="Kombel-Moderator">Komunitas Belajar - Moderator</option>
+                                                            <option value="Sayembara">Sayembara</option>
+                                                            <option value="lain">Lainnya</option>
+                                                        </select>
+                                                    </div>
+                                                <div v-if="errors.category" class="alert alert-danger mt-2">
+                                                    {{ errors.category }}
                                                 </div>
                                             </div>
 
@@ -197,7 +232,8 @@
         //props
        props: {
         errors: Object,
-        event: Object
+        event: Object,
+        templates: Array
     },
 
 
@@ -214,8 +250,9 @@
                 link: props.event.link,
                 participant: props.event.participant,
                 image: props.event.image,
-                file: props.event.file
-
+                file: props.event.file,
+                category: props.event.category,
+                template: props.event.template
             });
 
 
@@ -233,7 +270,9 @@
                     image: form.image,
                     place: form.place,
                     link: form.link,
-                    file: form.file
+                    file: form.file,
+                    category: form.category,
+                    template: form.template
                 } ,{
                     onSuccess: () => {
                         //show success alert
@@ -248,12 +287,9 @@
                 });
             }
 
-
-
             const updateImage = (event) => {
             form.image = event.target.files[0];
         };
-
 
             //return
             return {

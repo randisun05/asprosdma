@@ -248,6 +248,11 @@ Route::get('/berita/{post:slug}', [\App\Http\Controllers\Public\PublicController
 Route::get('/data-anggota', [\App\Http\Controllers\Public\PublicController::class, 'dataAnggota'])->name('data-anggota');
 Route::get('/data-anggota/chart', [\App\Http\Controllers\Public\PublicController::class, 'dataAnggotaChart'])->name('data-anggota.chart');
 Route::get('/faq', [\App\Http\Controllers\Public\PublicController::class, 'faq'])->name('faq');
+Route::get('/events/{slug}/certificate', [\App\Http\Controllers\Public\PublicController::class, 'indexCertificate'])->name('public.events.index-certificate');
+// Route untuk menampilkan halaman form absen (Public/Website)
+Route::get('/events/{slug}/absen', [\App\Http\Controllers\Public\PublicController::class, 'indexAbsen'])->name('public.events.absen');
+// Route untuk memproses absensi
+Route::post('/events/{id}/absen', [\App\Http\Controllers\Public\PublicController::class, 'absen'])->name('public.events.absen.store');
 Route::get('/events/{event:slug}', [\App\Http\Controllers\Public\EventsController::class, 'show'])->name('event.show');
 Route::resource('/events', \App\Http\Controllers\Public\EventsController::class);
 Route::resource('/berita', \App\Http\Controllers\Public\PostsController::class);

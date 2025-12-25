@@ -46,9 +46,9 @@ class EventController extends Controller
      */
     public function create()
     {
-
+        $templates = TemplateCertificate::all();
         return inertia('Admin/Events/Create', [
-
+            'templates' => $templates,
          ]);
     }
 
@@ -72,6 +72,8 @@ class EventController extends Controller
         'place' => 'required',
         'image' => '|image|mimes:jpeg,png,jpg,gif,svg|max:5048|nullable',
         'file' => 'required',
+        'category' => 'required',
+        'template' => 'required',
     ]);
 
     $slug = strtolower(str_replace(' ', '-', $request->title));
@@ -91,7 +93,9 @@ class EventController extends Controller
             'image' => $image,
             'place' => $request->place,
             'link' => $request->link,
-            'file' => $request->file
+            'file' => $request->file,
+            'category' => $request->category,
+            'template_id' => $request->template,
         ]);
 
      //redirect
@@ -168,8 +172,10 @@ class EventController extends Controller
     {
 
         $event = Event::findOrFail($id);
+         $templates = TemplateCertificate::all();
         return inertia('Admin/Events/Edit', [
             'event' => $event,
+            'templates' => $templates,
         ]);
 
         //redirect
@@ -195,6 +201,8 @@ class EventController extends Controller
         'date' => 'required',
         'place' => 'required',
         'file' => 'required',
+        'category' => 'required',
+        'template' => 'required',
     ]);
 
     $slug = strtolower(str_replace(' ', '-', $request->title));
@@ -217,7 +225,9 @@ class EventController extends Controller
             'image' => $image,
             'place' => $request->place,
             'link' => $request->link,
-            'file' => $request->file
+            'file' => $request->file,
+            'category' => $request->category,
+            'template_id' => $request->template,
         ]);
 
 

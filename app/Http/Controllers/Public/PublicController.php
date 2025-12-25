@@ -12,6 +12,7 @@ use App\Models\Achievement;
 use App\Models\Certificate;
 use App\Models\DetailEvent;
 use App\Models\ReactDetail;
+use Illuminate\Support\Str;
 use App\Models\Registration;
 use Illuminate\Http\Request;
 use App\Models\DocumentDigital;
@@ -691,6 +692,144 @@ class PublicController extends Controller
            'title' => 'Cari Sertifikat Kegiatan Aspro SDMA',
            'datas' => $datas,
        ]);
+    }
+
+   public function indexCertificate(Request $request, $slug)
+{
+    $event = Event::where('slug', $slug)->first();
+
+    if (!$event) {
+        return redirect()->back()->withErrors(['message' => 'Event tidak ditemukan.']);
+    }
+
+    $nip = $request->q;
+    $currentCertificate = null;
+    $allCertificates = [];
+
+    if ($nip) {
+        // 1. Cari sertifikat spesifik untuk event ini berdasarkan NIP
+        $currentCertificate = Certificate::where('event_id', $event->id)
+            ->where('nip', $nip)
+            ->first();
+
+        // 2. Cari semua sertifikat yang dimiliki NIP tersebut di semua event
+        $allCertificates = Certificate::with('event')
+            ->where('nip', $nip)
+            ->latest()
+            ->get();
+
+        if ($allCertificates->isEmpty()) {
+            return redirect()->back()->withErrors(['message' => 'Data sertifikat untuk NIP tersebut tidak ditemukan.']);
+        }
+    }
+
+    return inertia('Public/Website/Events/CertificateEvent', [
+        'title' => 'Cek Sertifikat - ' . $event->title,
+        'event' => $event,
+        'currentCertificate' => $currentCertificate,
+        'allCertificates' => $allCertificates,
+        'querySearch' => $nip
+    ]);
+}
+    public function indexAbsen($slug)
+    {
+        $event = Event::where('slug', $slug)->first();
+
+        if (!$event) {
+            return redirect()->back()->withErrors(['message' => 'Event tidak ditemukan.']);
+        }
+
+        if ($event->absen == "N") {
+            $title = 'Absensi untuk event ini ditutup/belum dibuka.';
+        }
+
+        return inertia('Public/Website/Events/Absen', [
+            'title' => $title ?? 'Absensi Kegiatan Aspro SDMA' . ' - ' . $event->title,
+            'event' => $event,
+        ]);
+
+    }
+
+    public function absen(Request $request, $id)
+    {
+        // Validasi input
+        $request->validate([
+            'nip'      => 'required',
+            'name'     => 'required',
+            'agency'   => 'required',
+        ] , [
+        'nip.required'    => 'NIP/NIK wajib diisi.',
+        'nip.numeric'     => 'NIP/NIK hanya boleh berisi angka.',
+        'name.required'   => 'Nama lengkap wajib diisi.',
+        'agency.required' => 'Instansi wajib diisi.',
+        ]);
+
+        $event = Event::findOrFail($id);
+
+        // Gunakan Transaction untuk keamanan nomor urut
+        return DB::transaction(function () use ($request, $event) {
+
+            // Cek duplikasi sertifikat
+            $existing = Certificate::where('event_id', $event->id)
+                ->where('nip', $request->nip)
+                ->first();
+
+           if ($existing) {
+            // Mengirimkan error khusus 'message' yang nantinya ditangkap Swal
+            return redirect()->back()->withErrors([
+                'message' => 'NIP/NIK ini sudah melakukan absensi untuk event ini!'
+            ]);
+    }
+
+            // Logika Penomoran Mutakhir
+            $targetDate = now();
+            $month = $targetDate->format('m');
+            $year = $targetDate->format('Y');
+
+            // Ambil nomor tertinggi secara presisi (integer)
+            $lastNumber = Certificate::whereYear('date', $year)
+                ->whereMonth('date', $month)
+                ->get()
+                ->map(function($cert) {
+                    return (int) explode('/', $cert->no_certificate)[0];
+                })
+                ->max() ?? 0;
+
+            $currentNumber = $lastNumber + 1;
+
+            // Safety loop untuk memastikan nomor benar-benar unik
+            do {
+                $newNumber = str_pad($currentNumber, 4, '0', STR_PAD_LEFT);
+                $kodeKegiatan = $event->category ?? 'kombel';
+                $nomor = "{$newNumber}/{$kodeKegiatan}/PP Aspro SDMA/{$month}/{$year}";
+
+                if (Certificate::where('no_certificate', $nomor)->exists()) {
+                    $currentNumber++;
+                } else {
+                    break;
+                }
+            } while (true);
+
+            $link = (string) Str::uuid();
+
+            // Simpan Sertifikat
+            Certificate::create([
+                'event_id'       => $event->id,
+                'no_certificate' => $nomor,
+                'category'       => $kodeKegiatan,
+                'nip'            => $request->nip,
+                'name'           => $request->name,
+                'body'           => $event->title,
+                'date'           => $targetDate->format('Y-m-d'),
+                'template'       => $event->template,
+                'status'         => '1',
+                'qr_code'        => "https://asprosdma.id/certificates/$link",
+                'link'           => $link,
+                'doc'            => $request->agency,
+            ]);
+
+            return redirect()->back()->with('success', 'Absensi berhasil dan sertifikat telah terbit!');
+        });
     }
 
 

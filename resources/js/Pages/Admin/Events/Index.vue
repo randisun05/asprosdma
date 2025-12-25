@@ -46,8 +46,13 @@
                                 <div class="mt-2"></div>
                                 <tbody>
                                     <tr v-for="(event, index) in events.data" :key="index">
-                                        <td class="fw-bold text-center">{{ ++index + (events.current_page - 1) * events.per_page }}</td>
-                                        <td>{{ event.title }}</td>
+                                        <td class="fw-bold text-center">{{ ++index + (events.current_page - 1) * events.per_page }}
+
+                                        </td>
+                                        <td>{{ event.title }}<br>
+                                            <label>Link Absen: asprosdma.id/events/{{ event.slug }}/absen</label><br>
+                                            <label>Link Sertifikat: asprosdma.id/events/{{ event.slug }}/certificate</label>
+                                        </td>
                                         <td>{{ event.date}} / {{ event.enddate}}</td>
                                         <td>{{ event.participant }}</td>
                                         <td> <button v-if="event.status === 'active'" @click="changeStatus(event.id)" class="badge bg-success">{{ event.status }}</button>
