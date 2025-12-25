@@ -21,8 +21,8 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8">
-                    <div class="card border-0 mb-5">
-                        <div class="card-body padding">
+                    <div class="card border-0 mb-5 shadow-sm">
+                        <div class="card-body">
                             <h3 class="darkcolor bottom20 text-center">Cari Sertifikat Anda</h3>
                             <form @submit.prevent="handleSearch">
                                 <div class="input-group">
@@ -44,16 +44,21 @@
                         </div>
                     </div>
 
-                    <div v-if="currentCertificate" class="card border-0 mb-5 bg-light">
-                        <div class="card-body text-center">
+                    <div v-if="currentCertificate" class="card border-0 mb-5 bg-light shadow-sm">
+                        <div class="card-body text-center py-5">
                             <h4 class="darkcolor bottom10">Sertifikat Ditemukan!</h4>
                             <p class="bottom20 text-muted">Event: {{ event.title }}</p>
-                            <div class="d-flex justify-content-center gap-3">
-                                <a :href="`/certificates/${currentCertificate.id}/view`" class="btn btn-success shadow">
+                            <div class="d-flex justify-content-center">
+                                <a :href="`/certificates/${currentCertificate.id}/view`" target="_blank" class="btn btn-success shadow px-4">
                                     <i class="fa fa-download"></i> Download PDF
                                 </a>
                             </div>
                         </div>
+                    </div>
+
+                    <div v-else-if="querySearch && !currentCertificate" class="alert alert-warning border-0 shadow-sm mb-5 text-center py-4">
+                        <i class="fa fa-info-circle fa-lg mb-2 d-block"></i>
+                        Sertifikat tidak ditemukan / Anda tidak terdaftar pada kegiatan <br><strong>{{ event.title }}</strong>.
                     </div>
 
                     <div v-if="allCertificates.length > 0" class="mt-4">
@@ -75,6 +80,19 @@
                                             <a :href="`/certificates/${cert.id}/view`" target="_blank" class="btn btn-sm btn-outline-primary">
                                                 <i class="fa fa-external-link"></i>
                                             </a>
+                                        </td>
+                                    </tr>
+
+                                    <tr v-if="querySearch && allCertificates.length === 0">
+                                        <td colspan="3" class="text-center text-muted py-5">
+                                            <i class="fa fa-folder-open-o d-block mb-2 fa-2x"></i>
+                                            Tidak ada riwayat sertifikat ditemukan untuk NIP ini.
+                                        </td>
+                                    </tr>
+
+                                    <tr v-if="!querySearch">
+                                        <td colspan="3" class="text-center text-muted py-4">
+                                            Silahkan masukkan NIP untuk melihat riwayat sertifikat.
                                         </td>
                                     </tr>
                                 </tbody>
@@ -126,7 +144,8 @@ export default {
 </script>
 
 <style scoped>
-.gap-3 { gap: 1rem; }
 .btnprimary { border: none; padding: 10px 25px; }
-.form-control { border-radius: 5px 0 0 5px; height: 50px; }
+.form-control { border-radius: 5px 0 0 5px; height: 50px; border: 1px solid #ddd; }
+.input-group .button { border-radius: 0 5px 5px 0; }
+.table th { border-top: none; }
 </style>

@@ -702,25 +702,21 @@ class PublicController extends Controller
         return redirect()->back()->withErrors(['message' => 'Event tidak ditemukan.']);
     }
 
-    $nip = $request->q;
+    $nip = $request->q; // Ambil NIP dari input
     $currentCertificate = null;
     $allCertificates = [];
 
     if ($nip) {
-        // 1. Cari sertifikat spesifik untuk event ini berdasarkan NIP
+        // Cari sertifikat di event ini
         $currentCertificate = Certificate::where('event_id', $event->id)
             ->where('nip', $nip)
             ->first();
 
-        // 2. Cari semua sertifikat yang dimiliki NIP tersebut di semua event
+        // Cari riwayat sertifikat di event lain
         $allCertificates = Certificate::with('event')
             ->where('nip', $nip)
             ->latest()
             ->get();
-
-        if ($allCertificates->isEmpty()) {
-            return redirect()->back()->withErrors(['message' => 'Data sertifikat untuk NIP tersebut tidak ditemukan.']);
-        }
     }
 
     return inertia('Public/Website/Events/CertificateEvent', [
@@ -728,9 +724,10 @@ class PublicController extends Controller
         'event' => $event,
         'currentCertificate' => $currentCertificate,
         'allCertificates' => $allCertificates,
-        'querySearch' => $nip
+        'querySearch' => $nip // SANGAT PENTING: kirim balik nilai NIP ini
     ]);
 }
+
     public function indexAbsen($slug)
     {
         $event = Event::where('slug', $slug)->first();
