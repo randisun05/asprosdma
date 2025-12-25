@@ -69,10 +69,10 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="cert in allCertificates" :key="cert.id">
-                                        <td>{{ cert.event?.title || 'Event Umum' }}</td>
+                                        <td>{{ cert.event?.title || 'Event Aspro' }}</td>
                                         <td class="small">{{ cert.no_certificate }}</td>
                                         <td class="text-center">
-                                            <a :href="`/certificates/${cert.link}/view`" target="_blank" class="btn btn-sm btn-outline-primary">
+                                            <a :href="`/certificates/${cert.id}/view`" target="_blank" class="btn btn-sm btn-outline-primary">
                                                 <i class="fa fa-external-link"></i>
                                             </a>
                                         </td>

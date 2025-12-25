@@ -800,7 +800,7 @@ class PublicController extends Controller
             // Safety loop untuk memastikan nomor benar-benar unik
             do {
                 $newNumber = str_pad($currentNumber, 4, '0', STR_PAD_LEFT);
-                $kodeKegiatan = $event->category ?? 'kombel';
+                $kodeKegiatan = $event->category ?? 'Kombel';
                 $nomor = "{$newNumber}/{$kodeKegiatan}/PP Aspro SDMA/{$month}/{$year}";
 
                 if (Certificate::where('no_certificate', $nomor)->exists()) {

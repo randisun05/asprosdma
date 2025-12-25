@@ -651,7 +651,7 @@ class EventController extends Controller
     }
 
     $excelNips = $rows->pluck('nip')->toArray();
-    $existingCertificates = Certificate::where('category', 'kombel')
+    $existingCertificates = Certificate::where('category', 'Kombel')
         ->where('event_id', $event->id)
         ->whereIn('nip', $excelNips)
         ->pluck('nip')
@@ -663,10 +663,10 @@ class EventController extends Controller
     $year = date('Y', strtotime($targetDate));
 
     // PERBAIKAN 2: Ambil nomor urut tertinggi saja (integer) agar lebih akurat
-    $lastCertificate = Certificate::where('category', 'kombel')
+    $lastCertificate = Certificate::where('category', 'Kombel')
         ->whereYear('date', $year)
         ->whereMonth('date', $month)
-        ->where('no_certificate', 'like', "%/kombel/PP Aspro SDMA/{$month}/{$year}")
+        ->where('no_certificate', 'like', "%/Kombel/PP Aspro SDMA/{$month}/{$year}")
         ->get()
         ->map(function($cert) {
             return (int) explode('/', $cert->no_certificate)[0];
@@ -705,7 +705,7 @@ class EventController extends Controller
             Certificate::create([
                 'event_id' => $event->id,
                 'no_certificate' => $nomor,
-                'category' => 'kombel',
+                'category' => 'Kombel',
                 'nip' => $row['nip'],
                 'name' => $row['name'],
                 'body' => $event->title,
