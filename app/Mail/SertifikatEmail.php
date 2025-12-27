@@ -54,6 +54,9 @@ class SertifikatEmail extends Mailable implements ShouldQueue
      */
    public function build()
     {
+
+        sleep(60);
+
         return $this->subject('Sertifikat Anda: ' . $this->certificate->body)
                     ->view('Emails.Certificate') // Nama file blade yang sudah dibuat sebelumnya
                     ->with([
