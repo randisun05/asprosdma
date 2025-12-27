@@ -1,0 +1,73 @@
+<?php
+
+namespace App\Console\Commands;
+
+use App\Models\Certificate;
+use App\Mail\SertifikatEmail;
+use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+
+class BlastCertificate extends Command
+{
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'blast:certificate';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Command description';
+
+    /**
+     * Execute the console command.
+     *
+     * @return int
+     */
+    public function handle()
+    {
+        // Ambil 500 data yang belum dikirimi email
+    $certificates = Certificate::where('event_id', '6') // Ganti dengan ID event yang sesuai
+    ->where('is_emailed', 0)
+    ->whereNotNull('email') // Memastikan kolom email tidak NULL
+    ->where('email', '!=', '') // Memastikan kolom email tidak string kosong
+    ->take(500)
+    ->get();
+
+    if ($certificates->isEmpty()) {
+            $this->info("Semua sertifikat untuk event ini sudah dikirim.");
+            return 0;
+        }
+
+        $count = 0;
+
+    foreach ($certificates as $cert) {
+       try {
+                // 2. Kirim email masuk ke antrean (Queue)
+                Mail::to($cert->email)->queue(new SertifikatEmail($cert));
+
+                // 3. UPDATE STATUS: Ubah dari 0 ke 1 agar tidak terkirim ganda besok
+                $cert->update([
+                    'is_emailed' => 1
+                ]);
+
+                $count++;
+                $this->info("{$count}. Antrean dibuat untuk: {$cert->name} ({$cert->email})");
+
+            } catch (\Exception $e) {
+                // Catat log jika ada email yang gagal diproses ke queue
+                Log::error("Gagal memproses email untuk {$cert->name}: " . $e->getMessage());
+                $this->error("Gagal memproses: {$cert->name}");
+            }
+    }
+
+        $this->info("--- SELESAI ---");
+        $this->info("Berhasil menambahkan {$count} email ke dalam antrean (Tabel Jobs).");
+        $this->info("Jangan lupa jalankan 'php artisan queue:work' untuk mengirimnya.");
+    }
+}
