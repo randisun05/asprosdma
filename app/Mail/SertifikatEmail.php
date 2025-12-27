@@ -9,6 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\Middleware\RateLimited;
 
 class SertifikatEmail extends Mailable implements ShouldQueue
 {
@@ -22,6 +23,12 @@ class SertifikatEmail extends Mailable implements ShouldQueue
      */
 
     public $certificate;
+
+    public function middleware()
+    {
+        return [new RateLimited('emails')];
+    }
+
     public function __construct(Certificate $certificate)
     {
         // Menyimpan data sertifikat ke properti class
@@ -36,7 +43,7 @@ class SertifikatEmail extends Mailable implements ShouldQueue
     public function envelope()
     {
         return new Envelope(
-            subject: 'Sertifikat Email',
+          subject: 'Sertifikat Anda: ' . $this->certificate->body,
         );
     }
 
