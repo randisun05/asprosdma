@@ -44,10 +44,10 @@ class BlastCertificate extends Command
 
         $count = 0;
 
-    foreach ($certificates as $cert) {
+    foreach ($certificates as $index => $cert) {
        try {
                 // 2. Kirim email masuk ke antrean (Queue)
-                Mail::to($cert->email)->queue(new SertifikatEmail($cert));
+                Mail::to($cert->email)->later(now()->addSeconds($index * 20), new SertifikatEmail($cert));
 
                 // 3. UPDATE STATUS: Ubah dari 0 ke 1 agar tidak terkirim ganda besok
                 $cert->update([
