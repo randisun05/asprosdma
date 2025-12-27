@@ -22,7 +22,10 @@ class Certificate extends Model
         'qr_code',
         'link',
         'doc',
-        'category'
+        'category',
+        'is_emailed', // Wajib ada di sini
+        'email',
+        'instansi'
     ];
 
     public function event()

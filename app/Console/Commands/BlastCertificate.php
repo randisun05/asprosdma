@@ -32,11 +32,10 @@ class BlastCertificate extends Command
     public function handle()
     {
         // Ambil 500 data yang belum dikirimi email
-    $certificates = Certificate::where('event_id', '6') // Ganti dengan ID event yang sesuai
+    $certificates = Certificate::where('event_id', 6) // Ganti dengan ID event yang sesuai
     ->where('is_emailed', 0)
     ->whereNotNull('email') // Memastikan kolom email tidak NULL
     ->where('email', '!=', '') // Memastikan kolom email tidak string kosong
-    ->take(500)
     ->get();
 
     if ($certificates->isEmpty()) {

@@ -13,6 +13,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class SertifikatEmail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
+    public $tries = 1;
 
     /**
      * Create a new message instance.
