@@ -16,6 +16,7 @@ use Illuminate\Support\Str;
 use App\Models\Registration;
 use Illuminate\Http\Request;
 use App\Models\DocumentDigital;
+use App\Models\ProfileDataMain;
 use App\Models\RegistrationGroup;
 use Illuminate\Support\Facades\DB;
 use App\Models\ProfileDataPosition;
@@ -316,50 +317,51 @@ class PublicController extends Controller
     public function dataAnggota()
     {
 
-         $dataCountsByPosition = ProfileDataPosition::whereIn('position', ['Analis SDM Aparatur', 'Pranata SDM Aparatur'])
-        ->groupBy('position')
-        ->select('position', DB::raw('count(*) as total'))
-        ->get()
-        ->pluck('total', 'position');
+    //      $dataCountsByPosition = ProfileDataPosition::whereIn('position', ['Analis SDM Aparatur', 'Pranata SDM Aparatur'])
+    //     ->groupBy('position')
+    //     ->select('position', DB::raw('count(*) as total'))
+    //     ->get()
+    //     ->pluck('total', 'position');
 
-    $dataCountsByLevel = ProfileDataPosition::whereIn('level', [
-            'Terampil', 'Mahir', 'Penyelia', 'Ahli Pertama', 'Ahli Muda', 'Ahli Madya', 'Ahli Utama'
-        ])
-        ->groupBy('level')
-        ->select('level', DB::raw('count(*) as total'))
-        ->get()
-        ->pluck('total', 'level')
-        ->sortBy(function ($value, $key) {
-            $order = ['Terampil','Mahir','Penyelia','Ahli Pertama','Ahli Muda','Ahli Madya','Ahli Utama'];
-            return array_search($key, $order);
-        });
+    // $dataCountsByLevel = ProfileDataPosition::whereIn('level', [
+    //         'Terampil', 'Mahir', 'Penyelia', 'Ahli Pertama', 'Ahli Muda', 'Ahli Madya', 'Ahli Utama'
+    //     ])
+    //     ->groupBy('level')
+    //     ->select('level', DB::raw('count(*) as total'))
+    //     ->get()
+    //     ->pluck('total', 'level')
+    //     ->sortBy(function ($value, $key) {
+    //         $order = ['Terampil','Mahir','Penyelia','Ahli Pertama','Ahli Muda','Ahli Madya','Ahli Utama'];
+    //         return array_search($key, $order);
+    //     });
 
-        $countsPerMonth = [];
-        $accumulatedCounts = [];
-        $totalCount = 0;
+    //     $countsPerMonth = [];
+    //     $accumulatedCounts = [];
+    //     $totalCount = 0;
 
-        $startYear = 2024;
-        $currentYear = date('Y');  // Tahun saat ini (misalnya: 2025)
-        $currentMonth = date('n'); // Bulan saat ini (misalnya: 2 untuk Februari)
+    //     $startYear = 2024;
+    //     $currentYear = date('Y');  // Tahun saat ini (misalnya: 2025)
+    //     $currentMonth = date('n'); // Bulan saat ini (misalnya: 2 untuk Februari)
 
-        for ($year = $startYear; $year <= $currentYear; $year++) {
-            // Tentukan batas bulan (Desember untuk tahun sebelumnya, bulan saat ini untuk tahun berjalan)
-            $endMonth = ($year == $currentYear) ? $currentMonth : 12;
+    //     for ($year = $startYear; $year <= $currentYear; $year++) {
+    //         // Tentukan batas bulan (Desember untuk tahun sebelumnya, bulan saat ini untuk tahun berjalan)
+    //         $endMonth = ($year == $currentYear) ? $currentMonth : 12;
 
-            for ($month = 1; $month <= $endMonth; $month++) {
-                $monthlyCount = ProfileDataPosition::with('main')
-                    ->whereYear('created_at', $year)
-                    ->whereMonth('created_at', $month)
-                    ->count();
+    //         for ($month = 1; $month <= $endMonth; $month++) {
+    //             $monthlyCount = ProfileDataPosition::with('main')
+    //                 ->whereYear('created_at', $year)
+    //                 ->whereMonth('created_at', $month)
+    //                 ->count();
 
-                $totalCount += $monthlyCount;
-                if ($totalCount > 0) { // Hanya simpan jika ada data
-                    $key = "{$year}-" . str_pad($month, 2, '0', STR_PAD_LEFT);
-                    $countsPerMonth[$key] = $monthlyCount;
-                    $accumulatedCounts[$key] = $totalCount;
-                }
-            }
-        }
+    //             $totalCount += $monthlyCount;
+    //             if ($totalCount > 0) { // Hanya simpan jika ada data
+    //                 $key = "{$year}-" . str_pad($month, 2, '0', STR_PAD_LEFT);
+    //                 $countsPerMonth[$key] = $monthlyCount;
+    //                 $accumulatedCounts[$key] = $totalCount;
+    //             }
+    //         }
+    //     }
+
 
 
        $datas = Management::when(request()->q, function($query) {
@@ -374,10 +376,11 @@ class PublicController extends Controller
         return inertia('Public/Website/Posts/DataAnggota', [
             'title' => "Data Keanggotaan",
             'datas' => $datas,
-            'dataCountsByPosition' => $dataCountsByPosition,
-            'dataCountsByLevel' => $dataCountsByLevel,
-            'countsPerMonth' => $countsPerMonth,
-            'accumulatedCounts' => $accumulatedCounts,
+            // 'dataCountsByPosition' => $dataCountsByPosition,
+            // 'dataCountsByLevel' => $dataCountsByLevel,
+            // 'countsPerMonth' => $countsPerMonth,
+            // 'accumulatedCounts' => $accumulatedCounts,
+
         ]);
     }
 
@@ -447,6 +450,64 @@ class PublicController extends Controller
     }
 
 
+            // 1. Data Berdasarkan Jenis Kelamin (Gender) via SQL Substring
+    $dataCountsByGender = ProfileDataMain::select('gender', DB::raw('count(*) as total'))
+        ->groupBy('gender')
+        ->get()
+        ->mapWithKeys(function ($item) {
+            $label = [
+                'L' => 'Laki-laki',
+                'P' => 'Perempuan',
+            ];
+            return [$label[$item->gender] ?? $item->gender => $item->total];
+        });
+
+
+    // 2. Data Berdasarkan Tipe (Pusat vs Daerah)
+    // Cek Title: Jika 'BKN Pusat' -> Instansi Pusat, Else -> Instansi Daerah
+    $dataCountsByType = DB::table('profile_data_positions')
+        ->leftJoin('instansis', 'profile_data_positions.agency', '=', 'instansis.title')
+        ->select(DB::raw("CASE
+            WHEN instansis.type = 'BKN Pusat' OR instansis.type IS NULL THEN 'Instansi Pusat'
+            ELSE 'Instansi Daerah'
+        END as kategori_tipe"), DB::raw('count(*) as total'))
+        ->groupBy('kategori_tipe')
+        ->pluck('total', 'kategori_tipe')
+        ->sortBy(function ($value, $key) {
+            $order = ['Instansi Pusat', 'Instansi Daerah'];
+            return array_search($key, $order);
+        });
+
+    // 3. Penyebaran Wilayah (Group By instansis.type dengan Custom Order)
+    $regionOrder = [
+        'BKN Pusat',
+        'Kanreg I BKN', 'Kanreg II BKN', 'Kanreg III BKN', 'Kanreg IV BKN',
+        'Kanreg V BKN', 'Kanreg VI BKN', 'Kanreg VII BKN', 'Kanreg VIII BKN',
+        'Kanreg IX BKN', 'Kanreg X BKN', 'Kanreg XI BKN', 'Kanreg XII BKN',
+        'Kanreg XIII BKN', 'Kanreg XIV BKN'
+    ];
+
+    $dataCountsByRegion = DB::table('profile_data_positions')
+        ->leftJoin('instansis', 'profile_data_positions.agency', '=', 'instansis.title')
+        ->select(
+            // Jika tidak ada di tabel instansis, paksa masuk ke 'Instansi Pusat'
+            DB::raw("IFNULL(instansis.type, 'BKN Pusat') as region_type"),
+            DB::raw('count(*) as total')
+        )
+        ->groupBy('region_type')
+        ->get()
+        ->sortBy(function ($item) use ($regionOrder) {
+            foreach ($regionOrder as $key => $orderedType) {
+                if (stripos($item->region_type, $orderedType) !== false) {
+                    return $key;
+                }
+            }
+            return 99;
+        })
+        ->values()
+        ->pluck('total', 'region_type');
+
+
 
     return inertia('Public/Website/Posts/ChartAnggota', [
         'dataCountsByPosition' => $dataCountsByPosition,
@@ -454,6 +515,9 @@ class PublicController extends Controller
         'countsPerMonth' => $countsPerMonth,
         'accumulatedCounts' => $accumulatedCounts,
         'accumulatedCountsByPosition' => $accumulatedCountsByPosition,
+        'dataCountsByGender' => $dataCountsByGender,
+        'dataCountsByType' => $dataCountsByType,
+        'dataCountsByRegion' => $dataCountsByRegion,
     ]);
 }
 

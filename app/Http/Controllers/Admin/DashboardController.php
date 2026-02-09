@@ -8,6 +8,7 @@ use App\Models\Merchan;
 use App\Models\PublicPost;
 use App\Models\Registration;
 use Illuminate\Http\Request;
+use App\Models\ProfileDataMain;
 use Illuminate\Support\Facades\DB;
 use App\Models\ProfileDataPosition;
 use App\Http\Controllers\Controller;
@@ -104,6 +105,63 @@ class DashboardController extends Controller
             }
 
 
+            // 1. Data Berdasarkan Jenis Kelamin (Gender) via SQL Substring
+    $dataCountsByGender = ProfileDataMain::select('gender', DB::raw('count(*) as total'))
+        ->groupBy('gender')
+        ->get()
+        ->mapWithKeys(function ($item) {
+            $label = [
+                'L' => 'Laki-laki',
+                'P' => 'Perempuan',
+            ];
+            return [$label[$item->gender] ?? $item->gender => $item->total];
+        });
+
+    // 2. Data Berdasarkan Tipe (Pusat vs Daerah)
+    // Cek Title: Jika 'BKN Pusat' -> Instansi Pusat, Else -> Instansi Daerah
+    $dataCountsByType = DB::table('profile_data_positions')
+        ->leftJoin('instansis', 'profile_data_positions.agency', '=', 'instansis.title')
+        ->select(DB::raw("CASE
+            WHEN instansis.type = 'BKN Pusat' OR instansis.type IS NULL THEN 'Instansi Pusat'
+            ELSE 'Instansi Daerah'
+        END as kategori_tipe"), DB::raw('count(*) as total'))
+        ->groupBy('kategori_tipe')
+        ->pluck('total', 'kategori_tipe')
+        ->sortBy(function ($value, $key) {
+            $order = ['Instansi Pusat', 'Instansi Daerah'];
+            return array_search($key, $order);
+        });
+
+    // 3. Penyebaran Wilayah (Group By instansis.type dengan Custom Order)
+    $regionOrder = [
+        'BKN Pusat',
+        'Kanreg I BKN', 'Kanreg II BKN', 'Kanreg III BKN', 'Kanreg IV BKN',
+        'Kanreg V BKN', 'Kanreg VI BKN', 'Kanreg VII BKN', 'Kanreg VIII BKN',
+        'Kanreg IX BKN', 'Kanreg X BKN', 'Kanreg XI BKN', 'Kanreg XII BKN',
+        'Kanreg XIII BKN', 'Kanreg XIV BKN'
+    ];
+
+    $dataCountsByRegion = DB::table('profile_data_positions')
+        ->leftJoin('instansis', 'profile_data_positions.agency', '=', 'instansis.title')
+        ->select(
+            // Jika tidak ada di tabel instansis, paksa masuk ke 'Instansi Pusat'
+            DB::raw("IFNULL(instansis.type, 'BKN Pusat') as region_type"),
+            DB::raw('count(*) as total')
+        )
+        ->groupBy('region_type')
+        ->get()
+        ->sortBy(function ($item) use ($regionOrder) {
+            foreach ($regionOrder as $key => $orderedType) {
+                if (stripos($item->region_type, $orderedType) !== false) {
+                    return $key;
+                }
+            }
+            return 99;
+        })
+        ->values()
+        ->pluck('total', 'region_type');
+
+
         return inertia('Admin/Dashboard/Index', [
             'registrationData' => $registrationData,
             'publicationData' => $publicationData,
@@ -112,6 +170,9 @@ class DashboardController extends Controller
             'countsPerMonth' => $countsPerMonth,
             'accumulatedCounts' => $accumulatedCounts,
             'accumulatedCountsByPosition' => $accumulatedCountsByPosition,
+            'dataCountsByGender' => $dataCountsByGender,
+            'dataCountsByType' => $dataCountsByType,
+            'dataCountsByRegion' => $dataCountsByRegion,
         ]);
     }
 }

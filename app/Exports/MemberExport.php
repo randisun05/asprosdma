@@ -23,16 +23,27 @@ class MemberExport implements FromCollection, WithMapping, WithHeadings
     }
 
     public function map($datas) : array {
+        // Determine the label based on agency_type
+    if ($datas->agency_type == 'BKN Pusat') {
+        $typeLabel = 'Instansi Pusat';
+    } else {
+        $typeLabel = 'Instansi Daerah';
+    }
+
         return [
             $datas->main->nomember,
             "'" .$datas->main->nip,
             $datas->main->name,
+            $datas->main->gender,
             $datas->main->email,
             "'" .$datas->main->contact,
             $datas->agency,
+            $typeLabel,
+            $datas->agency_type,
             $datas->position,
             $datas->level,
             $datas->created_at,
+
         ] ;
     }
 
@@ -41,9 +52,12 @@ class MemberExport implements FromCollection, WithMapping, WithHeadings
            'No_Anggota',
            'NIP',
            'Nama',
+           'Gender',
            'Email',
            'Kontak',
            'Instansi',
+           'Jenis Instansi',
+           'Wilayah',
            'Jabatan',
            'Jenjang',
            'Tanggal',

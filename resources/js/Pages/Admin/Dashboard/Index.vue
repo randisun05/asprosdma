@@ -22,7 +22,9 @@
             <BarChart :chartData="chartDataByMonth" :chartOptions="chartOptions" />
             <BarChart :chartData="chartDataByPosition" :chartOptions="chartOptions" />
             <BarChart :chartData="chartDataByLevel" :chartOptions="chartOptions" />
-            <BarChart :chartData="chartDataAccumulated" :chartOptions="chartOptions" />
+            <BarChart :chartData="chartDataByGender" :chartOptions="chartOptions" />
+            <BarChart :chartData="chartDataByType" :chartOptions="chartOptions" />
+            <BarChart :chartData="chartDataByRegion" :chartOptions="chartOptions" />
           </div>
         </div>
       </div>
@@ -87,6 +89,21 @@
             default: () => ({})
             },
             accumulatedCounts: {
+            type: Object,
+            required: true,
+            default: () => ({})
+            },
+            dataCountsByGender: {
+            type: Object,
+            required: true,
+            default: () => ({})
+            },
+            dataCountsByType: {
+            type: Object,
+            required: true,
+            default: () => ({})
+            },
+            dataCountsByRegion: {
             type: Object,
             required: true,
             default: () => ({})
@@ -178,6 +195,39 @@
                 ]
             });
 
+            const chartDataByGender = reactive({
+                labels: Object.keys(props.dataCountsByGender).map(key => `${key}`),
+                datasets: [
+                {
+                    label: 'Counts By Gender',
+                    backgroundColor: ['#36A2EB', '#FF6384'],
+                    data: Object.values(props.dataCountsByGender)
+                }
+                ]
+            });
+
+            const chartDataByType = reactive({
+                labels: Object.keys(props.dataCountsByType).map(key => `${key}`),
+                datasets: [
+                {
+                    label: 'Counts By Type',
+                    backgroundColor: '#FFCE56',
+                    data: Object.values(props.dataCountsByType)
+                }
+                ]
+            });
+
+            const chartDataByRegion = reactive({
+                labels: Object.keys(props.dataCountsByRegion).map(key => `${key}`),
+                datasets: [
+                {
+                    label: 'Counts By Region',
+                    backgroundColor: '#4BC0C0',
+                    data: Object.values(props.dataCountsByRegion)
+                }
+                ]
+            });
+
             const exportToPDF = () => {
             if (reportContent.value) {
                 html2canvas(reportContent.value, { scale: 2 }).then(canvas => {
@@ -233,6 +283,11 @@
                 chartDataByMonth,
                 chartRegistration,
                 chartPublication,
+                chartDataByGender,
+                chartDataByType,
+                chartDataByRegion,
+                exportToPDF
+
             };
             }
         };

@@ -110,6 +110,7 @@ Route::prefix('admin')->group(function() {
         Route::resource('/setting', \App\Http\Controllers\Admin\AuthAdminController::class, ['as' => 'admin']);
         Route::get('/members/report/export', [\App\Http\Controllers\Admin\DataMembersController::class, 'exportReport'])->name('admin.member.export');
         Route::get('/members/report', [\App\Http\Controllers\Admin\DataMembersController::class, 'indexReport'])->name('admin.member.report');
+        Route::get('/members/report/recap', [\App\Http\Controllers\Admin\DataMembersController::class, 'recapitulation'])->name('admin.member.report.recap');
         Route::resource('/members', \App\Http\Controllers\Admin\DataMembersController::class, ['as' => 'admin']);
         Route::resource('/achievements', \App\Http\Controllers\Admin\AchievementController::class, ['as' => 'admin']);
         Route::post('/achievements/{id}', [\App\Http\Controllers\Admin\AchievementController::class, 'update'])->name('admin.acievements.update');
@@ -149,7 +150,7 @@ Route::prefix('admin')->group(function() {
         Route::get('/jurnals/export', [\App\Http\Controllers\Admin\JurnalController::class, 'exportReport'])->name('admin.jurnals.export');
         Route::get('/jurnals/show', [\App\Http\Controllers\Admin\JurnalController::class, 'show'])->name('admin.jurnals.show');
         Route::resource('/jurnals', \App\Http\Controllers\Admin\JurnalController::class, ['as' => 'admin']);
-
+            Route::get('/update-gender', [\App\Http\Controllers\Admin\DataMembersController::class, 'updateMissingGenders'])->name('missing.gender');
 
 
     });
@@ -274,6 +275,7 @@ Route::resource('/hubungi-aspro', \App\Http\Controllers\Public\ArchiveController
 Route::get('/certificates/{id}/view', [\App\Http\Controllers\Public\PublicController::class, 'certificatesShow'])->name('certificate.show');
 Route::get('/certificates/{id}', [\App\Http\Controllers\Public\PublicController::class, 'certificateView'])->name('certificate.view');
 Route::get('/maintenance', [\App\Http\Controllers\Public\PublicController::class, 'maintenance'])->name('maintenance');
+
 
 Route::get('/documents/{filename}', function ($filename) {
     $path = storage_path('app/public/document/' . $filename);

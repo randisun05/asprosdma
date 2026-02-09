@@ -10,6 +10,10 @@
                                             <BarChart :chartData="chartDataByLevel" :chartOptions="chartOptions" />
                                             <BarChart :chartData="chartDataAccumulated" :chartOptions="chartOptions" />
                                             <BarChart :chartData="accumulatedCountsByPosition" :chartOptions="chartOptions" />
+                                            <BarChart :chartData="chartDataByGender" :chartOptions="chartOptions" />
+                                            <BarChart :chartData="chartDataByType" :chartOptions="chartOptions" />
+                                            <BarChart :chartData="chartDataByRegion" :chartOptions="chartOptions" />
+
                                         </div>
                                     </div>
                                 </div>
@@ -30,7 +34,6 @@
         export default {
             //register component
             components: {
-
                 BarChart
             },
 
@@ -62,7 +65,22 @@
                     type: Object,
                     required: true,
                     default: () => ({})
-                }
+                },
+                dataCountsByGender: {
+                    type: Object,
+                    required: false,
+                    default: () => ({})
+                },
+                dataCountsByType: {
+                    type: Object,
+                    required: false,
+                    default: () => ({})
+                },
+                dataCountsByRegion: {
+                    type: Object,
+                    required: false,
+                    default: () => ({})
+                },
             },
 
             setup(props) {
@@ -119,6 +137,39 @@
                     ]
                 });
 
+                const chartDataByGender = reactive({
+                    labels: Object.keys(props.dataCountsByGender).map(key => `${key}`),
+                    datasets: [
+                        {
+                            label: 'Counts By Gender',
+                            backgroundColor: getRandomColor(),
+                            data: Object.values(props.dataCountsByGender)
+                        }
+                    ]
+                });
+
+                const chartDataByType = reactive({
+                    labels: Object.keys(props.dataCountsByType).map(key => `${key}`),
+                    datasets: [
+                        {
+                            label: 'Counts By Jenis Instansi',
+                            backgroundColor: getRandomColor(),
+                            data: Object.values(props.dataCountsByType)
+                        }
+                    ]
+                });
+
+                const chartDataByRegion = reactive({
+                    labels: Object.keys(props.dataCountsByRegion).map(key => `${key}`),
+                    datasets: [
+                        {
+                            label: 'Counts By Wilayah',
+                            backgroundColor: getRandomColor(),
+                            data: Object.values(props.dataCountsByRegion)
+                        }
+                    ]
+                });
+
                 const chartDataAccumulated = reactive({
                     labels: Object.keys(props.accumulatedCounts).map(key => `${key}`),
                     datasets: [
@@ -145,18 +196,17 @@
             });
 
             function getRandomColor() {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-}
+                const letters = '0123456789ABCDEF';
+                let color = '#';
+                for (let i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
 
 
                 //return
                 return {
-
                     reportContent,
                     chartDataByPosition,
                     chartDataByLevel,
@@ -164,6 +214,9 @@
                     chartOptions,
                     chartDataByMonth,
                     accumulatedCountsByPosition,
+                    chartDataByGender,
+                    chartDataByType,
+                    chartDataByRegion,
                 }
             }
         }

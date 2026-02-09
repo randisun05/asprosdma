@@ -14,6 +14,9 @@
                     <button @click="exportToPDF" class="btn btn-md btn-danger border-0 shadow mb-3" type="button">
               <i class="fa fa-file-pdf" aria-hidden="true"></i> Export to PDF
             </button>
+            <a :href="`/admin/members/report/recap`" target="_blank" class="btn btn-md btn-info border-0 shadow mb-3 me-2 text-white ms-2" type="button">
+            <i class="fa fa-file-excel" aria-hidden="true"></i> Download Rekap
+            </a>
           </div>
         </div>
       </div>
@@ -26,6 +29,9 @@
             <BarChart :chartData="chartDataByPosition" :chartOptions="chartOptions" />
             <BarChart :chartData="chartDataByLevel" :chartOptions="chartOptions" />
             <BarChart :chartData="chartDataAccumulated" :chartOptions="chartOptions" />
+            <BarChart :chartData="chartDataByGender" :chartOptions="chartOptions" />
+            <BarChart :chartData="chartDataByType" :chartOptions="chartOptions" />
+            <BarChart :chartData="chartDataByRegion" :chartOptions="chartOptions" />
           </div>
         </div>
       </div>
@@ -69,6 +75,21 @@ export default {
       default: () => ({})
     },
     accumulatedCounts: {
+      type: Object,
+      required: true,
+      default: () => ({})
+    },
+    dataCountsByGender: {
+      type: Object,
+      required: true,
+      default: () => ({})
+    },
+    dataCountsByType: {
+      type: Object,
+      required: true,
+      default: () => ({})
+    },
+    dataCountsByRegion: {
       type: Object,
       required: true,
       default: () => ({})
@@ -124,6 +145,39 @@ export default {
         label: 'Counts By Jenjang',
         backgroundColor: '#7acbf9',
         data: Object.values(props.dataCountsByLevel)
+      }
+    ]
+  });
+
+  const chartDataByGender = reactive({
+    labels: Object.keys(props.dataCountsByGender).map(key => `${key}`),
+    datasets: [
+      {
+        label: 'Counts By Gender',
+        backgroundColor: '#f9a57a',
+        data: Object.values(props.dataCountsByGender)
+      }
+    ]
+  });
+
+  const chartDataByType = reactive({
+    labels: Object.keys(props.dataCountsByType).map(key => `${key}`),
+    datasets: [
+      {
+        label: 'Counts By Tipe Instansi',
+        backgroundColor: '#a57af9',
+        data: Object.values(props.dataCountsByType)
+      }
+    ]
+  });
+
+  const chartDataByRegion = reactive({
+    labels: Object.keys(props.dataCountsByRegion).map(key => `${key}`),
+    datasets: [
+      {
+        label: 'Counts By Region',
+        backgroundColor: '#7af9d4',
+        data: Object.values(props.dataCountsByRegion)
       }
     ]
   });
@@ -192,7 +246,10 @@ export default {
     chartDataAccumulated,
     chartOptions,
     chartDataByMonth,
-    exportToPDF
+    exportToPDF,
+    chartDataByGender,
+    chartDataByType,
+    chartDataByRegion
   };
 }
 
