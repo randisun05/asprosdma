@@ -21,7 +21,7 @@
             </section>
             <!--page Header ends-->
 
-            <iframe src="/data-anggota/chart" class="w-full border rounded" style="height: 760px;"></iframe>
+            <iframe src="/data-anggota/chart" class="w-full border rounded" style="height: 1200px;"></iframe>
 
             <!-- <section id="our-team-two" class="padding_m">
                 <div class="container">

@@ -376,8 +376,6 @@ class DataMembersController extends Controller
 
 public function updateMissingGenders()
 {
-    $fix = ProfileDatamain::where('nip', '19740402009011001')->first();
-    $fix->update(['nip' => '197404022009011001']);
     // Ambil data yang kolom gender-nya masih kosong atau null
     $profiles = ProfileDatamain::whereNull('gender')
         ->orWhere('gender', '')
@@ -398,10 +396,10 @@ public function updateMissingGenders()
             } elseif ($genderCode === '2') {
                 $profile->gender = 'P';
             } else {
-                $profile->gender = 'E'; // Karakter ke-15 bukan 1 atau 2
+                $profile->gender = 'L'; // Karakter ke-15 bukan 1 atau 2
             }
         } else {
-            $profile->gender = 'E'; // NIP tidak valid/terlalu pendek
+            $profile->gender = 'L'; // NIP tidak valid/terlalu pendek
         }
 
         if ($profile->save()) {

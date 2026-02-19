@@ -27,7 +27,7 @@
        components: {
            Navbar,
            Footer
-  
+
        },
    }
 

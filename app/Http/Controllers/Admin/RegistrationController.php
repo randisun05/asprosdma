@@ -318,12 +318,26 @@ class RegistrationController extends Controller
 
         $today = Carbon::now()->format('Y-m-d H:i:s');
           //create data profile
+
+       if (strlen($register->nip) >= 15) {
+            $genderCode = substr($register->nip, 14, 1); // Indeks dimulai dari 0, maka 14 adalah karakter ke-15
+            if ($genderCode === '1') {
+                $gender = 'L';
+            } elseif ($genderCode === '2') {
+                $gender = 'P';
+            } else {
+                $gender = 'L'; // Karakter ke-15 bukan 1 atau 2
+            }
+        } else {
+            $gender = 'L'; // NIP tidak valid/terlalu pendek
+        }
         ProfileDataMain::create([
             'nip'             => $register->nip,
             'name'            => $register->name,
             'email'           => $register->email,
             'contact'        => $register->contact,
             'active_at'      => $today,
+            'gender'         => $gender,
             'nomember'      => $code,
         ]);
 

@@ -513,7 +513,6 @@ class PublicController extends Controller
         ->pluck('total', 'region_type');
 
 
-
     return inertia('Public/Website/Posts/ChartAnggota', [
         'dataCountsByPosition' => $dataCountsByPosition,
         'dataCountsByLevel' => $dataCountsByLevel,
