@@ -2,29 +2,30 @@
 
 namespace App\Http\Controllers\Public;
 
-use Log;
-use App\Models\Post;
-use App\Models\Event;
-use App\Models\Member;
-use App\Models\Category;
-use App\Models\Management;
+use App\Http\Controllers\Controller;
+use App\Mail\SendEmailForgetPassword;
 use App\Models\Achievement;
+use App\Models\Category;
 use App\Models\Certificate;
 use App\Models\DetailEvent;
-use App\Models\ReactDetail;
-use Illuminate\Support\Str;
-use App\Models\Registration;
-use Illuminate\Http\Request;
 use App\Models\DocumentDigital;
+use App\Models\Event;
+use App\Models\Management;
+use App\Models\Member;
+use App\Models\Post;
 use App\Models\ProfileDataMain;
-use App\Models\RegistrationGroup;
-use Illuminate\Support\Facades\DB;
 use App\Models\ProfileDataPosition;
+use App\Models\ReactDetail;
+use App\Models\Registration;
+use App\Models\RegistrationGroup;
 use App\Models\TemplateCertificate;
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\SendEmailForgetPassword;
+use Illuminate\Support\Str;
+use Log;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class PublicController extends Controller
@@ -364,18 +365,22 @@ class PublicController extends Controller
 
 
 
-       $datas = Management::when(request()->q, function($query) {
-           $query->where('body', 'like', '%' . request()->q . '%');
-       })
-       ->where('item', 'dataanggota')
-       ->latest()
-       ->paginate(6);
+        $now = Carbon::now();
+        $now->setLocale('id');
+        $formattedDate = $now->translatedFormat('d F Y');
 
-        $datas->appends(['q' => request()->q]);
+    //    $datas = Management::when(request()->q, function($query) {
+    //        $query->where('body', 'like', '%' . request()->q . '%');
+    //    })
+    //    ->where('item', 'dataanggota')
+    //    ->latest()
+    //    ->paginate(6);
+
+    //     $datas->appends(['q' => request()->q]);
 
         return inertia('Public/Website/Posts/DataAnggota', [
-            'title' => "Data Keanggotaan",
-            'datas' => $datas,
+            'title' => "Data Keanggotaan" . " per tanggal " . $formattedDate,
+            // 'datas' => $datas,
             // 'dataCountsByPosition' => $dataCountsByPosition,
             // 'dataCountsByLevel' => $dataCountsByLevel,
             // 'countsPerMonth' => $countsPerMonth,
@@ -644,7 +649,7 @@ class PublicController extends Controller
 
     public function downloadSertifikat($qr_link)
     {
-        return $qr_link;
+
             $data = Member::where('qr_link', $qr_link)->first();
 
               $data = Certificate::with('event')->where('link', $id)->first();
