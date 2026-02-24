@@ -579,6 +579,7 @@ class EventController extends Controller
         $event = Event::findOrFail($id);
         $lastCertificate = Certificate::whereYear('date', date('Y', strtotime($request->date)))
         ->whereMonth('date', date('m', strtotime($request->date)))
+        ->where('category', $request->category)
         ->orderBy('created_at', 'desc')
         ->first();
 
@@ -663,10 +664,10 @@ class EventController extends Controller
     $year = date('Y', strtotime($targetDate));
 
     // PERBAIKAN 2: Ambil nomor urut tertinggi saja (integer) agar lebih akurat
-    $lastCertificate = Certificate::where('category', 'Kombel')
+    $lastCertificate = Certificate::where('category', 'Kombel-Panitia')
         ->whereYear('date', $year)
         ->whereMonth('date', $month)
-        ->where('no_certificate', 'like', "%/Kombel/PP Aspro SDMA/{$month}/{$year}")
+        ->where('no_certificate', 'like', "%/Kombel-Panitia/PP Aspro SDMA/{$month}/{$year}")
         ->get()
         ->map(function($cert) {
             return (int) explode('/', $cert->no_certificate)[0];

@@ -150,7 +150,7 @@ Route::prefix('admin')->group(function() {
         Route::get('/jurnals/export', [\App\Http\Controllers\Admin\JurnalController::class, 'exportReport'])->name('admin.jurnals.export');
         Route::get('/jurnals/show', [\App\Http\Controllers\Admin\JurnalController::class, 'show'])->name('admin.jurnals.show');
         Route::resource('/jurnals', \App\Http\Controllers\Admin\JurnalController::class, ['as' => 'admin']);
-            Route::get('/update-gender', [\App\Http\Controllers\Admin\DataMembersController::class, 'updateMissingGenders'])->name('missing.gender');
+        Route::get('/update-gender', [\App\Http\Controllers\Admin\DataMembersController::class, 'updateMissingGenders'])->name('missing.gender');
 
 
     });
