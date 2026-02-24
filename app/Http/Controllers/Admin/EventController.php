@@ -307,26 +307,33 @@ class EventController extends Controller
     }
 
     public function certificatesIndex($id)
-    {
-        $event = Event::findOrFail($id);
-        $members = Member::all();
-        $datas = Certificate::where('event_id', $id)
-             ->when(request()->q, function($query) {
-             $query->where('nip', 'like', '%' . request()->q . '%')
-                   ->orWhere('name', 'like', '%' . request()->q . '%')
-                   ->orWhere('no_certificate', 'like', '%' . request()->q . '%');
-             })
-             ->orderBy('no_certificate', 'desc')
-             ->paginate(10);
+{
+    $event = Event::findOrFail($id);
 
-        $datas->appends(['q' => request()->q]);
+    // Gunakan pagination untuk members jika datanya banyak,
+    // atau tetap all() jika memang dibutuhkan untuk dropdown
+    $members = Member::all();
 
-        return inertia('Admin/Events/CertificatesIndex', [
-            'event' => $event,
-            'members' => $members,
-            'datas' => $datas,
-         ]);
-    }
+    $datas = Certificate::where('event_id', $id) // Filter utama tetap terjaga
+        ->when(request()->q, function($query) {
+            // Bungkus pencarian dalam closure agar menjadi: WHERE event_id = ? AND (nip LIKE ? OR name LIKE ? OR ...)
+            $query->where(function($q) {
+                $search = request()->q;
+                $q->where('nip', 'like', '%' . $search . '%')
+                  ->orWhere('name', 'like', '%' . $search . '%')
+                  ->orWhere('no_certificate', 'like', '%' . $search . '%');
+            });
+        })
+        ->orderBy('no_certificate', 'desc')
+        ->paginate(10)
+        ->withQueryString(); // Lebih praktis daripada manual ->appends()
+
+    return inertia('Admin/Events/CertificatesIndex', [
+        'event'   => $event,
+        'members' => $members,
+        'datas'   => $datas,
+    ]);
+}
 
     public function certificatesCreate($id)
     {
@@ -741,6 +748,57 @@ class EventController extends Controller
     }
 
     return redirect()->route('admin.events.certificates.index', $id);
+}
+
+public function enrollMember(Request $request, $id)
+    {
+        // 1. Validasi: pastikan member_id ada dan valid
+        $request->validate([
+            'member_id' => 'required|exists:members,id',
+            'title' => 'required',
+        ]);
+
+        $event = Event::findOrFail($id);
+        $memberId = $request->member_id;
+
+        // 2. Cek apakah member sudah terdaftar di event ini
+        $exists = DetailEvent::where('event_id', $id)
+            ->where('member_id', $memberId)
+            ->exists();
+
+        if ($exists) {
+            return redirect()->back()->with('error', 'Member ini sudah terdaftar di event tersebut.');
+        }
+
+
+        // 4. Daftarkan Member
+        DetailEvent::create([
+            'event_id'  => $id,
+            'member_id' => $memberId,
+            'title'     => $request->title ?? 'peserta', // Default title jika tidak disediakan
+            'status'    => "approved", // Otomatis approved karena didaftarkan admin
+
+        ]);
+
+        return redirect()->back()->with('success', 'Berhasil menambahkan peserta ke event.');
+    }
+
+    // Tambahkan di controller yang menangani Event
+public function findMemberByNip($nip)
+{
+    $member = Member::where('nip', $nip)->first();
+
+    if ($member) {
+        return response()->json([
+            'success' => true,
+            'data'    => $member
+        ]);
+    }
+
+    return response()->json([
+        'success' => false,
+        'message' => 'Member tidak ditemukan'
+    ]);
 }
 
 }

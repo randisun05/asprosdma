@@ -12,7 +12,8 @@
                                         <div class="col-md-12">
                                             <div class="row py-4">
                                                 <div class="col-md-2 col-12 mb-2">
-                                                    <Link href="/admin/events" class="btn btn-md btn-primary border-0 shadow w-100"
+                                                    <Link href="/admin/events"
+                                                        class="btn btn-md btn-primary border-0 shadow w-100"
                                                         type="button"><i class="fa fa-arrow-left"></i>
                                                     Kembali</Link>
                                                 </div>
@@ -37,7 +38,8 @@
                                                 Deskripsi
                                             </span>
                                         </div>
-                                        <div v-html="event.body" style="text-align:justify;text-justify: " class="col-md-9 mb-2">
+                                        <div v-html="event.body" style="text-align:justify;text-justify: "
+                                            class="col-md-9 mb-2">
 
                                         </div>
 
@@ -123,7 +125,11 @@
                                                 @click="setActiveTab('participant')">Participant</a>
                                         </li>
                                         <li class="nav-item ms-4">
-                                             <button class="btn btn-success w-100" @click="absenAll">Absen All</button>   
+                                            <button class="btn btn-success w-100" @click="absenAll">Absen All</button>
+                                        </li>
+                                        <li class="nav-item ms-2">
+                                            <button class="btn btn-primary w-100" @click="showEnrollModal = true">Tambah
+                                                Peserta</button>
                                         </li>
                                     </ul>
 
@@ -136,19 +142,21 @@
                                                     <th class="border-0">Instansi</th>
                                                     <th class="border-0">Sebagai</th>
                                                     <th class="border-0 rounded-end" style="width:12%">Status
-                                                       
+
                                                     </th>
                                                 </tr>
                                             </thead>
                                             <div class="mt-2"></div>
                                             <tbody>
                                                 <tr v-for="(detail, index) in details.data" :key="index">
-                                                    <td class="fw-bold text-center">{{ ++index + (details.current_page - 1) *
+                                                    <td class="fw-bold text-center">{{ ++index + (details.current_page -
+                                                        1) *
                                                         details.per_page }}</td>
                                                     <td>{{ detail.member.name }}</td>
                                                     <td>{{ detail.member.agency }}</td>
-                                                    <td @click="openRoleModal(detail)" style="cursor: pointer;" title="Klik untuk ubah peran">
-                                                    {{ detail.title }}
+                                                    <td @click="openRoleModal(detail)" style="cursor: pointer;"
+                                                        title="Klik untuk ubah peran">
+                                                        {{ detail.title }}
                                                     </td>
                                                     <td class="text-center">
                                                         {{ detail.status }}
@@ -167,177 +175,269 @@
                 </div>
 
 
+                <div v-if="showEnrollModal" class="modal-backdrop">
+                    <div class="modal-content-custom">
+                        <h5>Tambah Peserta Ke Event</h5>
+                        <hr>
+                        <div class="form-group mb-3">
+                            <label>Masukkan NIP</label>
+                            <input type="text" v-model="enrollForm.nip" class="form-control" @change="searchMemberByNip"
+                                placeholder="Ketik NIP lalu tekan enter/tab">
+                            <small v-if="searching" class="text-primary">Mencari member...</small>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>Nama Member</label>
+                            <input type="text" v-model="enrollForm.name" class="form-control" disabled
+                                placeholder="Nama akan muncul otomatis">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>Sebagai (Title)</label>
+                            <select v-model="enrollForm.title" class="form-control">
+                                <option value="Penanggung Jawab Panitia">Penanggung Jawab</option>
+                                <option value="Sekretaris Panitia">Sekretaris</option>
+                                <option value="Bendahara Panitia">Bendahara</option>
+                                <option value="Narasumber">Narasumber</option>
+                                <option value="Anggota Panitia">Anggota Panitia</option>
+                                <option value="Moderator Panitia">Moderator</option>
+                            </select>
+                        </div>
+                        <div class="mt-4">
+                            <button class="btn btn-primary" :disabled="!enrollForm.member_id"
+                                @click="submitEnroll">Simpan</button>
+                            <button class="btn btn-secondary ms-2" @click="closeEnrollModal">Batal</button>
+                        </div>
+                    </div>
+                </div>
+
+
                 <!-- Modal untuk edit peran -->
                 <div v-if="showRoleModal" class="modal-backdrop">
-                <div class="modal-content-custom">
-                    <h5>Edit Peran Peserta</h5>
-                    <select v-model="selectedRole" class="form-control mb-3">
-                    <option value="Peserta">Peserta</option>
-                    <option value="Moderator">Moderator</option>
-                    <option value="Panitia">Panitia</option>
-                    <option value="Narasumber">Narasumber</option>
-                    </select>
-                    <button class="btn btn-sm btn-success" @click="updateRole(selectedParticipantId, selectedRole)">Simpan</button>         
-                    <button class="btn btn-sm btn-secondary ms-2" @click="closeRoleModal">Batal</button>
-                </div>
+                    <div class="modal-content-custom">
+                        <h5>Edit Peran Peserta</h5>
+                        <select v-model="selectedRole" class="form-control mb-3">
+                            <option value="Peserta">Peserta</option>
+                            <option value="Moderator">Moderator</option>
+                            <option value="Panitia">Panitia</option>
+                            <option value="Narasumber">Narasumber</option>
+                        </select>
+                        <button class="btn btn-sm btn-success"
+                            @click="updateRole(selectedParticipantId, selectedRole)">Simpan</button>
+                        <button class="btn btn-sm btn-secondary ms-2" @click="closeRoleModal">Batal</button>
+                    </div>
                 </div>
 
             </template>
 
-            <script>
-            //import layout
-            import LayoutAdmin from '../../../Layouts/Admin.vue';
+<script>
+//import layout
+import LayoutAdmin from '../../../Layouts/Admin.vue';
 
-            //import component pagination
-            import Pagination from '../../../Components/Pagination.vue';
+//import component pagination
+import Pagination from '../../../Components/Pagination.vue';
 
-            //import Heade and Link from Inertia
-            import {
-                Head,
-                Link
-            } from '@inertiajs/inertia-vue3';
+//import Heade and Link from Inertia
+import {
+    Head,
+    Link
+} from '@inertiajs/inertia-vue3';
 
-            //import tinyMCE
-            import Editor from '@tinymce/tinymce-vue';
+//import tinyMCE
+import Editor from '@tinymce/tinymce-vue';
 
-            //import ref from vue
-            import {
-                ref, reactive,
-            } from 'vue';
+import axios from 'axios';
 
-            //import inertia adapter
-            import { Inertia } from '@inertiajs/inertia';
+//import ref from vue
+import {
+    ref, reactive,
+} from 'vue';
 
-            //import sweet alert2
-            import Swal from 'sweetalert2';
+//import inertia adapter
+import { Inertia } from '@inertiajs/inertia';
 
-            export default {
-                //layout
-                layout: LayoutAdmin,
+//import sweet alert2
+import Swal from 'sweetalert2';
 
-                //register component
-                components: {
-                    Head,
-                    Link,
-                    Editor,
-                    Pagination
-                },
+export default {
+    //layout
+    layout: LayoutAdmin,
 
-                //props
-                props: {
-                    errors: Object,
-                    event: Object,
-                    details: Object
-                },
+    //register component
+    components: {
+        Head,
+        Link,
+        Editor,
+        Pagination
+    },
 
-                data() {
-                    return {
-                        activeTab: 'participant', // Set the default active tab
-                        showRoleModal: false,
-                        selectedRole: '',
-                        selectedParticipantId: null
+    //props
+    props: {
+        errors: Object,
+        event: Object,
+        details: Object
+    },
 
-                    };
-                },
+    data() {
+        return {
+            activeTab: 'participant', // Set the default active tab
+            showRoleModal: false,
+            selectedRole: '',
+            selectedParticipantId: null,
 
-                methods: {
-                    setActiveTab(tabName) {
-                        this.activeTab = tabName;
-                    },
-                    openRoleModal(participant) {
-                    this.selectedRole = participant.title;
-                    this.selectedParticipantId = participant.id;
-                    this.showRoleModal = true;
-                    },
+            // State Baru untuk Enroll
+            showEnrollModal: false,
+            searching: false,
+            enrollForm: {
+                nip: '',
+                member_id: '',
+                name: '',
+                title: 'Peserta'
+            }
 
-                    closeRoleModal() {
-                    this.showRoleModal = false;
-                    this.selectedRole = '';
-                    this.selectedParticipantId = null;
-                    },
+        };
+    },
 
-                    updateRole(participantId, role) {
-                        Inertia.post(`/admin/events/${participantId}/updaterole`, {
-                            title: role
-                        }, {
-                            onSuccess: () => {
-                                this.closeRoleModal();
-                                Swal.fire('Sukses', 'Peran peserta diperbarui!', 'success');
-                            }
-                        });
-                    },           
-                    
-                    absenAll() {
-                    Swal.fire({
-                        title: 'Yakin ingin absen semua peserta?',
-                        icon: 'question',
-                        showCancelButton: true,
-                        confirmButtonText: 'Ya, absen semua',
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                        Inertia.get(`/admin/events/${this.event.id}/absenall`, {}, {
-                            onSuccess: () => {
+    methods: {
+        setActiveTab(tabName) {
+            this.activeTab = tabName;
+        },
+        openRoleModal(participant) {
+            this.selectedRole = participant.title;
+            this.selectedParticipantId = participant.id;
+            this.showRoleModal = true;
+        },
+
+        closeRoleModal() {
+            this.showRoleModal = false;
+            this.selectedRole = '';
+            this.selectedParticipantId = null;
+        },
+
+        updateRole(participantId, role) {
+            Inertia.post(`/admin/events/${participantId}/updaterole`, {
+                title: role
+            }, {
+                onSuccess: () => {
+                    this.closeRoleModal();
+                    Swal.fire('Sukses', 'Peran peserta diperbarui!', 'success');
+                }
+            });
+        },
+
+        absenAll() {
+            Swal.fire({
+                title: 'Yakin ingin absen semua peserta?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, absen semua',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Inertia.get(`/admin/events/${this.event.id}/absenall`, {}, {
+                        onSuccess: () => {
                             Swal.fire('Sukses', 'Semua peserta telah diabsen!', 'success');
-                            }
-                        });
                         }
                     });
-                    }
-
-
-                },
-
-
-                //inisialisasi composition API
-                setup(props) {
-
-                    //define state search
-                    const search = ref('' || (new URL(document.location)).searchParams.get('q'));
-
-                    //define method search
-                    const handleSearch = () => {
-                        Inertia.get(`/admin/events/${props.event.id}`, {
-
-                            //send params "q" with value from state "search"
-                            q: search.value,
-                        });
-                    }
-
-                    // Method to get the URL of the document
-                    const getDocumentUrl = (documentName) => {
-                        return `/storage/${documentName}`;
-                    }
-                    //return
-                    return {
-                        getDocumentUrl,
-                        search,
-                        handleSearch
-
-                    }
                 }
-            }
+            });
+        },
 
-            </script>
+        async searchMemberByNip() {
+            if (this.enrollForm.nip.length < 5) return;
 
-            <style>
-        .modal-backdrop {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1050;
+            this.searching = true;
+            try {
+                const response = await axios.get(`/admin/members/find/${this.enrollForm.nip}`);
+                if (response.data.success) {
+                    this.enrollForm.member_id = response.data.data.id;
+                    this.enrollForm.name = response.data.data.name;
+                } else {
+                    Swal.fire('Error', 'Member tidak ditemukan!', 'error');
+                    this.enrollForm.name = '';
+                    this.enrollForm.member_id = '';
+                }
+            } catch (error) {
+                console.error(error);
+            } finally {
+                this.searching = false;
             }
-            .modal-content-custom {
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 5px 15px rgba(0,0,0,.5);
-            }
-            </style>
+        },
+
+        submitEnroll() {
+            Inertia.post(`/admin/events/${this.event.id}/enroll`, {
+                member_id: this.enrollForm.member_id,
+                title: this.enrollForm.title
+            }, {
+                onSuccess: () => {
+                    this.closeEnrollModal();
+                    Swal.fire('Sukses', 'Peserta berhasil ditambahkan!', 'success');
+                },
+                onError: (errors) => {
+                    Swal.fire('Gagal', errors.member_id || 'Terjadi kesalahan', 'error');
+                }
+            });
+        },
+
+        closeEnrollModal() {
+            this.showEnrollModal = false;
+            this.enrollForm = { nip: '', member_id: '', name: '', title: 'Peserta' };
+        }
+
+
+    },
+
+
+
+
+    //inisialisasi composition API
+    setup(props) {
+
+        //define state search
+        const search = ref('' || (new URL(document.location)).searchParams.get('q'));
+
+        //define method search
+        const handleSearch = () => {
+            Inertia.get(`/admin/events/${props.event.id}`, {
+
+                //send params "q" with value from state "search"
+                q: search.value,
+            });
+        }
+
+        // Method to get the URL of the document
+        const getDocumentUrl = (documentName) => {
+            return `/storage/${documentName}`;
+        }
+        //return
+        return {
+            getDocumentUrl,
+            search,
+            handleSearch
+
+        }
+    }
+}
+
+</script>
+
+<style>
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1050;
+}
+
+.modal-content-custom {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+}
+</style>

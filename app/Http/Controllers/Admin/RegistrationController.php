@@ -285,175 +285,173 @@ class RegistrationController extends Controller
 
     public function approve($id, Request $request)
     {
-        $register = Registration::findOrFail($id);
+        // 1. Gunakan Transaction untuk menjaga integritas data
+        return DB::transaction(function () use ($id, $request) {
 
-         $password = Hash::make($register->nip);
+            $register = Registration::findOrFail($id);
+            $password = Hash::make($register->nip);
 
-           if ($register->position === "Analis SDM Aparatur") {
-                $number = Registration::where('status', 'approved')
-                    ->where('position', 'Analis SDM Aparatur')
-                    ->count() + 1; // Tambahkan 1 karena ini adalah pendaftaran baru
-                $code = str_pad($number, 5, '0', STR_PAD_LEFT) . "/01/ASPROSDMA";
-            } elseif ($register->position === "Pranata SDM Aparatur")   {
-                $number = Registration::where('status', 'approved')
-                    ->where('position', 'Pranata SDM Aparatur')
-                    ->count() + 1; // Tambahkan 1 karena ini adalah pendaftaran baru
-                $code = str_pad($number, 5, '0', STR_PAD_LEFT) . "/02/ASPROSDMA";
+            // 2. Logika Penentuan Nomor Anggota (Code)
+            $positionMap = [
+                'Analis SDM Aparatur' => '/01/ASPROSDMA',
+                'Pranata SDM Aparatur' => '/02/ASPROSDMA',
+            ];
+
+            $suffix = $positionMap[$register->position] ?? '/LB/ASPROSDMA';
+
+            $query = Registration::where('status', 'approved');
+            if (isset($positionMap[$register->position])) {
+                $query->where('position', $register->position);
             } else {
-                $number = Registration::where('status', 'approved')
-                    // Menggunakan whereNotIn untuk mengecualikan posisi yang sudah ditangani
-                    ->whereNotIn('position', ['Analis SDM Aparatur', 'Pranata SDM Aparatur'])
-                    ->count() + 1; // Tambahkan 1 karena ini adalah pendaftaran baru
-                $code = str_pad($number, 5, '0', STR_PAD_LEFT) . "/LB/ASPROSDMA";
+                $query->whereNotIn('position', array_keys($positionMap));
             }
 
-        Member::create([
-            'nip'            => $register->nip,
-            'name'           => $register->name,
-            'email'          => $register->email,
-            'agency'          => $register->agency,
-            'nomember'         => $code,
-            'password'       => $password,
-        ]);
+            $number = $query->count() + 1;
+            $code = str_pad($number, 5, '0', STR_PAD_LEFT) . $suffix;
 
-        $today = Carbon::now()->format('Y-m-d H:i:s');
-          //create data profile
-
-       if (strlen($register->nip) >= 15) {
-            $genderCode = substr($register->nip, 14, 1); // Indeks dimulai dari 0, maka 14 adalah karakter ke-15
-            if ($genderCode === '1') {
-                $gender = 'L';
-            } elseif ($genderCode === '2') {
-                $gender = 'P';
-            } else {
-                $gender = 'L'; // Karakter ke-15 bukan 1 atau 2
+            // 3. Logika Gender (NIP Karakter ke-15)
+            $gender = 'L'; // Default
+            if (strlen($register->nip) >= 15) {
+                $genderCode = substr($register->nip, 14, 1);
+                $gender = ($genderCode === '2') ? 'P' : 'L';
             }
-        } else {
-            $gender = 'L'; // NIP tidak valid/terlalu pendek
-        }
-        ProfileDataMain::create([
-            'nip'             => $register->nip,
-            'name'            => $register->name,
-            'email'           => $register->email,
-            'contact'        => $register->contact,
-            'active_at'      => $today,
-            'gender'         => $gender,
-            'nomember'      => $code,
-        ]);
 
-        $register->update([
-            'info'   => $request->info,
-        ]);
+            // 4. Create Member
+            $member = Member::create([
+                'nip'      => $register->nip,
+                'name'     => $register->name,
+                'email'    => $register->email,
+                'agency'   => $register->agency,
+                'nomember' => $code,
+                'password' => $password,
+            ]);
 
-         //get id relation
-        $data = ProfileDataMain::where('nip',$register->nip)->first();
+            // 5. Create Profile Data Main
+            $profileMain = ProfileDataMain::create([
+                'nip'       => $register->nip,
+                'name'      => $register->name,
+                'email'     => $register->email,
+                'contact'   => $register->contact,
+                'active_at' => Carbon::now(),
+                'gender'    => $gender,
+                'nomember'  => $code,
+            ]);
 
-         //create data positiono
-        ProfileDataPosition::create([
-            'main_id'           => $data->id,
-            'agency'           => $register->agency,
-            'position'         => $register->position,
-            'level'         => $register->level,
-        ]);
+            // 6. Create Profile Data Position (Gunakan ID dari $profileMain langsung)
+            ProfileDataPosition::create([
+                'main_id'  => $profileMain->id,
+                'agency'   => $register->agency,
+                'position' => $register->position,
+                'level'    => $register->level,
+            ]);
 
-        $email = Member::where('nip',$register->nip)->first();
+            // 7. Update Status Registrasi
+            $register->update([
+                'info'        => $request->info,
+                'status'      => 'approved',
+                'emailstatus' => $register->emailstatus + 1
+            ]);
 
-        //email
-        Mail::to($register['email'])->send(new SendEmailAprrove($email));
+            // 8. Kirim Email
+            Mail::to($register->email)->send(new SendEmailAprrove($member));
 
-        Registration::where('id', $id)->update([
-            'status'        => "approved",
-        ]);
-
-        Registration::where('id', $id)->increment('emailstatus');
-
-        //redirect
-        return redirect()->route('admin.registration.index');
+            return redirect()->route('admin.registration.index')
+                            ->with('success', 'Pendaftaran berhasil disetujui.');
+        });
     }
 
     public function approveGroup(Request $request)
     {
-        $registrationIds = $request->input('registration_ids', []);
+    $registrationIds = $request->input('registration_ids', []);
 
-        // Memastikan bahwa array tidak kosong
-        if (empty($registrationIds)) {
-            return response()->json(['message' => 'No registration IDs provided'], 400);
-        }
+    if (empty($registrationIds)) {
+        return redirect()->back()->with('error', 'Pilih data yang akan disetujui.');
+    }
 
-        // Menemukan registrasi yang belum approved atau rejected
-        $registrations = Registration::whereIn('id', $registrationIds)
+    $registrations = Registration::whereIn('id', $registrationIds)
         ->whereNotIn('status', ['approved', 'rejected'])
         ->get();
 
-            foreach ($registrations as $register) {
-            $password = Hash::make($register->nip);
-            $register->update(['status' => 'approved']);
-            // Anda bisa menambahkan logika lain seperti mengirim email konfirmasi di sini
+    if ($registrations->isEmpty()) {
+        return redirect()->back()->with('info', 'Tidak ada data valid untuk disetujui.');
+    }
 
-            if ($register->position === "Analis SDM Aparatur") {
-                $number = Registration::where('status', 'approved')
-                    ->where('position', 'Analis SDM Aparatur')
-                    ->count() + 1; // Tambahkan 1 karena ini adalah pendaftaran baru
-                $code = str_pad($number, 5, '0', STR_PAD_LEFT) . "/01/ASPROSDMA";
-            } elseif ($register->position === "Pranata SDM Aparatur")   {
-                $number = Registration::where('status', 'approved')
-                    ->where('position', 'Pranata SDM Aparatur')
-                    ->count() + 1; // Tambahkan 1 karena ini adalah pendaftaran baru
-                $code = str_pad($number, 4, '0', STR_PAD_LEFT) . "/02/ASPROSDMA";
+    // Gunakan Transaction agar jika satu gagal, semua dibatalkan
+    DB::transaction(function () use ($registrations, $request) {
+        $now = Carbon::now();
+
+        // Map untuk penomoran agar tidak hardcode berulang
+        $positionMap = [
+            'Analis SDM Aparatur' => '/01/ASPROSDMA',
+            'Pranata SDM Aparatur' => '/02/ASPROSDMA',
+        ];
+
+        foreach ($registrations as $register) {
+            // 1. Logika Penomoran (Code)
+            $suffix = $positionMap[$register->position] ?? '/LB/ASPROSDMA';
+            $padLength = ($register->position === "Pranata SDM Aparatur") ? 4 : 5; // Mengikuti logika asli Anda
+
+            $query = Registration::where('status', 'approved');
+            if (isset($positionMap[$register->position])) {
+                $query->where('position', $register->position);
             } else {
-                $number = Registration::where('status', 'approved')
-                    // Menggunakan whereNotIn untuk mengecualikan posisi yang sudah ditangani
-                    ->whereNotIn('position', ['Analis SDM Aparatur', 'Pranata SDM Aparatur'])
-                    ->count() + 1; // Tambahkan 1 karena ini adalah pendaftaran baru
-                $code = str_pad($number, 5, '0', STR_PAD_LEFT) . "/LB/ASPROSDMA";
+                $query->whereNotIn('position', array_keys($positionMap));
             }
 
-            Member::create([
-                'nip'            => $register->nip,
-                'name'           => $register->name,
-                'email'          => $register->email,
-                'agency'          => $register->agency,
-                'nomember'         => $code,
-                'password'       => $password,
+            $number = $query->count() + 1;
+            $code = str_pad($number, $padLength, '0', STR_PAD_LEFT) . $suffix;
+
+            // 2. Logika Gender dari NIP
+            $gender = 'L';
+            if (strlen($register->nip) >= 15) {
+                $genderCode = substr($register->nip, 14, 1);
+                $gender = ($genderCode === '2') ? 'P' : 'L';
+            }
+
+            // 3. Create Member
+            $member = Member::create([
+                'nip'      => $register->nip,
+                'name'     => $register->name,
+                'email'    => $register->email,
+                'agency'   => $register->agency,
+                'nomember' => $code,
+                'password' => Hash::make($register->nip),
             ]);
 
-            $today = Carbon::now()->format('Y-m-d H:i:s');
-
-            //create data profile
-            ProfileDataMain::create([
-                'nip'             => $register->nip,
-                'name'            => $register->name,
-                'email'           => $register->email,
-                'contact'        => $register->contact,
-                'active_at'      => $today,
-                'nomember'      => $code,
+            // 4. Create Profile Main
+            $profileMain = ProfileDataMain::create([
+                'nip'       => $register->nip,
+                'name'      => $register->name,
+                'email'     => $register->email,
+                'contact'   => $register->contact,
+                'active_at' => $now,
+                'gender'    => $gender,
+                'nomember'  => $code,
             ]);
 
-            $register->update([
-                'info'   => $request->info,
-            ]);
-
-             //get id relation
-            $data = ProfileDataMain::where('nip',$register->nip)->first();
-
-             //create data positiono
+            // 5. Create Profile Position
             ProfileDataPosition::create([
-                'main_id'           => $data->id,
-                'agency'           => $register->agency,
-                'position'         => $register->position,
-                'level'         => $register->level,
+                'main_id'  => $profileMain->id,
+                'agency'   => $register->agency,
+                'position' => $register->position,
+                'level'    => $register->level,
             ]);
 
-            $email = Member::where('nip',$register->nip)->first();
+            // 6. Update Registration Status
+            $register->update([
+                'status'      => 'approved',
+                'info'        => $request->info,
+                'emailstatus' => $register->emailstatus + 1
+            ]);
 
-            //email
-             Mail::to($register['email'])->send(new SendEmailAprrove($email));
-
-            Registration::where('id', $register->id)->increment('emailstatus');
+            // 7. Kirim Email
+            // Catatan: Jika data banyak (>10), disarankan gunakan Queue/Antrean
+            Mail::to($register->email)->send(new SendEmailAprrove($member));
         }
+    });
 
-        //redirect
-        return redirect()->route('admin.registration.index');
+    return redirect()->route('admin.registration.index')
+        ->with('success', count($registrations) . ' pendaftaran berhasil disetujui.');
     }
 
 
@@ -750,6 +748,79 @@ class RegistrationController extends Controller
         } else {
             return redirect()->back()->withInput()->withErrors(['error' => 'Tidak ada Anggota Luar Biasa yang berhasil ditambahkan. ' . implode(', ', $errorMessages)]);
         }
+    }
+
+
+    public function approveLB($id, Request $request)
+    {
+        // Validasi input jabatan dari admin
+        $request->validate([
+            'position' => 'required|string|max:255',
+            'info'     => 'nullable|string'
+        ]);
+
+        return DB::transaction(function () use ($id, $request) {
+
+            // 1. Ambil data registrasi
+            $register = Registration::findOrFail($id);
+
+            // 2. Logika Penomoran khusus LB (Luar Biasa)
+            // Menghitung total approved yang bukan Analis atau Pranata
+            $number = Registration::where('status', 'approved')
+                ->whereNotIn('position', ['Analis SDM Aparatur', 'Pranata SDM Aparatur'])
+                ->count() + 1;
+
+            $code = str_pad($number, 4, '0', STR_PAD_LEFT) . "/LB/ASPROSDMA";
+
+            // 3. Logika Gender dari NIP
+            $gender = 'L';
+            if (strlen($register->nip) >= 15) {
+                $genderCode = substr($register->nip, 14, 1);
+                $gender = ($genderCode === '2') ? 'P' : 'L';
+            }
+
+            // 4. Create Member
+            $member = Member::create([
+                'nip'            => $register->nip,
+                'name'           => $register->name,
+                'email'          => $register->email,
+                'agency'         => $register->agency,
+                'nomember'       => $code,
+                'password'       => Hash::make($register->nip),
+            ]);
+
+            // 5. Create Profile Data Main
+            $profileMain = ProfileDataMain::create([
+                'nip'             => $register->nip,
+                'name'            => $register->name,
+                'email'           => $register->email,
+                'contact'         => $register->contact,
+                'active_at'       => Carbon::now(),
+                'gender'          => $gender,
+                'nomember'        => $code,
+            ]);
+
+            // 6. Create Profile Data Position
+            // Menggunakan input position dari Admin dan level '-'
+            ProfileDataPosition::create([
+                'main_id'         => $profileMain->id,
+                'agency'          => $register->agency,
+                'position'        => $request->position, // Input manual dari admin
+                'level'           => '-',                // Level otomatis strip
+            ]);
+
+            // 7. Update Registration
+            $register->update([
+                'info'     => $request->info,
+                'status'   => 'approved',
+                // Update position di tabel registrasi agar sinkron dengan input admin
+                'position' => $request->position,
+                'level'    => '-',
+            ]);
+
+            return redirect()->route('admin.registration.index')
+                             ->with('success', 'Anggota Luar Biasa berhasil disetujui dengan jabatan: ' . $request->position);
+        });
     }
 
 }

@@ -62,6 +62,7 @@ Route::prefix('admin')->group(function() {
         Route::get('/registration/{id}/email-approve', [\App\Http\Controllers\Admin\RegistrationController::class, 'Sendemailapprove'])->name('admin.registration.email.approve');
         Route::get('/registration/group/approve', [\App\Http\Controllers\Admin\RegistrationController::class, 'approveGroup'])->name('admin.registration.group.approve');
         Route::get('/registration/{id}/approve', [\App\Http\Controllers\Admin\RegistrationController::class, 'approve'])->name('admin.registration.approve');
+        Route::get('/registration/{id}/approve-lb', [\App\Http\Controllers\Admin\RegistrationController::class, 'approveLB'])->name('admin.registration.approve.lb');
         Route::get('/registration/{id}/confirm', [\App\Http\Controllers\Admin\RegistrationController::class, 'confirm'])->name('admin.registration.confirm');
         Route::post('/registration/{id}/paid', [\App\Http\Controllers\Admin\RegistrationController::class, 'paid'])->name('admin.registration.paid');
         Route::get('/registration/{id}/reject', [\App\Http\Controllers\Admin\RegistrationController::class, 'reject'])->name('admin.registration.reject');
@@ -99,6 +100,8 @@ Route::prefix('admin')->group(function() {
         Route::get('/events/{id}/absen', [\App\Http\Controllers\Admin\EventController::class, 'absen'])->name('admin.events.status.absen');
         Route::post('/events/{id}/updaterole', [\App\Http\Controllers\Admin\EventController::class, 'updateRole'])->name('admin.events.updateRole');
         Route::get('/events/{id}/absenall', [\App\Http\Controllers\Admin\EventController::class, 'absenAll'])->name('admin.events.absenall');
+        Route::get('/members/find/{nip}', [\App\Http\Controllers\Admin\EventController::class, 'findMemberByNip']);
+        Route::post('/events/{id}/enroll', [\App\Http\Controllers\Admin\EventController::class, 'enrollMember'])->name('admin.events.enroll');
         Route::resource('/events', \App\Http\Controllers\Admin\EventController::class, ['as' => 'admin']);
         Route::post('/medias/{id}', [\App\Http\Controllers\Admin\MediaController::class, 'update'])->name('admin.medias.update');
         Route::resource('/medias', \App\Http\Controllers\Admin\MediaController::class, ['as' => 'admin']);
