@@ -574,51 +574,64 @@ class EventController extends Controller
 
 
     public function certificatesStore($id, Request $request)
-    {
+{
+    $event = Event::findOrFail($id);
 
-        $event = Event::findOrFail($id);
-        $lastCertificate = Certificate::whereYear('date', date('Y', strtotime($request->date)))
-        ->whereMonth('date', date('m', strtotime($request->date)))
-        ->where('category', $request->category)
-        ->orderBy('created_at', 'desc')
-        ->first();
+    // 1. Validasi dilakukan di paling AWAL
+    $request->validate([
+        'category' => 'required',
+        'nip' => 'required|unique:certificates,nip,NULL,id,event_id,' . $id,
+        'name' => 'required',
+        'date' => 'required|date',
+        'template' => 'required',
+    ]);
 
-        $lastNumber = $lastCertificate ? intval(explode('/', $lastCertificate->no_certificate)[0]) : 0;
+    // 2. Gunakan DB Transaction agar nomor tidak lompat jika terjadi error
+    return \DB::transaction(function () use ($id, $event, $request) {
+
+        $dateObj = strtotime($request->date);
+        $bulan = date('m', $dateObj);
+        $tahun = date('Y', $dateObj);
+
+        // 3. Ambil nomor terakhir dengan filter yang lebih stabil
+        // Pastikan order by no_certificate atau ID untuk akurasi
+        $lastCertificate = Certificate::whereYear('date', $tahun)
+            ->where('category', $request->category)
+            ->orderBy('no_certificate', 'desc') // Urutkan berdasarkan nomornya
+            ->first();
+
+        $lastNumber = 0;
+        if ($lastCertificate) {
+            // Pecah string nomor: "0002/KODE/..." ambil bagian indeks [0]
+            $parts = explode('/', $lastCertificate->no_certificate);
+            $lastNumber = intval($parts[0]);
+        }
+
         $newNumber = str_pad($lastNumber + 1, 4, '0', STR_PAD_LEFT);
-        $kodeKegiatan = $request->category; // Replace with actual activity code
-        $bulan = date('m', strtotime($request->date));
-        $tahun = date('Y', strtotime($request->date));
-        $nomor = "{$newNumber}/{$kodeKegiatan}/PP Aspro SDMA/{$bulan}/{$tahun}";
+        $nomor = "{$newNumber}/{$request->category}/PP Aspro SDMA/{$bulan}/{$tahun}";
 
         $link = (string) \Illuminate\Support\Str::uuid();
-
         $qrcode = "https://asprosdma.id/certificates/$link";
 
-            $request->validate([
-                'category' => 'required',
-                'nip' => 'required|unique:certificates,nip,NULL,id,event_id,' . $id,
-                'name' => 'required',
-                'date' => 'required',
-                'template' => 'required',
-        ]);
-
         Certificate::create([
-            'event_id' => $event->id,
-            'no_certificate' => $nomor,
-            'category' => $request->category,
-            'nip' => $request->nip,
-            'name' => $request->name,
-            'body' => 'template',
-            'date' => $request->date,
-            'template' => $request->template,
-            'status' => '1',
-            'qr_code' => $qrcode,
-            'link' => $link,
-            'doc' => $request->agency,
+            'event_id'      => $event->id,
+            'no_certificate'=> $nomor,
+            'category'      => $request->category,
+            'nip'           => $request->nip,
+            'name'          => $request->name,
+            'body'          => 'template',
+            'date'          => $request->date,
+            'template'      => $request->template,
+            'status'        => '1',
+            'qr_code'       => $qrcode,
+            'link'          => $link,
+            'doc'           => $request->agency,
         ]);
 
-        return redirect()->route('admin.events.certificates.index', $id)->with('success', 'Data has been saved');
-    }
+        return redirect()->route('admin.events.certificates.index', $id)
+            ->with('success', "Data has been saved with certificate number: $nomor");
+    });
+}
 
     public function certificatesDestroy($id, $certificate)
     {
