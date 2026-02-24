@@ -580,7 +580,7 @@ class EventController extends Controller
     // 1. Validasi dilakukan di paling AWAL
     $request->validate([
         'category' => 'required',
-        'nip' => 'required|unique:certificates,nip,NULL,id,event_id,' . $id,
+        'nip' => 'required',
         'name' => 'required',
         'date' => 'required|date',
         'template' => 'required',
