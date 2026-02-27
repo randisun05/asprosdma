@@ -284,37 +284,39 @@ class RegistrationController extends Controller
     }
 
     public function approve($id, Request $request)
-    {
-        // 1. Gunakan Transaction untuk menjaga integritas data
+{
+    try {
         return DB::transaction(function () use ($id, $request) {
-
             $register = Registration::findOrFail($id);
-            $password = Hash::make($register->nip);
 
-            // 2. Logika Penentuan Nomor Anggota (Code)
+            // 1. Logika Penentuan Suffix & Panjang Karakter
             $positionMap = [
                 'Analis SDM Aparatur' => '/01/ASPROSDMA',
                 'Pranata SDM Aparatur' => '/02/ASPROSDMA',
             ];
 
             $suffix = $positionMap[$register->position] ?? '/LB/ASPROSDMA';
+            $padLength = ($register->position === "Pranata SDM Aparatur") ? 4 : 5;
 
-            $query = Registration::where('status', 'approved');
-            if (isset($positionMap[$register->position])) {
-                $query->where('position', $register->position);
+            // 2. MENCARI NOMOR TERAKHIR (Anti Duplicate)
+            // Cari member terakhir yang memiliki suffix yang sama
+            $lastMember = Member::where('nomember', 'LIKE', '%' . $suffix)
+                ->orderBy('nomember', 'desc')
+                ->first();
+
+            if ($lastMember) {
+                // Ambil angka depan (misal '01487/01...' menjadi 1487)
+                $lastNumber = (int) substr($lastMember->nomember, 0, $padLength);
+                $nextNumber = $lastNumber + 1;
             } else {
-                $query->whereNotIn('position', array_keys($positionMap));
+                // Jika belum ada member dengan suffix tersebut, mulai dari 1
+                $nextNumber = 1;
             }
 
-            $number = $query->count() + 1;
-            $code = str_pad($number, 5, '0', STR_PAD_LEFT) . $suffix;
+            $code = str_pad($nextNumber, $padLength, '0', STR_PAD_LEFT) . $suffix;
 
             // 3. Logika Gender (NIP Karakter ke-15)
-            $gender = 'L'; // Default
-            if (strlen($register->nip) >= 15) {
-                $genderCode = substr($register->nip, 14, 1);
-                $gender = ($genderCode === '2') ? 'P' : 'L';
-            }
+            $gender = (strlen($register->nip) >= 15 && substr($register->nip, 14, 1) === '2') ? 'P' : 'L';
 
             // 4. Create Member
             $member = Member::create([
@@ -323,7 +325,7 @@ class RegistrationController extends Controller
                 'email'    => $register->email,
                 'agency'   => $register->agency,
                 'nomember' => $code,
-                'password' => $password,
+                'password' => Hash::make($register->nip),
             ]);
 
             // 5. Create Profile Data Main
@@ -332,12 +334,12 @@ class RegistrationController extends Controller
                 'name'      => $register->name,
                 'email'     => $register->email,
                 'contact'   => $register->contact,
-                'active_at' => Carbon::now(),
+                'active_at' => now(),
                 'gender'    => $gender,
                 'nomember'  => $code,
             ]);
 
-            // 6. Create Profile Data Position (Gunakan ID dari $profileMain langsung)
+            // 6. Create Profile Data Position
             ProfileDataPosition::create([
                 'main_id'  => $profileMain->id,
                 'agency'   => $register->agency,
@@ -356,9 +358,13 @@ class RegistrationController extends Controller
             Mail::to($register->email)->send(new SendEmailAprrove($member));
 
             return redirect()->route('admin.registration.index')
-                            ->with('success', 'Pendaftaran berhasil disetujui.');
+                             ->with('success', 'Pendaftaran berhasil disetujui dengan nomor: ' . $code);
         });
+    } catch (\Exception $e) {
+        // Jika terjadi error, tampilkan pesan agar mudah didebug
+        return back()->with('error', 'Gagal menyetujui: ' . $e->getMessage());
     }
+}
 
     public function approveGroup(Request $request)
 {
@@ -397,15 +403,19 @@ class RegistrationController extends Controller
 
                 // 2. Logika Penomoran (Mencegah Duplikasi dalam Loop)
                 if (!isset($counters[$counterKey])) {
-                    // Ambil angka terakhir dari database (hanya saat pertama kali dalam loop)
-                    $query = Registration::where('status', 'approved');
-                    if ($isSpecialPos) {
-                        $query->where('position', $register->position);
+                    // Cari nomor terakhir yang sudah ada di tabel MEMBERS, bukan count dari registrations
+                    $lastMember = Member::where('nomember', 'LIKE', '%' . $suffix)
+                        ->orderBy('nomember', 'desc')
+                        ->first();
+
+                    if ($lastMember) {
+                        // Ambil 5 digit pertama dari string (misal  '01487/01...' jadi 1487)
+                        $lastNumber = (int) substr($lastMember->nomember, 0, $padLength);
+                        $counters[$counterKey] = $lastNumber;
                     } else {
-                        $query->whereNotIn('position', array_keys($positionMap));
+                        $counters[$counterKey] = 0;
                     }
-                    $counters[$counterKey] = $query->count();
-                }
+}
 
                 $counters[$counterKey]++; // Tambah urutan
                 $code = str_pad($counters[$counterKey], $padLength, '0', STR_PAD_LEFT) . $suffix;
