@@ -12,11 +12,13 @@
 
             <div class="timer-box">
 
-                <VueCountdown :time="duration" @progress="handleChangeDuration" @end="showModalEndTimeExam = true"
-                    v-slot="{ minutes, seconds }">
-
-                    ⏱ {{ minutes }} : {{ seconds }}
-
+               <VueCountdown
+                    :time="duration"
+                    @progress="handleChangeDuration"
+                    @end="showModalEndTimeExam = true"
+                    v-slot="{ days, hours, minutes, seconds }"
+                >
+                    ⏱ {{ (days * 1440) + (hours * 60) + minutes }} : {{ seconds < 10 ? '0' + seconds : seconds }}
                 </VueCountdown>
 
             </div>
@@ -126,19 +128,17 @@
     </div>
 
 </template>
-
 <script>
-
 import LayoutUser from "../../../Layouts/Tryout.vue"
 import { Head } from "@inertiajs/inertia-vue3"
 import { ref } from "vue"
 import VueCountdown from "@chenfengyuan/vue-countdown"
 import axios from "axios"
+// 1. IMPORT INERTIA WAJIB DISINI
+import { Inertia } from "@inertiajs/inertia"
 
 export default {
-
-
-        layout: LayoutUser,
+    layout: LayoutUser,
     components: {
         Head,
         VueCountdown
@@ -152,127 +152,70 @@ export default {
         question_answered: Number,
         question_active: Object,
         answer_order: Array,
-
     },
 
     setup(props) {
-
         let options = ["A", "B", "C", "D", "E"]
-
-        const optionMap = {
-        1: 'a',
-        2: 'b',
-        3: 'c',
-        4: 'd',
-        5: 'e'
-        }
-
+        const optionMap = { 1: 'a', 2: 'b', 3: 'c', 4: 'd', 5: 'e' }
         const counter = ref(0)
-
         const duration = ref(props.detail_event.duration)
-
         const showModalEndExam = ref(false)
-
         const showModalEndTimeExam = ref(false)
 
-
-
         const handleChangeDuration = () => {
-
             duration.value -= 1000
-
             counter.value++
-
-            if (duration.value > 0) {
-
-                if (counter.value % 10 == 1) {
-
-                    axios.put(`/user/tryout-duration/update/${props.detail_event.id}`, {
-
-                        duration: duration.value
-
-                    })
-
-                }
-
+            if (duration.value > 0 && counter.value % 300 == 0) {
+                axios.put(`/user/tryout-duration/update/${props.detail_event.id}`, {
+                    duration: duration.value
+                })
             }
-
         }
 
-
-
+        // 2. GUNAKAN INERTIA.GET UNTUK PINDAH HALAMAN
         const prevPage = () => {
-
-            Inertia.get(`/user/tryout/${props.id}/${props.page - 1}`)
-
-        }
-
-
-
-        const nextPage = () => {
-
-            Inertia.get(`/user/tryout/${props.id}/${props.page + 1}`)
-
-        }
-
-
-
-        const clickQuestion = (index) => {
-
-            Inertia.get(`/user/tryout/${props.id}/${index + 1}`)
-
-        }
-
-
-
-        const submitAnswer = (question_id, answer) => {
-
-            axios.post("/user/tryout-answer", {
-
-                detail_event_id: props.id,
-
-                question_id: question_id,
-
-                answer: answer,
-
-                duration: duration.value
-
-            })
-
-        }
-
-
-
-        const endExam = () => {
-
-            axios.post("/user/tryout-end", {
-
-                detail_event_id: props.id
-
-            })
-
-        }
-
-
-
-        return {
-            options,
-            duration,
-            handleChangeDuration,
-            prevPage,
-            nextPage,
-            clickQuestion,
-            submitAnswer,
-            endExam,
-            showModalEndExam,
-            showModalEndTimeExam,
-            optionMap
-        }
-
-    }
-
+    // Menggunakan parseInt untuk memastikan operasi matematika
+    const prev = parseInt(props.page) - 1;
+    Inertia.get(`/user/tryout/${props.id}/${prev}`, {}, { preserveState: true });
 }
 
+const nextPage = () => {
+    // Menggunakan parseInt untuk memastikan operasi matematika
+    const next = parseInt(props.page) + 1;
+    Inertia.get(`/user/tryout/${props.id}/${next}`, {}, { preserveState: true });
+}
+
+        const clickQuestion = (index) => {
+            Inertia.get(`/user/tryout/${props.id}/${index + 1}`, {}, { preserveState: true })
+        }
+
+        // 3. GUNAKAN INERTIA.POST AGAR WARNA NAVIGATOR TERUPDATE (PROPS REFRESH)
+        const submitAnswer = (question_id, answer) => {
+            Inertia.post("/user/tryout-answer", {
+                detail_event_id: props.id,
+                question_id: question_id,
+                answer: answer,
+                duration: duration.value
+            }, {
+                preserveScroll: true,
+                preserveState: true
+            })
+        }
+
+        const endExam = () => {
+            Inertia.post("/user/tryout-end", {
+                detail_event_id: props.id
+            })
+        }
+
+        return {
+            options, duration, handleChangeDuration,
+            prevPage, nextPage, clickQuestion,
+            submitAnswer, endExam,
+            showModalEndExam, showModalEndTimeExam, optionMap
+        }
+    }
+}
 </script>
 <style>
 

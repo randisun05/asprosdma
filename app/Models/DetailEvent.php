@@ -17,6 +17,11 @@ class DetailEvent extends Model
         'sert',
         'desc',
         'result',
+        'duration',
+        'start_at',
+        'end_at',
+        'total_correct',
+        'grade',
     ];
 
     public function event()

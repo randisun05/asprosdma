@@ -29,7 +29,8 @@ class Event extends Model
         'random_answer',
         'show_answer',
         'start_at',
-        'end_at'
+        'end_at',
+        'duration',
     ];
 
     public function getRouteKeyName()

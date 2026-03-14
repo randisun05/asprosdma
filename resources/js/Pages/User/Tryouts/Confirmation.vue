@@ -64,7 +64,7 @@ Detail Peserta
 
 <tr>
 <td>Durasi</td>
-<td>{{ detail_event.event.duration }} menit</td>
+<td>{{ detail_event.duration }} menit</td>
 </tr>
 
 </table>
