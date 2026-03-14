@@ -74,6 +74,9 @@ class EventController extends Controller
         'file' => 'required',
         'category' => 'required',
         'template' => 'required',
+        'duration' => 'nullable|integer',
+        'start_at' => 'nullable|date',
+        'end_at' => 'nullable|date|after_or_equal:start_at',
     ]);
 
     $slug = strtolower(str_replace(' ', '-', $request->title));
@@ -96,6 +99,9 @@ class EventController extends Controller
             'file' => $request->file,
             'category' => $request->category,
             'template_id' => $request->template,
+            'duration' => $request->duration,
+            'start_at' => $request->start_at,
+            'end_at' => $request->end_at,
         ]);
 
      //redirect
@@ -203,6 +209,10 @@ class EventController extends Controller
         'file' => 'required',
         'category' => 'required',
         'template' => 'required',
+        'duration' => 'nullable|integer',
+        'start_at' => 'nullable|date',
+        'end_at' => 'nullable|date|after_or_equal:start_at',
+
     ]);
 
     $slug = strtolower(str_replace(' ', '-', $request->title));
@@ -228,6 +238,9 @@ class EventController extends Controller
             'file' => $request->file,
             'category' => $request->category,
             'template_id' => $request->template,
+            'duration' => $request->duration,
+            'start_at' => $request->start_at,
+            'end_at' => $request->end_at,
         ]);
 
 

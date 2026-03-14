@@ -26,5 +26,10 @@ class Member extends Authenticatable
         'password',
     ];
 
+     public function position()
+    {
+        return $this->belongsTo(Position::class);
+    }
+
 
 }

@@ -60,17 +60,17 @@
                   </span>
                   </Link>
               </li>
-<!--
-              <li class="nav-item" :class="{ 'active': $page.url.startsWith('/user/certificates') }">
-                  <Link href="/user/certificates" class="nav-link d-flex justify-content-between">
+
+              <li class="nav-item" :class="{ 'active': $page.url.startsWith('/user/tryouts') }">
+                  <Link href="/user/tryouts" class="nav-link d-flex justify-content-between">
                   <span>
                       <span class="sidebar-icon">
                         <i class="fa fa-file-pdf-o"></i>
                       </span>
-                      <span class="sidebar-text ms-3">Sertifikat</span>
+                      <span class="sidebar-text ms-3">Tryout</span>
                   </span>
                   </Link>
-              </li> -->
+              </li>
 
        </ul>
     </div>

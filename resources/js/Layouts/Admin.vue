@@ -1,6 +1,7 @@
 <template>
+
 <div class="wrapper">
-    
+
     <!-- sidebar -->
     <Sidebar />
 
@@ -10,12 +11,13 @@
         <Navbar />
 
         <!-- content -->
-        <slot />
+        <div  class="page-wrapper" :key="$page.url">
+            <slot />
+        </div>
 
     </main>
 
 </div>
-
 
 </template>
 

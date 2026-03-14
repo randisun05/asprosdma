@@ -16,7 +16,7 @@ class DetailEvent extends Model
         'doc',
         'sert',
         'desc',
-
+        'result',
     ];
 
     public function event()
@@ -28,4 +28,11 @@ class DetailEvent extends Model
     {
         return $this ->belongsTo(Member::class);
     }
+
+    public function answers()
+    {
+        return $this->hasMany(Answer::class);
+    }
+
+
 }

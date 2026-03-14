@@ -67,6 +67,7 @@ class EventController extends Controller
                     'title' => "peserta",
                     'status' => "approved",
                     'desc' => $document ?? null,
+                    'duration' => $event->duration * 60000 ?? null,
                 ]
             );
 

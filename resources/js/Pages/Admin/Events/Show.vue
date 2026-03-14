@@ -4,6 +4,10 @@
                     <title>Administrator</title>
                 </Head>
                 <div class="container padding px-5">
+                    <div class="progress mb-3" v-if="generateLoading">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:100%">
+                        </div>
+                    </div>
                     <div class="row mt-1">
                         <div class="col-md-12">
                             <div class="card border-0 shadow">
@@ -131,6 +135,18 @@
                                             <button class="btn btn-primary w-100" @click="showEnrollModal = true">Tambah
                                                 Peserta</button>
                                         </li>
+
+                                        <li class="nav-item ms-2">
+                                            <button class="btn btn-primary w-100" @click="GenerateQuests">
+                                                Generate Soal
+                                            </button>
+                                        </li>
+
+                                        <li class="nav-item ms-2">
+                                            <a :href="`/admin/event/${event.id}/report`" target="_blank"
+                                            class="btn btn-md btn-success border-0 shadow mb-3 text-white" type="button"><i
+                                                class="fa fa-file me-2"></i> Laporan Tryout</a>
+                                        </li>
                                     </ul>
 
                                     <div v-show="activeTab === 'participant'" class="table-responsive" id="sub">
@@ -226,6 +242,37 @@
                     </div>
                 </div>
 
+                <div v-if="showGenerateModal" class="modal-backdrop">
+                    <div class="modal-content-custom" style="max-width:600px">
+
+                        <h5>Generate Soal Peserta</h5>
+
+                        <div v-if="generateLoading" class="mb-3 text-primary">
+                            <i class="fa fa-spinner fa-spin"></i> Sedang memproses...
+                        </div>
+
+                        <div style="max-height:300px; overflow:auto">
+
+                            <div v-for="(log, index) in generateLogs" :key="index" class="text-success">
+                                ✔ {{ log }}
+                            </div>
+
+                            <div v-for="(err, index) in generateErrors" :key="'e' + index" class="text-danger">
+                                ✖ {{ err }}
+                            </div>
+
+                        </div>
+
+                        <div class="mt-3 text-end">
+                            <button class="btn btn-secondary" @click="showGenerateModal = false"
+                                :disabled="generateLoading">
+                                Tutup
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
             </template>
 
 <script>
@@ -248,7 +295,7 @@ import axios from 'axios';
 
 //import ref from vue
 import {
-    ref, reactive,
+    ref
 } from 'vue';
 
 //import inertia adapter
@@ -256,6 +303,7 @@ import { Inertia } from '@inertiajs/inertia';
 
 //import sweet alert2
 import Swal from 'sweetalert2';
+
 
 export default {
     //layout
@@ -291,8 +339,13 @@ export default {
                 member_id: '',
                 name: '',
                 title: 'Peserta'
-            }
+            },
 
+            // Generate Soal State
+            generateLoading: false,
+            generateLogs: [],
+            generateErrors: [],
+            showGenerateModal: false
         };
     },
 
@@ -338,6 +391,62 @@ export default {
                     });
                 }
             });
+        },
+
+
+
+        async GenerateQuests() {
+
+            const confirm = await Swal.fire({
+                title: 'Generate soal semua peserta?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Generate'
+            });
+
+            if (!confirm.isConfirmed) return;
+
+            this.showGenerateModal = true;
+            this.generateLoading = true;
+            this.generateLogs = [];
+            this.generateErrors = [];
+
+            try {
+
+                const response = await axios.post(`/admin/events/${this.event.id}/generate-question`);
+
+                if (response.data.logs) {
+                    this.generateLogs = response.data.logs;
+                }
+
+                if (response.data.errors) {
+                    this.generateErrors = response.data.errors;
+                }
+
+                Swal.fire(
+                    'Selesai',
+                    'Generate soal selesai diproses',
+                    'success'
+                );
+
+            } catch (error) {
+
+                if (error.response?.data?.errors) {
+
+                    Object.values(error.response.data.errors).forEach(err => {
+                        this.generateErrors.push(err);
+                    });
+
+                } else {
+                    this.generateErrors.push('Terjadi kesalahan server');
+                }
+
+            } finally {
+
+                this.generateLoading = false;
+
+            }
+
         },
 
         async searchMemberByNip() {

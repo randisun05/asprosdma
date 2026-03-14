@@ -25,6 +25,11 @@ class Event extends Model
         'absen',
         'category',
         'template_id',
+        'random_question',
+        'random_answer',
+        'show_answer',
+        'start_at',
+        'end_at'
     ];
 
     public function getRouteKeyName()
@@ -36,6 +41,21 @@ class Event extends Model
     {
         return $this->where('slug', $value)->firstOrFail(); // Mencari model berdasarkan 'slug'
     }
+
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
+    public function detailEvents()
+    {
+        return $this->hasMany(DetailEvent::class);
+    }
+
+    public function participants()
+{
+    return $this->hasMany(DetailEvent::class);
+}
+
 
 
 }

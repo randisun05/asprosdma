@@ -80,6 +80,7 @@ Route::prefix('admin')->group(function() {
         Route::get('/posts/{id}/cancel', [\App\Http\Controllers\Admin\PostController::class, 'cancel'])->name('admin.posts.cancel');
         Route::get('/posts/{id}/cancelLimited', [\App\Http\Controllers\Admin\PostController::class, 'cancelLimited'])->name('admin.posts.cancellimited');
         Route::get('/posts/{id}/submission', [\App\Http\Controllers\Admin\PostController::class, 'cancel'])->name('admin.posts.submission');
+          Route::post('/events/{id}/generate-question', [\App\Http\Controllers\Admin\QuestionsController::class, 'EnrollQuestion'])->name('event.generate.question');
         Route::get('/events/{id}/certificates/import', [\App\Http\Controllers\Admin\EventController::class, 'certificatesImportCreate'])->name('admin.events.certificates.import.create');
         Route::post('/events/{id}/certificates/import', [\App\Http\Controllers\Admin\EventController::class, 'certificatesImportStore'])->name('admin.events.certificates.import.store');
         Route::get('/events/{id}/certificates', [\App\Http\Controllers\Admin\EventController::class, 'certificatesIndex'])->name('admin.events.certificates.index');
@@ -156,6 +157,13 @@ Route::prefix('admin')->group(function() {
         Route::get('/update-gender', [\App\Http\Controllers\Admin\DataMembersController::class, 'updateMissingGenders'])->name('missing.gender');
 
 
+
+        Route::post('/questions/{id}/import', [\App\Http\Controllers\Admin\QuestionsController::class, 'storeImport'])->name('admin.questions.import.store');
+        Route::get('/questions/import', [\App\Http\Controllers\Admin\QuestionsController::class, 'import'])->name('admin.questions.import');
+
+        //soal
+        Route::resource('/questions', \App\Http\Controllers\Admin\QuestionsController::class, ['as' => 'admin']);
+
     });
 });
 
@@ -217,6 +225,27 @@ Route::prefix('user')->group(function() {
         Route::get('/certificates', [\App\Http\Controllers\User\EventController::class, 'certificatesIndex'])->name('user.certificates.index');
         Route::get('/certificates/{id}', [\App\Http\Controllers\User\EventController::class, 'certificateView'])->name('admin.events.certificates.view');
          Route::get('/jurnals/show', [\App\Http\Controllers\User\JurnalController::class, 'show'])->name('user.jurnals.show');
+
+        //route exam confirmation
+        Route::get('/tryouts', [App\Http\Controllers\User\TryoutController::class, 'index'])->name('user.tryouts.index');
+
+         //route exam confirmation
+        Route::get('/tryout-confirmation/{id}', [App\Http\Controllers\User\TryoutController::class, 'confirmation'])->name('user.tryouts.confirmation');
+        //route exam start
+        Route::get('/tryout-start/{id}', [App\Http\Controllers\User\TryoutController::class, 'startExam'])->name('student.exams.startExam');
+
+         //route exam show
+         Route::get('/tryout/{id}/{page}', [App\Http\Controllers\User\TryoutController::class, 'show'])->name('user.tryouts.show');
+         //route exam update duration
+        Route::put('/tryout-duration/update/{detail_event_id}', [App\Http\Controllers\User\TryoutController::class, 'updateDuration'])->name('user.tryouts.update_duration');
+
+            //route answer question
+        Route::post('/tryout-answer', [App\Http\Controllers\User\TryoutController::class, 'answerQuestion'])->name('user.tryouts.answerQuestion');
+            //route exam end
+        Route::post('/tryout-end', [App\Http\Controllers\User\TryoutController::class, 'endExam'])->name('user.tryouts.endExam');
+
+         //route exam result
+        Route::get('/tryout-result/{detail_event_id}', [App\Http\Controllers\User\TryoutController::class, 'resultExam'])->name('user.tryouts.resultExam');
 
     });
 });

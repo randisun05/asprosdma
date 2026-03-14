@@ -1,0 +1,268 @@
+<template>
+
+    <Head>
+        <title>Buat Soal</title>
+    </Head>
+    <div class="container padding px-5 text-black">
+        <div class="row mt-1">
+            <div class="col-md-12">
+                <div class="card border-0 shadow">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row py-4">
+                                    <div class="col-md-2 col-12 mb-2">
+                                        <Link href="/admin/questions"
+                                            class="btn btn-md btn-primary border-0 shadow w-100" type="button"><i
+                                            class="fa fa-arrow-left"></i>
+                                        Kembali</Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="text-center">Buat Soal</h3>
+                        <form @submit.prevent="submit" enctype="multipart/form-data">
+                            
+
+
+                            <div class="row py-4 ms-5">
+                                 <div class="col-md-11">
+                                    <span class="text-black">
+                                        Pilih Sesi Tryout
+                                    </span>
+                                    <select class="form-control" v-model="form.event_id">
+                                        <option value="" disabled>Pilih Sesi Tryout</option>
+                                        <option :value="event.id" v-for="(event, index) in $page.props.events" :key="index">
+                                            {{ event.title }}
+                                        </option>
+                                    </select>
+                                    <div v-if="errors.event_id" class="alert alert-danger mt-2">
+                                        {{ errors.event_id }}
+                                    </div>
+                                </div>
+                                <div class="col-md-11">
+                                    <span class="text-black">
+                                        Text Soal
+                                    </span>
+                                    <Editor api-key="1r5zhfhbvfala2snldia4kj7eub4vbev5i6i4mnf9r8smbsb" v-model="form.text" :init="{
+                                        menubar: false,
+                                        plugins: 'lists link image emoticons',
+                                        toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons'
+                                    }" />
+                                    <div v-if="errors.text" class="alert alert-danger mt-2">
+                                        {{ errors.text }}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5">
+                                    <span class="text-black">
+                                        Pilihan A
+                                    </span>
+                                    <div class="form-group mt-1 mb-4">
+                                        <Editor api-key="1r5zhfhbvfala2snldia4kj7eub4vbev5i6i4mnf9r8smbsb"
+                                            v-model="form.a" :init="{
+                                                menubar: false,
+                                                plugins: 'lists link image emoticons',
+                                                toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons'
+                                            }" />
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <span class="text-black">
+                                        Pilihan B
+                                    </span>
+                                    <div class="form-group mt-1 mb-4">
+                                        <Editor api-key="1r5zhfhbvfala2snldia4kj7eub4vbev5i6i4mnf9r8smbsb"
+                                            v-model="form.b" :init="{
+                                                menubar: false,
+                                                plugins: 'lists link image emoticons',
+                                                toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons'
+                                            }" />
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-5">
+                                    <span class="text-black">
+                                        Pilihan C
+                                    </span>
+                                    <div class="form-group mt-1 mb-4">
+                                        <Editor api-key="1r5zhfhbvfala2snldia4kj7eub4vbev5i6i4mnf9r8smbsb"
+                                            v-model="form.c" :init="{
+                                                menubar: false,
+                                                plugins: 'lists link image emoticons',
+                                                toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons'
+                                            }" />
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <span class="text-black">
+                                        Pilihan D
+                                    </span>
+                                    <div class="form-group mt-1 mb-4">
+                                        <Editor api-key="1r5zhfhbvfala2snldia4kj7eub4vbev5i6i4mnf9r8smbsb"
+                                            v-model="form.d" :init="{
+                                                menubar: false,
+                                                plugins: 'lists link image emoticons',
+                                                toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons'
+                                            }" />
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-5">
+                                    <span class="text-black">
+                                        Pilihan E
+                                    </span>
+                                    <div class="form-group mt-1 mb-4">
+                                        <Editor api-key="1r5zhfhbvfala2snldia4kj7eub4vbev5i6i4mnf9r8smbsb"
+                                            v-model="form.e" :init="{
+                                                menubar: false,
+                                                plugins: 'lists link image emoticons',
+                                                toolbar: 'styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons'
+                                            }" />
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <span class="text-black">
+                                        Jawaban Benar
+                                    </span>
+                                    <select class="form-control" v-model="form.answer">
+                                        <option value="1">A</option>
+                                        <option value="2">B</option>
+                                        <option value="3">C</option>
+                                        <option value="4">D</option>
+                                        <option value="5">E</option>
+                                    </select>
+                                    <div v-if="errors.answer" class="alert alert-danger mt-2">
+                                        {{ errors.answer }}
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-md-2">
+                                    <button type="submit"
+                                        class="btn btn-md btn-primary border-0 shadow me-2">Simpan</button>
+                                    <button type="reset" class="btn btn-md btn-warning border-0 shadow">Reset</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+//import layout
+import LayoutAdmin from '../../../Layouts/Admin.vue';
+
+//import tinyMCE
+import Editor from '@tinymce/tinymce-vue';
+
+//import Heade and Link from Inertia
+import {
+    Head,
+    Link
+} from '@inertiajs/inertia-vue3';
+
+//import ref from vue
+import {
+    ref, reactive,
+} from 'vue';
+
+//import inertia adapter
+import { Inertia } from '@inertiajs/inertia';
+
+//import sweet alert2
+import Swal from 'sweetalert2';
+
+export default {
+    //layout
+    layout: LayoutAdmin,
+
+    //register component
+    components: {
+        Head,
+        Link,
+        Editor,
+    },
+
+    //props
+    props: {
+        errors: Object,
+        events: Array,
+    },
+
+
+    //inisialisasi composition API
+    setup() {
+
+        //define form state
+        const form = reactive({
+            text: '',
+            a: '',
+            b: '',
+            c: '',
+            d: '',
+            e: '',
+            answer: '',
+            event_id: '',
+        });
+
+
+        //submit method
+        const submit = () => {
+
+            //send data to server
+            Inertia.post('/admin/questions/', {
+
+                //data
+                text: form.text,
+                a: form.a,
+                b: form.b,
+                c: form.c,
+                d: form.d,
+                e: form.e,
+                answer: form.answer,
+                event_id: form.event_id,
+            }, {
+                onSuccess: () => {
+                    //show success alert
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Soal Berhasil Disimpan.',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                },
+            });
+        }
+
+
+        //return
+        return {
+            form,
+            submit,
+
+
+        }
+    }
+}
+
+</script>
+
+<style>
+.text-black {
+    color: black;
+}
+</style>
