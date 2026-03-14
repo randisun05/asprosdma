@@ -174,10 +174,10 @@
                                            Dimulai Pada
                                         </span>
                                         <div class="form-group mt-1">
-                                            <input type="date" class="form-control" v-model="form.start_at">
+                                            <input type="datetime-local" class="form-control" v-model="form.start_at">
                                         </div>
-                                        <div v-if="errors.form.start_at" class="alert alert-danger mt-2">
-                                            {{ errors.form.start_at }}
+                                        <div v-if="errors.start_at" class="alert alert-danger mt-2">
+                                            {{ errors.start_at }}
                                         </div>
 
                                     </div>
@@ -187,11 +187,11 @@
                                             Berakhir Pada
                                         </span>
                                         <div class="form-group mt-1">
-                                            <input type="date" class="form-control" v-model="form.end_at">
+                                            <input type="datetime-local" class="form-control" v-model="form.end_at">
                                         </div>
 
-                                        <div v-if="errors.form.end_at" class="alert alert-danger mt-2">
-                                            {{ errors.form.end_at }}
+                                        <div v-if="errors.end_at" class="alert alert-danger mt-2">
+                                            {{ errors.end_at }}
                                         </div>
                                     </div>
 
