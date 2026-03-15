@@ -18,6 +18,9 @@ public function index()
         //get exam group
         $detail_events = DetailEvent::with('event', 'member')
                     ->where('member_id', auth()->guard('member')->user()->id)
+                    ->whereHas('event', function($query){
+                        $query->where('category', 'tryout');
+                    })
                     ->get();
 
         //return with inertia

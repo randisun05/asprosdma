@@ -28,6 +28,32 @@
 
         <div class="exam-body">
 
+            <div class="exam-navigator card-exam">
+
+               <div class="navigator-grid">
+                <div v-for="(q, index) in all_questions" :key="index"
+                    class="navigator-btn"
+                    :class="{
+                        'bg-primary text-white': index + 1 == page,
+                        'bg-success text-white': q.answer != 0 && index + 1 != page,
+                        'bg-danger text-white': q.answer == 0 && index + 1 != page
+                    }"
+                    @click="clickQuestion(index)">
+
+                    {{ index + 1 }}
+
+                </div>
+            </div>
+
+                <button class="btn-finish" @click="showModalEndExam = true">
+
+                    Selesai Ujian
+
+                </button>
+
+            </div>
+
+
             <div class="exam-question card-exam">
 
                 <h5 class="question-number">
@@ -61,30 +87,6 @@
             </div>
 
 
-             <div class="exam-navigator card-exam">
-
-               <div class="navigator-grid">
-                <div v-for="(q, index) in all_questions" :key="index"
-                    class="navigator-btn"
-                    :class="{
-                        'bg-primary text-white': index + 1 == page,
-                        'bg-success text-white': q.answer != 0 && index + 1 != page,
-                        'bg-danger text-white': q.answer == 0 && index + 1 != page
-                    }"
-                    @click="clickQuestion(index)">
-
-                    {{ index + 1 }}
-
-                </div>
-            </div>
-
-                <button class="btn-finish" @click="showModalEndExam = true">
-
-                    Selesai Ujian
-
-                </button>
-
-            </div>
 
         </div>
 
@@ -110,22 +112,26 @@
 
     <!-- MODAL -->
     <div v-if="showModalEndExam" class="modal-overlay">
-
-        <div class="modal-box">
-
-            <h4>Akhiri Ujian?</h4>
-
-            <button class="btn-danger" @click="endExam">
-                Ya
-            </button>
-
-            <button class="btn-secondary" @click="showModalEndExam = false">
-                Batal
-            </button>
-
+    <div class="modal-box animate-pop">
+        <div class="modal-icon">
+            <i class="fa fa-exclamation-triangle"></i>
         </div>
 
+        <h4 class="modal-title">Akhiri Ujian?</h4>
+        <p class="modal-text">
+            Pastikan semua jawaban Anda sudah terisi. Setelah diakhiri, Anda tidak dapat mengubah jawaban lagi.
+        </p>
+
+        <div class="modal-actions">
+            <button class="btn-confirm" @click="endExam">
+                Ya, Selesai
+            </button>
+            <button class="btn-cancel" @click="showModalEndExam = false">
+                Batal
+            </button>
+        </div>
     </div>
+</div>
 
 </template>
 <script>
@@ -350,14 +356,48 @@ cursor:pointer;
     opacity: 0.8;
 }
 
-.btn-finish{
-margin-top:20px;
-width:100%;
-background:#ef4444;
-color:white;
-padding:10px;
-border:none;
-border-radius:10px;
+.btn-finish {
+    margin-top: 25px;
+    width: 100%;
+    /* Menggunakan padding lebih besar agar lebih lebar/tinggi */
+    padding: 14px 20px;
+
+    /* Gradasi warna merah agar terlihat lebih modern */
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+
+    /* Font style */
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 15px;
+
+    /* Border & Radius */
+    border: none;
+    border-radius: 12px;
+
+    /* Efek bayangan (Shadow) */
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Efek saat tombol di-hover */
+.btn-finish:hover {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    transform: translateY(-2px); /* Tombol sedikit naik */
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+}
+
+/* Efek saat tombol diklik */
+.btn-finish:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(239, 68, 68, 0.2);
 }
 
 .question-navigation{
@@ -374,31 +414,97 @@ padding:10px 16px;
 border-radius:10px;
 cursor:pointer;
 }
-
-.modal-overlay{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.5);
-display:flex;
-align-items:center;
-justify-content:center;
+/* Overlay Latar Belakang */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(17, 24, 39, 0.8); /* Warna gelap transparan */
+    backdrop-filter: blur(4px); /* Efek blur di belakang modal */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
 }
 
-.modal-box{
-background:white;
-padding:25px;
-border-radius:12px;
-text-align:center;
-width:300px;
+/* Kotak Modal */
+.modal-box {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 20px;
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
-.modal-actions{
-display:flex;
-gap:10px;
-margin-top:20px;
+/* Animasi Muncul */
+.animate-pop {
+    animation: modalPop 0.3s ease-out;
+}
+
+@keyframes modalPop {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Ikon Peringatan */
+.modal-icon {
+    font-size: 50px;
+    color: #f59e0b; /* Warna kuning peringatan */
+    margin-bottom: 20px;
+}
+
+.modal-title {
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 10px;
+}
+
+.modal-text {
+    color: #6b7280;
+    font-size: 14px;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+/* Area Tombol */
+.modal-actions {
+    display: flex;
+    flex-direction: column; /* Tombol tumpuk agar lebih lebar */
+    gap: 12px;
+}
+
+.btn-confirm {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-confirm:hover {
+    background: #dc2626;
+}
+
+.btn-cancel {
+    background: #f3f4f6;
+    color: #4b5563;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-cancel:hover {
+    background: #e5e7eb;
 }
 
 .btn-danger{

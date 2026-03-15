@@ -74,10 +74,8 @@
 
                                 </td>
 
-
                                 <td class="text-center">
-
-                                    <span v-if="data.end_time" class="badge bg-success">
+                                    <span v-if="data.end_at" class="badge bg-success">
                                         Selesai
                                     </span>
 
@@ -87,6 +85,10 @@
 
                                     <span v-else-if="isNotStarted(data.event)" class="badge bg-secondary">
                                         Belum Mulai
+                                    </span>
+
+                                     <span v-else-if="data.event.status == 'closed'" class="badge bg-primary">
+                                        Selesai
                                     </span>
 
                                     <span v-else class="badge bg-danger">
@@ -100,7 +102,7 @@
 
 
                                     <!-- SUDAH SELESAI -->
-                                    <button v-if="data.end_time" class="btn btn-danger btn-sm w-100" disabled>
+                                    <button v-if="data.end_at" class="btn btn-danger btn-sm w-100" disabled>
                                         Sudah Dikerjakan
                                     </button>
 
@@ -109,7 +111,7 @@
 
                                     <template v-else-if="isRunning(data.event)">
 
-                                        <Link v-if="!data.start_time" :href="`/user/tryout-confirmation/${data.id}`"
+                                        <Link v-if="!data.start_at" :href="`/user/tryout-confirmation/${data.id}`"
                                             class="btn btn-success btn-sm w-100">
 
                                         Kerjakan

@@ -1,117 +1,60 @@
 <template>
+    <Head>
+        <title>Konfirmasi Tryout</title>
+    </Head>
 
-<Head>
-<title>Konfirmasi Tryout</title>
-</Head>
+    <div class="confirm-wrapper">
+        <Link href="/user/tryouts" class="btn-back">
+            ← Kembali
+        </Link>
 
-<div class="confirm-wrapper">
+        <div class="confirm-container">
+            <div class="confirm-card">
+                <h3 class="text-center mb-4">Konfirmasi Tryout</h3>
 
-<!-- BACK -->
-<Link
-href="/user/tryouts"
-class="btn-back"
->
-← Kembali
-</Link>
+                <div class="section-title">Detail Peserta</div>
+                <table class="detail-table mb-4">
+                    <tr>
+                        <td>Nama</td>
+                        <td>: {{ detail_event.member.name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>: {{ detail_event.member.email }}</td>
+                    </tr>
+                    <tr>
+                        <td>Tryout</td>
+                        <td>: {{ detail_event.event.title }}</td>
+                    </tr>
+                    <tr>
+                        <td>Durasi</td>
+                        <td>: {{ detail_event.duration }} menit</td>
+                    </tr>
+                </table>
 
+                <hr>
 
-<div class="confirm-grid">
+                <div class="section-title">Deskripsi / Peraturan</div>
+                <div class="card-content mb-4">
+                    <div v-html="detail_event.event.body"></div>
+                </div>
 
-<!-- DESKRIPSI -->
-<div class="confirm-card">
+                <div class="start-area">
+                    <Link v-if="!detail_event.start_time" :href="`/user/tryout-start/${detail_event.id}`" class="btn-start">
+                        Mulai Tryout
+                    </Link>
 
-<h3 class="card-title">
-Deskripsi Tryout
-</h3>
+                    <button v-else-if="!detail_event.enr_at" class="btn-continue" @click="$inertia.visit(`/user/tryout/${detail_event.id}/1`)">
+                        Lanjutkan
+                    </button>
 
-<div class="card-content">
-
-<div v-html="detail_event.event.body"></div>
-
-</div>
-
-</div>
-
-
-<!-- DETAIL PESERTA -->
-<div class="confirm-card">
-
-<h3 class="card-title">
-Detail Peserta
-</h3>
-
-<table class="detail-table">
-
-<tr>
-<td>Nama</td>
-<td>{{ detail_event.member.name }}</td>
-</tr>
-
-<tr>
-<td>Email</td>
-<td>{{ detail_event.member.email }}</td>
-</tr>
-
-<tr>
-<td>Tryout</td>
-<td>{{ detail_event.event.title }}</td>
-</tr>
-
-<tr>
-<td>Tanggal</td>
-<td>{{ detail_event.event.date }}</td>
-</tr>
-
-<tr>
-<td>Durasi</td>
-<td>{{ detail_event.duration }} menit</td>
-</tr>
-
-</table>
-
-
-<!-- BUTTON -->
-
-<div class="start-area">
-
-<Link
-v-if="!detail_event.start_time"
-:href="`/user/tryout-start/${detail_event.id}`"
-class="btn-start"
->
-
-Mulai Tryout
-
-</Link>
-
-<button
-v-else-if="!detail_event.end_time"
-class="btn-continue"
-@click="$inertia.visit(`/user/tryout/${detail_event.id}/1`)"
->
-
-Lanjutkan
-
-</button>
-
-<button
-v-else
-class="btn-finished"
-disabled
->
-
-Sudah Dikerjakan
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
+                    <button v-else class="btn-finished" disabled>
+                        Sudah Dikerjakan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -135,112 +78,94 @@ detail_event:Object
 }
 
 </script>
-
 <style scoped>
-
-.confirm-wrapper{
-max-width:1100px;
-margin:auto;
-padding:30px;
+.confirm-wrapper {
+    max-width: 1100px;
+    margin: auto;
+    padding: 30px;
 }
 
-.btn-back{
-display:inline-block;
-margin-bottom:20px;
-padding:8px 14px;
-background:#eef2ff;
-color:#3730a3;
-border-radius:8px;
-text-decoration:none;
-font-weight:500;
+.btn-back {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 8px 14px;
+    background: #eef2ff;
+    color: #3730a3;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
 }
 
-.confirm-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:25px;
+/* Mengatur wadah agar berada di tengah dan tidak terlalu lebar */
+.confirm-container {
+    max-width: 650px;
+    margin: 0 auto;
 }
 
-.confirm-card{
-background:white;
-border-radius:16px;
-padding:25px;
-box-shadow:0 10px 30px rgba(0,0,0,.07);
+.confirm-card {
+    background: white;
+    border-radius: 16px;
+    padding: 35px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.07);
 }
 
-.card-title{
-font-size:18px;
-font-weight:600;
-margin-bottom:15px;
+.section-title {
+    font-weight: 700;
+    color: #374151;
+    margin-bottom: 10px;
+    font-size: 16px;
 }
 
-.card-content{
-font-size:14px;
-line-height:1.6;
+.card-content {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #4b5563;
 }
 
-.detail-table{
-width:100%;
-border-collapse:collapse;
-margin-top:10px;
+.detail-table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-.detail-table td{
-padding:8px 0;
-font-size:14px;
+.detail-table td {
+    padding: 10px 0;
+    font-size: 15px;
 }
 
-.detail-table td:first-child{
-font-weight:600;
-width:130px;
-color:#555;
+.detail-table td:first-child {
+    font-weight: 600;
+    width: 150px;
+    color: #6b7280;
 }
 
-.start-area{
-margin-top:20px;
+.start-area {
+    margin-top: 30px;
 }
 
-.btn-start{
-display:block;
-width:100%;
-padding:12px;
-border-radius:10px;
-background:#16a34a;
-color:white;
-text-align:center;
-font-weight:600;
-text-decoration:none;
+/* BUTTON STYLES */
+.btn-start, .btn-continue, .btn-finished {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    transition: 0.3s;
+    border: none;
 }
 
-.btn-start:hover{
-background:#15803d;
+.btn-start { background: #16a34a; color: white; }
+.btn-start:hover { background: #15803d; }
+
+.btn-continue { background: #2563eb; color: white; }
+.btn-continue:hover { background: #1d4ed8; }
+
+.btn-finished { background: #9ca3af; color: white; cursor: not-allowed; }
+
+hr {
+    margin: 25px 0;
+    border: 0;
+    border-top: 1px solid #f3f4f6;
 }
-
-.btn-continue{
-width:100%;
-padding:12px;
-border:none;
-border-radius:10px;
-background:#2563eb;
-color:white;
-font-weight:600;
-}
-
-.btn-finished{
-width:100%;
-padding:12px;
-border:none;
-border-radius:10px;
-background:#9ca3af;
-color:white;
-}
-
-@media(max-width:768px){
-
-.confirm-grid{
-grid-template-columns:1fr;
-}
-
-}
-
 </style>
