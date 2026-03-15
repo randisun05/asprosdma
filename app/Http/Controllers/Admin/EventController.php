@@ -70,13 +70,13 @@ class EventController extends Controller
         'enddate' => 'required',
         'date' => 'required',
         'place' => 'required',
-        'image' => '|image|mimes:jpeg,png,jpg,gif,svg|max:5048|nullable',
+        'image' => '|image|mimes:jpeg,png,jpg,gif,svg|max:5048|required',
         'file' => 'required',
         'category' => 'required',
         'template' => 'required',
-        'duration' => 'nullable|integer',
-        'start_at' => 'nullable|date',
-        'end_at' => 'nullable|date|after_or_equal:start_at',
+        'duration' => 'required|integer',
+        'start_at' => 'required|date',
+        'end_at' => 'required|date|after_or_equal:start_at',
     ]);
 
     $slug = strtolower(str_replace(' ', '-', $request->title));
@@ -209,9 +209,9 @@ class EventController extends Controller
         'file' => 'required',
         'category' => 'required',
         'template' => 'required',
-        'duration' => 'nullable|integer',
-        'start_at' => 'nullable|date',
-        'end_at' => 'nullable|date|after_or_equal:start_at',
+        'duration' => 'required|integer',
+        'start_at' => 'required|date',
+        'end_at' => 'required|date|after_or_equal:start_at',
 
     ]);
 

@@ -28,7 +28,10 @@ class EventParticipantsExport implements FromCollection, WithMapping, WithHeadin
         return $this->datas;
     }
 
+
+
     public function map($datas) : array {
+        $selisih = $datas->start_at->diffInSeconds($datas->end_at) * 60;
         return [
             "'" .$datas->member->nip,
             $datas->member->name,
@@ -38,6 +41,10 @@ class EventParticipantsExport implements FromCollection, WithMapping, WithHeadin
             $datas->member->level,
             $datas->member->created_at,
             $datas->status,
+            $datas->start_at,
+            $datas->end_at,
+            $selisih,
+            $datas->grade,
         ] ;
     }
 
@@ -50,7 +57,11 @@ class EventParticipantsExport implements FromCollection, WithMapping, WithHeadin
            'Jabatan',
            'Jenjang',
            'Tanggal',
-           'Status'
+           'Status',
+              'Mulai',
+                'Selesai',
+                'Durasi',
+                'Nilai',
         ] ;
     }
 }
