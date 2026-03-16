@@ -63,11 +63,11 @@ class QuestionsController extends Controller
         //validate request
         $request->validate([
             'text'          => 'required',
-            'a'          => 'required',
-            'b'          => 'required',
-            'c'          => 'required',
-            'd'          => 'required',
-            'e'          => 'required',
+            'a'          => 'nullable',
+            'b'          => 'nullable',
+            'c'          => 'nullable',
+            'd'          => 'nullable',
+            'e'          => 'nullable',
             'answer'            => 'required',
             'event_id'          => 'required',
         ]);
@@ -109,9 +109,11 @@ class QuestionsController extends Controller
     public function edit($id)
     {
          $events = Event::all();
-         return inertia('Admin/Questions/Edit', 
+         $data = Question::findOrFail($id);
+
+         return inertia('Admin/Questions/Edit',
          [
-            'data' => Question::findOrFail($id),
+            'data' => $data,
             'events' => $events
             ]);
     }
@@ -128,11 +130,11 @@ class QuestionsController extends Controller
         //validate request
         $request->validate([
             'text'          => 'required',
-            'a'          => 'required',
-            'b'          => 'required',
-            'c'          => 'required',
-            'd'          => 'required',
-            'e'          => 'required',
+            'a'          => 'nullable',
+            'b'          => 'nullable',
+            'c'          => 'nullable',
+            'd'          => 'nullable',
+            'e'          => 'nullable',
             'answer'            => 'required',
             'event_id'          => 'required',
         ]);

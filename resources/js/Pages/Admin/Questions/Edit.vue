@@ -22,7 +22,7 @@
                         </div>
                         <h3 class="text-center">Buat Soal</h3>
                         <form @submit.prevent="submit" enctype="multipart/form-data">
-                            
+
                             <div class="row py-4 ms-5">
                                  <div class="col-md-11">
                                     <span class="text-black">
@@ -208,18 +208,18 @@ export default {
 
 
     //inisialisasi composition API
-    setup() {
+    setup(props) {
 
         //define form state
         const form = reactive({
-            text: data.text,
-            a: data.a,
-            b: data.b,
-            c: data.c,
-            d: data.d,
-            e: data.e,
-            answer: data.answer,
-            event_id: data.event_id,
+            text: props.data.text,
+            a: props.data.a,
+            b: props.data.b,
+            c: props.data.c,
+            d: props.data.d,
+            e: props.data.e,
+            answer: props.data.answer,
+            event_id: props.data.event_id,
         });
 
 
@@ -227,10 +227,10 @@ export default {
         const submit = () => {
 
             //send data to server
-            Inertia.put('/admin/questions/', {
+            Inertia.put('/admin/questions/' + props.data.id, {
 
                 //data
-                question: form.text,
+                text: form.text,
                 a: form.a,
                 b: form.b,
                 c: form.c,
