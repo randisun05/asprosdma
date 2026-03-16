@@ -28,7 +28,7 @@
                     </tr>
                     <tr>
                         <td>Durasi</td>
-                        <td>: {{ detail_event.duration }} menit</td>
+                        <td>: {{ detail_event.duration / 60000 }} menit</td>
                     </tr>
                 </table>
 

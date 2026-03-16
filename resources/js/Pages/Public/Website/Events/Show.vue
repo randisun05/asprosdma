@@ -53,10 +53,10 @@
                                     <a v-if="event.status === 'active'" href="/user/events/" class="button btnprimary">
                                        Join
                                     </a>
-                                    <a v-if="event.status === 'active'" :href="`/events/${event.slug}/absen`" class="button btnsecondary">
+                                    <a v-if="event.status === 'active' && event.category !== 'Tryout'" :href="`/events/${event.slug}/absen`" class="button btnsecondary">
                                         <i class="fas fa-clipboard-check"></i> Absen
                                     </a>
-                                    <a :href="`/events/${event.slug}/certificate`" class="button btnprimary">
+                                    <a v-if="event.category !== 'Tryout'"  :href="`/events/${event.slug}/certificate`" class="button btnprimary">
                                        Cari Sertifikat
                                     </a>
                                 </div>

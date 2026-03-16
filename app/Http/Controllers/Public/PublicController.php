@@ -956,7 +956,8 @@ $topScores = DetailEvent::with('member')
 ->where('event_id',$event_id)
 ->whereNotNull('grade')
 ->select('*',
-DB::raw('TIMESTAMPDIFF(SECOND,start_at,end_at) as duration')
+DB::raw('TIMESTAMPDIFF(SECOND,start_at,end_at) as duration'),
+DB::raw('SEC_TO_TIME(TIMESTAMPDIFF(SECOND,start_at,end_at)) as duration_format')
 )
 ->orderBy('grade','desc')
 ->orderBy('duration','asc')
@@ -968,7 +969,8 @@ DB::raw('TIMESTAMPDIFF(SECOND,start_at,end_at) as duration')
 LIVE ACTIVITY
 */
 
-$activities = DetailEvent::with('member')
+$activities = DetailEvent::where('event_id',$event_id)
+->with('member')
 ->orderBy('updated_at','desc')
 ->limit(10)
 ->get()

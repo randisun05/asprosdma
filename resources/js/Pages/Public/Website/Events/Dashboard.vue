@@ -55,7 +55,7 @@
 
             <!-- FASTEST -->
 
-            <div class="panel">
+            <!-- <div class="panel">
 
                 <h3>Ranking Tercepat</h3>
 
@@ -71,14 +71,14 @@
 
                 </table>
 
-            </div>
+            </div> -->
 
 
             <!-- TOP SCORE -->
 
             <div class="panel">
 
-                <h3>Top Score</h3>
+                <h3>Top Score & Tercepat</h3>
 
                 <table class="table">
 
@@ -87,6 +87,7 @@
                         <td>{{ i + 1 }}</td>
                         <td>{{ s.member.name }}</td>
                         <td class="score">{{ s.grade }}</td>
+                        <td>{{ formatTime(s.duration) }}</td>
 
                     </tr>
 
@@ -219,7 +220,7 @@ import {
 
 //import ref from vue
 import {
-    ref
+    ref,
 } from 'vue';
 
 //import inertia adapter
@@ -240,13 +241,43 @@ export default {
         title: String,
     },
 
+    mounted(){
+
+    this.interval = setInterval(() => {
+
+        Inertia.reload({
+            only:[
+                'stats',
+                'fastest',
+                'topScores',
+                'progressParticipants',
+                'heatmap',
+                'distribution',
+                'avgTime',
+                'activities'
+            ]
+        })
+
+    },10000)
+
+},
+
+beforeUnmount(){
+
+    clearInterval(this.interval)
+
+},
+
     methods: {
 
         formatTime(sec) {
 
-            let m = Math.floor(sec / 60)
+           if(!sec) return "-"
 
-            return m + " menit"
+            let m = Math.floor(sec / 60)
+            let s = sec % 60
+
+             return m + " menit " + s + " detik"
 
         },
 
@@ -261,6 +292,7 @@ export default {
         }
 
     }
+
 
 }
 
