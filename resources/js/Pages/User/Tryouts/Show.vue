@@ -59,8 +59,8 @@
 
                     <div class="answer-list">
 
-                        <div v-for="(answer, index) in answer_order" :key="index" class="answer-item"
-                            :class="{ active: answer == question_active.answer }"
+                        <div v-for="(answer, index) in answer_order.filter(a => question_active.question[optionMap[a]])"
+                            :key="index" class="answer-item" :class="{ active: answer == question_active.answer }"
                             @click="submitAnswer(question_active.question_id, answer)">
 
                             <div class="answer-label">
@@ -184,7 +184,7 @@ export default {
         const handleChangeDuration = () => {
             duration.value -= 1000
             counter.value++
-            if (duration.value > 0 && counter.value % 300 == 0) {
+            if (duration.value > 0 && counter.value % 60 == 0) {
                 axios.put(`/user/tryout-duration/update/${props.detail_event.id}`, {
                     duration: duration.value
                 })
