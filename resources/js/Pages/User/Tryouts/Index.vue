@@ -95,6 +95,10 @@
                                         Terlewat
                                     </span>
 
+                                     <a v-if="data.event.category === 'Tryout'"  :href="`/events/${data.event.slug}/dashboard`" class="badge bg-primary">
+                                       Dashboard
+                                    </a>
+
                                 </td>
 
 

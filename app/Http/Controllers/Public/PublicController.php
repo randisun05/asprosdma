@@ -906,188 +906,198 @@ class PublicController extends Controller
         });
     }
 
-    public function eventDashboard($event_id)
+    public function eventDashboard(Event $event)
     {
-    $event = Event::findOrFail($event_id);
 
-/*
+        $event_id = $event->id;
+
+        /*
 STATS
 */
+        $total = DetailEvent::where('event_id', $event_id)->count();
 
-$total = DetailEvent::where('event_id',$event_id)->count();
+        $active = DetailEvent::where('event_id', $event_id)
+            ->whereNotNull('start_at')
+            ->whereNull('end_at')
+            ->count();
 
-$active = DetailEvent::where('event_id',$event_id)
-->whereNotNull('start_at')
-->whereNull('end_at')
-->count();
+        $finished = DetailEvent::where('event_id', $event_id)
+            ->whereNotNull('end_at')
+            ->count();
 
-$finished = DetailEvent::where('event_id',$event_id)
-->whereNotNull('end_at')
-->count();
-
-$pending = DetailEvent::where('event_id',$event_id)
-->whereNull('start_at')
-->count();
+        $pending = DetailEvent::where('event_id', $event_id)
+            ->whereNull('start_at')
+            ->count();
 
 
-/*
+        /*
 FASTEST 5
 */
 
-$minDuration = ($event->duration * 60) * 0.3;
+        $minDuration = ($event->duration * 60) * 0.3;
 
-$fastest = DetailEvent::with('member')
-->where('event_id',$event_id)
-->whereNotNull('end_at')
-->whereRaw('TIMESTAMPDIFF(SECOND,start_at,end_at) > ?',[$minDuration])
-->select('*',
-DB::raw('TIMESTAMPDIFF(SECOND,start_at,end_at) as duration')
-)
-->orderBy('duration','asc')
-->limit(5)
-->get();
+        $fastest = DetailEvent::with('member')
+            ->where('event_id', $event_id)
+            ->whereNotNull('end_at')
+            ->whereRaw('TIMESTAMPDIFF(SECOND,start_at,end_at) > ?', [$minDuration])
+            ->select(
+                '*',
+                DB::raw('TIMESTAMPDIFF(SECOND,start_at,end_at) as duration')
+            )
+            ->orderBy('duration', 'asc')
+            ->limit(5)
+            ->get();
 
 
-/*
+        /*
 TOP SCORE
 */
 
-$topScores = DetailEvent::with('member')
-->where('event_id',$event_id)
-->whereNotNull('grade')
-->select('*',
-DB::raw('TIMESTAMPDIFF(SECOND,start_at,end_at) as duration'),
-DB::raw('SEC_TO_TIME(TIMESTAMPDIFF(SECOND,start_at,end_at)) as duration_format')
-)
-->orderBy('grade','desc')
-->orderBy('duration','asc')
-->limit(10)
-->get();
+        $topScores = DetailEvent::with('member')
+            ->where('event_id', $event_id)
+            ->whereNotNull('grade')
+            ->select(
+                '*',
+                DB::raw('TIMESTAMPDIFF(SECOND,start_at,end_at) as duration'),
+                DB::raw('SEC_TO_TIME(TIMESTAMPDIFF(SECOND,start_at,end_at)) as duration_format')
+            )
+            ->orderBy('grade', 'desc')
+            ->orderBy('duration', 'asc')
+            ->limit(10)
+            ->get();
 
 
-/*
+        /*
 LIVE ACTIVITY
 */
 
-$activities = DetailEvent::where('event_id',$event_id)
-->with('member')
-->orderBy('updated_at','desc')
-->limit(10)
-->get()
-->map(function($d){
+        $activities = DetailEvent::where('event_id', $event_id)
+            ->with('member')
+            ->orderBy('updated_at', 'desc')
+            ->limit(10)
+            ->get()
+            ->map(function ($d) {
 
-$status = "mulai ujian";
+                $status = "mulai ujian";
 
-if($d->end_time){
-$status = "menyelesaikan ujian";
-}
+                if ($d->end_time) {
+                    $status = "menyelesaikan ujian";
+                }
 
-return [
-'name'=>$d->member->name,
-'action'=>$status,
-'time'=>$d->updated_at
-];
+                return [
+                    'name' => $d->member->name,
+                    'action' => $status,
+                    'time' => $d->updated_at
+                ];
+            });
 
-});
-
-/*
+        /*
 progress peserta
 */
 
-$progressParticipants = DetailEvent::with('member')
-->where('event_id',$event_id)
-->whereNotNull('start_at')
-->limit(5)
-->get()
-->map(function($p){
+       $progressParticipants = DetailEvent::with('member')
+        ->where('event_id', $event_id)
+        ->whereNotNull('start_at')
+        ->whereNull('end_at') // hanya yang masih ujian
+        ->get()
+        ->map(function ($p) {
 
-$answered = Answer::where('detail_event_id',$p->id)
-->whereNotNull('answer')
-->count();
+            $answered = Answer::where('detail_event_id', $p->id)
+                ->whereNotNull('answer')
+                ->count();
 
-$total = Answer::where('detail_event_id',$p->id)->count();
+            $total = Answer::where('detail_event_id', $p->id)->count();
 
-$progress = $total > 0 ? round(($answered/$total)*100) : 0;
+            $progress = $total > 0 ? round(($answered / $total) * 100) : 0;
 
-return [
-'name'=>$p->member->name,
-'progress'=>$progress
-];
+            return [
+                'name' => $p->member->name,
+                'progress' => $progress
+            ];
+        })
+        ->filter(function($p){
+            return $p['progress'] < 100; // yang belum selesai
+        })
+        ->sortByDesc('progress') // yang paling jauh progressnya
+        ->take(5)
+        ->values();
 
-});
 
-
-/*
+        /*
 distribusi nilai
 */
 
-$grades = DetailEvent::where('event_id',$event_id)
-->whereNotNull('grade')
-->pluck('grade');
+        $grades = DetailEvent::where('event_id', $event_id)
+            ->whereNotNull('grade')
+            ->pluck('grade');
 
-$distribution = [
-'0-40'=>$grades->whereBetween(null,[0,40])->count(),
-'40-60'=>$grades->whereBetween(null,[41,60])->count(),
-'60-80'=>$grades->whereBetween(null,[61,80])->count(),
-'80-100'=>$grades->whereBetween(null,[81,100])->count(),
-];
+        $distribution = [
+            '0-40' => $grades->whereBetween(null, [0, 40])->count(),
+            '40-60' => $grades->whereBetween(null, [41, 60])->count(),
+            '60-80' => $grades->whereBetween(null, [61, 80])->count(),
+            '80-100' => $grades->whereBetween(null, [81, 100])->count(),
+        ];
 
 
-/*
+        /*
 average waktu pengerjaan
 */
 
-$avgTime = DetailEvent::where('event_id',$event_id)
-->whereNotNull('end_at')
-->select(DB::raw('AVG(TIMESTAMPDIFF(SECOND,start_at,end_at)) as avg'))
-->first();
+        $avgTime = DetailEvent::where('event_id', $event_id)
+            ->whereNotNull('end_at')
+            ->select(DB::raw('AVG(TIMESTAMPDIFF(SECOND,start_at,end_at)) as avg'))
+            ->first();
 
 
-/*
+        /*
 heatmap soal
 */
 
-$heatmap = Question::where('event_id', $event_id)
-->get()
-->map(function($q){
+        $heatmap = Question::where('event_id', $event_id)
+        ->get()
+        ->map(function ($q) {
 
-    $total = Answer::where('question_id',$q->id)->count();
+            $total = Answer::where('question_id', $q->id)->count();
 
-    $correct = Answer::where('question_id',$q->id)
-        ->where('is_correct','Y')
-        ->count();
+            $correct = Answer::where('question_id', $q->id)
+                ->where('is_correct', 'Y')
+                ->count();
 
-    $rate = $total > 0 ? round(($correct/$total)*100) : 0;
+            $rate = $total > 0 ? round(($correct / $total) * 100) : 0;
 
-    return [
-        'question' => $q->id,
-        'rate' => $rate
-    ];
+            return [
+                'rate' => $rate
+            ];
 
-})
-->sortBy('rate')   // paling rendah = paling sulit
-->take(5)          // ambil 5 soal
-->values();
+        })
+        ->sortBy('rate')
+        ->take(5)
+        ->values()
+        ->map(function($item,$index){
+
+            $item['question'] = $index + 1;
+
+            return $item;
+
+        });
 
 
-return inertia('Public/Website/Events/Dashboard',[
-'stats'=>[
-'total'=>$total,
-'active'=>$active,
-'finished'=>$finished,
-'pending'=>$pending
-],
-'fastest'=>$fastest,
-'topScores'=>$topScores,
-'activities'=>$activities,
-'progressParticipants'=>$progressParticipants,
-'distribution'=>$distribution,
-'avgTime'=>$avgTime->avg,
-'heatmap'=>$heatmap,
-'title' => 'Dashboard Event - ' . $event->title
+        return inertia('Public/Website/Events/Dashboard', [
+            'stats' => [
+                'total' => $total,
+                'active' => $active,
+                'finished' => $finished,
+                'pending' => $pending
+            ],
+            'fastest' => $fastest,
+            'topScores' => $topScores,
+            'activities' => $activities,
+            'progressParticipants' => $progressParticipants,
+            'distribution' => $distribution,
+            'avgTime' => $avgTime->avg,
+            'heatmap' => $heatmap,
+            'title' => 'Dashboard Event - ' . $event->title
 
-]);
-
+        ]);
     }
-
 }

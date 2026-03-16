@@ -287,7 +287,7 @@ Route::get('/events/{slug}/absen', [\App\Http\Controllers\Public\PublicControlle
 // Route untuk memproses absensi
 Route::post('/events/{id}/absen', [\App\Http\Controllers\Public\PublicController::class, 'absen'])->name('public.events.absen.store');
 Route::get('/events/{event:slug}', [\App\Http\Controllers\Public\EventsController::class, 'show'])->name('event.show');
-Route::get('/events/{event}/dashboard', [\App\Http\Controllers\Public\PublicController::class, 'eventDashboard'])->name('event.dashboard');
+Route::get('/events/{event:slug}/dashboard', [\App\Http\Controllers\Public\PublicController::class, 'eventDashboard'])->name('event.dashboard');
 Route::resource('/events', \App\Http\Controllers\Public\EventsController::class);
 Route::resource('/berita', \App\Http\Controllers\Public\PostsController::class);
 Route::get('/sdma-menulis', [\App\Http\Controllers\Public\PostsController::class, 'articles'])->name('artikel');

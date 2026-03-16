@@ -58,6 +58,11 @@
                                     </a>
                                     <a v-if="event.category !== 'Tryout'"  :href="`/events/${event.slug}/certificate`" class="button btnprimary">
                                        Cari Sertifikat
+                                    </a> <a v-if="event.category !== 'Tryout'"  :href="`/events/${event.slug}/certificate`" class="button btnprimary">
+                                       Cari Sertifikat
+                                    </a>
+                                     <a v-if="event.category === 'Tryout'"  :href="`/events/${event.slug}/dashboard`" class="button btnprimary">
+                                       Dashboard
                                     </a>
                                 </div>
                             </div>
