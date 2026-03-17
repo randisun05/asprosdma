@@ -971,26 +971,27 @@ TOP SCORE
 LIVE ACTIVITY
 */
 
-        $activities = DetailEvent::where('event_id', $event_id)
-            ->with('member')
-            ->orderBy('updated_at', 'desc')
-            ->limit(10)
-            ->get()
-            ->map(function ($d) {
+      $activities = DetailEvent::where('event_id', $event_id)
+        ->with('member')
+        ->orderBy('updated_at', 'desc')
+        ->limit(10)
+        ->get()
+        ->map(function ($d) {
 
-                $status = "mulai ujian";
+            if ($d->end_at) {
+                $status = "menyelesaikan ujian";
+            } elseif ($d->start_at) {
+                $status = "sedang mengerjakan ujian";
+            } else {
+                $status = "mendaftar ujian";
+            }
 
-                if ($d->end_time) {
-                    $status = "menyelesaikan ujian";
-                }
-
-                return [
-                    'name' => $d->member->name,
-                    'action' => $status,
-                    'time' => $d->updated_at
-                ];
-            });
-
+            return [
+                'name' => $d->member->name,
+                'action' => $status,
+                'time' => $d->updated_at
+            ];
+        });
         /*
 progress peserta
 */
