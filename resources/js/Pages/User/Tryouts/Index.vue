@@ -81,6 +81,10 @@
                                             Terlewat
                                         </span>
 
+                                        <a :href="`/events/${data.slug}/dashboard`"  class="badge bg-success">
+                                            Dashboard
+                                        </a>
+
                                     </td>
 
                                     <!-- AKSI -->

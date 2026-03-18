@@ -9,7 +9,7 @@ class Answer extends Model
 {
     use HasFactory;
 
-     protected $fillable = [
+    protected $fillable = [
         'event_id',
         'detail_event_id',
         'question_id',
@@ -20,13 +20,17 @@ class Answer extends Model
         'is_correct',
     ];
 
+    protected $hidden = [
+        'is_correct',
+    ];
+
     public function question()
     {
         return $this->belongsTo(Question::class);
     }
 
     public function detailEvent()
-{
-    return $this->belongsTo(DetailEvent::class);
-}
+    {
+        return $this->belongsTo(DetailEvent::class);
+    }
 }

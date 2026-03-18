@@ -87,6 +87,7 @@
                         <td>{{ i + 1 }}</td>
                         <td>{{ s.member.name }}</td>
                         <td class="score">{{ s.grade }}</td>
+                         <td class="score">{{ s.member.agency }}</td>
                         <td>{{ formatTime(s.duration) }}</td>
 
                     </tr>
