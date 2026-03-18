@@ -18,16 +18,18 @@ class AuthMember
      */
     public function handle(Request $request, Closure $next)
     {
-        //check if user is logged in
-        $member = auth()->guard('member')->user();
+       $member = auth()->guard('member')->user();
 
-        //if not, redirect to login page
         if (!$member) {
+
+            // 🔥 SIMPAN URL TUJUAN
+            session(['url.intended' => $request->fullUrl()]);
+
             Session::flash('error', 'Silakan login terlebih dahulu.');
+
             return redirect('/user/login');
         }
 
-        //if user is logged in, continue to next middleware
         return $next($request);
     }
 }

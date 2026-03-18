@@ -52,11 +52,4 @@ class Event extends Model
         return $this->hasMany(DetailEvent::class);
     }
 
-    public function participants()
-{
-    return $this->hasMany(DetailEvent::class);
-}
-
-
-
 }

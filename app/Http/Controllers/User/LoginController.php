@@ -71,7 +71,7 @@ class LoginController extends Controller
             auth()->guard('member')->login($member);
 
             // Redirect to dashboard
-            return redirect()->route('user.dashboard');
+           return redirect()->intended(route('user.dashboard'));
     }
 
     public function setting()

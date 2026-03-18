@@ -275,7 +275,7 @@ class QuestionsController extends Controller
                     'question_order'  => $order,
                     'answer_order'    => implode(',', $options),
                     'answer'          => 0,
-                    'is_correct'      => 0,
+                    'is_correct'      => 'N', //0
                     'created_at'      => now(),
                     'updated_at'      => now(),
                 ];

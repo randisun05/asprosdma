@@ -53,7 +53,7 @@ class EventController extends Controller
                 $request->validate([
                     'document' => 'required',
                 ]);
-                 // Store the file using Laravel's file storage system
+                // Store the file using Laravel's file storage system
                 $document = $request->file('document')->storePublicly('/documents');
             }
 
@@ -72,17 +72,24 @@ class EventController extends Controller
             );
 
             if ($detailEvent->wasRecentlyCreated) {
-                // Baru saja dibuat, berarti belum terdaftar sebelumnya
-                // Tampilkan pesan bahwa mereka berhasil terdaftar
-                // $event = Event::where('id', $detailEvent->event_id)->first();
-                // $email = Member::where('id', $detailEvent->member_id)->first();
-
-                // Mail::to($email['email'])->send(new SendEmailEvent($event));
+                if ($request->expectsJson()) {
+                    return response()->json([
+                        'status' => true,
+                        'message' => 'Berhasil join',
+                        'detail_event_id' => $detailEvent->id
+                    ]);
+                }
 
                 return redirect()->route('user.events.index');
             } else {
-                // Sudah ada, berarti sudah terdaftar sebelumnya
-                // Tampilkan pesan bahwa mereka sudah terdaftar sebelumnya
+                if ($request->expectsJson()) {
+                    return response()->json([
+                        'status' => true,
+                        'message' => 'Sudah terdaftar',
+                        'detail_event_id' => $detailEvent->id
+                    ]);
+                }
+
                 return redirect()->route('user.events.index');
             }
         } else {
@@ -135,7 +142,6 @@ class EventController extends Controller
                     $status = 0; // Belum terdaftar
                     $hadir = 0; // Tidak hadir
                 }
-
             }
 
             return inertia('User/Events/Show', [
@@ -147,7 +153,6 @@ class EventController extends Controller
         } else {
             return redirect()->route('login');
         }
-
     }
 
     /**
@@ -178,7 +183,7 @@ class EventController extends Controller
         if (auth()->guard('member')->check()) {
 
             $detailEvent = DetailEvent::where('event_id', $id)->where('member_id', auth()->guard('member')->user()->id)->first();
-                if ($detailEvent) {
+            if ($detailEvent) {
                 $detailEvent->update([
                     'status' => 'hadir',
                 ]);
@@ -231,8 +236,7 @@ class EventController extends Controller
             $qrLink = $data->qr_code;
             QrCode::format('png')->size(300)->generate($qrLink);
             $qr = QrCode::generate($qrLink);
-            return view('reports.certificates.certificate', compact('data','qr'));
-
+            return view('reports.certificates.certificate', compact('data', 'qr'));
         } else {
             return redirect()->route('login');
         }
@@ -250,5 +254,4 @@ class EventController extends Controller
             return redirect()->route('login');
         }
     }
-
 }

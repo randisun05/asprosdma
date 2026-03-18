@@ -979,11 +979,11 @@ LIVE ACTIVITY
         ->map(function ($d) {
 
             if ($d->end_at) {
-                $status = "menyelesaikan ujian";
+                $status = "menyelesaikan tryout";
             } elseif ($d->start_at) {
-                $status = "sedang mengerjakan ujian";
+                $status = "sedang mengerjakan tryout";
             } else {
-                $status = "mendaftar ujian";
+                $status = "mendaftar tryout";
             }
 
             return [
@@ -996,18 +996,18 @@ LIVE ACTIVITY
 progress peserta
 */
 
-       $progressParticipants = DetailEvent::with('member')
+      $progressParticipants = DetailEvent::with('member')
         ->where('event_id', $event_id)
         ->whereNotNull('start_at')
-        ->whereNull('end_at') // hanya yang masih ujian
+        ->whereNull('end_at')
         ->get()
         ->map(function ($p) {
 
-            $answered = Answer::where('detail_event_id', $p->id)
-                ->whereNotNull('answer')
-                ->count();
+            $answers = Answer::where('detail_event_id', $p->id)->get();
 
-            $total = Answer::where('detail_event_id', $p->id)->count();
+            $total = $answers->count();
+
+            $answered = $answers->where('answer', '!=', 0)->count();
 
             $progress = $total > 0 ? round(($answered / $total) * 100) : 0;
 
@@ -1016,11 +1016,9 @@ progress peserta
                 'progress' => $progress
             ];
         })
-        ->filter(function($p){
-            return $p['progress'] < 100; // yang belum selesai
-        })
-        ->sortByDesc('progress') // yang paling jauh progressnya
-        ->take(5)
+        ->filter(fn($p) => $p['progress'] < 100)
+        ->sortByDesc('progress')
+        ->take(10)
         ->values();
 
 

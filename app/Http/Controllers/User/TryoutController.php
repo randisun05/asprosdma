@@ -5,8 +5,10 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Answer;
 use App\Models\DetailEvent;
+use App\Models\Event;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use SebastianBergmann\Timer\Duration;
 
 class TryoutController extends Controller
@@ -16,17 +18,17 @@ class TryoutController extends Controller
 public function index()
     {
         //get exam group
-        $detail_events = DetailEvent::with('event', 'member')
-                    ->where('member_id', auth()->guard('member')->user()->id)
-                    ->whereHas('event', function($query){
-                        $query->where('category', 'tryout');
-                    })
-                    ->get();
+         $memberId = auth()->guard('member')->user()->id;
 
-        //return with inertia
-        return inertia('User/Tryouts/Index', [
-            'detail_events' => $detail_events,
-        ]);
+            $events = Event::with(['detailEvents' => function ($query) use ($memberId) {
+                $query->where('member_id', $memberId);
+            }])
+            ->where('category', 'Tryout')
+            ->get();
+
+            return inertia('User/Tryouts/Index', [
+                'events' => $events,
+            ]);
     }
    public function confirmation($id)
     {
@@ -183,4 +185,104 @@ public function index()
             'detail_event' => $detail_event,
         ]);
     }
+
+
+   public function EnrollQuestion($id)
+{
+    DB::beginTransaction();
+
+    try {
+        $event = Event::findOrFail($id);
+
+        $memberId = auth()->guard('member')->user()->id;
+
+        // ambil detail event khusus member ini
+        $detail = DetailEvent::where('event_id', $event->id)
+            ->where('member_id', $memberId)
+            ->first();
+
+        if (!$detail) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Member tidak terdaftar di event ini'
+            ]);
+        }
+
+        // cek apakah sudah punya soal
+        $already = Answer::where('event_id', $event->id)
+            ->where('member_id', $memberId)
+            ->exists();
+
+        if ($already) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Member sudah memiliki soal'
+            ]);
+        }
+
+        // ambil soal
+        $questions = Question::where('event_id', $event->id)->get();
+
+        if ($questions->isEmpty()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Soal belum tersedia'
+            ]);
+        }
+
+        // random soal jika aktif
+        $memberQuestions = $event->random_question == 'Y'
+            ? $questions->shuffle()
+            : $questions;
+
+        $batchInsert = [];
+        $order = 1;
+
+        foreach ($memberQuestions as $question) {
+
+            // opsi jawaban
+            $options = [1,2];
+
+            if ($question->c) $options[] = 3;
+            if ($question->d) $options[] = 4;
+            if ($question->e) $options[] = 5;
+
+            if ($event->random_answer == 'Y') {
+                shuffle($options);
+            }
+
+            $batchInsert[] = [
+                'event_id'        => $event->id,
+                'detail_event_id' => $detail->id,
+                'question_id'     => $question->id,
+                'member_id'       => $memberId,
+                'question_order'  => $order,
+                'answer_order'    => implode(',', $options),
+                'answer'          => 0,
+                'is_correct'      => 'N',
+            ];
+
+            $order++;
+        }
+
+        // insert sekali saja (karena 1 member)
+        Answer::insert($batchInsert);
+
+        DB::commit();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Generate soal berhasil'
+        ]);
+
+    } catch (\Throwable $e) {
+
+        DB::rollBack();
+
+        return response()->json([
+            'status' => false,
+            'message' => 'Error: ' . $e->getMessage(),
+        ]);
+    }
+}
 }

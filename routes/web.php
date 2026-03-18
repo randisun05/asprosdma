@@ -228,7 +228,8 @@ Route::prefix('user')->group(function() {
 
         //route exam confirmation
         Route::get('/tryouts', [App\Http\Controllers\User\TryoutController::class, 'index'])->name('user.tryouts.index');
-
+            //generate soal
+        Route::post('/tryout/{id}/generate', [App\Http\Controllers\User\TryoutController::class, 'EnrollQuestion'])->name('user.tryouts.enrollQuestion');
          //route exam confirmation
         Route::get('/tryout-confirmation/{id}', [App\Http\Controllers\User\TryoutController::class, 'confirmation'])->name('user.tryouts.confirmation');
         //route exam start

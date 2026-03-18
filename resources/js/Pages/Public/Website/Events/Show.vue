@@ -50,7 +50,7 @@
                             <div v-html="event.body" style="text-align:justify;text-justify: "></div>
                             <div class="text-center">
                                 <div class="button-group gap-3">
-                                    <a v-if="event.status === 'active'" href="/user/events/" class="button btnprimary">
+                                    <a v-if="event.status === 'active' && event.category !== 'Tryout'" href="/user/events/" class="button btnprimary">
                                        Join
                                     </a>
                                     <a v-if="event.status === 'active' && event.category !== 'Tryout'" :href="`/events/${event.slug}/absen`" class="button btnsecondary">
@@ -58,8 +58,8 @@
                                     </a>
                                     <a v-if="event.category !== 'Tryout'"  :href="`/events/${event.slug}/certificate`" class="button btnprimary">
                                        Cari Sertifikat
-                                    </a> <a v-if="event.category !== 'Tryout'"  :href="`/events/${event.slug}/certificate`" class="button btnprimary">
-                                       Cari Sertifikat
+                                    </a> <a v-if="event.category === 'Tryout' && event.status !== 'closed'"  :href="`/user/tryouts`" class="button btnprimary">
+                                       Join
                                     </a>
                                      <a v-if="event.category === 'Tryout'"  :href="`/events/${event.slug}/dashboard`" class="button btnprimary">
                                        Dashboard
