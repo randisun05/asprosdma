@@ -726,11 +726,12 @@ class PublicController extends Controller
             " " . escapeshellarg('nama=' . $data->name) .
             " " . escapeshellarg('qr=' . $qrLink) .
             " " . escapeshellarg('file=' . 'sertifikat-' . $nomor . '-' . $data->name . '.pdf') .
-            " " . escapeshellarg('path=' . $storagePath);
+            " " . escapeshellarg('path=' . $storagePath) . " 2>&1";
 
         $output = shell_exec($command);
 
         if ($output === null) {
+            \Log::error("Python Error: " . $output);
             return back()->with('error', 'Gagal menghasilkan sertifikat.');
             //  return response()->json(['error' => 'Command execution failed.'], 500);
         }
