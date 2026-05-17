@@ -719,6 +719,7 @@ class PublicController extends Controller
         QrCode::generate($qrLink);
 
         // Build the command
+
         $command = "python3 " . escapeshellarg(base_path('resources/py/certificate.py')) .
             // " " . escapeshellarg('template=' . 'storage/documents/' . $data->template) .
             " " . escapeshellarg(public_path('storage/' . $template->image)) .
@@ -726,12 +727,12 @@ class PublicController extends Controller
             " " . escapeshellarg('nama=' . $data->name) .
             " " . escapeshellarg('qr=' . $qrLink) .
             " " . escapeshellarg('file=' . 'sertifikat-' . $nomor . '-' . $data->name . '.pdf') .
-            " " . escapeshellarg('path=' . $storagePath) . " 2>&1";
+            " " . escapeshellarg('path=' . $storagePath);
 
         $output = shell_exec($command);
 
         if ($output === null) {
-            \Log::error("Python Error: " . $output);
+            //\Log::error("Python Error: " . $output);
             return back()->with('error', 'Gagal menghasilkan sertifikat.');
             //  return response()->json(['error' => 'Command execution failed.'], 500);
         }
