@@ -40,7 +40,7 @@ class ProfileDataMain extends Model
 
     public function position()
     {
-        return $this->hasMany(ProfileDataPosition::class, 'main_id', 'id');
+        return $this->hasOne(ProfileDataPosition::class, 'main_id', 'id');
     }
 
 
