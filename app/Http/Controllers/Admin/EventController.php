@@ -308,7 +308,7 @@ class EventController extends Controller
         $event = Event::findOrFail($id);
 
         $details = DetailEvent::where('event_id',$id)
-        ->with('member','event')
+        ->with('member.profileMain.position','event')
         ->when(request()->q, function($query) {
             $query->where('title', 'like', '%' . request()->q . '%');
         })

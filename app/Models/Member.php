@@ -31,5 +31,11 @@ class Member extends Authenticatable
         return $this->belongsTo(Position::class);
     }
 
+    public function profileMain()
+    {
+        // Parameter: ModelTarget, FK_di_target, PK_di_lokal
+        return $this->hasOne(ProfileDataMain::class, 'nip', 'nip');
+    }
+
 
 }

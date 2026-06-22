@@ -38,6 +38,11 @@ class ProfileDataMain extends Model
             'religion',
     ];
 
+    public function position()
+    {
+        return $this->hasMany(ProfileDataPosition::class, 'main_id', 'id');
+    }
+
 
 
 }

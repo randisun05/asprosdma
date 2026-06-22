@@ -37,7 +37,7 @@ class EventParticipantsExport implements FromCollection, WithMapping, WithHeadin
             $datas->member->name,
             $datas->member->email,
             $datas->member->agency,
-            $datas->member->position,
+            $datas->member->profileMain->position->position ?? '-',
             $datas->member->level,
             $datas->member->created_at,
             $datas->status,
