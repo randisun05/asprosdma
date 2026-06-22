@@ -41,9 +41,9 @@ class EventParticipantsExport implements FromCollection, WithMapping, WithHeadin
             $datas->member->level,
             $datas->member->created_at,
             $datas->status,
-            $datas->start_at,
-            $datas->end_at,
-            $selisih,
+            $datas->start_at ? $datas->start_at : '-',
+            $datas->end_at ? $datas->end_at : '-',
+            $selisih ? gmdate('H:i:s', $selisih) : '-',
             $datas->grade,
         ] ;
     }
