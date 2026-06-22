@@ -31,7 +31,7 @@ class EventParticipantsExport implements FromCollection, WithMapping, WithHeadin
 
 
     public function map($datas) : array {
-        $selisih = $datas->start_at->diffInSeconds($datas->end_at) * 60;
+        $selisih = $datas->start_at && $datas->end_at ? $datas->start_at->diffInSeconds($datas->end_at) * 60 : 0;
         return [
             "'" .$datas->member->nip,
             $datas->member->name,
@@ -41,9 +41,9 @@ class EventParticipantsExport implements FromCollection, WithMapping, WithHeadin
             $datas->member->level,
             $datas->member->created_at,
             $datas->status,
-            $datas->start_at ? $datas->start_at : '-',
-            $datas->end_at ? $datas->end_at : '-',
-            $selisih ? gmdate('H:i:s', $selisih) : '-',
+            $datas->start_at,
+            $datas->end_at,
+            $selisih,
             $datas->grade,
         ] ;
     }
